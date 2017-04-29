@@ -123,30 +123,27 @@ non terminal Expr    expr;
 
 /* Precedences */
 precedence left PLUS, MINUS;
-precedence left TIMES;
+precedence left TIMES, DIV;
 precedence left UMINUS;
 
 /* ----------------------------Grammar Section-------------------- */
 
 // LPAREN means (
 // RPAREN means )
-expr_list ::= expr_list expr:e SEMI         {: System.out.println(e);:}
-            | expr:e SEMI                   {: System.out.println(e);:}
-;
+
 expr ::=
     LPAREN expr:l PLUS expr:r RPAREN
     {: RESULT = new ExprAdd(l, r); :}
+
   | LPAREN expr:l TIMES expr:r RPAREN
     {: RESULT = new ExprMult(l, r); :}
   | LPAREN expr:l DIV expr:r RPAREN
     {: RESULT = new ExprDiv(l, r); :}
   | LPAREN expr:l MINUS expr:r RPAREN
     {: RESULT = new ExprSub(l, r); :}
-  | MINUS expr:e
-    {: RESULT = new ExprNeg(e); :}
-  %prec UMINUS
-   | LPAREN expr:e RPAREN
-   {: RESULT = new ExprNeg(e);  :}
+  | LPAREN MINUS NUMBER:n RPAREN
+  	   {: RESULT = new ExprNeg(n); :}
+  	   %prec UMINUS
   | NUMBER:n
     {: RESULT = new ExprNumber(n); :}
   ;

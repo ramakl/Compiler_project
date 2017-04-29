@@ -43,6 +43,7 @@ public class ParserTest {
     public void testOk4() throws Exception {
         String input = "2 * 3 + 4 * 5";
         Expr e = parseString(input);
+        System.out.println(input);
         String output = prettyPrint(e);
         assertEquals("((2 * 3) + (4 * 5))", output);
     }
