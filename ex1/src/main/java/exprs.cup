@@ -132,17 +132,21 @@ precedence left UMINUS;
 // RPAREN means )
 
 expr ::=
+    expr:l PLUS expr:r
+    {: RESULT = new ExprAdd(l, r); :}
+  |
     LPAREN expr:l PLUS expr:r RPAREN
     {: RESULT = new ExprAdd(l, r); :}
-
   | LPAREN expr:l TIMES expr:r RPAREN
     {: RESULT = new ExprMult(l, r); :}
+  | expr:l TIMES expr:r
+      {: RESULT = new ExprMult(l, r); :}
   | LPAREN expr:l DIV expr:r RPAREN
     {: RESULT = new ExprDiv(l, r); :}
   | LPAREN expr:l MINUS expr:r RPAREN
     {: RESULT = new ExprSub(l, r); :}
-  | LPAREN MINUS NUMBER:n RPAREN
-  	   {: RESULT = new ExprNeg(n); :}
+  | MINUS expr:e
+  	   {: RESULT = new ExprNeg(e); :}
   	   %prec UMINUS
   | NUMBER:n
     {: RESULT = new ExprNumber(n); :}

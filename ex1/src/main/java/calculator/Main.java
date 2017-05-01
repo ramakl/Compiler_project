@@ -1,6 +1,7 @@
 package calculator;
 
 import calculator.ast.Expr;
+import calculator.ast.ExprPrintVisitor;
 import exprs.ExprParser;
 import exprs.ExprParser.ParserError;
 import exprs.Lexer;
@@ -54,7 +55,8 @@ public class Main {
 
     public static String prettyPrint(Expr e) {
       // TODO
-      return "";
+        ExprPrintVisitor exp = new ExprPrintVisitor();
+        return exp.visit(e);
     }
 
     public static int run(String s) {

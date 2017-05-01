@@ -1,20 +1,12 @@
 package calculator.ast;
 
-public class ExprNeg extends Expr {
-    private int value;
-
-    public ExprNeg(int value) {
-        super();
-        System.out.println("----Print Value---");
-        System.out.println(value);
-        this.value = (0 - value);
+public class ExprNeg extends ExprUnary {
+    public ExprNeg( Expr right) {
+        super(right);
     }
 
-    public ExprNeg(String value) {
-        this.value = Integer.parseInt(value);
-    }
-
-    public int getValue() {
-        return value;
+    public String  accept(  ExprVisitor v)
+    {
+        return v.visit(this);
     }
 }

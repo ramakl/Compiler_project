@@ -15,4 +15,10 @@ public class ExprNumber extends Expr {
 	public int getValue() {
 		return value;
 	}
+
+
+	public String  accept(  ExprVisitor v)
+	{
+		return v.visit(this);
+	}
 }
