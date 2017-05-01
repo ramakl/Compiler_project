@@ -1,6 +1,7 @@
 package calculator;
 
 import calculator.ast.Expr;
+import calculator.ast.ExprCalVisitor;
 import calculator.ast.ExprPrintVisitor;
 import exprs.ExprParser;
 import exprs.ExprParser.ParserError;
@@ -8,6 +9,7 @@ import exprs.Lexer;
 import java_cup.runtime.ComplexSymbolFactory;
 import java_cup.runtime.Symbol;
 
+import java.beans.Expression;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.Scanner;
@@ -54,7 +56,7 @@ public class Main {
     }
 
     public static String prettyPrint(Expr e) {
-      // TODO
+
         ExprPrintVisitor exp = new ExprPrintVisitor();
         return exp.visit(e);
     }
@@ -68,7 +70,8 @@ public class Main {
     }
 
     private static int evaluate(Expr e) {
-        // TODO
-        return 0;
+        ExprCalVisitor expv = new ExprCalVisitor();
+        return expv.visit(e);
+
     }
 }

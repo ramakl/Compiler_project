@@ -21,4 +21,7 @@ public class ExprNumber extends Expr {
 	{
 		return v.visit(this);
 	}
+	public int accept(ExprCalVisitor v){
+		return v.visit(this);
+	}
 }

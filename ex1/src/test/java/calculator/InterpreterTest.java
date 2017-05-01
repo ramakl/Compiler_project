@@ -16,7 +16,7 @@ public class InterpreterTest {
 
     @Test
     public void testArith1() {
-        String expr = "3+4";
+        String expr = "5*3+4";
         int v = Main.run(expr);
         Assert.assertEquals(19, v);
     }

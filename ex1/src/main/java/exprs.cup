@@ -150,4 +150,6 @@ expr ::=
   	   %prec UMINUS
   | NUMBER:n
     {: RESULT = new ExprNumber(n); :}
+  | LPAREN expr:e RPAREN
+    {: RESULT = e; :}
   ;
