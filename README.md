@@ -4,7 +4,7 @@ Group 11
 Rama Klaho , klaho@rhrk.uni-kl.de
 
 
-, Rohan Shekar Thingalaya, thingala@rhrk.uni.kl.de
+, Rohan Shekar Thingalaya, thingala@rhrk.uni.kl.de, Madhusudhan Subramanya msubrama@rhrk.uni-kl.de
 For the Lab 1 @Monireh Pair working and programming with @Rama
 
 
