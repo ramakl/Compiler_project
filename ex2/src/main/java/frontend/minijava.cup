@@ -116,10 +116,45 @@ non terminal MJClassDecl classdecl;
 
 
 /* ----------------------------Grammar Section-------------------- */
-   
 
-program ::=
-        mainclass:mc classdecl:cd
-        {: RESULT = new MJProgram(mc, cd); :}
-        ;
+         program ::=
+                 mainclass:mc classdecl:cd
+                 {: RESULT = new MJProgram(mc, cd); :}
+                 ;
+         |
+         CLASS ID LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET ID RPAREN Block RBRACE
+          {: RESULT = new MJMainCass(); :}
+         |
+
+          CLASS ID LBRACE MemberDecl* }
+          {: RESULT = new MJMainClassDecl(); :}
+
+         | class id extends id { MemberDecl* }
+         MemberDecl → VarDecl
+         | MethodDecl
+         VarDecl → Type id ;
+         MethodDecl → Type id ( ParamList ?
+         ) Block
+         ParamList → Type id ParamRest*
+         ParamRest → , Type id
+          INT  LBRACKET RBRACKET| BOOLEAN |INT| ID
+           {: RESULT = new MJMainType(); :}
+         Block → { BlockStatement* }
+         BlockStatement → Statement| Type id ;
+         Statement → Block | if ( Exp ) Statement else Statement| while ( Exp ) Statement
+         | return Exp;| System . out . println ( Exp ) ;| Exp; | Exp= Exp;
+         Exp → Exp op Exp| ! Exp | - Exp  | Exp[ Exp ]| Exp . length
+         | Exp . id | Exp . id ( ExpList ? ) | true | false | id | hinteger literali
+         | this| null| new int [ Exp ]  | new id ( ) | ( Exp )
+           {: RESULT =MJExpr(); :}
+          Exp ExpRest*
+           {: RESULT = MJExprList(); :}
+
+         ExpRest → , Exp
+         id → hidentifieri
+
+          AND | PLUS | MINUS | TIMES | DIV | LESS | EQUALS
+           {: RESULT = MJOperator(); :}
+         ;
+
 
