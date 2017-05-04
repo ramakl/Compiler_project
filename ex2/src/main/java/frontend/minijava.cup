@@ -114,6 +114,11 @@ non terminal MJMainClass mainclass;
 non terminal MJClassDecl classdecl;
 non terminal MJMemberDecl memberdecl;
 non terminal MJStatement statement;
+non terminal MJBlock block;
+non terminal MJVarDecl vardecl;
+non terminal MJMethodDecl methodecl;
+non terminal MJVarDeclList vardeclist;
+
 //Monireh
 non terminal MJType type;
 
@@ -126,10 +131,11 @@ non terminal MJType type;
          {: RESULT = new MJProgram(mc, cd); :}
         ;
     mc ::=
-        CLASS ID LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET ID RPAREN statement:s RBRACE
+        CLASS ID LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET ID RPAREN block:b RBRACE
         {:id = new MJTypeClass(name);
-         RESULT = new MJMainClass(id); :}
+         RESULT = new MJMainClass(id,b); :}
         ;
+
     cd ::=
         CLASS ID LBRACE memberdecl:md RBRACE
         {:id = new MJTypeClass(name);
@@ -138,11 +144,37 @@ non terminal MJType type;
         {:id = new MJTypeClass(name);
          RESULT = new MJClassDecl(id, md); :}
 
- ;
- MemberDecl → VarDecl
- | MethodDecl
- VarDecl → Type id ;
- MethodDecl → Type id ( ParamList ?
+    ;
+
+    md ::= vardecl:vd
+    {: RESULT=new MJMemberDecl(vd); :}
+    |
+    methodecl:mtd
+    {: RESULT=new MJMemberDecl(mtd); :}
+    ;
+
+    vd ::= type:t ID SEMI
+    {:id = new MJTypeClass(name);
+    RESULT = new MJVarDecl(t,id); :}
+    ;
+
+    mtd::= type:t ID LBRACE vardeclist:vdl RBRACE block:b
+    {:id = new MJTypeClass(name);
+    RESULT= new MJMethodDecl(t,id,vdl,b);:}
+    ;
+
+    vdl ::= type:t ID vardeclist:vdlrest
+    {:id = new MJTypeClass(name);
+    RESULT =  new MJVarDeclList(t,id,vdlrest);:}
+    ;
+
+    vdlrest ::= COMMA type:t ID
+    {:id = new MJTypeClass(name);
+    RESULT = new MJVarDeclList(t,id); :}
+    ;
+
+
+  MethodDecl → Type id ( ParamList ?
  ) Block
  ParamList → Type id ParamRest*
  ParamRest → , Type id
