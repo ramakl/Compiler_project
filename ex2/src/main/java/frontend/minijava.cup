@@ -112,7 +112,8 @@ terminal String   NUMBER, ID;
 non terminal MJProgram program;
 non terminal MJMainClass mainclass;
 non terminal MJClassDecl classdecl;
-
+non terminal MJMemberDecl memberdecl;
+non terminal MJStatement statement;
 //Monireh
 non terminal MJType type;
 
@@ -123,16 +124,21 @@ non terminal MJType type;
  program ::=
          mainclass:mc classdecl:cd
          {: RESULT = new MJProgram(mc, cd); :}
-         ;
- |
- CLASS ID LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET ID RPAREN Block RBRACE
-  {: RESULT = new MJMainCass(); :}
- |
+        ;
+    mc ::=
+        CLASS ID LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET ID RPAREN statement:s RBRACE
+        {:id = new MJTypeClass(name);
+         RESULT = new MJMainClass(id); :}
+        ;
+    cd ::=
+        CLASS ID LBRACE memberdecl:md RBRACE
+        {:id = new MJTypeClass(name);
+        RESULT = new MJClassDecl(id,md); :}
+        | CLASS ID EXTENDS ID LBRACE memberdecl:md RBRACE
+        {:id = new MJTypeClass(name);
+         RESULT = new MJClassDecl(id, md); :}
 
-  CLASS ID LBRACE MemberDecl* }
-  {: RESULT = new MJMainClassDecl(); :}
-
- | class id extends id { MemberDecl* }
+ ;
  MemberDecl → VarDecl
  | MethodDecl
  VarDecl → Type id ;
