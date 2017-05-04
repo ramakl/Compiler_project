@@ -113,6 +113,9 @@ non terminal MJProgram program;
 non terminal MJMainClass mainclass;
 non terminal MJClassDecl classdecl;
 
+//Monireh
+non terminal MJType type;
+
 
 
 /* ----------------------------Grammar Section-------------------- */
@@ -123,3 +126,6 @@ program ::=
         {: RESULT = new MJProgram(mc, cd); :}
         ;
 
+
+//Monireh
+type ::= 
