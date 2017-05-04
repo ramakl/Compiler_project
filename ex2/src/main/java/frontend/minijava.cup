@@ -1,0 +1,123 @@
+package minijava.syntax;
+
+import minijava.ast.*;
+import static minijava.ast.MJ.*;
+import java_cup.runtime.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.function.Consumer;
+import frontend.SyntaxError;
+import java_cup.runtime.ComplexSymbolFactory.ComplexSymbol;
+
+
+class MiniJavaParser;
+   
+// Parser code to change the way the parser reports errors (include
+// line and column number of the error). 
+parser code {:
+    
+    private Consumer<SyntaxError> onError;
+
+    public void onError(Consumer<SyntaxError> onError) {
+        this.onError = onError;
+    }
+    
+
+    @Override
+    public void syntax_error(Symbol info) {
+
+        List<Integer> expectedTokens = expected_token_ids();
+        
+        int line, column;
+        StringBuilder message = new StringBuilder("Unexpected token ");
+        if (info instanceof ComplexSymbol) {
+            ComplexSymbol s = (ComplexSymbol) info;
+            line = s.getLeft().getLine();
+            column = s.getLeft().getColumn();
+            
+            message.append(s.getName());
+            
+            if (s.value != null) {
+                message.append("(");
+                message.append(s.value);
+                message.append(")");
+            }
+        } else {
+            line = cur_token.left;
+            column = cur_token.right;
+        }
+        
+        if (!expectedTokens.isEmpty()) {
+            message.append(", expected one of the following: ");
+            boolean first = true;
+            for (int expected : expectedTokens){
+                if (!first) {
+                    message.append(", ");
+                }
+                message.append(symbl_name_from_id(expected));
+                first = false;
+            }
+        }
+        
+        
+        SyntaxError err = new SyntaxError(message.toString(), line, column);
+        if (onError == null) {
+            System.err.println(err);
+        } else {
+            onError.accept(err);
+        }
+    }
+
+    @Override
+    public void report_fatal_error(String message, Object info) {
+        // ignore
+    }
+    
+:};
+   
+
+   
+/* ------------Declaration of Terminals and Non Terminals Section----------- */
+
+terminal INVALID_TOKEN;
+
+// Java keywords:
+terminal ABSTRACT,  CONTINUE,   FOR,          NEW,         SWITCH,
+         ASSERT,    DEFAULT,    IF,           PACKAGE,     SYNCHRONIZED,
+         BOOLEAN,   DO,         GOTO,         PRIVATE,     THIS,
+         BREAK,     DOUBLE,     IMPLEMENTS,   PROTECTED,   THROW,
+         BYTE,      ELSE,       IMPORT,       PUBLIC,      THROWS,
+         CASE,      ENUM,       INSTANCEOF,   RETURN,      TRANSIENT,
+         CATCH,     EXTENDS,    INT,          SHORT,       TRY,
+         CHAR,      FINAL,      INTERFACE,    STATIC,      VOID,
+         CLASS,     FINALLY,    LONG,         STRICTFP,    VOLATILE,
+         CONST,     FLOAT,      NATIVE,       SUPER,       WHILE;
+
+// additional keywords:
+terminal MAIN, STRING, LENGTH, SYSTEM, OUT, PRINTLN;
+
+// symbols:
+terminal LBRACE, RBRACE, // { }
+         LBRACKET, RBRACKET, // [ ]
+         LPAREN, RPAREN, // ()
+         DOT, SEMI, COMMA, EQ, NEG, AND, PLUS, MINUS, TIMES, DIV, LESS, EQUALS;
+
+// literals:
+terminal TRUE, FALSE, NULL;
+
+terminal String   NUMBER, ID;
+   
+// Non terminals used in the grammar section.  
+non terminal MJProgram program;
+
+
+
+
+/* ----------------------------Grammar Section-------------------- */
+   
+
+program ::=
+        // TODO
+        ;
+
