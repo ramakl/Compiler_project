@@ -110,7 +110,8 @@ terminal String   NUMBER, ID;
    
 // Non terminals used in the grammar section.  
 non terminal MJProgram program;
-
+non terminal MJMainClass mainclass;
+non terminal MJClassDecl classdecl;
 
 
 
@@ -118,6 +119,7 @@ non terminal MJProgram program;
    
 
 program ::=
-        // TODO
+        mainclass:mc classdecl:cd
+        {: RESULT = new MJProgram(mc, cd); :}
         ;
 
