@@ -122,6 +122,8 @@ non terminal MJVarDecl vardecl;
 non terminal MJMethodDecl methodecl;
 non terminal MJVarDeclList vardeclist;
 =======
+non terminal MJExpr exp;
+>>>>>>> Stashed changes
 
 //Monireh
 non terminal MJType type;
@@ -129,7 +131,11 @@ non terminal MJType type;
 //Rama
 non terminal MJOperator op;
 non terminal MJExpr expr;
-
+non terminal  MJExprList exprlist;
+non terminal  MJExpr?? exprest;
+non termina MJBlock block;
+non termina MJStatement statement;
+//end rama
 //Monireh
 
 // a = b, b has high priority
@@ -207,31 +213,6 @@ precedence left LPAREN;
     {:id = new MJTypeClass(name);
     RESULT = new MJVarDeclList(t,id); :}
     ;
-
-
-  MethodDecl → Type id ( ParamList ?
- ) Block
- ParamList → Type id ParamRest*
- ParamRest → , Type id
-  INT  LBRACKET RBRACKET| BOOLEAN |INT| ID
-   {: RESULT = new MJMainType(); :}
- Block → { BlockStatement* }
- BlockStatement → Statement| Type id ;
- Statement → Block | if ( Exp ) Statement else Statement| while ( Exp ) Statement
- | return Exp;| System . out . println ( Exp ) ;| Exp; | Exp= Exp;
- Exp → Exp op Exp| ! Exp | - Exp  | Exp[ Exp ]| Exp . length
- | Exp . id | Exp . id ( ExpList ? ) | true | false | id | hinteger literali
- | this| null| new int [ Exp ]  | new id ( ) | ( Exp )
-   {: RESULT =MJExpr(); :}
-  Exp ExpRest*
-   {: RESULT = MJExprList(); :}
-
- ExpRest → , Exp
- id → hidentifieri
-
-  AND | PLUS | MINUS | TIMES | DIV | LESS | EQUALS
-   {: RESULT = MJOperator(); :}
- ;
 //Monireh start
  type ::=
         INT LBRACKET RBRACKET  {: RESULT = new MJTypeIntArray(); :}
@@ -239,37 +220,64 @@ precedence left LPAREN;
         | INT                  {: RESULT = new MJTypeInt(); :}
         | ID:name              {: RESULT = new MJTypeClass(name); :}
 //End of Type
+//rama start
+
+Statement ::
+       block :b
+       {: RESULT = new MJBlock(b); :}
+       | IF LPAREN expr :e1 RPAREN Statement:s1 ELSE Statement:s2
+        {: RESULT = new MJStmtIf(e1,s1,s2); :}
+       | WHILE PAREN expr :e1 RPAREN Statement:s1
+       {: RESULT = new MJStmtWhile(e1,s1); :}
+       | RETURN   expr :e1
+       {: RESULT = new MJStmtReturn(e1); :}
+       |SYSTEM DOT OUT DOT PRINTLN  LPAREN expr :e1 RPAREN
+       {: RESULT = new MJStmtPrint(e1); :}
+       | expr :e1 SEMI
+       {: RESULT = new MJStmtExpr(e1); :}
+       | expr :e1 EQ expr :e2
+       {: RESULT = new MJStmtAssign(e1,e2); :}
+
+
 expr ::=       expr:e1 op expr:e2
-			   {: RESULT = new MJOperator(); :}
-			   |
-			   NEG expr:e1
-			   {: RESULT = newMJNegate(); :}
-			   |
+			   {: RESULT = new MJOperator(e1,e2); :}
+			   |NEG expr:e1
+			   {: RESULT = newMJNegate(e1); :}
+			   | MINUS  expr:e1
+               {: RESULT = new___(); :}
+			   | expr:e1  LBRACKET expr:e2 RBRACKET
+			   {: RESULT = new MJArrayLookup(e1,e2); :}
+               | expr:e1  DOT LENGTH
+                {: RESULT = new MJArrayLength(e1); :}
+               | expr:e1  DOT ID:id
+                  {: RESULT = new___(); :}
+               | expr:e1  DOT ID:id LPAREN exprlist el RPAREN
+               {: RESULT = new___(); :}
+			   |TRUE
+			   {: RESULT = new ______(); :}
+			   | FALSE
+			   {: RESULT = MJ___(); :}
+			   | ID:id
+			   {: RESULT = new MJVarDecl(id);  :}
+			   | ?????
+                {: RESULT = new ???(); : }
+			   | THIS:t
+			   {: RESULT = new MJExprThis(); :}
+			   | NULL:n
+               {: RESULT = new MJExpeNull(); :}
+               | NEW INT LBRACKET expr:e1 RBRACKET
+			   {: RESULT = new MJNewIntArray(e1); :}
+			   | NEW ID :id LPAREN RPAREN
+               {: RESULT = new New MJNewObject(e1); :}
+               |  LPAREN expr: e1 RPAREN
+               {: RESULT = new  MJExpr(e1); :}
+exprlist ::    expr:e1 exprest er
+               {: RESULT = new MJExprList(e1); :}
 
-			   TRUE
-			   {: RESULT = new MJTypeBool(); :}
-			   |
-			   FALSE
-			   {: RESULT = MJTypeBool(); :}
-			   |
-			   ID:id
-			   {: RESULT = new MJTypeClass(id); : :}
-			   |
-			   THIS:t
-			   {: RESULT = new MJTypeClass(); :}
-			   |
-			   NULL:n
-               {: RESULT = new MJTypeClass(); :}
-               |
-			   NEW INT LBRACKET expr:e1 RBRACKET
-			   {: RESULT = new NewArrayLength(e1); :}
-			   |
-
-
-
-ExpRest ::  COMMA  expr e
+ExpRest ::  COMMA  expr : e1
+            {: RESULT = new MJExp???(e1); :}
 ID ::
-          less
+             ???
 op::
           AND {: RESULT = MJAnd(); :}
           | PLUS {: RESULT = MJPlus(); :}
@@ -278,6 +286,26 @@ op::
            | DIV {: RESULT = MJDiv(); :}
            | LESS {: RESULT = MJLess(); :}
            | EQUALS {: RESULT = MJEquals(); :}
+
+
+
+//end rama
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
