@@ -106,6 +106,7 @@ terminal LBRACE, RBRACE, // { }
 // literals:
 terminal TRUE, FALSE, NULL;
 
+//An identifier is a name, ID:name and ID:argName should be different
 terminal String   NUMBER, ID;
    
 // Non terminals used in the grammar section.  
@@ -114,6 +115,7 @@ non terminal MJMainClass mainclass;
 non terminal MJClassDecl classdecl;
 <<<<<<< Updated upstream
 non terminal MJMemberDecl memberdecl;
+non terminal MJMemberDeclList memberdecllist;
 non terminal MJStatement statement;
 non terminal MJBlock block;
 non terminal MJVarDecl vardecl;
@@ -123,10 +125,25 @@ non terminal MJVarDeclList vardeclist;
 
 //Monireh
 non terminal MJType type;
+
 //Rama
 non terminal MJOperator op;
 non terminal MJExpr expr;
 
+//Monireh
+
+// a = b, b has high priority
+// a = (x+5<10) and (8*y== 45)
+precedence right EQ;
+precedence left AND;
+precedence left EQUALS;
+precedence left LESS;
+precedence left PLUS, MINUS;
+precedence left TIMES, DIV;
+// -3, 3 has the pirority
+precedence right NEG;
+precedence left DOT;
+precedence left LPAREN;
 
 
 /* ----------------------------Grammar Section-------------------- */
@@ -136,21 +153,33 @@ non terminal MJExpr expr;
          mainclass:mc classdecl:cd
          {: RESULT = new MJProgram(mc, cd); :}
         ;
-    mc ::=
-        CLASS ID LBRACE PUBLIC STATIC VOID MAIN LPAREN STRING LBRACKET RBRACKET ID RPAREN block:b RBRACE
-        {:id = new MJTypeClass(name);
-         RESULT = new MJMainClass(id,b); :}
+    // mc ::= is Wrong we have to use non terminal that we defined.
+    // MainClass → class id { public static void main ( String [ ] id ) Block }
+    mainclass ::=
+        CLASS ID:name LBRACE PUBLIC STATIC VOID MAIN LPAREN
+                            STRING LBRACKET RBRACKET ID:argName RPAREN block:body
+                        RBRACE
+        {:
+
+            //id = new MJTypeClass(name);
+            // RESULT = new MJMainClass(,body); :}   The Main-class cannot be instantiated
+            RESULT = MJMainClass(name, argName ,body);
+        :}
         ;
+    // ClassDecl → class id { MemberDecl* }
+    //   | class id extends id { MemberDecl* }
+    //MemberDecl*  means might appear an arbitrary  number of times (MJClassDeclList)
 
-    cd ::=
-        CLASS ID LBRACE memberdecl:md RBRACE
-        {:id = new MJTypeClass(name);
-        RESULT = new MJClassDecl(id,md); :}
-        | CLASS ID EXTENDS ID LBRACE memberdecl:md RBRACE
-        {:id = new MJTypeClass(name);
-         RESULT = new MJClassDecl(id, md); :}
-
-    ;
+    classdecl ::=
+        CLASS ID:name LBRACE memberdecllist:mdl RBRACE
+            {:
+                RESULT = new MJClassDeclList(name,mdl);
+            :}
+        | CLASS ID EXTENDS ID:name LBRACE memberdecllist:mdl RBRACE
+            {:
+                RESULT = new MJClassDeclList(name, mdl);
+            :}
+        ;
 
     md ::= vardecl:vd
     {: RESULT=new MJMemberDecl(vd); :}
