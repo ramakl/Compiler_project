@@ -132,14 +132,18 @@ non terminal MJType type;
 non terminal MJOperator op;
 non terminal MJExpr expr;
 non terminal  MJExprList exprlist;
-<<<<<<< HEAD
+
 non terminal  MJExprList exprRest;
 
-=======
-non terminal  MJExprList exprest;
->>>>>>> 290f5dca0c8e8e627e355182861aebcd33517953
+
+
 //non terminal MJBlock block;
 //non terminal MJStatement statement;
+
+
+non terminal  MJExpr exprest;
+non terminal MJBlock block;
+non terminal MJStatement statement;
 
 //end rama
 //Monireh
@@ -169,17 +173,21 @@ precedence left LPAREN;
     // MainClass → class id { public static void main ( String [ ] id ) Block }
     mainclass ::=
         CLASS ID:name LBRACE PUBLIC STATIC VOID MAIN LPAREN
-                            STRING LBRACKET RBRACKET ID:argName RPAREN block:body RBRACE
-
+                            STRING LBRACKET RBRACKET ID:argName RPAREN block:body
+                        RBRACE
+        {:
 
             //id = new MJTypeClass(name);
-            // RESULT = new MJMainClass(,body); :} //  The Main-class cannot be instantiated
-           {: RESULT = MJMainClass(name, argName ,body);  :}
-       // ;
+
+            // RESULT = new MJMainClass(,body);   The Main-class cannot be instantiated
+            RESULT = MJMainClass(name, argName ,body);
+        :}
+        ;
+
     // ClassDecl → class id { MemberDecl* }
     //   | class id extends id { MemberDecl* }
     //MemberDecl*  means might appear an arbitrary  number of times (MJClassDeclList)
-;
+
     classdecl ::=
         CLASS ID:name LBRACE memberdecllist:mdl RBRACE
             {:
@@ -190,46 +198,48 @@ precedence left LPAREN;
                 RESULT = new MJClassDeclList(name, mdl);
             :}
         ;
-    // declare md and vd and mtd ... as non terminal
-    md ::= vardecl:vd
+
+
+    memberdecl ::= vardecl:vd
+
     {: RESULT=new MJMemberDecl(vd); :}
     |
     methodecl:mtd
     {: RESULT=new MJMemberDecl(mtd); :}
     ;
 
-    vd ::= type:t ID SEMI
-    {:id = new MJTypeClass(name);
-    RESULT = new MJVarDecl(t,id); :}
+    vardecl ::= type:t ID:name SEMI
+    {:
+    RESULT = new MJVarDecl(t,name); :}
     ;
 
-    mtd::= type:t ID LBRACE vardeclist:vdl RBRACE block:b
-    {:id = new MJTypeClass(name);
-    RESULT= new MJMethodDecl(t,id,vdl,b);:}
+    methodecl::= type:t ID:name LBRACE vardeclist:vdl RBRACE block:b
+    {:
+    RESULT= new MJMethodDecl(t,name,vdl,b);:}
     ;
 
-    vdl ::= type:t ID vardeclist:vdlrest
-    {:id = new MJTypeClass(name);
-    RESULT =  new MJVarDeclList(t,id,vdlrest);:}
+    vardeclist ::= type:t ID:name vardeclist:vdlrest
+    {:
+    RESULT =  new MJVarDeclList(t,name,vdlrest);:}
     ;
 
-    vdlrest ::= COMMA type:t ID
-    {:id = new MJTypeClass(name);
-    RESULT = new MJVarDeclList(t,id); :}
+    vardeclist ::= COMMA type:t ID:name
+    {:
+    RESULT = new MJVarDeclList(t,name); :}
     ;
 //Monireh start
  type ::=
         INT LBRACKET RBRACKET  {: RESULT = new MJTypeIntArray(); :}
         | BOOLEAN              {: RESULT = new MJTypeBool(); :}
         | INT                  {: RESULT = new MJTypeInt(); :}
-        | ID:name              {: RESULT = new MJTypeClass(name); :}
+        | ID:name              {: RESULT = new MJTypeClass(name); :};
 //End of Type
 //rama start
 
-;
-statement ::=
 
-       block:b
+Statement ::=
+
+       block :b
        {: RESULT = new MJBlock(b); :}
        | IF LPAREN expr:e1 RPAREN statement:s1 ELSE statement:s2
         {: RESULT = new MJStmtIf(e1,s1,s2); :}
@@ -244,7 +254,7 @@ statement ::=
        | expr:e1 EQ expr:e2
        {: RESULT = new MJStmtAssign(e1,e2); :}
 
-;
+
 expr ::=       expr:e1 op:op1 expr:e2
 			   {: RESULT = new MJOperator(e1,e2,op1); :}
 			   |NEG expr:e1
@@ -265,8 +275,8 @@ expr ::=       expr:e1 op:op1 expr:e2
 			   {: RESULT = new MJTypeBool(); :}
 			   | ID:id
 			   {: RESULT = new MJVarDecl(id);  :}
-			   //| ?????
-               // {: RESULT = new ???(); : }
+			   | NUMBER:n
+                {: RESULT = new MJNumber(Integer.parseInt(n)); : }
 			   | THIS:t
 			   {: RESULT = new MJExprThis(); :}
 			   | NULL:n
@@ -290,7 +300,9 @@ exprRest ::=  COMMA  expr:e1
 
 
 			   | NEW ID :id LPAREN RPAREN
+
                {: RESULT = new MJNewObject(id); :}
+
                |  LPAREN expr: e1 RPAREN
                {: RESULT = new  MJExpr(e1); :}
                ;
