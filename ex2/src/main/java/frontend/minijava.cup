@@ -141,9 +141,9 @@ non terminal  MJExprList exprRest;
 //non terminal MJStatement statement;
 
 
-non terminal  MJExpr exprest;
-non terminal MJBlock block;
-non terminal MJStatement statement;
+
+//non terminal MJBlock block;
+//non terminal MJStatement statement;
 
 //end rama
 //Monireh
@@ -252,7 +252,7 @@ statement ::=
        | expr:e1 SEMI
        {: RESULT = new MJStmtExpr(e1); :}
        | expr:e1 EQ expr:e2
-       {: RESULT = new MJStmtAssign(e1,e2); :}
+       {: RESULT = new MJStmtAssign(e1,e2); :} ;
 
 
 expr ::=       expr:e1 op:op1 expr:e2
@@ -267,6 +267,8 @@ expr ::=       expr:e1 op:op1 expr:e2
                 {: RESULT = new MJArrayLength(e1); :}
                | expr:e1  DOT ID:id
                {: RESULT = new MJFieldAccess(e1,id); :}
+               | expr:e1  DOT ID:id
+               {: RESULT = new MJMethodCall(e1,id); :}
                | expr:e1  DOT ID:id LPAREN exprlist:el RPAREN
                {: RESULT = new MJMethodCall(e1,id,el); :}
 			   |TRUE
@@ -276,7 +278,7 @@ expr ::=       expr:e1 op:op1 expr:e2
 			   | ID:id
 			   {: RESULT = new MJVarDecl(id);  :}
 			   | NUMBER:n
-                {: RESULT = new MJNumber(Integer.parseInt(n)); : }
+                {: RESULT = new MJNumber(Integer.parseInt(n)); :}
 			   | THIS:t
 			   {: RESULT = new MJExprThis(); :}
 			   | NULL:n
@@ -293,22 +295,16 @@ expr ::=       expr:e1 op:op1 expr:e2
 //exprlist ::=    expr:e1 ExpRest:er
  //              {: RESULT = new MJExprList(e1,er); :}
  //;
-exprRest ::= expr:e1
+exprRest ::= expr:e1;
 exprRest ::=  COMMA  expr:e1
            {: RESULT = e1; :}
-           ;
+            | NEW ID :id LPAREN RPAREN
+            {: RESULT = new MJNewObject(id); :}
+            |  LPAREN expr: e1 RPAREN
+             {: RESULT = new  MJExpr(e1); :};
 
-
-			   | NEW ID :id LPAREN RPAREN
-
-               {: RESULT = new MJNewObject(id); :}
-
-               |  LPAREN expr: e1 RPAREN
-               {: RESULT = new  MJExpr(e1); :}
-               ;
 exprlist ::=    expr:e1 exprest:er
-              {: RESULT = new MJExprList(e1,er); :}
- ;
+              {: RESULT = new MJExprList(e1,er); :} ;
 
 exprest ::=  COMMA  expr: e1
               {: RESULT = new MJExprList(e1); :};
