@@ -252,8 +252,10 @@ statement ::=
        | expr:e1 SEMI
        {: RESULT = new MJStmtExpr(e1); :}
        | expr:e1 EQ expr:e2
+
        {: RESULT = new MJStmtAssign(e1,e2); :}
 ;
+
 
 expr ::=       expr:e1 op:op1 expr:e2
 			   {: RESULT = new MJOperator(e1,e2,op1); :}
@@ -278,7 +280,7 @@ expr ::=       expr:e1 op:op1 expr:e2
 			   | ID:id
 			   {: RESULT = new MJVarDecl(id);  :}
 			   | NUMBER:n
-                {: RESULT = new MJNumber(Integer.parseInt(n)); : }
+                {: RESULT = new MJNumber(Integer.parseInt(n)); :}
 			   | THIS:t
 			   {: RESULT = new MJExprThis(); :}
 			   | NULL:n
@@ -292,9 +294,10 @@ expr ::=       expr:e1 op:op1 expr:e2
                {: RESULT = new  MJExpr(e1); :}
                ;
 
+
+
 exprlist ::=    expr:e1 exprest:er
-              {: RESULT = new MJExprList(e1,er); :}
- ;
+              {: RESULT = new MJExprList(e1,er); :} ;
 
 exprest ::=  COMMA  expr: e1
               {: RESULT = new MJExprList(e1); :};
