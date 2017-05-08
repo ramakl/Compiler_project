@@ -138,9 +138,9 @@ non terminal  MJExprList exprest;
 //non terminal MJStatement statement;
 
 
-non terminal  MJExpr exprest;
-non terminal MJBlock block;
-non terminal MJStatement statement;
+
+//non terminal MJBlock block;
+//non terminal MJStatement statement;
 
 //end rama
 //Monireh
@@ -264,6 +264,8 @@ expr ::=       expr:e1 op:op1 expr:e2
                 {: RESULT = new MJArrayLength(e1); :}
                | expr:e1  DOT ID:id
                {: RESULT = new MJFieldAccess(e1,id); :}
+               | expr:e1  DOT ID:id
+               {: RESULT = new MJMethodCall(e1,id); :}
                | expr:e1  DOT ID:id LPAREN exprlist:el RPAREN
                {: RESULT = new MJMethodCall(e1,id,el); :}
 			   |TRUE
