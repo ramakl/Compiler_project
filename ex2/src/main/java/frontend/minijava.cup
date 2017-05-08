@@ -132,7 +132,7 @@ non terminal MJType type;
 non terminal MJOperator op;
 non terminal MJExpr expr;
 non terminal  MJExprList exprlist;
-//non terminal  MJExpr?? exprest;
+non terminal  MJExprList exprest;
 //non terminal MJBlock block;
 //non terminal MJStatement statement;
 
@@ -249,9 +249,8 @@ expr ::=       expr:e1 op:op1 expr:e2
                | expr:e1  DOT LENGTH
                 {: RESULT = new MJArrayLength(e1); :}
                | expr:e1  DOT ID:id
-               //
                {: RESULT = new MJFieldAccess(e1,id); :}
-               | expr:e1  DOT ID:id LPAREN exprlist: el RPAREN
+               | expr:e1  DOT ID:id LPAREN exprlist:el RPAREN
                {: RESULT = new MJMethodCall(e1,id,el); :}
 			   |TRUE
 			   {: RESULT = new MJTypeBool(); :}
@@ -268,16 +267,16 @@ expr ::=       expr:e1 op:op1 expr:e2
                | NEW INT LBRACKET expr:e1 RBRACKET
 			   {: RESULT = new MJNewIntArray(e1); :}
 			   | NEW ID :id LPAREN RPAREN
-               {: RESULT = new New MJNewObject(e1); :}
+               {: RESULT = new MJNewObject(id); :}
                |  LPAREN expr: e1 RPAREN
                {: RESULT = new  MJExpr(e1); :}
                ;
-//exprlist ::=    expr:e1 ExpRest er
- //              {: RESULT = new MJExprList(e1,er); :}
- //;
+exprlist ::=    expr:e1 exprest:er
+              {: RESULT = new MJExprList(e1,er); :}
+ ;
 
-//ExpRest ::=  COMMA  expr : e1
-           // {: RESULT = new MJExp???(e1); :};
+ exprest ::=  COMMA  expr: e1
+              {: RESULT = new MJExprList(e1); :};
 //ID ::=
            //  ???;
 op::=
