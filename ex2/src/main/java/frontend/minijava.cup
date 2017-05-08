@@ -237,10 +237,10 @@ precedence left LPAREN;
 //rama start
 
 
-Statement ::=
+statement ::=
 
-       block :b
-       {: RESULT = new MJBlock(b); :}
+       block:body
+       {: RESULT = new MJBlock(body); :}
        | IF LPAREN expr:e1 RPAREN statement:s1 ELSE statement:s2
         {: RESULT = new MJStmtIf(e1,s1,s2); :}
        | WHILE LPAREN expr:e1 RPAREN statement:s1
