@@ -252,7 +252,9 @@ statement ::=
        | expr:e1 SEMI
        {: RESULT = new MJStmtExpr(e1); :}
        | expr:e1 EQ expr:e2
-       {: RESULT = new MJStmtAssign(e1,e2); :} ;
+
+       {: RESULT = new MJStmtAssign(e1,e2); :}
+;
 
 
 expr ::=       expr:e1 op:op1 expr:e2
@@ -292,18 +294,12 @@ expr ::=       expr:e1 op:op1 expr:e2
                ;
 
 
-exprRest ::= expr:e1;
-exprRest ::=  COMMA  expr:e1
-           {: RESULT = e1; :}
-            | NEW ID :id LPAREN RPAREN
-            {: RESULT = new MJNewObject(id); :}
-            |  LPAREN expr: e1 RPAREN
-             {: RESULT = new  MJExpr(e1); :};
+
 
 exprlist ::=    expr:e1 exprRest:er
               {: RESULT = new MJExprList(e1,er); :} ;
 
-exprest ::=  COMMA  expr: e1
+exprRest ::=  COMMA  expr: e1
               {: RESULT = new MJExprList(e1); :};
 
 //ID ::=
