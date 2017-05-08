@@ -237,7 +237,7 @@ precedence left LPAREN;
 //rama start
 
 
-Statement ::=
+statement ::=
 
        block :b
        {: RESULT = new MJBlock(b); :}
@@ -253,7 +253,7 @@ Statement ::=
        {: RESULT = new MJStmtExpr(e1); :}
        | expr:e1 EQ expr:e2
        {: RESULT = new MJStmtAssign(e1,e2); :}
-
+;
 
 expr ::=       expr:e1 op:op1 expr:e2
 			   {: RESULT = new MJOperator(e1,e2,op1); :}
@@ -292,22 +292,6 @@ expr ::=       expr:e1 op:op1 expr:e2
                {: RESULT = new  MJExpr(e1); :}
                ;
 
-//exprlist ::=    expr:e1 ExpRest:er
- //              {: RESULT = new MJExprList(e1,er); :}
- //;
-exprRest ::= expr:e1
-exprRest ::=  COMMA  expr:e1
-           {: RESULT = e1; :}
-           ;
-
-
-			   | NEW ID :id LPAREN RPAREN
-
-               {: RESULT = new MJNewObject(id); :}
-
-               |  LPAREN expr: e1 RPAREN
-               {: RESULT = new  MJExpr(e1); :}
-               ;
 exprlist ::=    expr:e1 exprest:er
               {: RESULT = new MJExprList(e1,er); :}
  ;
