@@ -132,7 +132,8 @@ non terminal MJType type;
 non terminal MJOperator op;
 non terminal MJExpr expr;
 non terminal  MJExprList exprlist;
-//non terminal  MJExpr?? exprest;
+non terminal  MJExprList exprRest;
+
 //non terminal MJBlock block;
 //non terminal MJStatement statement;
 
@@ -224,19 +225,19 @@ precedence left LPAREN;
 ;
 statement ::=
 
-       block :b
+       block:b
        {: RESULT = new MJBlock(b); :}
-       | IF LPAREN expr :e1 RPAREN statement:s1 ELSE statement:s2
+       | IF LPAREN expr:e1 RPAREN statement:s1 ELSE statement:s2
         {: RESULT = new MJStmtIf(e1,s1,s2); :}
-       | WHILE LPAREN expr :e1 RPAREN statement:s1
+       | WHILE LPAREN expr:e1 RPAREN statement:s1
        {: RESULT = new MJStmtWhile(e1,s1); :}
-       | RETURN   expr :e1
+       | RETURN   expr:e1
        {: RESULT = new MJStmtReturn(e1); :}
        |SYSTEM DOT OUT DOT PRINTLN  LPAREN expr :e1 RPAREN
        {: RESULT = new MJStmtPrint(e1); :}
-       | expr :e1 SEMI
+       | expr:e1 SEMI
        {: RESULT = new MJStmtExpr(e1); :}
-       | expr :e1 EQ expr :e2
+       | expr:e1 EQ expr:e2
        {: RESULT = new MJStmtAssign(e1,e2); :}
 
 ;
@@ -253,7 +254,7 @@ expr ::=       expr:e1 op:op1 expr:e2
                | expr:e1  DOT ID:id
                //
                {: RESULT = new MJFieldAccess(e1,id); :}
-               | expr:e1  DOT ID:id LPAREN exprlist: el RPAREN
+               | expr:e1  DOT ID:id LPAREN exprlist:el RPAREN
                {: RESULT = new MJMethodCall(e1,id,el); :}
 			   |TRUE
 			   {: RESULT = new MJTypeBool(); :}
@@ -269,31 +270,23 @@ expr ::=       expr:e1 op:op1 expr:e2
                {: RESULT = new MJExprNull(); :}
                | NEW INT LBRACKET expr:e1 RBRACKET
 			   {: RESULT = new MJNewIntArray(e1); :}
-			   | NEW ID :id LPAREN RPAREN
-               {: RESULT = new New MJNewObject(e1); :}
-               |  LPAREN expr: e1 RPAREN
+			   | NEW ID:id LPAREN RPAREN
+               {: RESULT = new MJNewObject(id); :}
+               |  LPAREN expr:e1 RPAREN
                {: RESULT = new  MJExpr(e1); :}
-
-exprlist ::=    expr:e1 exprest er
-               {: RESULT = new MJExprList(e1); :}
-
-ExpRest ::  COMMA  expr : e1
-            {: RESULT = new MJExp???(e1); :}
-ID ::
-             ???
-op::
-
                ;
-//exprlist ::=    expr:e1 ExpRest er
+
+//exprlist ::=    expr:e1 ExpRest:er
  //              {: RESULT = new MJExprList(e1,er); :}
  //;
+exprRest ::= expr:e1
+exprRest ::=  COMMA  expr:e1
+           {: RESULT = e1; :}
+           ;
 
-//ExpRest ::=  COMMA  expr : e1
-           // {: RESULT = new MJExp???(e1); :};
 //ID ::=
            //  ???;
 op::=
-
           AND {: RESULT = MJAnd(); :}
           | PLUS {: RESULT = MJPlus(); :}
            | MINUS {: RESULT = MJMinus(); :}
