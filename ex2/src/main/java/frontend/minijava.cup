@@ -222,7 +222,7 @@ precedence left LPAREN;
 //End of Type
 //rama start
 
-Statement ::
+Statement ::=
        block :b
        {: RESULT = new MJBlock(b); :}
        | IF LPAREN expr :e1 RPAREN Statement:s1 ELSE Statement:s2
@@ -271,7 +271,7 @@ expr ::=       expr:e1 op expr:e2
                {: RESULT = new New MJNewObject(e1); :}
                |  LPAREN expr: e1 RPAREN
                {: RESULT = new  MJExpr(e1); :}
-exprlist ::    expr:e1 exprest er
+exprlist ::=    expr:e1 exprest er
                {: RESULT = new MJExprList(e1); :}
 
 ExpRest ::  COMMA  expr : e1
