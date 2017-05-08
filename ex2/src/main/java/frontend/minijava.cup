@@ -281,20 +281,17 @@ expr ::=       expr:e1 op:op1 expr:e2
                 {: RESULT = new MJNumber(Integer.parseInt(n)); :}
 			   | THIS:t
 			   {: RESULT = new MJExprThis(); :}
-			   | NULL:n
+			   | NULL
                {: RESULT = new MJExprNull(); :}
                | NEW INT LBRACKET expr:e1 RBRACKET
 			   {: RESULT = new MJNewIntArray(e1); :}
-
 			   | NEW ID:id LPAREN RPAREN
                {: RESULT = new MJNewObject(id); :}
                |  LPAREN expr:e1 RPAREN
-               {: RESULT = new  MJExpr(e1); :}
+               {: RESULT =  e1; :}
                ;
 
-//exprlist ::=    expr:e1 ExpRest:er
- //              {: RESULT = new MJExprList(e1,er); :}
- //;
+
 exprRest ::= expr:e1;
 exprRest ::=  COMMA  expr:e1
            {: RESULT = e1; :}
@@ -303,7 +300,7 @@ exprRest ::=  COMMA  expr:e1
             |  LPAREN expr: e1 RPAREN
              {: RESULT = new  MJExpr(e1); :};
 
-exprlist ::=    expr:e1 exprest:er
+exprlist ::=    expr:e1 exprRest:er
               {: RESULT = new MJExprList(e1,er); :} ;
 
 exprest ::=  COMMA  expr: e1
