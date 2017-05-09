@@ -1,0 +1,403 @@
+14:10:52.304 [INFO] [org.gradle.launcher.daemon.server.Daemon] start() called on daemon - DefaultDaemonContext[uid=3e1ee640-14e2-49f9-9e4a-39da153a599b,javaHome=/usr/lib/jvm/java-8-openjdk-amd64,daemonRegistryDir=/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon,pid=4263,idleTimeout=60000,daemonOpts=-XX:MaxPermSize=256m,-XX:+HeapDumpOnOutOfMemoryError,-Xmx1024m,-Dfile.encoding=UTF-8,-Duser.country=US,-Duser.language=en,-Duser.variant]
+14:10:52.311 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] updating lastActivityAt to 1494331852311
+14:10:52.326 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding IP addresses for network interface wlp2s0
+14:10:52.327 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Is this a loopback interface? false
+14:10:52.327 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Is this a multicast interface? true
+14:10:52.328 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding remote address /fe80:0:0:0:6e6f:d075:b957:48a5%wlp2s0
+14:10:52.329 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding remote address /fe80:0:0:0:82e5:94a5:451c:80b8%wlp2s0
+14:10:52.330 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding remote address /fe80:0:0:0:6d0e:ae32:c9a2:9e22%wlp2s0
+14:10:52.331 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding remote address /131.246.175.212
+14:10:52.331 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding remote multicast interface wlp2s0
+14:10:52.332 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding IP addresses for network interface lo
+14:10:52.332 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Is this a loopback interface? true
+14:10:52.333 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Is this a multicast interface? false
+14:10:52.333 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding loopback address /0:0:0:0:0:0:0:1%lo
+14:10:52.334 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding loopback address /127.0.0.1
+14:10:52.354 [DEBUG] [org.gradle.messaging.remote.internal.inet.TcpIncomingConnector] Listening on [f725259f-bae0-41f6-aebe-195715dab7f7 port:34128, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]].
+14:10:52.358 [DEBUG] [org.gradle.launcher.daemon.server.Daemon] Daemon starting at: Tue May 09 14:10:52 CEST 2017, with address: [f725259f-bae0-41f6-aebe-195715dab7f7 port:34128, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:10:52.360 [INFO] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Advertising the daemon address to the clients: [f725259f-bae0-41f6-aebe-195715dab7f7 port:34128, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:10:52.360 [DEBUG] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Advertised daemon context: DefaultDaemonContext[uid=3e1ee640-14e2-49f9-9e4a-39da153a599b,javaHome=/usr/lib/jvm/java-8-openjdk-amd64,daemonRegistryDir=/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon,pid=4263,idleTimeout=60000,daemonOpts=-XX:MaxPermSize=256m,-XX:+HeapDumpOnOutOfMemoryError,-Xmx1024m,-Dfile.encoding=UTF-8,-Duser.country=US,-Duser.language=en,-Duser.variant]
+14:10:52.362 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Storing daemon address: [f725259f-bae0-41f6-aebe-195715dab7f7 port:34128, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]], context: DefaultDaemonContext[uid=3e1ee640-14e2-49f9-9e4a-39da153a599b,javaHome=/usr/lib/jvm/java-8-openjdk-amd64,daemonRegistryDir=/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon,pid=4263,idleTimeout=60000,daemonOpts=-XX:MaxPermSize=256m,-XX:+HeapDumpOnOutOfMemoryError,-Xmx1024m,-Dfile.encoding=UTF-8,-Duser.country=US,-Duser.language=en,-Duser.variant]
+14:10:52.372 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+14:10:52.374 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+14:10:52.515 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+14:10:52.516 [LIFECYCLE] [org.gradle.launcher.daemon.server.Daemon] Daemon server started.
+14:10:52.519 [DEBUG] [org.gradle.launcher.daemon.bootstrap.DaemonStartupCommunication] Completed writing the daemon greeting. Closing streams...
+14:10:52.519 [DEBUG] [org.gradle.launcher.daemon.server.Daemon] requestStopOnIdleTimeout(60000 MILLISECONDS) called on daemon
+14:10:52.520 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Idle timeout: waiting for daemon to stop or be idle for 60000ms
+14:10:52.522 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is idle, sleeping until state change or idle timeout at Tue May 09 14:11:52 CEST 2017
+14:10:52.525 [DEBUG] [org.gradle.messaging.remote.internal.inet.TcpIncomingConnector] Accepted connection from /127.0.0.1:59978 to /127.0.0.1:34128.
+14:10:52.622 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 14: received class org.gradle.launcher.daemon.protocol.Build
+14:10:52.623 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received non-IO message from client: Build{id=eb15b3ed-fd9c-44da-bf64-df02bcfa7ee9.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex2}
+14:10:52.625 [INFO] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Received command: Build{id=eb15b3ed-fd9c-44da-bf64-df02bcfa7ee9.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex2}.
+14:10:52.626 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Starting executing command: Build{id=eb15b3ed-fd9c-44da-bf64-df02bcfa7ee9.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex2} with connection: socket connection from /127.0.0.1:34128 to /127.0.0.1:59978.
+14:10:52.639 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: started DaemonCommandExecution[command = Build{id=eb15b3ed-fd9c-44da-bf64-df02bcfa7ee9.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex2}, connection = org.gradle.launcher.daemon.server.DefaultDaemonConnection@63041d38] after 0.0 minutes of idle
+14:10:52.640 [INFO] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Marking the daemon as busy, address: [f725259f-bae0-41f6-aebe-195715dab7f7 port:34128, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:10:52.641 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Marking busy by address: [f725259f-bae0-41f6-aebe-195715dab7f7 port:34128, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:10:52.642 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+14:10:52.643 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+14:10:52.648 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+14:10:52.649 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] updating lastActivityAt to 1494331852649
+14:10:52.650 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is busy, sleeping until state changes.
+14:10:52.651 [INFO] [org.gradle.launcher.daemon.server.exec.StartBuildOrRespondWithBusy] Daemon is about to start building Build{id=eb15b3ed-fd9c-44da-bf64-df02bcfa7ee9.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex2}. Dispatching build started information...
+14:10:52.652 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 16: dispatching class org.gradle.launcher.daemon.protocol.BuildStarted
+14:10:52.659 [DEBUG] [org.gradle.launcher.daemon.server.exec.EstablishBuildEnvironment] Configuring env variables: {PATH=/usr/local/gradle/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/mahsa/.rvm/bin, LC_MEASUREMENT=de_DE.UTF-8, XAUTHORITY=/home/mahsa/.Xauthority, XMODIFIERS=@im=ibus, LC_TELEPHONE=de_DE.UTF-8, XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop, GDMSESSION=ubuntu, MANDATORY_PATH=/usr/share/gconf/ubuntu.mandatory.path, LC_TIME=de_DE.UTF-8, GTK_IM_MODULE=ibus, DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-ddvhlDCAEQ, DEFAULTS_PATH=/usr/share/gconf/ubuntu.default.path, XDG_CURRENT_DESKTOP=Unity, LD_LIBRARY_PATH=/home/mahsa/Downloads/idea-IC-171.4073.35/bin:, UPSTART_SESSION=unix:abstract=/com/ubuntu/upstart-session/1000/1690, QT4_IM_MODULE=xim, LC_PAPER=de_DE.UTF-8, SESSION_MANAGER=local/mahsa-VPCEA15FG:@/tmp/.ICE-unix/2015,unix/mahsa-VPCEA15FG:/tmp/.ICE-unix/2015, QT_LINUX_ACCESSIBILITY_ALWAYS_ON=1, LOGNAME=mahsa, JOB=unity-settings-daemon, PWD=/home/mahsa, IM_CONFIG_PHASE=1, LANGUAGE=en_US, SHELL=/bin/bash, LC_ADDRESS=de_DE.UTF-8, GIO_LAUNCHED_DESKTOP_FILE=/usr/share/applications/jetbrains-idea-ce.desktop, GTK2_MODULES=overlay-scrollbar, INSTANCE=, GNOME_DESKTOP_SESSION_ID=this-is-deprecated, UPSTART_INSTANCE=, GTK_MODULES=gail:atk-bridge:unity-gtk-module, CLUTTER_IM_MODULE=xim, XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0, COMPIZ_BIN_PATH=/usr/bin/, SESSIONTYPE=gnome-session, XDG_SESSION_DESKTOP=ubuntu, SHLVL=0, LC_IDENTIFICATION=de_DE.UTF-8, LC_MONETARY=de_DE.UTF-8, COMPIZ_CONFIG_PROFILE=ubuntu, QT_IM_MODULE=ibus, UPSTART_JOB=unity7, XFILESEARCHPATH=/usr/dt/app-defaults/%L/Dt, XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/usr/share/upstart/xdg:/etc/xdg, LANG=en_US.UTF-8, GNOME_KEYRING_CONTROL=, XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0, XDG_SESSION_ID=c2, XDG_SESSION_TYPE=x11, GRADLE_HOME=/usr/local/gradle, DISPLAY=:0, LC_NAME=de_DE.UTF-8, GDM_LANG=en_US, XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/mahsa, UPSTART_EVENTS=xsession started, GPG_AGENT_INFO=/home/mahsa/.gnupg/S.gpg-agent:0:1, DESKTOP_SESSION=ubuntu, SESSION=ubuntu, USER=mahsa, XDG_MENU_PREFIX=gnome-, GIO_LAUNCHED_DESKTOP_FILE_PID=2480, QT_ACCESSIBILITY=1, LC_NUMERIC=de_DE.UTF-8, SSH_AUTH_SOCK=/run/user/1000/keyring/ssh, XDG_SEAT=seat0, NLSPATH=/usr/dt/lib/nls/msg/%L/%N.cat, QT_QPA_PLATFORMTHEME=appmenu-qt5, XDG_VTNR=7, XDG_RUNTIME_DIR=/run/user/1000, HOME=/home/mahsa, GNOME_KEYRING_PID=}
+14:10:52.661 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 14: received class org.gradle.launcher.daemon.protocol.CloseInput
+14:10:52.662 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received IO message from client: org.gradle.launcher.daemon.protocol.CloseInput@b0be9c2
+14:10:52.683 [DEBUG] [org.gradle.launcher.daemon.server.exec.LogToClient] About to start relaying all logs to the client via the connection.
+14:10:52.683 [INFO] [org.gradle.launcher.daemon.server.exec.LogToClient] The client will now receive all logging from the daemon (pid: 4263). The daemon log file: /home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon/2.12/daemon-4263.out.log
+14:10:52.696 [INFO] [org.gradle.launcher.daemon.server.health.DaemonHealthTracker] Starting build in new daemon [memory: 954.7 MB]
+14:10:52.698 [INFO] [org.gradle.launcher.daemon.server.exec.ForwardClientInput] Closing daemon's stdin at end of input.
+14:10:52.699 [INFO] [org.gradle.launcher.daemon.server.exec.ForwardClientInput] The daemon will no longer process any standard input.
+14:10:52.703 [DEBUG] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] The daemon has started executing the build.
+14:10:52.703 [INFO] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] Executing build with daemon context: DefaultDaemonContext[uid=3e1ee640-14e2-49f9-9e4a-39da153a599b,javaHome=/usr/lib/jvm/java-8-openjdk-amd64,daemonRegistryDir=/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon,pid=4263,idleTimeout=60000,daemonOpts=-XX:MaxPermSize=256m,-XX:+HeapDumpOnOutOfMemoryError,-Xmx1024m,-Dfile.encoding=UTF-8,-Duser.country=US,-Duser.language=en,-Duser.variant]
+:genAst UP-TO-DATE
+:genCupWarning : Terminal "SHORT" was declared but never used
+Warning : Terminal "IMPLEMENTS" was declared but never used
+Warning : Terminal "CONST" was declared but never used
+Warning : Terminal "STRICTFP" was declared but never used
+Warning : Terminal "ENUM" was declared but never used
+Warning : Terminal "CATCH" was declared but never used
+Warning : Terminal "THROW" was declared but never used
+Warning : Terminal "DOUBLE" was declared but never used
+Warning : Terminal "TRANSIENT" was declared but never used
+Warning : Terminal "PROTECTED" was declared but never used
+Warning : Terminal "FINAL" was declared but never used
+Warning : Terminal "FLOAT" was declared but never used
+Warning : Terminal "GOTO" was declared but never used
+Warning : Terminal "PACKAGE" was declared but never used
+Warning : Terminal "SUPER" was declared but never used
+Warning : Terminal "ABSTRACT" was declared but never used
+Warning : Terminal "NATIVE" was declared but never used
+Warning : Terminal "LONG" was declared but never used
+Warning : Terminal "INTERFACE" was declared but never used
+Warning : Terminal "CHAR" was declared but never used
+Warning : Terminal "SWITCH" was declared but never used
+Warning : Terminal "DO" was declared but never used
+Warning : Terminal "FOR" was declared but never used
+Warning : Terminal "TRY" was declared but never used
+Warning : Terminal "BREAK" was declared but never used
+Warning : Terminal "THROWS" was declared but never used
+Warning : Terminal "DEFAULT" was declared but never used
+Warning : Terminal "IMPORT" was declared but never used
+Warning : Terminal "SYNCHRONIZED" was declared but never used
+Warning : Terminal "FINALLY" was declared but never used
+Warning : Terminal "CONTINUE" was declared but never used
+Warning : Terminal "INSTANCEOF" was declared but never used
+Warning : Terminal "ASSERT" was declared but never used
+Warning : Terminal "INVALID_TOKEN" was declared but never used
+Warning : Terminal "VOLATILE" was declared but never used
+Warning : Terminal "CASE" was declared but never used
+Warning : Terminal "BYTE" was declared but never used
+Warning : Terminal "PRIVATE" was declared but never used
+Warning : Non terminal "exp" was declared but never used
+Warning : *** Production "op ::= EQUALS " never reduced
+Warning : *** Production "op ::= LESS " never reduced
+Warning : *** Production "op ::= DIV " never reduced
+Warning : *** Production "op ::= TIMES " never reduced
+Warning : *** Production "op ::= MINUS " never reduced
+Warning : *** Production "op ::= PLUS " never reduced
+Warning : *** Production "op ::= AND " never reduced
+Warning : *** Production "exprRest ::= COMMA expr " never reduced
+Warning : *** Production "exprlist ::= expr exprRest " never reduced
+Warning : *** Production "expr ::= LPAREN expr RPAREN " never reduced
+Warning : *** Production "expr ::= NEW ID LPAREN RPAREN " never reduced
+Warning : *** Production "expr ::= NEW INT LBRACKET expr RBRACKET " never reduced
+Warning : *** Production "expr ::= NULL " never reduced
+Warning : *** Production "expr ::= THIS " never reduced
+Warning : *** Production "expr ::= NUMBER " never reduced
+Warning : *** Production "expr ::= ID " never reduced
+Warning : *** Production "expr ::= FALSE " never reduced
+Warning : *** Production "expr ::= TRUE " never reduced
+Warning : *** Production "expr ::= expr DOT ID LPAREN exprlist RPAREN " never reduced
+Warning : *** Production "expr ::= expr DOT ID " never reduced
+Warning : *** Production "expr ::= expr DOT ID " never reduced
+Warning : *** Production "expr ::= expr DOT LENGTH " never reduced
+Warning : *** Production "expr ::= expr LBRACKET expr RBRACKET " never reduced
+Warning : *** Production "expr ::= MINUS expr " never reduced
+Warning : *** Production "expr ::= NEG expr " never reduced
+Warning : *** Production "expr ::= expr op expr " never reduced
+Warning : *** Production "statement ::= expr EQ expr " never reduced
+Warning : *** Production "statement ::= expr SEMI " never reduced
+Warning : *** Production "statement ::= SYSTEM DOT OUT DOT PRINTLN LPAREN expr RPAREN " never reduced
+Warning : *** Production "statement ::= RETURN expr " never reduced
+Warning : *** Production "statement ::= WHILE LPAREN expr RPAREN statement " never reduced
+Warning : *** Production "statement ::= IF LPAREN expr RPAREN statement ELSE statement " never reduced
+Warning : *** Production "statement ::= block " never reduced
+Warning : *** Production "type ::= ID " never reduced
+Warning : *** Production "type ::= INT " never reduced
+Warning : *** Production "type ::= BOOLEAN " never reduced
+Warning : *** Production "type ::= INT LBRACKET RBRACKET " never reduced
+Warning : *** Production "vardeclist ::= COMMA type ID " never reduced
+Warning : *** Production "vardeclist ::= type ID vardeclist " never reduced
+Warning : *** Production "methodecl ::= type ID LBRACE vardeclist RBRACE block " never reduced
+Warning : *** Production "vardecl ::= type ID SEMI " never reduced
+Warning : *** Production "memberdecl ::= methodecl " never reduced
+Warning : *** Production "memberdecl ::= vardecl " never reduced
+------- CUP v0.11c 20160501 Parser Generation Summary -------
+  0 errors and 82 warnings
+  82 terminals, 16 non-terminals, and 48 productions declared, 
+  producing 30 unique parse states.
+  39 terminals declared but not used.
+  0 non-terminals declared but not used.
+  0 productions never reduced.
+  0 conflicts detected (0 expected).
+  Code written to "MiniJavaParser.java", and "MiniJavaParserSym.java".
+---------------------------------------------------- (CUP v0.11c 20160501)
+
+:genJflex
+Reading "/home/mahsa/Tu Kl/Compiler/group11/ex2/src/main/java/frontend/minijava.flex"
+Constructing NFA : 507 states in NFA
+Converting NFA to DFA : 
+...................................................................................................................................................................................................................................................................................................................
+309 states before minimization, 300 states in minimized DFA
+Old file "/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/Lexer.java" saved as "/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/Lexer.java~"
+Writing code to "/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/Lexer.java"
+:gen
+:compileJava/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:228: error: MJProgram is abstract; cannot be instantiated
+		 RESULT = new MJProgram(mc, cd); 
+		          ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:265: error: cannot find symbol
+            RESULT = MJMainClass(name, argName ,body);
+                     ^
+  symbol:   method MJMainClass(String,String,MJBlock)
+  location: class MiniJavaParser.CUP$MiniJavaParser$actions
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:280: error: cannot find symbol
+		MJMemberDeclList mdl = (MJMemberDeclList)((java_cup.runtime.Symbol) CUP$MiniJavaParser$stack.elementAt(CUP$MiniJavaParser$top-1)).value;
+		^
+  symbol:   class MJMemberDeclList
+  location: class MiniJavaParser.CUP$MiniJavaParser$actions
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:280: error: cannot find symbol
+		MJMemberDeclList mdl = (MJMemberDeclList)((java_cup.runtime.Symbol) CUP$MiniJavaParser$stack.elementAt(CUP$MiniJavaParser$top-1)).value;
+		                        ^
+  symbol:   class MJMemberDeclList
+  location: class MiniJavaParser.CUP$MiniJavaParser$actions
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:282: error: MJClassDeclList is abstract; cannot be instantiated
+                RESULT = new MJClassDeclList(name,mdl);
+                         ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:297: error: cannot find symbol
+		MJMemberDeclList mdl = (MJMemberDeclList)((java_cup.runtime.Symbol) CUP$MiniJavaParser$stack.elementAt(CUP$MiniJavaParser$top-1)).value;
+		^
+  symbol:   class MJMemberDeclList
+  location: class MiniJavaParser.CUP$MiniJavaParser$actions
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:297: error: cannot find symbol
+		MJMemberDeclList mdl = (MJMemberDeclList)((java_cup.runtime.Symbol) CUP$MiniJavaParser$stack.elementAt(CUP$MiniJavaParser$top-1)).value;
+		                        ^
+  symbol:   class MJMemberDeclList
+  location: class MiniJavaParser.CUP$MiniJavaParser$actions
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:299: error: MJClassDeclList is abstract; cannot be instantiated
+                RESULT = new MJClassDeclList(name, mdl);
+                         ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:312: error: MJMemberDecl is abstract; cannot be instantiated
+		 RESULT=new MJMemberDecl(vd); 
+		        ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:324: error: MJMemberDecl is abstract; cannot be instantiated
+		 RESULT=new MJMemberDecl(mtd); 
+		        ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:340: error: MJVarDecl is abstract; cannot be instantiated
+    RESULT = new MJVarDecl(t,name); 
+             ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:362: error: MJMethodDecl is abstract; cannot be instantiated
+    RESULT= new MJMethodDecl(t,name,vdl,b);
+            ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:381: error: MJVarDeclList is abstract; cannot be instantiated
+    RESULT =  new MJVarDeclList(t,name,vdlrest);
+              ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:397: error: MJVarDeclList is abstract; cannot be instantiated
+    RESULT = new MJVarDeclList(t,name); 
+             ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:406: error: MJTypeIntArray is abstract; cannot be instantiated
+		 RESULT = new MJTypeIntArray(); 
+		          ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:415: error: MJTypeBool is abstract; cannot be instantiated
+		 RESULT = new MJTypeBool(); 
+		          ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:424: error: MJTypeInt is abstract; cannot be instantiated
+		 RESULT = new MJTypeInt(); 
+		          ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:436: error: MJTypeClass is abstract; cannot be instantiated
+		 RESULT = new MJTypeClass(name); 
+		          ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:448: error: MJBlock is abstract; cannot be instantiated
+		 RESULT = new MJBlock(body); 
+		          ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:466: error: MJStmtIf is abstract; cannot be instantiated
+		 RESULT = new MJStmtIf(e1,s1,s2); 
+		          ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:481: error: MJStmtWhile is abstract; cannot be instantiated
+		 RESULT = new MJStmtWhile(e1,s1); 
+		          ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:493: error: MJStmtReturn is abstract; cannot be instantiated
+		 RESULT = new MJStmtReturn(e1); 
+		          ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:505: error: MJStmtPrint is abstract; cannot be instantiated
+		 RESULT = new MJStmtPrint(e1); 
+		          ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:517: error: MJStmtExpr is abstract; cannot be instantiated
+		 RESULT = new MJStmtExpr(e1); 
+		          ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:532: error: MJStmtAssign is abstract; cannot be instantiated
+		 RESULT = new MJStmtAssign(e1,e2); 
+		          ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:550: error: MJOperator is abstract; cannot be instantiated
+		 RESULT = new MJOperator(e1,e2,op1); 
+		          ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:562: error: cannot find symbol
+		 RESULT = newMJNegate(e1); 
+		          ^
+  symbol:   method newMJNegate(MJExpr)
+  location: class MiniJavaParser.CUP$MiniJavaParser$actions
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:574: error: MJUnaryMinus is abstract; cannot be instantiated
+		 RESULT = new MJUnaryMinus(e1); 
+		          ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:589: error: MJArrayLookup is abstract; cannot be instantiated
+		 RESULT = new MJArrayLookup(e1,e2); 
+		          ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:601: error: MJArrayLength is abstract; cannot be instantiated
+		 RESULT = new MJArrayLength(e1); 
+		          ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:616: error: MJFieldAccess is abstract; cannot be instantiated
+		 RESULT = new MJFieldAccess(e1,id); 
+		          ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:631: error: MJMethodCall is abstract; cannot be instantiated
+		 RESULT = new MJMethodCall(e1,id); 
+		          ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:649: error: MJMethodCall is abstract; cannot be instantiated
+		 RESULT = new MJMethodCall(e1,id,el); 
+		          ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:658: error: MJTypeBool is abstract; cannot be instantiated
+		 RESULT = new MJTypeBool(); 
+		          ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:667: error: MJTypeBool is abstract; cannot be instantiated
+		 RESULT = new MJTypeBool(); 
+		          ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:679: error: MJVarDecl is abstract; cannot be instantiated
+		 RESULT = new MJVarDecl(id);  
+		          ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:691: error: MJNumber is abstract; cannot be instantiated
+		 RESULT = new MJNumber(Integer.parseInt(n)); 
+		          ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:703: error: MJExprThis is abstract; cannot be instantiated
+		 RESULT = new MJExprThis(); 
+		          ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:712: error: MJExprNull is abstract; cannot be instantiated
+		 RESULT = new MJExprNull(); 
+		          ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:724: error: MJNewIntArray is abstract; cannot be instantiated
+		 RESULT = new MJNewIntArray(e1); 
+		          ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:736: error: MJNewObject is abstract; cannot be instantiated
+		 RESULT = new MJNewObject(id); 
+		          ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:763: error: MJExprList is abstract; cannot be instantiated
+		 RESULT = new MJExprList(e1,er); 
+		          ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:775: error: MJExprList is abstract; cannot be instantiated
+		 RESULT = new MJExprList(e1); 
+		          ^
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:784: error: cannot find symbol
+		 RESULT = MJAnd(); 
+		          ^
+  symbol:   method MJAnd()
+  location: class MiniJavaParser.CUP$MiniJavaParser$actions
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:793: error: cannot find symbol
+		 RESULT = MJPlus(); 
+		          ^
+  symbol:   method MJPlus()
+  location: class MiniJavaParser.CUP$MiniJavaParser$actions
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:802: error: cannot find symbol
+		 RESULT = MJMinus(); 
+		          ^
+  symbol:   method MJMinus()
+  location: class MiniJavaParser.CUP$MiniJavaParser$actions
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:811: error: cannot find symbol
+		 RESULT = MJTimes(); 
+		          ^
+  symbol:   method MJTimes()
+  location: class MiniJavaParser.CUP$MiniJavaParser$actions
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:820: error: cannot find symbol
+		 RESULT = MJDiv(); 
+		          ^
+  symbol:   method MJDiv()
+  location: class MiniJavaParser.CUP$MiniJavaParser$actions
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:829: error: cannot find symbol
+		 RESULT = MJLess(); 
+		          ^
+  symbol:   method MJLess()
+  location: class MiniJavaParser.CUP$MiniJavaParser$actions
+/home/mahsa/Tu Kl/Compiler/group11/ex2/src-generated/minijava/syntax/MiniJavaParser.java:838: error: cannot find symbol
+		 RESULT = MJEquals(); 
+		          ^
+  symbol:   method MJEquals()
+  location: class MiniJavaParser.CUP$MiniJavaParser$actions
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+50 errors
+ FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava'.
+> Compilation failed; see the compiler error output for details.
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
+
+BUILD FAILED
+
+Total time: 20.819 secs
+14:11:11.810 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache taskArtifacts.bin (/home/mahsa/Tu Kl/Compiler/group11/ex2/.gradle/2.12/taskArtifacts/taskArtifacts.bin)
+14:11:11.811 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache fileSnapshots.bin (/home/mahsa/Tu Kl/Compiler/group11/ex2/.gradle/2.12/taskArtifacts/fileSnapshots.bin)
+14:11:11.811 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache outputFileStates.bin (/home/mahsa/Tu Kl/Compiler/group11/ex2/.gradle/2.12/taskArtifacts/outputFileStates.bin)
+14:11:11.812 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache fileHashes.bin (/home/mahsa/Tu Kl/Compiler/group11/ex2/.gradle/2.12/taskArtifacts/fileHashes.bin)
+14:11:11.814 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on task history cache (/home/mahsa/Tu Kl/Compiler/group11/ex2/.gradle/2.12/taskArtifacts).
+14:11:11.816 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on cp_proj class cache for build file '/home/mahsa/Tu Kl/Compiler/group11/ex2/build.gradle' (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/scripts/build_8y80ghzyvtxk277vx77bwabpq/cp_proj).
+14:11:11.816 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on proj class cache for build file '/home/mahsa/Tu Kl/Compiler/group11/ex2/build.gradle' (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/scripts/build_8y80ghzyvtxk277vx77bwabpq/proj).
+14:11:11.817 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.ivyresolve.memcache.InMemoryCachedRepositoryFactory] In-memory dependency metadata cache closed. Repos cached: 2, cache instances: 1, modules served from cache: 8, artifacts: 8
+14:11:11.821 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.resolveengine.store.CachedStoreFactory] Resolution result cache closed. Cache reads: 0, disk reads: 0 (avg: 0.0 secs, total: 0.0 secs)
+14:11:11.822 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.resolveengine.store.CachedStoreFactory] Resolution result cache closed. Cache reads: 0, disk reads: 0 (avg: 0.0 secs, total: 0.0 secs)
+14:11:11.822 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.resolveengine.store.ResolutionResultsStoreFactory] Deleted 2 resolution results binary files in 0.004 secs
+14:11:11.823 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache module-metadata.bin (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/modules-2/metadata-2.16/module-metadata.bin)
+14:11:11.824 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache artifact-at-repository.bin (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/modules-2/metadata-2.16/artifact-at-repository.bin)
+14:11:11.824 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on artifact cache (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/modules-2).
+14:11:11.825 [DEBUG] [org.gradle.cache.internal.DefaultCacheAccess] Cache Plugin Resolution Cache (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/plugin-resolution) was closed 0 times.
+14:11:11.831 [DEBUG] [org.gradle.api.internal.tasks.compile.daemon.CompilerDaemonManager] Stopping 0 compiler daemon(s).
+14:11:11.832 [INFO] [org.gradle.api.internal.tasks.compile.daemon.CompilerDaemonManager] Stopped 0 compiler daemon(s).
+14:11:11.833 [DEBUG] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] The daemon has finished executing the build.
+14:11:12.560 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is busy, sleeping until state changes.
+14:11:12.561 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: finished waiting for DaemonCommandExecution[command = Build{id=eb15b3ed-fd9c-44da-bf64-df02bcfa7ee9.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex2}, connection = org.gradle.launcher.daemon.server.DefaultDaemonConnection@63041d38]. Result org.gradle.launcher.daemon.server.DaemonStateCoordinator@153ed385 with state Running
+14:11:12.562 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: completed DaemonCommandExecution[command = Build{id=eb15b3ed-fd9c-44da-bf64-df02bcfa7ee9.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex2}, connection = org.gradle.launcher.daemon.server.DefaultDaemonConnection@63041d38]
+14:11:12.577 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] updating lastActivityAt to 1494331872577
+14:11:12.578 [INFO] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Marking the daemon as idle, address: [f725259f-bae0-41f6-aebe-195715dab7f7 port:34128, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:11:12.578 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Marking idle by address: [f725259f-bae0-41f6-aebe-195715dab7f7 port:34128, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:11:12.580 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+14:11:12.581 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+14:11:12.585 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+14:11:12.598 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is idle, sleeping until state change or idle timeout at Tue May 09 14:12:12 CEST 2017
+14:11:12.599 [DEBUG] [org.gradle.launcher.daemon.server.exec.ReturnResult] Daemon is dispatching the build result: Failure[value=org.gradle.initialization.ReportedException: org.gradle.internal.exceptions.LocationAwareException: Execution failed for task ':compileJava'.]
+14:11:12.600 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: dispatching class org.gradle.launcher.daemon.protocol.Failure
+14:11:12.699 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Finishing executing command: Build{id=eb15b3ed-fd9c-44da-bf64-df02bcfa7ee9.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex2}
+14:11:12.771 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 14: received class org.gradle.launcher.daemon.protocol.Finished
+14:11:12.772 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received non-IO message from client: org.gradle.launcher.daemon.protocol.Finished@3cba157f
+14:11:12.772 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Received finished message: org.gradle.launcher.daemon.protocol.Finished@3cba157f
+14:11:12.773 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: stopping connection
+14:11:12.777 [DEBUG] [org.gradle.messaging.remote.internal.inet.SocketConnection] Discarding EOFException: java.io.EOFException
+14:11:12.777 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 14: received null
+14:11:12.778 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received end-of-input from client.
+14:11:12.779 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: stopping connection
+14:12:12.578 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Idle timeout: daemon has been idle for requested period. Stopping now.
+14:12:12.578 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Marking daemon stopped due to idle timeout. The daemon is running a build: false
+14:12:12.579 [DEBUG] [org.gradle.launcher.daemon.server.Daemon] stop() called on daemon
+14:12:12.580 [INFO] [org.gradle.launcher.daemon.server.Daemon] Stop requested. Daemon is removing its presence from the registry...
+14:12:12.580 [DEBUG] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Removing our presence to clients, eg. removing this address from the registry: [f725259f-bae0-41f6-aebe-195715dab7f7 port:34128, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:12:12.581 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Removing daemon address: [f725259f-bae0-41f6-aebe-195715dab7f7 port:34128, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:12:12.583 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+14:12:12.584 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+14:12:12.591 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+14:12:12.592 [DEBUG] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Address removed from registry.
+Daemon vm is shutting down... The daemon has exited normally or was terminated in response to a user interrupt.
+14:12:12.596 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Removing daemon address: [f725259f-bae0-41f6-aebe-195715dab7f7 port:34128, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:12:12.597 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+14:12:12.597 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+14:12:12.598 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.

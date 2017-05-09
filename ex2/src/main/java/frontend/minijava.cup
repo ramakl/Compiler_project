@@ -113,9 +113,9 @@ terminal String   NUMBER, ID;
 non terminal MJProgram program;
 non terminal MJMainClass mainclass;
 non terminal MJClassDecl classdecl;
-
+non terminal MJClassDeclList classdecllist;
 non terminal MJMemberDecl memberdecl;
-non terminal MJMemberDeclList memberdecllist;
+non terminal MJMemberDecl memberdecllist;
 non terminal MJStatement statement;
 non terminal MJBlock block;
 non terminal MJVarDecl vardecl;
@@ -132,18 +132,7 @@ non terminal MJType type;
 non terminal MJOperator op;
 non terminal MJExpr expr;
 non terminal  MJExprList exprlist;
-
 non terminal  MJExprList exprRest;
-
-
-
-//non terminal MJBlock block;
-//non terminal MJStatement statement;
-
-
-
-//non terminal MJBlock block;
-//non terminal MJStatement statement;
 
 //end rama
 //Monireh
@@ -166,8 +155,8 @@ precedence left LPAREN;
 
 
  program ::=
-         mainclass:mc classdecl:cd
-         {: RESULT = new MJProgram(mc, cd); :}
+         mainclass:mc classdecllist:cdl
+         {: RESULT = Program(mc, cdl); :}
         ;
     // mc ::= is Wrong we have to use non terminal that we defined.
     // MainClass → class id { public static void main ( String [ ] id ) Block }
@@ -177,10 +166,10 @@ precedence left LPAREN;
                         RBRACE
         {:
 
-            //id = new MJTypeClass(name);
+            //id = new TypeClass(name);
 
             // RESULT = new MJMainClass(,body);   The Main-class cannot be instantiated
-            RESULT = MJMainClass(name, argName ,body);
+            RESULT = MainClass(name, argName ,body);
         :}
         ;
 
@@ -191,48 +180,44 @@ precedence left LPAREN;
     classdecl ::=
         CLASS ID:name LBRACE memberdecllist:mdl RBRACE
             {:
-                RESULT = new MJClassDeclList(name,mdl);
+                RESULT =  ClassDeclList(name,mdl);
             :}
-        | CLASS ID EXTENDS ID:name LBRACE memberdecllist:mdl RBRACE
+        | CLASS ID:name EXTENDS ID:extended LBRACE memberdecllist:mdl RBRACE
             {:
-                RESULT = new MJClassDeclList(name, mdl);
+                RESULT =  ClassDeclList(name,extended, mdl);
             :}
         ;
 
 
-    memberdecl ::= vardecl:vd
-
-    {: RESULT=new MJMemberDecl(vd); :}
-    |
-    methodecl:mtd
-    {: RESULT=new MJMemberDecl(mtd); :}
+    memberdecl ::=
+        vardecl:vd    {: RESULT=new MemberDecl(vd); :}
+        | methodecl:mtd    {: RESULT= MemberDecl(mtd); :}
     ;
 
-    vardecl ::= type:t ID:name SEMI
-    {:
-    RESULT = new MJVarDecl(t,name); :}
+    vardecl ::=
+        type:t ID:name SEMI    {:  RESULT =  VarDecl(t,name); :}
     ;
 
     methodecl::= type:t ID:name LBRACE vardeclist:vdl RBRACE block:b
     {:
-    RESULT= new MJMethodDecl(t,name,vdl,b);:}
+    RESULT=  MethodDecl(t,name,vdl,b);:}
     ;
 
     vardeclist ::= type:t ID:name vardeclist:vdlrest
     {:
-    RESULT =  new MJVarDeclList(t,name,vdlrest);:}
+    RESULT =  VarDeclList(t,name,vdlrest);:}
     ;
 
     vardeclist ::= COMMA type:t ID:name
     {:
-    RESULT = new MJVarDeclList(t,name); :}
+    RESULT =  VarDeclList(t,name); :}
     ;
 //Monireh start
  type ::=
-        INT LBRACKET RBRACKET  {: RESULT = new MJTypeIntArray(); :}
-        | BOOLEAN              {: RESULT = new MJTypeBool(); :}
-        | INT                  {: RESULT = new MJTypeInt(); :}
-        | ID:name              {: RESULT = new MJTypeClass(name); :};
+        INT LBRACKET RBRACKET  {: RESULT =  TypeIntArray(); :}
+        | BOOLEAN              {: RESULT =  TypeBool(); :}
+        | INT                  {: RESULT =  TypeInt(); :}
+        | ID:name              {: RESULT =  TypeClass(name); :};
 //End of Type
 //rama start
 
@@ -240,78 +225,79 @@ precedence left LPAREN;
 statement ::=
 
        block:body
-       {: RESULT = new MJBlock(body); :}
+       {: RESULT =  Block(body); :}
        | IF LPAREN expr:e1 RPAREN statement:s1 ELSE statement:s2
-        {: RESULT = new MJStmtIf(e1,s1,s2); :}
+        {: RESULT =  StmtIf(e1,s1,s2); :}
        | WHILE LPAREN expr:e1 RPAREN statement:s1
-       {: RESULT = new MJStmtWhile(e1,s1); :}
+       {: RESULT =  StmtWhile(e1,s1); :}
        | RETURN   expr:e1
-       {: RESULT = new MJStmtReturn(e1); :}
+       {: RESULT =  StmtReturn(e1); :}
        |SYSTEM DOT OUT DOT PRINTLN  LPAREN expr :e1 RPAREN
-       {: RESULT = new MJStmtPrint(e1); :}
+       {: RESULT =  StmtPrint(e1); :}
        | expr:e1 SEMI
-       {: RESULT = new MJStmtExpr(e1); :}
+       {: RESULT =  StmtExpr(e1); :}
        | expr:e1 EQ expr:e2
 
-       {: RESULT = new MJStmtAssign(e1,e2); :}
+       {: RESULT =  StmtAssign(e1,e2); :}
 ;
 
 
 expr ::=       expr:e1 op:op1 expr:e2
-			   {: RESULT = new MJOperator(e1,e2,op1); :}
+			   {: RESULT =  Operator(e1,e2,op1); :}
 			   |NEG expr:e1
-			   {: RESULT = newMJNegate(e1); :}
+			   {: RESULT =  Negate(e1); :}
 			   | MINUS  expr:e1
-               {: RESULT = new MJUnaryMinus(e1); :}
+               {: RESULT =  UnaryMinus(e1); :}
 			   | expr:e1  LBRACKET expr:e2 RBRACKET
-			   {: RESULT = new MJArrayLookup(e1,e2); :}
+			   {: RESULT =  ArrayLookup(e1,e2); :}
                | expr:e1  DOT LENGTH
-                {: RESULT = new MJArrayLength(e1); :}
+                {: RESULT =  ArrayLength(e1); :}
                | expr:e1  DOT ID:id
-               {: RESULT = new MJFieldAccess(e1,id); :}
+               {: RESULT =  FieldAccess(e1,id); :}
                | expr:e1  DOT ID:id
-               {: RESULT = new MJMethodCall(e1,id); :}
+               {: RESULT =  MethodCall(e1,id); :}
                | expr:e1  DOT ID:id LPAREN exprlist:el RPAREN
-               {: RESULT = new MJMethodCall(e1,id,el); :}
+               {: RESULT =  MethodCall(e1,id,el); :}
 			   |TRUE
-			   {: RESULT = new MJTypeBool(); :}
+			   {: RESULT =  TypeBool(); :}
 			   | FALSE
-			   {: RESULT = new MJTypeBool(); :}
+			   {: RESULT =  TypeBool(); :}
 			   | ID:id
-			   {: RESULT = new MJVarDecl(id);  :}
+			   {: RESULT =  VarDecl(id);  :}
 			   | NUMBER:n
-                {: RESULT = new MJNumber(Integer.parseInt(n)); :}
+                {: RESULT =  Number(Integer.parseInt(n)); :}
 			   | THIS:t
-			   {: RESULT = new MJExprThis(); :}
+			   {: RESULT =  ExprThis(); :}
 			   | NULL
-               {: RESULT = new MJExprNull(); :}
+               {: RESULT =  ExprNull(); :}
                | NEW INT LBRACKET expr:e1 RBRACKET
-			   {: RESULT = new MJNewIntArray(e1); :}
+			   {: RESULT =  NewIntArray(e1); :}
 			   | NEW ID:id LPAREN RPAREN
-               {: RESULT = new MJNewObject(id); :}
+               {: RESULT =  NewObject(id); :}
                |  LPAREN expr:e1 RPAREN
                {: RESULT =  e1; :}
                ;
 
 
 
-
 exprlist ::=    expr:e1 exprRest:er
-              {: RESULT = new MJExprList(e1,er); :} ;
+              {: RESULT =  ExprList(e1,er); :} ;
 
 exprRest ::=  COMMA  expr: e1
-              {: RESULT = new MJExprList(e1); :};
+              {: RESULT =  ExprList(e1); :};
 
 //ID ::=
            //  ???;
 op::=
-          AND {: RESULT = MJAnd(); :}
-          | PLUS {: RESULT = MJPlus(); :}
-           | MINUS {: RESULT = MJMinus(); :}
-           | TIMES {: RESULT = MJTimes(); :}
-           | DIV {: RESULT = MJDiv(); :}
-           | LESS {: RESULT = MJLess(); :}
-           | EQUALS {: RESULT = MJEquals(); :}
+          AND {: RESULT = And(); :}
+          //| PLUS {: RESULT = MJPlus(); :}
+          | expr:el PLUS  expr:er
+          {: RESULT = ExprBinary(el,Plus(),er); :}
+          | MINUS {: RESULT = Minus(); :}
+          | TIMES {: RESULT = Times(); :}
+          | DIV {: RESULT = Div(); :}
+          | LESS {: RESULT = Less(); :}
+          | EQUALS {: RESULT = Equals(); :}
 ;
 
 
