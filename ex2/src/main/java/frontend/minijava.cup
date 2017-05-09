@@ -117,6 +117,7 @@ non terminal MJClassDeclList classdecllist;
 non terminal MJMemberDecl memberdecl;
 non terminal MJMemberDecl memberdecllist;
 non terminal MJStatement statement;
+non terminal MJStatement blockstatement;
 non terminal MJBlock block;
 non terminal MJVarDecl vardecl;
 non terminal MJMethodDecl methodecl;
@@ -221,7 +222,20 @@ precedence left LPAREN;
 //End of Type
 //rama start
 
+//Block -> {Blockstatement*}
+block ::=
+    LBRACE blockstatement:b RBRACE
+     {: RESULT = MJBlock(b); :}
+     |LBRACE RBRACE
+     {: RESULT = MJBlock(); :};
 
+//BlockStatement -> Statement | type id;
+blockstatement ::=
+    statement:s
+    {: RESULT = MJStatement(s); :}
+    | type:t ID:name
+    {: RESULT = MJStatement(t, name); :};
+    
 statement ::=
 
        block:body
