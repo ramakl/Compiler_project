@@ -117,6 +117,8 @@ non terminal MJClassDeclList classdecllist;
 non terminal MJMemberDecl memberdecl;
 //non terminal MJMemberDecl memberdecllist;
 non terminal ArrayList memberdecllist;
+non terminal ArrayList paramList;
+non terminal ArrayList paramRest;
 non terminal MJStatement statement;
 non terminal ArrayList blockstatement;
 non terminal MJBlock block;
@@ -177,24 +179,51 @@ precedence left LPAREN;
 
     // ClassDecl → class id { MemberDecl* }
     //   | class id extends id { MemberDecl* }
-    //MemberDecl*  means might appear an arbitrary  number of times (MJClassDeclList)
+    //MemberDecl*  means might appear an arbitrary number of times (MJClassDeclList)
 
     classdecl ::=
         CLASS ID:name LBRACE memberdecllist:mdl RBRACE
-            {:
-                RESULT =  ClassDeclList(name,mdl);
-            :}
+        //{: RESULT =  ClassDeclList(name,mdl);   :}
+        {:
+            MJVarDeclList fields = VarDeclList();
+            MJMethodDeclList methods = MethodDeclList();
+            // the ClassDecl accept 4 parameter ( name, extended,  fields,  methods)
+            RESULT =  ClassDeclList(name, ExtendsNothing(), fields, methods );
+
+        :}
+
         | CLASS ID:name EXTENDS ID:extended LBRACE memberdecllist:mdl RBRACE
-            {:
-                RESULT =  ClassDeclList(name,extended, mdl);
-            :}
+        //{: RESULT =  ClassDeclList(name,extended, mdl); :}
+        {:
+            MJVarDeclList fields = VarDeclList();
+            MJMethodDeclList methods = MethodDeclList();
+            RESULT =  ClassDeclList(name,ExtendsClass(extended),fields, methods );
+        :}
         ;
-
-
-    memberdecl ::=
-        vardecl:vd    {: RESULT=new MemberDecl(vd); :}
-        | methodecl:mtd    {: RESULT= MemberDecl(mtd); :}
+    // same approach that we used for  blockstatement (add to array)
+    classdecllist ::=
+    	classdecl:c classdecllist:cdl
+    	{: RESULT = cdl; cdl.add(0, c); :}
+    	| /* if empty the make a new one */
+    	{: RESULT = ClassDeclList(); :}
+    	;
+    memberdecllist::=
+    	methodecl:m memberdecllist:mdl
+    	{: RESULT = mdl; mdl.add(0, m); :}
+    	|
+    	vardecl:var memberdecllist:mdl
+    	{: RESULT = mdl; mdl.add(0, var); :}
+    	| /* if empty the make a new one */
+    	{:
+    		ArrayList memberdecllist = new ArrayList();
+    		RESULT = memberdecllist;
+    	:}
     ;
+    // we should define memberdecl as a list
+    //memberdecl ::=
+    //    vardecl:vd    {: RESULT=new MemberDecl(vd); :}
+    //    | methodecl:mtd    {: RESULT= MemberDecl(mtd); :}
+    //;
 
     vardecl ::=
         type:t ID:name SEMI    {:  RESULT =  VarDecl(t,name); :}
@@ -202,18 +231,46 @@ precedence left LPAREN;
 
     methodecl::= type:t ID:name LBRACE vardeclist:vdl RBRACE block:b
     {:
-    RESULT=  MethodDecl(t,name,vdl,b);:}
+        RESULT=  MethodDecl(t,name,vdl,b);
+    :}
     ;
+    // we don't need vardeclist in our grammar
+    //vardeclist ::= type:t ID:name vardeclist:vdlrest
+    //{:
+    //RESULT =  VarDeclList(t,name,vdlrest);:}
+    //;
 
-    vardeclist ::= type:t ID:name vardeclist:vdlrest
-    {:
-    RESULT =  VarDeclList(t,name,vdlrest);:}
-    ;
+    //vardeclist ::= COMMA type:t ID:name
+    //paramList ::= COMMA type:t ID:name
+    //{:
+    //RESULT =  VarDeclList(t,name);
+    //:}
+    //;
 
-    vardeclist ::= COMMA type:t ID:name
-    {:
-    RESULT =  VarDeclList(t,name); :}
-    ;
+    paramList ::=
+    	type:t ID:name paramRest:pr
+    	{:
+    		MJVarDecl var = VarDecl(t, name);
+    		RESULT = pr;
+    		pr.add(0, var);
+    	:}
+    	;
+
+    // It's array so we should add into it, like the rest approach that we use for the others
+    paramRest ::=
+    	COMMA type:t ID:name paramRest:pr
+    	{:
+    		MJVarDecl var = VarDecl(t, name);
+    		RESULT = pr;
+    		pr.add(0, var);
+    	:}
+    	| /* empty */
+    	{:
+    		ArrayList paramRestList = new ArrayList();
+    		RESULT = paramRestList;
+    	:}
+    	;
+
 //Monireh start
  type ::=
         INT LBRACKET RBRACKET  {: RESULT =  TypeIntArray(); :}
@@ -225,10 +282,9 @@ precedence left LPAREN;
 
 //Block -> {Blockstatement*}
 block ::=
-    LBRACE blockstatement:b RBRACE
-     {: RESULT = MJBlock(b); :}
-     |LBRACE RBRACE
-     {: RESULT = MJBlock(); :};
+     LBRACE blockstatement:b RBRACE
+          {: RESULT = Block(b); :}
+     ;
 
 //BlockStatement -> Statement | type id;
 blockstatement ::=
@@ -245,7 +301,7 @@ blockstatement ::=
         //MJVarDecl extends MJStatement also have get type, get name
         MJVarDecl var = VarDecl(t, name);
         RESULT = stmlist; stmlist.add(0, var); :}
-    | /* empty */
+    | /* if empty the make a new one */
     {:
         ArrayList blockstatement = new ArrayList();
         RESULT = blockstatement;
@@ -272,47 +328,50 @@ statement ::=
 ;
 
 
-expr ::=       expr:e1 op:op1 expr:e2
-			   {: RESULT =  Operator(e1,e2,op1); :}
-			   |NEG expr:e1
-			   {: RESULT =  Negate(e1); :}
-			   | MINUS  expr:e1
-               {: RESULT =  UnaryMinus(e1); :}
+expr ::=
+       // in MJ we don't have Operator function, so we could use ExprBinary instead.
+       //expr:e1 op:op1 expr:e2
+       //{: RESULT =  Operator(e1,e2,op1); :}
+       //{: RESULT =  ExprBinary(e1,op1,e2); :}
+       NEG expr:e1
+       {: RESULT =  Negate(e1); :}
+       | MINUS  expr:e1
+       {: RESULT =  UnaryMinus(e1); :}
 
-               |expr:arrayN LBRACKET expr:arrayI RBRACKET
-               {: RESULT = ArrayLookup(arrayN,arrayI);  :}
-			   //| expr:e1  LBRACKET expr:e2 RBRACKET
-			   //{: RESULT =  ArrayLookup(e1,e2); :}
-               | expr:e1  DOT LENGTH
-               {: RESULT =  ArrayLength(e1); :}
+       |expr:arrayN LBRACKET expr:arrayI RBRACKET
+       {: RESULT = ArrayLookup(arrayN,arrayI);  :}
+       //| expr:e1  LBRACKET expr:e2 RBRACKET
+       //{: RESULT =  ArrayLookup(e1,e2); :}
+       | expr:e1  DOT LENGTH
+       {: RESULT =  ArrayLength(e1); :}
 
-               | expr:rec  DOT ID:field
-               {: RESULT =  FieldAccess(rec,field); :}
+       | expr:rec  DOT ID:field
+       {: RESULT =  FieldAccess(rec,field); :}
 
-               // Reduce-Reduce conflict was occurred
-               //| expr:e1  DOT ID:id
-               //{: RESULT =  MethodCall(e1,id); :}
-               | expr:e1  DOT ID:method LPAREN exprlist:elist RPAREN
-               {: RESULT =  MethodCall(e1,method,elist); :}
-			   |TRUE
-			   {: RESULT =  TypeBool(); :}
-			   | FALSE
-			   {: RESULT =  TypeBool(); :}
-			   | ID:idName
-			   {: RESULT =  VarDecl(idName);  :}
-			   | NUMBER:n
-                {: RESULT =  Number(Integer.parseInt(n)); :}
-			   | THIS:t
-			   {: RESULT =  ExprThis(t); :}
-			   | NULL
-               {: RESULT =  ExprNull(); :}
-               | NEW INT LBRACKET expr:e1 RBRACKET
-			   {: RESULT =  NewIntArray(e1); :}
-			   | NEW ID:idobj LPAREN RPAREN
-               {: RESULT =  NewObject(idobj); :}
-               |  LPAREN expr:e1 RPAREN
-               {: RESULT =  e1; :}
-               ;
+       // Reduce-Reduce conflict was occurred
+       //| expr:e1  DOT ID:id
+       //{: RESULT =  MethodCall(e1,id); :}
+       | expr:e1  DOT ID:method LPAREN exprlist:elist RPAREN
+       {: RESULT =  MethodCall(e1,method,elist); :}
+       |TRUE
+       {: RESULT =  TypeBool(); :}
+       | FALSE
+       {: RESULT =  TypeBool(); :}
+       | ID:idName
+       {: RESULT =  VarDecl(idName);  :}
+       | NUMBER:n
+        {: RESULT =  Number(Integer.parseInt(n)); :}
+       | THIS:t
+       {: RESULT =  ExprThis(t); :}
+       | NULL
+       {: RESULT =  ExprNull(); :}
+       | NEW INT LBRACKET expr:nia RBRACKET
+       {: RESULT =  NewIntArray(nia); :}
+       | NEW ID:idobj LPAREN:lp RPAREN:rp
+       {: RESULT =  NewObject(idobj); :}
+       |  LPAREN expr:e1 RPAREN
+       {: RESULT =  e1; :}
+       ;
 
 
 
@@ -325,15 +384,15 @@ exprRest ::=  COMMA  expr: e1
 //ID ::=
            //  ???;
 op::=
-          AND {: RESULT = And(); :}
-          //| PLUS {: RESULT = MJPlus(); :}
-          | expr:el PLUS  expr:er
-          {: RESULT = ExprBinary(el,Plus(),er); :}
-          | MINUS {: RESULT = Minus(); :}
-          | TIMES {: RESULT = Times(); :}
-          | DIV {: RESULT = Div(); :}
-          | LESS {: RESULT = Less(); :}
-          | EQUALS {: RESULT = Equals(); :}
+      AND {: RESULT = And(); :}
+      //| PLUS {: RESULT = MJPlus(); :}
+      | expr:el PLUS expr:er
+      {: RESULT = ExprBinary(el, Plus() ,er); :}
+      | MINUS {: RESULT = Minus(); :}
+      | TIMES {: RESULT = Times(); :}
+      | DIV {: RESULT = Div(); :}
+      | LESS {: RESULT = Less(); :}
+      | EQUALS {: RESULT = Equals(); :}
 ;
 
 
