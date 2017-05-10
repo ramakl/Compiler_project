@@ -115,9 +115,10 @@ non terminal MJMainClass mainclass;
 non terminal MJClassDecl classdecl;
 non terminal MJClassDeclList classdecllist;
 non terminal MJMemberDecl memberdecl;
-non terminal MJMemberDecl memberdecllist;
+//non terminal MJMemberDecl memberdecllist;
+non terminal ArrayList memberdecllist;
 non terminal MJStatement statement;
-non terminal MJStatement blockstatement;
+non terminal ArrayList blockstatement;
 non terminal MJBlock block;
 non terminal MJVarDecl vardecl;
 non terminal MJMethodDecl methodecl;
@@ -231,13 +232,28 @@ block ::=
 
 //BlockStatement -> Statement | type id;
 blockstatement ::=
-    statement:s
-    {: RESULT = MJStatement(s); :}
-    | type:t ID:name
-    {: RESULT = MJStatement(t, name); :};
+    statement:s blockstatement:stmlist
+    // we whant to add an new item to the array
+    {: RESULT = stmlist; stmlist.add(0, s); :}
+    //statement:s
+    //{: RESULT = MJStatement(s); :}
+    //| type:t ID:name
+    //{: RESULT = MJStatement(t, name); :}
+    |
+    type:t ID:name SEMI blockstatement:stmlist
+    {:
+        //MJVarDecl extends MJStatement also have get type, get name
+        MJVarDecl var = VarDecl(t, name);
+        RESULT = stmlist; stmlist.add(0, var); :}
+    | /* empty */
+    {:
+        ArrayList blockstatement = new ArrayList();
+        RESULT = blockstatement;
+    :}
+    ;
+
     
 statement ::=
-
        block:body
        {: RESULT =  Block(body); :}
        | IF LPAREN expr:e1 RPAREN statement:s1 ELSE statement:s2
@@ -262,32 +278,38 @@ expr ::=       expr:e1 op:op1 expr:e2
 			   {: RESULT =  Negate(e1); :}
 			   | MINUS  expr:e1
                {: RESULT =  UnaryMinus(e1); :}
-			   | expr:e1  LBRACKET expr:e2 RBRACKET
-			   {: RESULT =  ArrayLookup(e1,e2); :}
+
+               |expr:arrayN LBRACKET expr:arrayI RBRACKET
+               {: RESULT = ArrayLookup(arrayN,arrayI);  :}
+			   //| expr:e1  LBRACKET expr:e2 RBRACKET
+			   //{: RESULT =  ArrayLookup(e1,e2); :}
                | expr:e1  DOT LENGTH
-                {: RESULT =  ArrayLength(e1); :}
-               | expr:e1  DOT ID:id
-               {: RESULT =  FieldAccess(e1,id); :}
-               | expr:e1  DOT ID:id
-               {: RESULT =  MethodCall(e1,id); :}
-               | expr:e1  DOT ID:id LPAREN exprlist:el RPAREN
-               {: RESULT =  MethodCall(e1,id,el); :}
+               {: RESULT =  ArrayLength(e1); :}
+
+               | expr:rec  DOT ID:field
+               {: RESULT =  FieldAccess(rec,field); :}
+
+               // Reduce-Reduce conflict was occurred
+               //| expr:e1  DOT ID:id
+               //{: RESULT =  MethodCall(e1,id); :}
+               | expr:e1  DOT ID:method LPAREN exprlist:elist RPAREN
+               {: RESULT =  MethodCall(e1,method,elist); :}
 			   |TRUE
 			   {: RESULT =  TypeBool(); :}
 			   | FALSE
 			   {: RESULT =  TypeBool(); :}
-			   | ID:id
-			   {: RESULT =  VarDecl(id);  :}
+			   | ID:idName
+			   {: RESULT =  VarDecl(idName);  :}
 			   | NUMBER:n
                 {: RESULT =  Number(Integer.parseInt(n)); :}
 			   | THIS:t
-			   {: RESULT =  ExprThis(); :}
+			   {: RESULT =  ExprThis(t); :}
 			   | NULL
                {: RESULT =  ExprNull(); :}
                | NEW INT LBRACKET expr:e1 RBRACKET
 			   {: RESULT =  NewIntArray(e1); :}
-			   | NEW ID:id LPAREN RPAREN
-               {: RESULT =  NewObject(id); :}
+			   | NEW ID:idobj LPAREN RPAREN
+               {: RESULT =  NewObject(idobj); :}
                |  LPAREN expr:e1 RPAREN
                {: RESULT =  e1; :}
                ;
