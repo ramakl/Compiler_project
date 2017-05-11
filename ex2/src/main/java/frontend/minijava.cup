@@ -136,7 +136,7 @@ non terminal MJType type;
 non terminal MJOperator op;
 non terminal MJExpr expr;
 non terminal  MJExprList exprlist;
-non terminal  MJExprList exprRest;
+non terminal  MJExpr exprRest;
 
 //end rama
 
@@ -336,9 +336,9 @@ expr ::=
     //{: RESULT =  Operator(e1,e2,op1); :}
     //{: RESULT =  ExprBinary(e1,op1,e2); :}
     NEG expr:e1
-    {: RESULT =  Negate(e1); :}
+    {: RESULT =  ExprUnary(Negate(), e1); :}
     | MINUS  expr:e1
-    {: RESULT =  UnaryMinus(e1); :}
+    {: RESULT =  ExprUnary(UnaryMinus(),e1); :}
 
     |expr:arrayN LBRACKET expr:arrayI RBRACKET
     {: RESULT = ArrayLookup(arrayN,arrayI);  :}
@@ -356,15 +356,15 @@ expr ::=
     | expr:e1  DOT ID:method LPAREN exprlist:elist RPAREN
     {: RESULT =  MethodCall(e1,method,elist); :}
     |TRUE
-    {: RESULT =  TypeBool(); :}
+    {: RESULT = (MJExpr) TypeBool(); :}
     | FALSE
-    {: RESULT =  TypeBool(); :}
+    {: RESULT = (MJExpr) TypeBool(); :}
     | ID:idName
-    {: RESULT =  VarDecl(idName);  :}
+    {: RESULT =  VarDecl( idName);  :}
     | NUMBER:n
     {: RESULT =  Number(Integer.parseInt(n)); :}
-    | THIS:t
-    {: RESULT =  ExprThis(t); :}
+    | THIS
+    {: RESULT =  ExprThis(); :}
     | NULL
     {: RESULT =  ExprNull(); :}
     | NEW INT LBRACKET expr:nia RBRACKET
@@ -377,9 +377,10 @@ expr ::=
 
 
 exprlist ::=    expr:e1 exprRest:er
-              {: RESULT =  ExprList(e1,er); :} ;
+              {:
+              RESULT =  ExprList(e1,er); :} ;
 
-exprRest ::=  COMMA  expr: e1
+exprRest ::=  COMMA  expr:e1
               {: RESULT =  ExprList(e1); :};
 
 //ID ::=
