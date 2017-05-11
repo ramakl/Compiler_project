@@ -356,9 +356,9 @@ expr ::=
     | expr:e1  DOT ID:method LPAREN exprlist:elist RPAREN
     {: RESULT =  MethodCall(e1,method,elist); :}
     |TRUE
-    {: RESULT = (MJExpr) TypeBool(); :}
+    {: RESULT = BoolConst(true); :}
     | FALSE
-    {: RESULT = (MJExpr) TypeBool(); :}
+    {: RESULT = BoolConst(false); :}
     | ID:idName
     {: RESULT =  VarUse( idName);  :}
     | NUMBER:n
@@ -376,6 +376,7 @@ expr ::=
     ;
 
 
+
 exprlist ::=
     expr:e1 exprRest:er
     {:
@@ -385,10 +386,19 @@ exprlist ::=
     :}
     ;
 
-exprRest ::=  COMMA  expr:e1
-              {: RESULT =  NewIntArray(e1); :};
+exprRest ::=  COMMA  expr:e1 exprRest:er
+    {:
+        MJNewIntArray narray = NewIntArray(e1);
+        RESULT =  er;
+        narray.add(0,narray);
 
-
+    :}
+    | /* if empty the make a new one */
+    {:
+        ArrayList exprRest = new ArrayList();
+        RESULT = exprRest;
+    :}
+    ;
 
 //ID ::=
            //  ???;
