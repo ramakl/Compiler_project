@@ -188,7 +188,7 @@ precedence left LPAREN;
             MJVarDeclList fields = VarDeclList();
             MJMethodDeclList methods = MethodDeclList();
             // the ClassDecl accept 4 parameter ( name, extended,  fields,  methods)
-            RESULT =  ClassDeclList(name, ExtendsNothing(), fields, methods );
+            RESULT =  ClassDecl(name, ExtendsNothing(), fields, methods );
 
         :}
 
@@ -197,7 +197,7 @@ precedence left LPAREN;
         {:
             MJVarDeclList fields = VarDeclList();
             MJMethodDeclList methods = MethodDeclList();
-            RESULT =  ClassDeclList(name,ExtendsClass(extended),fields, methods );
+            RESULT =  ClassDecl(name,ExtendsClass(extended),fields, methods );
         :}
         ;
     // same approach that we used for  blockstatement (add to array)
@@ -257,14 +257,16 @@ precedence left LPAREN;
     	;
 
     // It's array so we should add into it, like the rest approach that we use for the others
+    // Arrays.fill(array, 0); <- this is also another method to fill array,
+    //but in our case add method for String ArrayList make more sence
     paramRest ::=
     	COMMA type:t ID:name paramRest:pr
     	{:
     		MJVarDecl var = VarDecl(t, name);
     		RESULT = pr;
-    		pr.add(0, var);
+    		pr.add(0,var);
     	:}
-    	| /* empty */
+    	| /* if empty the make a new one */
     	{:
     		ArrayList paramRestList = new ArrayList();
     		RESULT = paramRestList;
@@ -384,10 +386,11 @@ exprRest ::=  COMMA  expr: e1
 //ID ::=
            //  ???;
 op::=
-      AND {: RESULT = And(); :}
+
       //| PLUS {: RESULT = MJPlus(); :}
-      | expr:el PLUS expr:er
-      {: RESULT = ExprBinary(el, Plus() ,er); :}
+      | expr:l PLUS expr:r
+      	{: RESULT = ExprBinary(l, Plus(), r); :}
+      AND {: RESULT = And(); :}
       | MINUS {: RESULT = Minus(); :}
       | TIMES {: RESULT = Times(); :}
       | DIV {: RESULT = Div(); :}
