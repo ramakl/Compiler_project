@@ -4,6 +4,12 @@ import java_cup.runtime.ComplexSymbolFactory;
 import java_cup.runtime.Symbol;
 import minijava.ast.MJElement;
 import minijava.ast.MJProgram;
+import minijava.ast.MJStmtExpr;
+import minijava.ast.MJExpr;
+import minijava.ast.MJMethodCall;
+import minijava.ast.MJNewObject;
+
+
 import minijava.syntax.Lexer;
 import minijava.syntax.MiniJavaParser;
 
@@ -57,6 +63,10 @@ public class MJFrontend {
 	 */
 	private void detectInvalidStatements(MJProgram value) {
 		// TODO part 2 of exercise
+		value.accept(
+                new MJElement.DefaultVisitor() {}
+
+        );
 	}
 
 

@@ -139,9 +139,9 @@ non terminal  MJExprList exprlist;
 non terminal  MJExprList exprRest;
 
 //end rama
-//Monireh
 
-// a = b, b has high priority
+//Monireh
+// in such a expresion like a = b, b has high priority
 // a = (x+5<10) and (8*y== 45)
 precedence right EQ;
 precedence left AND;
@@ -227,25 +227,25 @@ memberdecllist::=
 
 vardecl ::=
     type:t ID:name SEMI    {:  RESULT =  VarDecl(t,name); :}
-;
+    ;
 
 methodecl::= type:t ID:name LBRACE vardeclist:vdl RBRACE block:b
-{:
-    RESULT=  MethodDecl(t,name,vdl,b);
-:}
-;
-// we don't need vardeclist in our grammar
-//vardeclist ::= type:t ID:name vardeclist:vdlrest
-//{:
-//RESULT =  VarDeclList(t,name,vdlrest);:}
-//;
+    {:
+        RESULT=  MethodDecl(t,name,vdl,b);
+    :}
+    ;
+    // we don't need vardeclist in our grammar
+    //vardeclist ::= type:t ID:name vardeclist:vdlrest
+    //{:
+    //RESULT =  VarDeclList(t,name,vdlrest);:}
+    //;
 
-//vardeclist ::= COMMA type:t ID:name
-//paramList ::= COMMA type:t ID:name
-//{:
-//RESULT =  VarDeclList(t,name);
-//:}
-//;
+    //vardeclist ::= COMMA type:t ID:name
+    //paramList ::= COMMA type:t ID:name
+    //{:
+    //RESULT =  VarDeclList(t,name);
+    //:}
+    //;
 
 paramList ::=
     type:t ID:name paramRest:pr
@@ -256,9 +256,9 @@ paramList ::=
     :}
     ;
 
-// It's array so we should add into it, like the rest approach that we use for the others
-// Arrays.fill(array, 0); <- this is also another method to fill array,
-//but in our case add method for String ArrayList make more sence
+    // It's array so we should add into it, like the rest approach that we use for the others
+    // Arrays.fill(array, 0); <- this is also another method to fill array,
+    //but in our case add method for String ArrayList make more sence
 paramRest ::=
     COMMA type:t ID:name paramRest:pr
     {:
@@ -273,22 +273,22 @@ paramRest ::=
     :}
     ;
 
-//Monireh start
- type ::=
-        INT LBRACKET RBRACKET  {: RESULT =  TypeIntArray(); :}
-        | BOOLEAN              {: RESULT =  TypeBool(); :}
-        | INT                  {: RESULT =  TypeInt(); :}
-        | ID:name              {: RESULT =  TypeClass(name); :};
-//End of Type
-//rama start
+    //Monireh start
+type ::=
+    INT LBRACKET RBRACKET  {: RESULT =  TypeIntArray(); :}
+    | BOOLEAN              {: RESULT =  TypeBool(); :}
+    | INT                  {: RESULT =  TypeInt(); :}
+    | ID:name              {: RESULT =  TypeClass(name); :};
+    //End of Type
+    //rama start
 
-//Block -> {Blockstatement*}
+    //Block -> {Blockstatement*}
 block ::=
      LBRACE blockstatement:b RBRACE
           {: RESULT = Block(b); :}
      ;
 
-//BlockStatement -> Statement | type id;
+    //BlockStatement -> Statement | type id;
 blockstatement ::=
     statement:s blockstatement:stmlist
     // we whant to add an new item to the array
@@ -312,68 +312,68 @@ blockstatement ::=
 
     
 statement ::=
-       block:body
-       {: RESULT =  Block(body); :}
-       | IF LPAREN expr:e1 RPAREN statement:s1 ELSE statement:s2
-        {: RESULT =  StmtIf(e1,s1,s2); :}
-       | WHILE LPAREN expr:e1 RPAREN statement:s1
-       {: RESULT =  StmtWhile(e1,s1); :}
-       | RETURN   expr:e1
-       {: RESULT =  StmtReturn(e1); :}
-       |SYSTEM DOT OUT DOT PRINTLN  LPAREN expr :e1 RPAREN
-       {: RESULT =  StmtPrint(e1); :}
-       | expr:e1 SEMI
-       {: RESULT =  StmtExpr(e1); :}
-       | expr:e1 EQ expr:e2
+    block:body
+    {: RESULT =  Block(body); :}
+    | IF LPAREN expr:e1 RPAREN statement:s1 ELSE statement:s2
+    {: RESULT =  StmtIf(e1,s1,s2); :}
+    | WHILE LPAREN expr:e1 RPAREN statement:s1
+    {: RESULT =  StmtWhile(e1,s1); :}
+    | RETURN   expr:e1
+    {: RESULT =  StmtReturn(e1); :}
+    |SYSTEM DOT OUT DOT PRINTLN  LPAREN expr :e1 RPAREN
+    {: RESULT =  StmtPrint(e1); :}
+    | expr:e1 SEMI
+    {: RESULT =  StmtExpr(e1); :}
+    | expr:e1 EQ expr:e2
 
-       {: RESULT =  StmtAssign(e1,e2); :}
-;
+    {: RESULT =  StmtAssign(e1,e2); :}
+    ;
 
 
 expr ::=
-       // in MJ we don't have Operator function, so we could use ExprBinary instead.
-       //expr:e1 op:op1 expr:e2
-       //{: RESULT =  Operator(e1,e2,op1); :}
-       //{: RESULT =  ExprBinary(e1,op1,e2); :}
-       NEG expr:e1
-       {: RESULT =  Negate(e1); :}
-       | MINUS  expr:e1
-       {: RESULT =  UnaryMinus(e1); :}
+    // in MJ we don't have Operator function, so we could use ExprBinary instead.
+    //expr:e1 op:op1 expr:e2
+    //{: RESULT =  Operator(e1,e2,op1); :}
+    //{: RESULT =  ExprBinary(e1,op1,e2); :}
+    NEG expr:e1
+    {: RESULT =  Negate(e1); :}
+    | MINUS  expr:e1
+    {: RESULT =  UnaryMinus(e1); :}
 
-       |expr:arrayN LBRACKET expr:arrayI RBRACKET
-       {: RESULT = ArrayLookup(arrayN,arrayI);  :}
-       //| expr:e1  LBRACKET expr:e2 RBRACKET
-       //{: RESULT =  ArrayLookup(e1,e2); :}
-       | expr:e1  DOT LENGTH
-       {: RESULT =  ArrayLength(e1); :}
+    |expr:arrayN LBRACKET expr:arrayI RBRACKET
+    {: RESULT = ArrayLookup(arrayN,arrayI);  :}
+    //| expr:e1  LBRACKET expr:e2 RBRACKET
+    //{: RESULT =  ArrayLookup(e1,e2); :}
+    | expr:e1  DOT LENGTH
+    {: RESULT =  ArrayLength(e1); :}
 
-       | expr:rec  DOT ID:field
-       {: RESULT =  FieldAccess(rec,field); :}
+    | expr:rec  DOT ID:field
+    {: RESULT =  FieldAccess(rec,field); :}
 
-       // Reduce-Reduce conflict was occurred
-       //| expr:e1  DOT ID:id
-       //{: RESULT =  MethodCall(e1,id); :}
-       | expr:e1  DOT ID:method LPAREN exprlist:elist RPAREN
-       {: RESULT =  MethodCall(e1,method,elist); :}
-       |TRUE
-       {: RESULT =  TypeBool(); :}
-       | FALSE
-       {: RESULT =  TypeBool(); :}
-       | ID:idName
-       {: RESULT =  VarDecl(idName);  :}
-       | NUMBER:n
-        {: RESULT =  Number(Integer.parseInt(n)); :}
-       | THIS:t
-       {: RESULT =  ExprThis(t); :}
-       | NULL
-       {: RESULT =  ExprNull(); :}
-       | NEW INT LBRACKET expr:nia RBRACKET
-       {: RESULT =  NewIntArray(nia); :}
-       | NEW ID:idobj LPAREN:lp RPAREN:rp
-       {: RESULT =  NewObject(idobj); :}
-       |  LPAREN expr:e1 RPAREN
-       {: RESULT =  e1; :}
-       ;
+    // Reduce-Reduce conflict was occurred
+    //| expr:e1  DOT ID:id
+    //{: RESULT =  MethodCall(e1,id); :}
+    | expr:e1  DOT ID:method LPAREN exprlist:elist RPAREN
+    {: RESULT =  MethodCall(e1,method,elist); :}
+    |TRUE
+    {: RESULT =  TypeBool(); :}
+    | FALSE
+    {: RESULT =  TypeBool(); :}
+    | ID:idName
+    {: RESULT =  VarDecl(idName);  :}
+    | NUMBER:n
+    {: RESULT =  Number(Integer.parseInt(n)); :}
+    | THIS:t
+    {: RESULT =  ExprThis(t); :}
+    | NULL
+    {: RESULT =  ExprNull(); :}
+    | NEW INT LBRACKET expr:nia RBRACKET
+    {: RESULT =  NewIntArray(nia); :}
+    | NEW ID:idobj LPAREN:lp RPAREN:rp
+    {: RESULT =  NewObject(idobj); :}
+    |  LPAREN expr:e1 RPAREN
+    {: RESULT =  e1; :}
+    ;
 
 
 
@@ -387,16 +387,16 @@ exprRest ::=  COMMA  expr: e1
            //  ???;
 op::=
 
-      //| PLUS {: RESULT = MJPlus(); :}
-      | expr:l PLUS expr:r
-      	{: RESULT = ExprBinary(l, Plus(), r); :}
-      AND {: RESULT = And(); :}
-      | MINUS {: RESULT = Minus(); :}
-      | TIMES {: RESULT = Times(); :}
-      | DIV {: RESULT = Div(); :}
-      | LESS {: RESULT = Less(); :}
-      | EQUALS {: RESULT = Equals(); :}
-;
+    //| PLUS {: RESULT = MJPlus(); :}
+    | expr:l PLUS expr:r
+    {: RESULT = ExprBinary(l, Plus(), r); :}
+    AND {: RESULT = And(); :}
+    | MINUS {: RESULT = Minus(); :}
+    | TIMES {: RESULT = Times(); :}
+    | DIV {: RESULT = Div(); :}
+    | LESS {: RESULT = Less(); :}
+    | EQUALS {: RESULT = Equals(); :}
+    ;
 
 
 //end rama
