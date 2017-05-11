@@ -356,11 +356,11 @@ expr ::=
     | expr:e1  DOT ID:method LPAREN exprlist:elist RPAREN
     {: RESULT =  MethodCall(e1,method,elist); :}
     |TRUE
-    {: RESULT = (MJExpr) TypeBool(); :}
+    {: RESULT = BoolConst(true); :}
     | FALSE
-    {: RESULT = (MJExpr) TypeBool(); :}
+    {: RESULT = BoolConst(false); :}
     | ID:idName
-    {: RESULT =  VarDecl( idName);  :}
+    {: RESULT =  VarUse( idName);  :}
     | NUMBER:n
     {: RESULT =  Number(Integer.parseInt(n)); :}
     | THIS
@@ -379,10 +379,11 @@ expr ::=
 
 exprlist ::=    expr:e1 exprRest:er
               {:
+              //This is what I am looking for
               RESULT =  ExprList(e1,er); :} ;
 
-exprRest ::=  COMMA  expr:e1
-              {: RESULT =  ExprList(e1); :};
+exprRest ::=  COMMA  expr:e
+              {: RESULT =  ExprList(e); :};
 
 //ID ::=
            //  ???;
