@@ -158,66 +158,66 @@ precedence left LPAREN;
 /* ----------------------------Grammar Section-------------------- */
 
 
- program ::=
-         mainclass:mc classdecllist:cdl
-         {: RESULT = Program(mc, cdl); :}
-        ;
-    // mc ::= is Wrong we have to use non terminal that we defined.
-    // MainClass → class id { public static void main ( String [ ] id ) Block }
-    mainclass ::=
-        CLASS ID:name LBRACE PUBLIC STATIC VOID MAIN LPAREN
-                            STRING LBRACKET RBRACKET ID:argName RPAREN block:body
-                        RBRACE
-        {:
+program ::=
+     mainclass:mc classdecllist:cdl
+     {: RESULT = Program(mc, cdl); :}
+    ;
+// mc ::= is Wrong we have to use non terminal that we defined.
+// MainClass → class id { public static void main ( String [ ] id ) Block }
+mainclass ::=
+    CLASS ID:name LBRACE PUBLIC STATIC VOID MAIN LPAREN
+                        STRING LBRACKET RBRACKET ID:argName RPAREN block:body
+                    RBRACE
+    {:
 
-            //id = new TypeClass(name);
+        //id = new TypeClass(name);
 
-            // RESULT = new MJMainClass(,body);   The Main-class cannot be instantiated
-            RESULT = MainClass(name, argName ,body);
-        :}
-        ;
+        // RESULT = new MJMainClass(,body);   The Main-class cannot be instantiated
+        RESULT = MainClass(name, argName ,body);
+    :}
+    ;
 
-    // ClassDecl → class id { MemberDecl* }
-    //   | class id extends id { MemberDecl* }
-    //MemberDecl*  means might appear an arbitrary number of times (MJClassDeclList)
+// ClassDecl → class id { MemberDecl* }
+//   | class id extends id { MemberDecl* }
+//MemberDecl*  means might appear an arbitrary number of times (MJClassDeclList)
 
-    classdecl ::=
-        CLASS ID:name LBRACE memberdecllist:mdl RBRACE
-        //{: RESULT =  ClassDeclList(name,mdl);   :}
-        {:
-            MJVarDeclList fields = VarDeclList();
-            MJMethodDeclList methods = MethodDeclList();
-            // the ClassDecl accept 4 parameter ( name, extended,  fields,  methods)
-            RESULT =  ClassDecl(name, ExtendsNothing(), fields, methods );
+classdecl ::=
+    CLASS ID:name LBRACE memberdecllist:mdl RBRACE
+    //{: RESULT =  ClassDeclList(name,mdl);   :}
+    {:
+        MJVarDeclList fields = VarDeclList();
+        MJMethodDeclList methods = MethodDeclList();
+        // the ClassDecl accept 4 parameter ( name, extended,  fields,  methods)
+        RESULT =  ClassDecl(name, ExtendsNothing(), fields, methods );
 
-        :}
+    :}
 
-        | CLASS ID:name EXTENDS ID:extended LBRACE memberdecllist:mdl RBRACE
-        //{: RESULT =  ClassDeclList(name,extended, mdl); :}
-        {:
-            MJVarDeclList fields = VarDeclList();
-            MJMethodDeclList methods = MethodDeclList();
-            RESULT =  ClassDecl(name,ExtendsClass(extended),fields, methods );
-        :}
-        ;
-    // same approach that we used for  blockstatement (add to array)
-    classdecllist ::=
-    	classdecl:c classdecllist:cdl
-    	{: RESULT = cdl; cdl.add(0, c); :}
-    	| /* if empty the make a new one */
-    	{: RESULT = ClassDeclList(); :}
-    	;
-    memberdecllist::=
-    	methodecl:m memberdecllist:mdl
-    	{: RESULT = mdl; mdl.add(0, m); :}
-    	|
-    	vardecl:var memberdecllist:mdl
-    	{: RESULT = mdl; mdl.add(0, var); :}
-    	| /* if empty the make a new one */
-    	{:
-    		ArrayList memberdecllist = new ArrayList();
-    		RESULT = memberdecllist;
-    	:}
+    | CLASS ID:name EXTENDS ID:extended LBRACE memberdecllist:mdl RBRACE
+    //{: RESULT =  ClassDeclList(name,extended, mdl); :}
+    {:
+        MJVarDeclList fields = VarDeclList();
+        MJMethodDeclList methods = MethodDeclList();
+        RESULT =  ClassDecl(name,ExtendsClass(extended),fields, methods );
+    :}
+    ;
+// same approach that we used for  blockstatement (add to array)
+classdecllist ::=
+    classdecl:c classdecllist:cdl
+    {: RESULT = cdl; cdl.add(0, c); :}
+    | /* if empty the make a new one */
+    {: RESULT = ClassDeclList(); :}
+    ;
+memberdecllist::=
+    methodecl:m memberdecllist:mdl
+    {: RESULT = mdl; mdl.add(0, m); :}
+    |
+    vardecl:var memberdecllist:mdl
+    {: RESULT = mdl; mdl.add(0, var); :}
+    | /* if empty the make a new one */
+    {:
+        ArrayList memberdecllist = new ArrayList();
+        RESULT = memberdecllist;
+    :}
     ;
     // we should define memberdecl as a list
     //memberdecl ::=
@@ -225,53 +225,53 @@ precedence left LPAREN;
     //    | methodecl:mtd    {: RESULT= MemberDecl(mtd); :}
     //;
 
-    vardecl ::=
-        type:t ID:name SEMI    {:  RESULT =  VarDecl(t,name); :}
-    ;
+vardecl ::=
+    type:t ID:name SEMI    {:  RESULT =  VarDecl(t,name); :}
+;
 
-    methodecl::= type:t ID:name LBRACE vardeclist:vdl RBRACE block:b
+methodecl::= type:t ID:name LBRACE vardeclist:vdl RBRACE block:b
+{:
+    RESULT=  MethodDecl(t,name,vdl,b);
+:}
+;
+// we don't need vardeclist in our grammar
+//vardeclist ::= type:t ID:name vardeclist:vdlrest
+//{:
+//RESULT =  VarDeclList(t,name,vdlrest);:}
+//;
+
+//vardeclist ::= COMMA type:t ID:name
+//paramList ::= COMMA type:t ID:name
+//{:
+//RESULT =  VarDeclList(t,name);
+//:}
+//;
+
+paramList ::=
+    type:t ID:name paramRest:pr
     {:
-        RESULT=  MethodDecl(t,name,vdl,b);
+        MJVarDecl var = VarDecl(t, name);
+        RESULT = pr;
+        pr.add(0, var);
     :}
     ;
-    // we don't need vardeclist in our grammar
-    //vardeclist ::= type:t ID:name vardeclist:vdlrest
-    //{:
-    //RESULT =  VarDeclList(t,name,vdlrest);:}
-    //;
 
-    //vardeclist ::= COMMA type:t ID:name
-    //paramList ::= COMMA type:t ID:name
-    //{:
-    //RESULT =  VarDeclList(t,name);
-    //:}
-    //;
-
-    paramList ::=
-    	type:t ID:name paramRest:pr
-    	{:
-    		MJVarDecl var = VarDecl(t, name);
-    		RESULT = pr;
-    		pr.add(0, var);
-    	:}
-    	;
-
-    // It's array so we should add into it, like the rest approach that we use for the others
-    // Arrays.fill(array, 0); <- this is also another method to fill array,
-    //but in our case add method for String ArrayList make more sence
-    paramRest ::=
-    	COMMA type:t ID:name paramRest:pr
-    	{:
-    		MJVarDecl var = VarDecl(t, name);
-    		RESULT = pr;
-    		pr.add(0,var);
-    	:}
-    	| /* if empty the make a new one */
-    	{:
-    		ArrayList paramRestList = new ArrayList();
-    		RESULT = paramRestList;
-    	:}
-    	;
+// It's array so we should add into it, like the rest approach that we use for the others
+// Arrays.fill(array, 0); <- this is also another method to fill array,
+//but in our case add method for String ArrayList make more sence
+paramRest ::=
+    COMMA type:t ID:name paramRest:pr
+    {:
+        MJVarDecl var = VarDecl(t, name);
+        RESULT = pr;
+        pr.add(0,var);
+    :}
+    | /* if empty the make a new one */
+    {:
+        ArrayList paramRestList = new ArrayList();
+        RESULT = paramRestList;
+    :}
+    ;
 
 //Monireh start
  type ::=
