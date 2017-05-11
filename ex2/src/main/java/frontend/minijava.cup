@@ -336,7 +336,20 @@ expr ::=
     //{: RESULT =  Operator(e1,e2,op1); :}
     //{: RESULT =  ExprBinary(e1,op1,e2); :}
     expr:l PLUS expr:r
-        {: RESULT = ExprBinary(l, Plus(), r); :}
+     {: RESULT = ExprBinary(l, Plus(), r); :}
+     |expr:l MINUS expr:r
+      {: RESULT = ExprBinary(l, Minus(), r); :}
+     |expr:l TIMES expr:r
+     {: RESULT = ExprBinary(l, Times(), r); :}
+     |expr:l DIV expr:r
+     {: RESULT = ExprBinary(l, Div(), r); :}
+     |expr:l AND expr:r
+     {: RESULT = ExprBinary(l, And(), r); :}
+     |expr:l LESS expr:r
+     {: RESULT = ExprBinary(l, Less(), r); :}
+     |expr:l EQUALS expr:r
+      {: RESULT = ExprBinary(l, Equals(), r); :}
+
     |NEG expr:e1
     {: RESULT =  ExprUnary(Negate(), e1); :}
     | MINUS  expr:e1
@@ -393,12 +406,12 @@ op::=
 
     //| PLUS {: RESULT = MJPlus(); :}
     //| PLUS {:RESULT = Plus(); :}
-    AND {: RESULT = And(); :}
-    | MINUS {: RESULT = Minus(); :}
-    | TIMES {: RESULT = Times(); :}
-    | DIV {: RESULT = Div(); :}
-    | LESS {: RESULT = Less(); :}
-    | EQUALS {: RESULT = Equals(); :}
+   // AND {: RESULT = And(); :}
+    //| MINUS {: RESULT = Minus(); :}
+   // | TIMES {: RESULT = Times(); :}
+   // | DIV {: RESULT = Div(); :}
+  //  | LESS {: RESULT = Less(); :}
+   // | EQUALS {: RESULT = Equals(); :}
     ;
 
 
