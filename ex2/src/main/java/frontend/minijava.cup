@@ -376,7 +376,6 @@ expr ::=
     ;
 
 
-
 exprlist ::=    expr:e1 exprRest:er
               {: RESULT =  ExprList(e1,er); :} ;
 
@@ -388,8 +387,9 @@ exprRest ::=  COMMA  expr: e1
 op::=
 
     //| PLUS {: RESULT = MJPlus(); :}
-    | expr:l PLUS expr:r
-    {: RESULT = ExprBinary(l, Plus(), r); :}
+    //| expr:l PLUS expr:r
+    | expr:l op:p expr:r
+    {: RESULT = ExprBinary(l, p, r); :}
     AND {: RESULT = And(); :}
     | MINUS {: RESULT = Minus(); :}
     | TIMES {: RESULT = Times(); :}
