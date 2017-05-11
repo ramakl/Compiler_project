@@ -136,7 +136,7 @@ non terminal MJType type;
 non terminal MJOperator op;
 non terminal MJExpr expr;
 non terminal  MJExprList exprlist;
-non terminal  MJExpr exprRest;
+non terminal  MJExprList exprRest;
 
 //end rama
 
@@ -336,7 +336,20 @@ expr ::=
     //{: RESULT =  Operator(e1,e2,op1); :}
     //{: RESULT =  ExprBinary(e1,op1,e2); :}
     expr:l PLUS expr:r
-        {: RESULT = ExprBinary(l, Plus(), r); :}
+     {: RESULT = ExprBinary(l, Plus(), r); :}
+     |expr:l MINUS expr:r
+      {: RESULT = ExprBinary(l, Minus(), r); :}
+     |expr:l TIMES expr:r
+     {: RESULT = ExprBinary(l, Times(), r); :}
+     |expr:l DIV expr:r
+     {: RESULT = ExprBinary(l, Div(), r); :}
+     |expr:l AND expr:r
+     {: RESULT = ExprBinary(l, And(), r); :}
+     |expr:l LESS expr:r
+     {: RESULT = ExprBinary(l, Less(), r); :}
+     |expr:l EQUALS expr:r
+      {: RESULT = ExprBinary(l, Equals(), r); :}
+
     |NEG expr:e1
     {: RESULT =  ExprUnary(Negate(), e1); :}
     | MINUS  expr:e1
@@ -377,8 +390,6 @@ expr ::=
     {: RESULT =  e1; :}
     ;
 
-
-
 exprlist ::=
     expr:e1 exprRest:er
     {:
@@ -393,14 +404,13 @@ exprRest ::=  COMMA  expr:e1 exprRest:er
     :}
     | /* if empty the make a new one */
     {:
-        ArrayList exprRestlist = new ArrayList();
-        RESULT = exprRestlist;
+        RESULT = ExprList();
     :}
     ;
 
 //ID ::=
            //  ???;
-op::=
+//op::=
 
     //| PLUS {: RESULT = MJPlus(); :}
 
@@ -409,14 +419,14 @@ op::=
     //{: RESULT = ExprBinary(l, p, r); :}
 
     //| PLUS {:RESULT = Plus(); :}
+   // AND {: RESULT = And(); :}
+    //| MINUS {: RESULT = Minus(); :}
+   // | TIMES {: RESULT = Times(); :}
+   // | DIV {: RESULT = Div(); :}
+  //  | LESS {: RESULT = Less(); :}
+   // | EQUALS {: RESULT = Equals(); :}
 
-    AND {: RESULT = And(); :}
-    | MINUS {: RESULT = Minus(); :}
-    | TIMES {: RESULT = Times(); :}
-    | DIV {: RESULT = Div(); :}
-    | LESS {: RESULT = Less(); :}
-    | EQUALS {: RESULT = Equals(); :}
-    ;
+//    ;
 
 
 //end rama
