@@ -335,7 +335,9 @@ expr ::=
     //expr:e1 op:op1 expr:e2
     //{: RESULT =  Operator(e1,e2,op1); :}
     //{: RESULT =  ExprBinary(e1,op1,e2); :}
-    NEG expr:e1
+    expr:l PLUS expr:r
+        {: RESULT = ExprBinary(l, Plus(), r); :}
+    |NEG expr:e1
     {: RESULT =  ExprUnary(Negate(), e1); :}
     | MINUS  expr:e1
     {: RESULT =  ExprUnary(UnaryMinus(),e1); :}
@@ -390,8 +392,7 @@ exprRest ::=  COMMA  expr:e
 op::=
 
     //| PLUS {: RESULT = MJPlus(); :}
-    | expr:l PLUS expr:r
-    {: RESULT = ExprBinary(l, Plus(), r); :}
+    //| PLUS {:RESULT = Plus(); :}
     AND {: RESULT = And(); :}
     | MINUS {: RESULT = Minus(); :}
     | TIMES {: RESULT = Times(); :}
