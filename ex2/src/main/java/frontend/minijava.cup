@@ -360,7 +360,7 @@ expr ::=
     | FALSE
     {: RESULT = (MJExpr) TypeBool(); :}
     | ID:idName
-    {: RESULT =  VarDecl( idName);  :}
+    {: RESULT =  VarUse( idName);  :}
     | NUMBER:n
     {: RESULT =  Number(Integer.parseInt(n)); :}
     | THIS
@@ -376,12 +376,19 @@ expr ::=
     ;
 
 
-exprlist ::=    expr:e1 exprRest:er
-              {:
-              RESULT =  ExprList(e1,er); :} ;
+exprlist ::=
+    expr:e1 exprRest:er
+    {:
+        MJNewIntArray narray = NewIntArray(e1);
+        RESULT =  er;
+        narray.add(0,narray);
+    :}
+    ;
 
 exprRest ::=  COMMA  expr:e1
-              {: RESULT =  ExprList(e1); :};
+              {: RESULT =  NewIntArray(e1); :};
+
+
 
 //ID ::=
            //  ???;
