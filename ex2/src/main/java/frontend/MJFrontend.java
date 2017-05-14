@@ -61,7 +61,9 @@ public class MJFrontend {
 	private void detectInvalidStatements(MJProgram value) {
 		// TODO part 2 of exercise
 		value.accept(
-                new MJElement.DefaultVisitor() {}
+                new MJElement.DefaultVisitor() {
+
+				}
 
         );
 	}
