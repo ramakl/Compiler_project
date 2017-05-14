@@ -271,13 +271,7 @@ paramList ::=
         MJVarDecl var = VarDecl(t, name);
         RESULT = pr;
         pr.add(0, var);
-    :}
-    | /*create a new one*/
-    {:
-    	ArrayList paramList = new ArrayList();
-	RESULT = paramList;
-    :}
-    ;
+    :};
 
     // It's array so we should add into it, like the rest approach that we use for the others
     // Arrays.fill(array, 0); <- this is also another method to fill array,
@@ -286,8 +280,7 @@ paramRest ::=
     COMMA type:t ID:name paramRest:pr
     {:
         MJVarDecl var = VarDecl(t, name);
-        RESULT = pr;
-        pr.add(0,var);
+        RESULT = pr; pr.add(0,var);
     :}
     | /* if empty the make a new one */
     {:
