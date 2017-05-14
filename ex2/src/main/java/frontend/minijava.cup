@@ -375,17 +375,32 @@ expr ::=
     |NEG expr:e1
     {: RESULT =  ExprUnary(Negate(), e1); :}
     | MINUS  expr:e1
-    {: RESULT =  ExprUnary(UnaryMinus(),e1); :}
+    {:
+        //To pass testcase "- bar.foo()"
+        if (e1 instanceof MJFieldAccess){
+                    onError.accept( new SyntaxError(e1, "SyntaxError: In Minijava negation for fileds is not acceptable."));
+                }
+        RESULT =  ExprUnary(UnaryMinus(),e1);
+    :}
 
     |expr:arrayN LBRACKET expr:arrayI RBRACKET
-    {: RESULT = ArrayLookup(arrayN,arrayI);  :}
+    // To pass testcase "ArrayAccess"
+    //In MiniJava two-D array expression should not be accepted as there are only one-dimensional arrays
+    // So we check if in the left-hand side is a new array -> "int [][]", then an error will showing up
+    {:
+        if (arrayN instanceof MJNewIntArray){
+            onError.accept( new SyntaxError(arrayN, "SyntaxError: In Minijava Two-Dimensional arrays are not acceptable."));
+        }
+
+        RESULT = ArrayLookup(arrayN,arrayI);
+    :}
     //| expr:e1  LBRACKET expr:e2 RBRACKET
     //{: RESULT =  ArrayLookup(e1,e2); :}
     | expr:e1  DOT LENGTH
     {: RESULT =  ArrayLength(e1); :}
 
-    | expr:rec  DOT ID:field
-    {: RESULT =  FieldAccess(rec,field); :}
+    | expr:receiver  DOT ID:fieldName
+    {: RESULT =  FieldAccess(receiver,fieldName); :}
 
     // Reduce-Reduce conflict was occurred
     //| expr:e1  DOT ID:id
