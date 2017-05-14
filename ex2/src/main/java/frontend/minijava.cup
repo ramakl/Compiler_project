@@ -342,11 +342,11 @@ statement ::=
     {: RESULT =  StmtWhile(e1,s1); :}
     | RETURN   expr:e1 SEMI
     {: RESULT =  StmtReturn(e1); :}
-    |SYSTEM DOT OUT DOT PRINTLN  LPAREN expr :e1 RPAREN
+    |SYSTEM DOT OUT DOT PRINTLN  LPAREN expr :e1 RPAREN SEMI
     {: RESULT =  StmtPrint(e1); :}
     | expr:e1 SEMI
     {: RESULT =  StmtExpr(e1); :}
-    | expr:e1 EQ expr:e2
+    | expr:e1 EQ expr:e2 SEMI
 
     {: RESULT =  StmtAssign(e1,e2); :}
     ;
