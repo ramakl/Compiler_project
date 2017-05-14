@@ -1,0 +1,743 @@
+19:02:22.116 [INFO] [org.gradle.launcher.daemon.server.Daemon] start() called on daemon - DefaultDaemonContext[uid=128dfa61-5a92-44a1-a2aa-98c3ac00c02a,javaHome=/usr/lib/jvm/java-8-openjdk-amd64,daemonRegistryDir=/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon,pid=5590,idleTimeout=60000,daemonOpts=-XX:MaxPermSize=256m,-XX:+HeapDumpOnOutOfMemoryError,-Xmx1024m,-Dfile.encoding=UTF-8,-Duser.country=US,-Duser.language=en,-Duser.variant]
+19:02:22.123 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] updating lastActivityAt to 1494781342123
+19:02:22.410 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding IP addresses for network interface wlp2s0
+19:02:22.411 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Is this a loopback interface? false
+19:02:22.412 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Is this a multicast interface? true
+19:02:22.414 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding remote address /fe80:0:0:0:cc3c:7d9c:5705:d90a%wlp2s0
+19:02:22.414 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding remote address /2a02:810b:c540:a328:db0:8466:4130:9803%wlp2s0
+19:02:22.416 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding remote address /2a02:810b:c540:a328:2942:72f:da34:1a0%wlp2s0
+19:02:22.417 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding remote address /192.168.0.10
+19:02:22.418 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding remote multicast interface wlp2s0
+19:02:22.418 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding IP addresses for network interface lo
+19:02:22.419 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Is this a loopback interface? true
+19:02:22.420 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Is this a multicast interface? false
+19:02:22.421 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding loopback address /0:0:0:0:0:0:0:1%lo
+19:02:22.422 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding loopback address /127.0.0.1
+19:02:22.560 [DEBUG] [org.gradle.messaging.remote.internal.inet.TcpIncomingConnector] Listening on [c0320538-613b-48c9-9186-8a6d90730afc port:46289, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]].
+19:02:22.590 [DEBUG] [org.gradle.launcher.daemon.server.Daemon] Daemon starting at: Sun May 14 19:02:22 CEST 2017, with address: [c0320538-613b-48c9-9186-8a6d90730afc port:46289, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+19:02:22.591 [INFO] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Advertising the daemon address to the clients: [c0320538-613b-48c9-9186-8a6d90730afc port:46289, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+19:02:22.595 [DEBUG] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Advertised daemon context: DefaultDaemonContext[uid=128dfa61-5a92-44a1-a2aa-98c3ac00c02a,javaHome=/usr/lib/jvm/java-8-openjdk-amd64,daemonRegistryDir=/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon,pid=5590,idleTimeout=60000,daemonOpts=-XX:MaxPermSize=256m,-XX:+HeapDumpOnOutOfMemoryError,-Xmx1024m,-Dfile.encoding=UTF-8,-Duser.country=US,-Duser.language=en,-Duser.variant]
+19:02:22.597 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Storing daemon address: [c0320538-613b-48c9-9186-8a6d90730afc port:46289, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]], context: DefaultDaemonContext[uid=128dfa61-5a92-44a1-a2aa-98c3ac00c02a,javaHome=/usr/lib/jvm/java-8-openjdk-amd64,daemonRegistryDir=/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon,pid=5590,idleTimeout=60000,daemonOpts=-XX:MaxPermSize=256m,-XX:+HeapDumpOnOutOfMemoryError,-Xmx1024m,-Dfile.encoding=UTF-8,-Duser.country=US,-Duser.language=en,-Duser.variant]
+19:02:22.642 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+19:02:22.649 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+19:02:23.038 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+19:02:23.039 [LIFECYCLE] [org.gradle.launcher.daemon.server.Daemon] Daemon server started.
+19:02:23.043 [DEBUG] [org.gradle.launcher.daemon.bootstrap.DaemonStartupCommunication] Completed writing the daemon greeting. Closing streams...
+19:02:23.044 [DEBUG] [org.gradle.launcher.daemon.server.Daemon] requestStopOnIdleTimeout(60000 MILLISECONDS) called on daemon
+19:02:23.045 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Idle timeout: waiting for daemon to stop or be idle for 60000ms
+19:02:23.046 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is idle, sleeping until state change or idle timeout at Sun May 14 19:03:22 CEST 2017
+19:02:23.151 [DEBUG] [org.gradle.messaging.remote.internal.inet.TcpIncomingConnector] Accepted connection from /127.0.0.1:54714 to /127.0.0.1:46289.
+19:02:23.398 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 14: received class org.gradle.launcher.daemon.protocol.Build
+19:02:23.399 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received non-IO message from client: Build{id=687212f2-bd3c-4326-8d2a-ec136b6b07e3.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex2}
+19:02:23.400 [INFO] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Received command: Build{id=687212f2-bd3c-4326-8d2a-ec136b6b07e3.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex2}.
+19:02:23.402 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Starting executing command: Build{id=687212f2-bd3c-4326-8d2a-ec136b6b07e3.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex2} with connection: socket connection from /127.0.0.1:46289 to /127.0.0.1:54714.
+19:02:23.440 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: started DaemonCommandExecution[command = Build{id=687212f2-bd3c-4326-8d2a-ec136b6b07e3.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex2}, connection = org.gradle.launcher.daemon.server.DefaultDaemonConnection@117178a] after 0.0 minutes of idle
+19:02:23.441 [INFO] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Marking the daemon as busy, address: [c0320538-613b-48c9-9186-8a6d90730afc port:46289, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+19:02:23.442 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Marking busy by address: [c0320538-613b-48c9-9186-8a6d90730afc port:46289, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+19:02:23.443 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+19:02:23.444 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] The file lock is held by a different Gradle process (pid: 5591, operation: ). Will attempt to ping owner at port 37787
+19:02:23.646 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+19:02:23.667 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+19:02:23.668 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] updating lastActivityAt to 1494781343668
+19:02:23.673 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is busy, sleeping until state changes.
+19:02:23.681 [INFO] [org.gradle.launcher.daemon.server.exec.StartBuildOrRespondWithBusy] Daemon is about to start building Build{id=687212f2-bd3c-4326-8d2a-ec136b6b07e3.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex2}. Dispatching build started information...
+19:02:23.682 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 16: dispatching class org.gradle.launcher.daemon.protocol.BuildStarted
+19:02:23.728 [DEBUG] [org.gradle.launcher.daemon.server.exec.EstablishBuildEnvironment] Configuring env variables: {PATH=/usr/local/gradle/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/mahsa/.rvm/bin, LC_MEASUREMENT=de_DE.UTF-8, XAUTHORITY=/home/mahsa/.Xauthority, XMODIFIERS=@im=ibus, LC_TELEPHONE=de_DE.UTF-8, XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop, GDMSESSION=ubuntu, MANDATORY_PATH=/usr/share/gconf/ubuntu.mandatory.path, LC_TIME=de_DE.UTF-8, GTK_IM_MODULE=ibus, DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-BXGlBNzMwP, DEFAULTS_PATH=/usr/share/gconf/ubuntu.default.path, XDG_CURRENT_DESKTOP=Unity, LD_LIBRARY_PATH=/home/mahsa/Downloads/idea-IC-171.4073.35/bin:, UPSTART_SESSION=unix:abstract=/com/ubuntu/upstart-session/1000/1803, QT4_IM_MODULE=xim, LC_PAPER=de_DE.UTF-8, SESSION_MANAGER=local/mahsa-VPCEA15FG:@/tmp/.ICE-unix/2233,unix/mahsa-VPCEA15FG:/tmp/.ICE-unix/2233, QT_LINUX_ACCESSIBILITY_ALWAYS_ON=1, LOGNAME=mahsa, JOB=unity-settings-daemon, PWD=/home/mahsa, IM_CONFIG_PHASE=1, LANGUAGE=en_US, SHELL=/bin/bash, LC_ADDRESS=de_DE.UTF-8, GIO_LAUNCHED_DESKTOP_FILE=/usr/share/applications/jetbrains-idea-ce.desktop, GTK2_MODULES=overlay-scrollbar, INSTANCE=, GNOME_DESKTOP_SESSION_ID=this-is-deprecated, UPSTART_INSTANCE=, GTK_MODULES=gail:atk-bridge:unity-gtk-module, CLUTTER_IM_MODULE=xim, XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0, COMPIZ_BIN_PATH=/usr/bin/, SESSIONTYPE=gnome-session, XDG_SESSION_DESKTOP=ubuntu, SHLVL=0, LC_IDENTIFICATION=de_DE.UTF-8, LC_MONETARY=de_DE.UTF-8, COMPIZ_CONFIG_PROFILE=ubuntu, QT_IM_MODULE=ibus, UPSTART_JOB=unity7, XFILESEARCHPATH=/usr/dt/app-defaults/%L/Dt, XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/usr/share/upstart/xdg:/etc/xdg, LANG=en_US.UTF-8, GNOME_KEYRING_CONTROL=, XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0, XDG_SESSION_ID=c2, XDG_SESSION_TYPE=x11, GRADLE_HOME=/usr/local/gradle, DISPLAY=:0, LC_NAME=de_DE.UTF-8, GDM_LANG=en_US, XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/mahsa, UPSTART_EVENTS=xsession started, GPG_AGENT_INFO=/home/mahsa/.gnupg/S.gpg-agent:0:1, DESKTOP_SESSION=ubuntu, SESSION=ubuntu, USER=mahsa, XDG_MENU_PREFIX=gnome-, GIO_LAUNCHED_DESKTOP_FILE_PID=3981, QT_ACCESSIBILITY=1, LC_NUMERIC=de_DE.UTF-8, SSH_AUTH_SOCK=/run/user/1000/keyring/ssh, XDG_SEAT=seat0, NLSPATH=/usr/dt/lib/nls/msg/%L/%N.cat, QT_QPA_PLATFORMTHEME=appmenu-qt5, XDG_VTNR=7, XDG_RUNTIME_DIR=/run/user/1000, HOME=/home/mahsa, GNOME_KEYRING_PID=}
+19:02:23.759 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 14: received class org.gradle.launcher.daemon.protocol.CloseInput
+19:02:23.760 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received IO message from client: org.gradle.launcher.daemon.protocol.CloseInput@1a26b8e
+19:02:23.815 [DEBUG] [org.gradle.launcher.daemon.server.exec.LogToClient] About to start relaying all logs to the client via the connection.
+19:02:23.820 [INFO] [org.gradle.launcher.daemon.server.exec.LogToClient] The client will now receive all logging from the daemon (pid: 5590). The daemon log file: /home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon/2.12/daemon-5590.out.log
+19:02:23.836 [INFO] [org.gradle.launcher.daemon.server.health.DaemonHealthTracker] Starting build in new daemon [memory: 954.7 MB]
+19:02:23.844 [DEBUG] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] The daemon has started executing the build.
+19:02:23.846 [INFO] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] Executing build with daemon context: DefaultDaemonContext[uid=128dfa61-5a92-44a1-a2aa-98c3ac00c02a,javaHome=/usr/lib/jvm/java-8-openjdk-amd64,daemonRegistryDir=/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon,pid=5590,idleTimeout=60000,daemonOpts=-XX:MaxPermSize=256m,-XX:+HeapDumpOnOutOfMemoryError,-Xmx1024m,-Dfile.encoding=UTF-8,-Duser.country=US,-Duser.language=en,-Duser.variant]
+19:02:23.856 [INFO] [org.gradle.launcher.daemon.server.exec.ForwardClientInput] Closing daemon's stdin at end of input.
+19:02:23.857 [INFO] [org.gradle.launcher.daemon.server.exec.ForwardClientInput] The daemon will no longer process any standard input.
+:genAst UP-TO-DATE
+:genCupWarning : Terminal "SHORT" was declared but never used
+Warning : Terminal "IMPLEMENTS" was declared but never used
+Warning : Terminal "CONST" was declared but never used
+Warning : Terminal "STRICTFP" was declared but never used
+Warning : Terminal "ENUM" was declared but never used
+Warning : Terminal "CATCH" was declared but never used
+Warning : Terminal "THROW" was declared but never used
+Warning : Terminal "DOUBLE" was declared but never used
+Warning : Terminal "TRANSIENT" was declared but never used
+Warning : Terminal "PROTECTED" was declared but never used
+Warning : Terminal "FINAL" was declared but never used
+Warning : Terminal "FLOAT" was declared but never used
+Warning : Terminal "GOTO" was declared but never used
+Warning : Terminal "PACKAGE" was declared but never used
+Warning : Terminal "SUPER" was declared but never used
+Warning : Terminal "ABSTRACT" was declared but never used
+Warning : Terminal "NATIVE" was declared but never used
+Warning : Terminal "LONG" was declared but never used
+Warning : Terminal "INTERFACE" was declared but never used
+Warning : Terminal "CHAR" was declared but never used
+Warning : Terminal "SWITCH" was declared but never used
+Warning : Terminal "DO" was declared but never used
+Warning : Terminal "FOR" was declared but never used
+Warning : Terminal "TRY" was declared but never used
+Warning : Terminal "BREAK" was declared but never used
+Warning : Terminal "THROWS" was declared but never used
+Warning : Terminal "DEFAULT" was declared but never used
+Warning : Terminal "IMPORT" was declared but never used
+Warning : Terminal "SYNCHRONIZED" was declared but never used
+Warning : Terminal "FINALLY" was declared but never used
+Warning : Terminal "CONTINUE" was declared but never used
+Warning : Terminal "INSTANCEOF" was declared but never used
+Warning : Terminal "ASSERT" was declared but never used
+Warning : Terminal "INVALID_TOKEN" was declared but never used
+Warning : Terminal "VOLATILE" was declared but never used
+Warning : Terminal "CASE" was declared but never used
+Warning : Terminal "BYTE" was declared but never used
+Warning : Terminal "PRIVATE" was declared but never used
+Warning : Non terminal "memberdecl" was declared but never used
+Warning : Non terminal "exp" was declared but never used
+Warning : Non terminal "op" was declared but never used
+Warning : *** Production "paramRest ::= " never reduced
+Warning : *** Production "paramRest ::= COMMA type ID paramRest " never reduced
+Warning : *** Production "paramList ::= " never reduced
+Warning : *** Production "paramList ::= type ID paramRest " never reduced
+------- CUP v0.11c 20160501 Parser Generation Summary -------
+  0 errors and 45 warnings
+  82 terminals, 20 non-terminals, and 56 productions declared, 
+  producing 135 unique parse states.
+  41 terminals declared but not used.
+  0 non-terminals declared but not used.
+  0 productions never reduced.
+  0 conflicts detected (0 expected).
+  Code written to "MiniJavaParser.java", and "MiniJavaParserSym.java".
+---------------------------------------------------- (CUP v0.11c 20160501)
+
+:genJflex UP-TO-DATE
+:gen
+:compileJavaNote: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+:processResources UP-TO-DATE
+:classes
+:jar
+:assemble
+:compileTestJava UP-TO-DATE
+:processTestResources UP-TO-DATE
+:testClasses UP-TO-DATE
+:test
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/WhileTrue.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/NewtonOO.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPOK_Addition.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/MDeclTest.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPOK_Negate.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/testPEverything.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/LinearSearch.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/Arrays2.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPOK_Inheritance2.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPOK_ArrayAlloc2.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/PrintConst.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/GameOfLife10.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/ThisTest.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/ManyArgs.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPF_ArrayAlloc .java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/Primes.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPOK_While2.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/VarTest.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/6-MaxArray.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/PrecedenceTest3.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPF_ArrayLookUninst.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/ThisOne.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/Stck.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPOK_ClassDecl.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/IfTrue.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/ArrayErrorReadPastEnd.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TestX.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/Fib.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/ArrayOk.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPF_ArrayLookPos.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/MethodTest.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/InstanceMethodCall.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/WhileFalseVar.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/ArrayErrorAllocNegative.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/NewTest2.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPOK_ArrayDirect.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/AndExpression.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/ArrayAccess2.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPOK_MethodCall2.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/ArrayOkSize0.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/If.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPOK_While.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/This.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/ClassTest.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/ParamTest2.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/5-OutOfBounds.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/ArrayErrorReadPastBeginning.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/1-PrintLiteral.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPF_ArrayLookNeg.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPOK_MethodDecl.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/IfAnd.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/Factorial.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/Shapes.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPF_ArrayStoreNeg.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/MainTest2.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/Graph.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/QuickSortOO.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/WhileAnd.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPOK_MethodCall.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/ClassPrint.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TrivialClass.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPOK_ClassInstantiate.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPOK_Autput.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/PrintTest.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/UninitializedFields.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/Scope2.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPOK_Not.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/Example3.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/AndTest.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPOK_substraction.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPOK_Boolean.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/PrecedenceTest4.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/ParamTest3.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/OverrideTest3.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/Sum.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/OverrideTest.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/ArrayTest.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/ArrayErrorWritePastEnd.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/EulerOO.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/Effects.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPF_ArrayLoadNeg.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPOK_ArrayAllocStore.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/4-Vars.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/FieldAccessTest.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/BasicArithmetic.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/MoreThan4.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/Newton.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TreeVisitor.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/MethodTest5.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/ParamTest.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/BinaryTree.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TestEq.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/BubbleSort.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/IfFalse.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/WhileVar.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/OperatorTest.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/Wurst.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/MethodTest3.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/VarTest2.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/While.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/MethodDeclTest.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/NewTest.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/FibL.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/OperatorChainingTest.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/IfLessTest.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/AllocTest.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPOK_ConditionalTrue.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/3-Call.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/WhileLoop.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/WhileSide.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/LinkedList.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/OverrideTest2.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/Scopes.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/BinopTest.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPOK_Inheritance.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/QuickSort.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/ShortCutAnd.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/Euler.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/UnopTest.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPOK_And.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/InheritedFields.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/ArrayErrorWriteNullPointer.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/AllocObj.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TestFieldAccess.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/ArraySize.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/MethodTest2.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/MethodInvokeTest.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPOK_MethodSetGet.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/MulAdd.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/WhileTest.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/ArrayBounds.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/IfTest.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/MainTest.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPOK_ConditionalMoreMore.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/Add5To3.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/IntTest.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/Graph2.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/AssignLocal.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/BoolTest.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/PrimesOO.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPOK_ConditionalMore.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/Arrays.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPOK_ArrayLength.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/FieldAccessWithParenthesis.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPOK_MethodBoolean.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/Inherit.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/Override.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPOK_ArrayAlloc.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/ArrayAccess.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/2-Add.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/MainLocals.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/Example4.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/MethodTest4.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/ArrayErrorLengthNullPointer.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/BinarySearch.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/WhileFalse.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPF_ArrayStorePos.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/SimpleNot.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/PrecedenceTest.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/ArrayErrorReadNullPointer.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/PrecedenceTest2.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/MethodCallOnNull.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/NotExpr.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/ArrayErrorWritePastBeginning.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/TPOK_ConditionalFalse.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/NegTest.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/ok/ArrayAcc.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:66
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/error/BadCallStmtError2.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:63
+
+minijava.parser.FileParsingTest > testParser[testdata/parser/error/BadCallStmtError.java] FAILED
+    java.lang.AssertionError at FileParsingTest.java:63
+
+minijava.parser.ParserAstTests > testMultipleArgumetns FAILED
+    java.lang.NullPointerException at ParserAstTests.java:165
+
+minijava.parser.ParserAstTests > testMultipleParameters FAILED
+    java.lang.NullPointerException at ParserAstTests.java:157
+
+minijava.parser.ParserAstTests > operatorPrecedenceUnaryAndFields FAILED
+    java.lang.NullPointerException at ParserAstTests.java:102
+
+minijava.parser.ParserAstTests > testWhileStmt FAILED
+    java.lang.NullPointerException at ParserAstTests.java:62
+
+minijava.parser.ParserAstTests > testPrint FAILED
+    java.lang.NullPointerException at ParserAstTests.java:29
+
+minijava.parser.ParserAstTests > operatorPrecedenceMethodCallAndArrays FAILED
+    java.lang.NullPointerException at ParserAstTests.java:94
+
+minijava.parser.ParserAstTests > operatorPrecedenceUnary FAILED
+    java.lang.NullPointerException at ParserAstTests.java:122
+
+minijava.parser.ParserAstTests > testAssignment FAILED
+    java.lang.NullPointerException at ParserAstTests.java:45
+
+minijava.parser.ParserAstTests > arrayLength FAILED
+    java.lang.NullPointerException at ParserAstTests.java:130
+
+minijava.parser.ParserAstTests > operatorPrecedence FAILED
+    java.lang.NullPointerException at ParserAstTests.java:78
+
+minijava.parser.ParserAstTests > testIfStmt FAILED
+    java.lang.NullPointerException at ParserAstTests.java:53
+
+minijava.parser.ParserAstTests > operators FAILED
+    java.lang.NullPointerException at ParserAstTests.java:70
+
+minijava.parser.ParserAstTests > operatorAssociativity FAILED
+    java.lang.NullPointerException at ParserAstTests.java:86
+
+210 tests completed, 182 failed
+:test FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':test'.
+> There were failing tests. See the report at: file:///home/mahsa/Tu%20Kl/Compiler/group11/ex2/build/reports/tests/index.html
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
+
+BUILD FAILED
+
+Total time: 1 mins 2.764 secs
+19:03:19.963 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on cp_proj class cache for build file '/home/mahsa/Tu Kl/Compiler/group11/ex2/build.gradle' (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/scripts/build_8y80ghzyvtxk277vx77bwabpq/cp_proj).
+19:03:19.964 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on proj class cache for build file '/home/mahsa/Tu Kl/Compiler/group11/ex2/build.gradle' (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/scripts/build_8y80ghzyvtxk277vx77bwabpq/proj).
+19:03:19.971 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache taskArtifacts.bin (/home/mahsa/Tu Kl/Compiler/group11/ex2/.gradle/2.12/taskArtifacts/taskArtifacts.bin)
+19:03:19.971 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache fileHashes.bin (/home/mahsa/Tu Kl/Compiler/group11/ex2/.gradle/2.12/taskArtifacts/fileHashes.bin)
+19:03:19.972 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache outputFileStates.bin (/home/mahsa/Tu Kl/Compiler/group11/ex2/.gradle/2.12/taskArtifacts/outputFileStates.bin)
+19:03:19.975 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache fileSnapshots.bin (/home/mahsa/Tu Kl/Compiler/group11/ex2/.gradle/2.12/taskArtifacts/fileSnapshots.bin)
+19:03:19.979 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on task history cache (/home/mahsa/Tu Kl/Compiler/group11/ex2/.gradle/2.12/taskArtifacts).
+19:03:19.979 [DEBUG] [org.gradle.cache.internal.DefaultCacheAccess] Cache task history cache (/home/mahsa/Tu Kl/Compiler/group11/ex2/.gradle/2.12/taskArtifacts) was closed 5 times.
+19:03:19.985 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.ivyresolve.memcache.InMemoryCachedRepositoryFactory] In-memory dependency metadata cache closed. Repos cached: 4, cache instances: 1, modules served from cache: 12, artifacts: 12
+19:03:19.985 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache module-metadata.bin (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/modules-2/metadata-2.16/module-metadata.bin)
+19:03:19.986 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache artifact-at-repository.bin (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/modules-2/metadata-2.16/artifact-at-repository.bin)
+19:03:19.986 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on artifact cache (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/modules-2).
+19:03:19.989 [DEBUG] [org.gradle.cache.internal.DefaultCacheAccess] Cache artifact cache (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/modules-2) was closed 2 times.
+19:03:19.993 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.resolveengine.store.CachedStoreFactory] Resolution result cache closed. Cache reads: 0, disk reads: 0 (avg: 0.0 secs, total: 0.0 secs)
+19:03:20.003 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.resolveengine.store.CachedStoreFactory] Resolution result cache closed. Cache reads: 0, disk reads: 0 (avg: 0.0 secs, total: 0.0 secs)
+19:03:20.003 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.resolveengine.store.ResolutionResultsStoreFactory] Deleted 2 resolution results binary files in 0.012 secs
+19:03:20.004 [DEBUG] [org.gradle.cache.internal.DefaultCacheAccess] Cache Plugin Resolution Cache (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/plugin-resolution) was closed 0 times.
+19:03:20.005 [DEBUG] [org.gradle.api.internal.tasks.compile.daemon.CompilerDaemonManager] Stopping 0 compiler daemon(s).
+19:03:20.005 [INFO] [org.gradle.api.internal.tasks.compile.daemon.CompilerDaemonManager] Stopped 0 compiler daemon(s).
+19:03:20.006 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on cache directory workerMain (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/workerMain).
+19:03:20.007 [DEBUG] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] The daemon has finished executing the build.
+19:03:21.227 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is busy, sleeping until state changes.
+19:03:21.230 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: finished waiting for DaemonCommandExecution[command = Build{id=687212f2-bd3c-4326-8d2a-ec136b6b07e3.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex2}, connection = org.gradle.launcher.daemon.server.DefaultDaemonConnection@117178a]. Result org.gradle.launcher.daemon.server.DaemonStateCoordinator@6abda0cf with state Running
+19:03:21.231 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: completed DaemonCommandExecution[command = Build{id=687212f2-bd3c-4326-8d2a-ec136b6b07e3.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex2}, connection = org.gradle.launcher.daemon.server.DefaultDaemonConnection@117178a]
+19:03:21.231 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] updating lastActivityAt to 1494781401231
+19:03:21.231 [INFO] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Marking the daemon as idle, address: [c0320538-613b-48c9-9186-8a6d90730afc port:46289, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+19:03:21.232 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Marking idle by address: [c0320538-613b-48c9-9186-8a6d90730afc port:46289, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+19:03:21.297 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+19:03:21.315 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+19:03:21.337 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+19:03:21.347 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is idle, sleeping until state change or idle timeout at Sun May 14 19:04:21 CEST 2017
+19:03:21.348 [DEBUG] [org.gradle.launcher.daemon.server.exec.ReturnResult] Daemon is dispatching the build result: Failure[value=org.gradle.initialization.ReportedException: org.gradle.internal.exceptions.LocationAwareException: Execution failed for task ':test'.]
+19:03:21.348 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: dispatching class org.gradle.launcher.daemon.protocol.Failure
+19:03:21.412 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Finishing executing command: Build{id=687212f2-bd3c-4326-8d2a-ec136b6b07e3.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex2}
+19:03:21.522 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 14: received class org.gradle.launcher.daemon.protocol.Finished
+19:03:21.523 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received non-IO message from client: org.gradle.launcher.daemon.protocol.Finished@4755da21
+19:03:21.527 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Received finished message: org.gradle.launcher.daemon.protocol.Finished@4755da21
+19:03:21.527 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: stopping connection
+19:03:21.529 [DEBUG] [org.gradle.messaging.remote.internal.inet.SocketConnection] Discarding EOFException: java.io.EOFException
+19:03:21.529 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 14: received null
+19:03:21.530 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received end-of-input from client.
+19:03:21.538 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: stopping connection
+19:04:21.232 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Idle timeout: daemon has been idle for requested period. Stopping now.
+19:04:21.232 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Marking daemon stopped due to idle timeout. The daemon is running a build: false
+19:04:21.232 [DEBUG] [org.gradle.launcher.daemon.server.Daemon] stop() called on daemon
+19:04:21.233 [INFO] [org.gradle.launcher.daemon.server.Daemon] Stop requested. Daemon is removing its presence from the registry...
+19:04:21.233 [DEBUG] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Removing our presence to clients, eg. removing this address from the registry: [c0320538-613b-48c9-9186-8a6d90730afc port:46289, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+19:04:21.234 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Removing daemon address: [c0320538-613b-48c9-9186-8a6d90730afc port:46289, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+19:04:21.250 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+19:04:21.250 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+19:04:21.254 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+19:04:21.254 [DEBUG] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Address removed from registry.
+Daemon vm is shutting down... The daemon has exited normally or was terminated in response to a user interrupt.
+19:04:21.283 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Removing daemon address: [c0320538-613b-48c9-9186-8a6d90730afc port:46289, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+19:04:21.283 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+19:04:21.284 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+19:04:21.287 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.

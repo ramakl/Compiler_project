@@ -4,8 +4,14 @@ import java_cup.runtime.ComplexSymbolFactory;
 import java_cup.runtime.Symbol;
 import minijava.ast.MJElement;
 import minijava.ast.MJProgram;
-
-
+import minijava.ast.MJStmtExpr;
+import minijava.ast.MJExpr;
+import minijava.ast.MJMethodCall;
+import minijava.ast.MJNewObject;
+import minijava.ast.MJStmtAssign;
+import minijava.ast.MJVarUse;
+import minijava.ast.MJArrayLookup;
+import minijava.ast.MJFieldAccess;
 
 import minijava.syntax.Lexer;
 import minijava.syntax.MiniJavaParser;
@@ -62,6 +68,35 @@ public class MJFrontend {
 		// TODO part 2 of exercise
 		value.accept(
                 new MJElement.DefaultVisitor() {
+					@Override
+					public void visit(MJStmtExpr stmtExpr) {
+						// Get the Expression from a statement Expression.
+						// In minijava statement expression should be only Method and Object
+						// Otherwise it's not a valid syntax
+						MJExpr expr = stmtExpr.getExpr();
+						if (!(expr instanceof MJMethodCall) || (expr instanceof MJNewObject)){
+							syntaxErrors.add(new SyntaxError(stmtExpr,
+									"SyntaxError-Invalid Expression found: "+expr));
+						}
+
+					}
+					@Override
+					public void visit(MJStmtAssign stmtAssign) {
+						// From one statement Assignment we get the left side of it to check
+						// In Minijava only valid to have a variable in the left side of Assignment
+						// v = x , MJVarUse
+						// v = x[3], MJArrayLookup
+						// v = P.name, MJFieldAccess
+
+						MJExpr leftExpr = stmtAssign.getLeft();
+						if (!(leftExpr instanceof MJVarUse)
+								|| (leftExpr instanceof MJArrayLookup)
+								|| (leftExpr instanceof MJFieldAccess)) {
+							syntaxErrors.add(new SyntaxError(stmtAssign.getLeft(),
+									"SyntaxError-Invalid assignment in the left side: must be a variable. Instead "
+											+ stmtAssign.getLeft() + " was found."));
+						}
+					}
 
 				}
 
