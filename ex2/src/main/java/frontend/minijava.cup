@@ -250,6 +250,7 @@ methodecl::= type:t ID:name LBRACE vardeclist:vdl RBRACE block:b
 
         RESULT=  MethodDecl(t,name,vdl,b);
     :}
+
     ;
     // we don't need vardeclist in our grammar
     //vardeclist ::= type:t ID:name vardeclist:vdlrest
@@ -392,6 +393,8 @@ expr ::=
     //{: RESULT =  MethodCall(e1,id); :}
     | expr:e1  DOT ID:method LPAREN exprlist:elist RPAREN
     {: RESULT =  MethodCall(e1,method,elist); :}
+    |expr:e1 DOT ID:method LPAREN RPAREN
+    {:RESULT = MethodCall(e1, method, ExprList());:}
     |TRUE
     {: RESULT = BoolConst(true); :}
     | FALSE
