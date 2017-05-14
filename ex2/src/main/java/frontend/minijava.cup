@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import frontend.SyntaxError;
 import java_cup.runtime.ComplexSymbolFactory.ComplexSymbol;
-
+//import frontend.MemberDecls;
 
 class MiniJavaParser;
    
@@ -138,6 +138,7 @@ non terminal MJExpr expr;
 non terminal  MJExprList exprlist;
 non terminal  MJExprList exprRest;
 
+//non terminal MemberDecls memberDecls;
 //end rama
 
 //Monireh
@@ -153,7 +154,6 @@ precedence left TIMES, DIV;
 precedence right NEG;
 precedence left DOT;
 precedence left LPAREN;
-
 
 /* ----------------------------Grammar Section-------------------- */
 
@@ -182,9 +182,17 @@ mainclass ::=
 //MemberDecl*  means might appear an arbitrary number of times (MJClassDeclList)
 
 classdecl ::=
-    CLASS ID:name LBRACE memberdecllist:mdl RBRACE
-    //{: RESULT =  ClassDeclList(name,mdl);   :}
-    {:
+    CLASS ID:name LBRACE memberdecllist:mdl RBRACE{:
+    //{: RESULT =  ClassDeclList(name,mdl);
+  //  {:
+   //     if(mdl instanceof MJVarDeclList)
+     //   {
+       //     memberDecls.addVar(mdl);
+       // }
+       // else if(mdl instanceof  MJMethodDeclList)
+        //{
+          //  memberDecls.addMeth(mdl);
+   //     }
         MJVarDeclList fields = VarDeclList();
         MJMethodDeclList methods = MethodDeclList();
         // the ClassDecl accept 4 parameter ( name, extended,  fields,  methods)
@@ -195,8 +203,16 @@ classdecl ::=
     | CLASS ID:name EXTENDS ID:extended LBRACE memberdecllist:mdl RBRACE
     //{: RESULT =  ClassDeclList(name,extended, mdl); :}
     {:
-        MJVarDeclList fields = VarDeclList();
-        MJMethodDeclList methods = MethodDeclList();
+//        if(mdl instanceof MJVarDeclList)
+//       {
+  //          memberDecls.addVar(mdl);
+    //    }
+      //  else if(mdl instanceof  MJMethodDeclList)
+        //        {
+          //          memberDecls.addMeth(mdl);
+            //    }
+         MJVarDeclList fields = VarDeclList();
+         MJMethodDeclList methods = MethodDeclList();
         RESULT =  ClassDecl(name,ExtendsClass(extended),fields, methods );
     :}
     ;
@@ -231,6 +247,7 @@ vardecl ::=
 
 methodecl::= type:t ID:name LBRACE vardeclist:vdl RBRACE block:b
     {:
+
         RESULT=  MethodDecl(t,name,vdl,b);
     :}
     ;
@@ -253,6 +270,11 @@ paramList ::=
         MJVarDecl var = VarDecl(t, name);
         RESULT = pr;
         pr.add(0, var);
+    :}
+    | /*create a new one*/
+    {:
+    	ArrayList paramList = new ArrayList();
+	RESULT = paramList;
     :}
     ;
 
@@ -313,12 +335,12 @@ blockstatement ::=
     
 statement ::=
     block:body
-    {: RESULT =  Block(body); :}
+    {: RESULT =  Block(); :}
     | IF LPAREN expr:e1 RPAREN statement:s1 ELSE statement:s2
     {: RESULT =  StmtIf(e1,s1,s2); :}
     | WHILE LPAREN expr:e1 RPAREN statement:s1
     {: RESULT =  StmtWhile(e1,s1); :}
-    | RETURN   expr:e1
+    | RETURN   expr:e1 SEMI
     {: RESULT =  StmtReturn(e1); :}
     |SYSTEM DOT OUT DOT PRINTLN  LPAREN expr :e1 RPAREN
     {: RESULT =  StmtPrint(e1); :}
@@ -395,6 +417,11 @@ exprlist ::=
     {:
         RESULT =  er; er.add(0,e1);
     :}
+    | expr:e1
+    {:
+    	
+    	RESULT = ExprList(e1);
+    :}
     ;
 
 exprRest ::=  COMMA  expr:e1 exprRest:er
@@ -402,10 +429,7 @@ exprRest ::=  COMMA  expr:e1 exprRest:er
         RESULT =  er; er.add(0,e1);
 
     :}
-    | /* if empty the make a new one */
-    {:
-        RESULT = ExprList();
-    :}
+
     ;
 
 //ID ::=
