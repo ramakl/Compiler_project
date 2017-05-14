@@ -245,10 +245,14 @@ vardecl ::=
     type:t ID:name SEMI    {:  RESULT =  VarDecl(t,name); :}
     ;
 
-methodecl::= type:t ID:name LBRACE vardeclist:vdl RBRACE block:b
+methodecl::= type:t ID:name LPAREN vardeclist:vdl RPAREN block:b
     {:
 
         RESULT=  MethodDecl(t,name,vdl,b);
+    :}
+    |type:t ID:name LPAREN RPAREN block:b
+    {:
+        RESULT = MethodDecl(t,name, VarDeclList(),b);
     :}
 
     ;
@@ -440,7 +444,6 @@ exprRest ::=  COMMA  expr:e1 exprRest:er
         RESULT =  er; er.add(0,e1);
 
     :}
-
     ;
 
 //ID ::=
