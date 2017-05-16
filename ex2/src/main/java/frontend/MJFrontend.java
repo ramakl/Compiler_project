@@ -65,7 +65,7 @@ public class MJFrontend {
 	 * detects invalid statements and adds SyntaxErrors to
 	 */
 	private void detectInvalidStatements(MJProgram value) {
-		// TODO part 2 of exercise
+		// Post-checker
 		value.accept(
                 new MJElement.DefaultVisitor() {
 					@Override
