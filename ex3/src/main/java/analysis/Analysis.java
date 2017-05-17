@@ -19,9 +19,20 @@ public class Analysis {
 
     public void check() {
         //TODO implement type checking here!
-        //for (MJClassDecl p : program.)
-        for(MJClassDecl pc: prog.getClassDecls()) {
-            System.out.println(pc);
+
+        MJClassDeclList g = prog.getClassDecls();
+        for (int j = 0; j <= g.size(); j++) {
+            MJClassDecl c = g.get(j);
+            MJExtended cc = c.getExtended();
+
+            if (!(cc.toString().equals("ExtendsNothing"))) {
+                //for (int k = j; k < g.size(); k++) {
+                if (cc.equals(g.get(j).getExtended())) {
+                    System.out.println(cc);
+                } else {
+                    addError(cc, "not exist");
+                }
+            }
         }
 
     }
