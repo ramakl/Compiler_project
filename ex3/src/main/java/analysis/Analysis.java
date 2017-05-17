@@ -19,6 +19,21 @@ public class Analysis {
 
     public void check() {
         //TODO implement type checking here!
+        MJClassDeclList g = prog.getClassDecls();
+        for (int j = 0; j <= g.size(); j++) {
+            MJClassDecl c = g.get(j);
+            MJExtended cc = c.getExtended();
+            if(!(cc.toString().equals("ExtendsNothing"))) {
+                for (int ii = 0; ii <= g.size(); ii++) {
+
+                    if (cc.equals(g.get(ii).getName())) {
+                    } else {
+                        addError(cc, "not exisit");
+                    }
+                }
+            }
+        }
+
     }
 
     public List<TypeError> getTypeErrors() {
