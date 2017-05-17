@@ -19,6 +19,11 @@ public class Analysis {
 
     public void check() {
         //TODO implement type checking here!
+        //for (MJClassDecl p : program.)
+        for(MJClassDecl pc: prog.getClassDecls()) {
+            System.out.println(pc);
+        }
+
     }
 
     public List<TypeError> getTypeErrors() {
