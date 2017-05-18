@@ -19,21 +19,30 @@ public class Analysis {
 
     public void check() {
         //TODO implement type checking here!
-        MJClassDeclList cdl = prog.getClassDecls();
-        for (int j = 0; j < cdl.size(); j++) {
-            MJClassDecl cd = cdl.get(j);
-            MJExtended ce = cd.getExtended();
-            boolean find = false;
-            if (!(ce.toString().equals("ExtendsNothing"))) {
-                for (int ii = 0; ii < cdl.size(); ii++) {
+        MJClassDeclList classDeclList = prog.getClassDecls();
+        List<MJExtended> extendedLinkedList = new LinkedList<>();
+        for (MJClassDecl classDecl : classDeclList) {
+            MJExtended classDeclExtended = classDecl.getExtended();
+            boolean parentFound = false;
+            if (!(classDeclExtended.toString().equals("ExtendsNothing"))) {
+                extendedLinkedList.add(classDeclExtended);
+                for (MJClassDecl aClassDeclList : classDeclList) {
 
-                    if (ce.toString().equals("ExtendsClass(" + cdl.get(ii).getName() + ")")) {
-                        find = true;
+                    if (classDeclExtended.toString().equals("ExtendsClass(" + aClassDeclList.getName() + ")")) {
+                        MJExtended copyClassDeclExtended = aClassDeclList.getExtended();
+                        parentFound = true;
+                        for (int kk = 0; kk < extendedLinkedList.size(); kk++) {
+                            if (copyClassDeclExtended.equals(extendedLinkedList.get(kk))) {
+                                addError(copyClassDeclExtended, "Cycle");
+                            } else {
+                                extendedLinkedList.add(copyClassDeclExtended);
+                            }
+                        }
                     }
 
                 }
-                if (find == false) {
-                    addError(ce, "not exist");
+                if (!parentFound) {
+                    addError(classDeclExtended, "not exist");
                 }
 
 
@@ -61,8 +70,8 @@ public class Analysis {
 
             }
         }*/
-        MJClassDeclList cdll = prog.getClassDecls();
-        List<MJExtended> ex = new LinkedList<>();
+        /*MJClassDeclList cdll = prog.getClassDecls();
+
         for (int j = 0; j < cdll.size(); j++) {
             MJClassDecl cdd = cdll.get(j);
             MJExtended cee = cdd.getExtended();
@@ -73,7 +82,7 @@ public class Analysis {
 
                   if (!(cee.toString().equals("ExtendsNothing"))) {
                       ex.add(cee);
-                    for (int ii = 0; ii < cdl.size(); ii++) {
+                    for (int ii = 0; ii < classDeclList.size(); ii++) {
 
                         if (cee.toString().equals("ExtendsClass(" + cdll.get(ii).getName() + ")")) {
                             //find = true;
@@ -98,7 +107,7 @@ public class Analysis {
 
 
 
-        }
+        }*/
     }
 
 
