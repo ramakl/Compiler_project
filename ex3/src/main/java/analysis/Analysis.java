@@ -19,8 +19,16 @@ public class Analysis {
 
     public void check() throws Exception {
         //TODO implement type checking here!
-        MJClassDeclList classDeclList = prog.getClassDecls();
 
+        MJClassDeclList classDeclList = prog.getClassDecls();
+        for (int i=0;i<classDeclList.size();i++) {
+            for (int j=i+1;j<classDeclList.size();j++) {
+                if (classDeclList.get(i).getName().equals(classDeclList.get(j).getName())) {
+                    addError(classDeclList.get(i), "duplicateClassName");
+                    break;
+                }
+            }
+        }
         for (MJClassDecl classDecl : classDeclList) {
             List<MJExtended> extendedLinkedList = new LinkedList<>();
             MJExtended classDeclExtended = classDecl.getExtended();
