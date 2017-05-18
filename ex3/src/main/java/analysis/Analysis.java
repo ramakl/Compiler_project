@@ -32,10 +32,10 @@ public class Analysis {
                     if (classDeclExtended.toString().equals("ExtendsClass(" + aClassDeclList.getName() + ")")) {
                         MJExtended copyClassDeclExtended = aClassDeclList.getExtended();
                         parentFound = true;
-                        boolean found2 = false;
+                        boolean foundINCycle = false;
                         for (int kk = 0; kk < extendedLinkedList.size(); kk++) {
                             if (copyClassDeclExtended.equals(extendedLinkedList.get(kk))) {
-                                found2 = true;
+                                foundINCycle = true;
                                 addError(copyClassDeclExtended, "Cycle");
                             }
                         }
