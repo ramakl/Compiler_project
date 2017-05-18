@@ -37,12 +37,14 @@ public class Analysis {
                             if (copyClassDeclExtended.equals(extendedLinkedList.get(kk))) {
                                 foundINCycle = true;
                                 addError(copyClassDeclExtended, "Cycle");
-                                break; //@Madhu May 17 10:55 AM
+                                break;
+
+                                //@Madhu May 17 10:55 AM
                                 // do we need to collect all errors? If not, then we can use break here.
 
                             }
                         }
-                            if (!(copyClassDeclExtended.toString().equals("ExtendsNothing"))) {
+                            if (!(copyClassDeclExtended.toString().equals("ExtendsNothing"))&& foundINCycle==false) {
                                 extendedLinkedList.add(copyClassDeclExtended);
                                 classDeclExtended = copyClassDeclExtended;
 
@@ -62,12 +64,12 @@ public class Analysis {
             }
 
             }
-            if(!getTypeErrors().isEmpty()){
-            throw new Exception("Error occured");
+        //    if(!getTypeErrors().isEmpty()){
+           // throw new Exception("Error occured");
                 //@Madhu May 17 10:55 AM
             //we need to process the Errors and handle them appropriately
                 //like throwing an exception or so.
-            }
+          //  }
 
 
 
