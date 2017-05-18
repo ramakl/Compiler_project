@@ -17,7 +17,7 @@ public class Analysis {
         this.prog = prog;
     }
 
-    public void check() {
+    public void check() throws Exception {
         //TODO implement type checking here!
         MJClassDeclList classDeclList = prog.getClassDecls();
 
@@ -37,6 +37,9 @@ public class Analysis {
                             if (copyClassDeclExtended.equals(extendedLinkedList.get(kk))) {
                                 foundINCycle = true;
                                 addError(copyClassDeclExtended, "Cycle");
+                                break; //@Madhu May 17 10:55 AM
+                                // do we need to collect all errors? If not, then we can use break here.
+
                             }
                         }
                             if (!(copyClassDeclExtended.toString().equals("ExtendsNothing"))) {
@@ -56,10 +59,15 @@ public class Analysis {
                 if (!parentFound) {
                     addError(classDeclExtended, "not exist");
                 }
-
-            }
             }
 
+            }
+            if(!getTypeErrors().isEmpty()){
+            throw new Exception("Error occured");
+                //@Madhu May 17 10:55 AM
+            //we need to process the Errors and handle them appropriately
+                //like throwing an exception or so.
+            }
 
 
 
