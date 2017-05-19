@@ -21,6 +21,8 @@ public class Analysis {
         //TODO implement type checking here!
 
         MJClassDeclList classDeclList = prog.getClassDecls();
+        Hashtable<String,String> classInfo = new Hashtable<>();
+
         for (int i=0;i<classDeclList.size();i++) {
             for (int j=i+1;j<classDeclList.size();j++) {
                 if (classDeclList.get(i).getName().equals(classDeclList.get(j).getName())) {
@@ -29,6 +31,7 @@ public class Analysis {
                 }
             }
         }
+
 
         for (int i=0;i<classDeclList.size();i++) {
             MJMethodDeclList m=classDeclList.get(i).getMethods();
@@ -41,6 +44,23 @@ public class Analysis {
                 }
             }
             }
+
+
+        Set<String> classNames = classInfo.keySet();
+        for(String className : classNames)
+        {
+            String extendsClass = classInfo.get(className);
+            if(!extendsClass.equalsIgnoreCase("extendsNothing"))
+            {
+                extendsClass = extendsClass.substring(13,extendsClass.length()-1);
+                //for example Class A extends A : add to the list of errors
+                //for test case inheritanceCycle1() : ClassChecks.java
+                if(className.equalsIgnoreCase(extendsClass))
+                {
+                    addError(classDeclList, "Self extension found");
+                }
+            }
+        }
 
 
         for (MJClassDecl classDecl : classDeclList) {
