@@ -29,6 +29,20 @@ public class Analysis {
                 }
             }
         }
+
+        for (int i=0;i<classDeclList.size();i++) {
+            MJMethodDeclList m=classDeclList.get(i).getMethods();
+            for (int ii=0;ii<m.size();ii++) {
+                for (int j=ii+1;j<m.size();j++) {
+                    if (m.get(ii).getName().equals(m.get(j).getName())) {
+                        addError(classDeclList.get(i), "duplicateMetodName");
+                        break;
+                    }
+                }
+            }
+            }
+
+
         for (MJClassDecl classDecl : classDeclList) {
             List<MJExtended> extendedLinkedList = new LinkedList<>();
             MJExtended classDeclExtended = classDecl.getExtended();
