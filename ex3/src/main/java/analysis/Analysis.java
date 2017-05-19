@@ -41,10 +41,22 @@ public class Analysis {
                         addError(classDeclList.get(i), "duplicateMetodName");
                         break;
                     }
+
                 }
             }
             }
+        for (int i=0;i<classDeclList.size();i++) {
+            MJVarDeclList v=classDeclList.get(i).getFields();
+            for (int ii=0;ii<v.size();ii++) {
+                for (int j=ii+1;j<v.size();j++) {
+                    if (v.get(ii).getName().equals(v.get(j).getName())) {
+                        addError(classDeclList.get(i), "duplicateFildName");
+                        break;
+                    }
 
+                }
+            }
+        }
 
         Set<String> classNames = classInfo.keySet();
         for(String className : classNames)
