@@ -16,12 +16,12 @@ import static org.junit.Assert.fail;
  */
 public class ClassChecks {
 
-	@Test
+	 /*@Test
 	public void testOk1() {
 		expectOk(
 				"class Main { public static void main(String[] args) {} }",
 				"class D {}",
-				"class C extends D {}",
+				"class C extends D {int a; int b;}",
 				"class B extends C {}",
 				"class A extends B {}"
 		);
@@ -52,7 +52,7 @@ public class ClassChecks {
 				"class B { public static void main(String[] args) {} }",
 				"class A extends B {}"
 		);
-	}
+	}*/
 
 	@Test
 	public void inheritanceCycle1() {
@@ -62,15 +62,15 @@ public class ClassChecks {
 		);
 	}
 
-	@Test
-	public void inheritanceCycle2() {
-		expectTypeErrors(
-				"class Main { public static void main(String[] args) {} }",
-				"class A extends B {}",
-				"class B extends C {}",
-				"class C extends A {}"
-		);
-	}
+//	@Test
+//	public void inheritanceCycle2() {
+//		expectTypeErrors(
+//				"class Main { public static void main(String[] args) {} }",
+//				"class A extends B {}",
+//				"class B extends C {}",
+//				"class C extends A {}"
+//		);
+//	}
 
 	@Test
 	public void inheritanceCycle3() {
@@ -83,7 +83,7 @@ public class ClassChecks {
 	}
 
 
-	@Test
+	/*@Test
 	public void duplicateClassName() {
 		expectTypeErrors(
 				"class Main { public static void main(String[] args) {} }",
@@ -92,7 +92,7 @@ public class ClassChecks {
 		);
 	}
 
-	@Test
+	/*@Test
 	public void duplicateFieldName() {
 		expectTypeErrors(
 				"class Main { public static void main(String[] args) {} }",
@@ -209,7 +209,7 @@ public class ClassChecks {
 		expectTypeErrors(
 				"class Main { public static void main(String[] args) { int args; } }"
 		);
-	}
+	} */
 
 
 	private void expectTypeErrors(String... inputLines) {
