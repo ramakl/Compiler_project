@@ -90,6 +90,34 @@ public class Analysis {
         }
 
 
+/*
+
+        Handling the duplicateParamName() : ClassChecks.java
+*/
+
+        for(MJClassDecl classDecl : classDeclList)
+        {
+            MJMethodDeclList methodDeclList = classDecl.getMethods();
+            for(MJMethodDecl methodDecl : methodDeclList)
+            {
+                MJVarDeclList varDeclList = methodDecl.getFormalParameters();
+                Hashtable<String,MJType> paramTable = new Hashtable<>();
+                for(MJVarDecl varDecl : varDeclList)
+                {
+                    String variable = varDecl.getName();
+                    MJType paramType = varDecl.getType();
+                    if(!paramTable.containsKey(variable))
+                    {
+                        paramTable.put(variable,paramType);
+                    }
+                    else
+                    {
+                        addError(varDecl, "Two parameters with same name but different types found");
+                    }
+                }
+
+            }
+        }
 
 
         for (MJClassDecl classDecl : classDeclList) {
