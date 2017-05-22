@@ -88,6 +88,37 @@ public class Analysis {
 
             }
         }
+/*
+
+        argName() : ClassChecks.java
+
+*/
+        String mainArgs = this.prog.getMainClass().getArgsName();
+        MJBlock mainBlock = this.prog.getMainClass().getMainBody();
+        for(MJStatement statement: mainBlock)
+        {
+
+            if(statement instanceof MJVarDecl)
+            {
+                MJVarDecl varDecl = (MJVarDecl) statement;
+                if(varDecl.getName().equalsIgnoreCase(mainArgs))
+                {
+                    addError(varDecl,"variable with same name as main signature found");
+                }
+            }
+            else if(statement instanceof MJVarDeclList)
+            {
+                MJVarDeclList varDeclList = (MJVarDeclList) statement;
+                for(MJVarDecl varDecl: varDeclList)
+                {
+                    if(varDecl.getName().equalsIgnoreCase(mainArgs))
+                    {
+                        addError(varDecl,"variable with same name as main signature found");
+                    }
+                }
+            }
+
+        }
 
 
 /*
