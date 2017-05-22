@@ -21,7 +21,16 @@ public class Analysis {
         //TODO implement type checking here!
 
         MJClassDeclList classDeclList = prog.getClassDecls();
-        Hashtable<String,String> classInfo = new Hashtable<>();
+        Hashtable<String,String> classInfo = new Hashtable<>(); //key - className; value - Extends
+        /* for example class A extends B then key : A, value : B; (A->B) */
+        for(MJClassDecl classDecl : classDeclList)
+        {
+            String className = classDecl.getName();
+            String extendsClass = classDecl.getExtended().toString();
+            if(!extendsClass.equalsIgnoreCase("extendsnothing"))
+                extendsClass = extendsClass.substring(13,extendsClass.length()-1);
+            classInfo.put(className,extendsClass);
+        }
 
         for (int i=0;i<classDeclList.size();i++) {
             for (int j=i+1;j<classDeclList.size();j++) {
@@ -50,7 +59,7 @@ public class Analysis {
             for (int ii=0;ii<v.size();ii++) {
                 for (int j=ii+1;j<v.size();j++) {
                     if (v.get(ii).getName().equals(v.get(j).getName())) {
-                        addError(classDeclList.get(i), "duplicateFildName");
+                        addError(classDeclList.get(i), "duplicateFieldName");
                         break;
                     }
 
@@ -59,20 +68,28 @@ public class Analysis {
         }
 
         Set<String> classNames = classInfo.keySet();
+        String mainClass = this.prog.getMainClass().getName();
         for(String className : classNames)
         {
             String extendsClass = classInfo.get(className);
             if(!extendsClass.equalsIgnoreCase("extendsNothing"))
             {
-                extendsClass = extendsClass.substring(13,extendsClass.length()-1);
                 //for example Class A extends A : add to the list of errors
                 //for test case inheritanceCycle1() : ClassChecks.java
                 if(className.equalsIgnoreCase(extendsClass))
                 {
                     addError(classDeclList, "Self extension found");
                 }
+                //for example test case see extendsMainClass() : ClassChecks.java
+                if(extendsClass.equalsIgnoreCase(mainClass))
+                {
+                    addError(classDeclList, "Main class cannot be extended");
+                }
+
             }
         }
+
+
 
 
         for (MJClassDecl classDecl : classDeclList) {
