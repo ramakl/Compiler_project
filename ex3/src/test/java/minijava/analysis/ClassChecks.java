@@ -16,12 +16,12 @@ import static org.junit.Assert.fail;
  */
 public class ClassChecks {
 
-	@Test
+	 @Test
 	public void testOk1() {
 		expectOk(
 				"class Main { public static void main(String[] args) {} }",
 				"class D {}",
-				"class C extends D {}",
+				"class C extends D {int a; int b;}",
 				"class B extends C {}",
 				"class A extends B {}"
 		);

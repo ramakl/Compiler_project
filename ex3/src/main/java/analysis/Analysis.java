@@ -31,7 +31,25 @@ public class Analysis {
                 }
             }
         }
+      /*  boolean fd=false;
+        for (int i=0;i<classDeclList.size();i++) {
+            MJMethodDeclList m=classDeclList.get(i).getMethods();
+            for(int k=0;i<m.size();k++){
+                MJVarDeclList vars= m.get(k).getFormalParameters();
 
+                for (int ii=0;ii<vars.size();ii++) {
+
+                    for (int j = ii + 1; j < vars.size(); j++) {
+                        if (vars.get(ii).getName().equals(vars.get(j).getName())) {
+                            addError(classDeclList.get(i), "duplicatePramsName");
+                            fd=true;
+                            break;
+                        }
+
+                    }
+                }
+            }
+        }*/
 
         for (int i=0;i<classDeclList.size();i++) {
             MJMethodDeclList m=classDeclList.get(i).getMethods();
@@ -45,6 +63,8 @@ public class Analysis {
                 }
             }
             }
+
+
         for (int i=0;i<classDeclList.size();i++) {
             MJVarDeclList v=classDeclList.get(i).getFields();
             for (int ii=0;ii<v.size();ii++) {
@@ -58,7 +78,7 @@ public class Analysis {
             }
         }
 
-        Set<String> classNames = classInfo.keySet();
+        /*Set<String> classNames = classInfo.keySet();
         for(String className : classNames)
         {
             String extendsClass = classInfo.get(className);
@@ -72,7 +92,7 @@ public class Analysis {
                     addError(classDeclList, "Self extension found");
                 }
             }
-        }
+        }*/
 
 
         for (MJClassDecl classDecl : classDeclList) {
