@@ -1,0 +1,1893 @@
+14:34:38.124 [INFO] [org.gradle.launcher.daemon.server.Daemon] start() called on daemon - DefaultDaemonContext[uid=be096141-6ef6-4518-9d4c-50aeaecabc12,javaHome=/usr/lib/jvm/java-8-openjdk-amd64,daemonRegistryDir=/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon,pid=11685,idleTimeout=60000,daemonOpts=-XX:MaxPermSize=256m,-XX:+HeapDumpOnOutOfMemoryError,-Xmx1024m,-Dfile.encoding=UTF-8,-Duser.country=US,-Duser.language=en,-Duser.variant]
+14:34:38.130 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] updating lastActivityAt to 1495024478130
+14:34:38.142 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding IP addresses for network interface wlp2s0
+14:34:38.143 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Is this a loopback interface? false
+14:34:38.144 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Is this a multicast interface? true
+14:34:38.144 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding remote address /fe80:0:0:0:6e6f:d075:b957:48a5%wlp2s0
+14:34:38.145 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding remote address /fe80:0:0:0:82e5:94a5:451c:80b8%wlp2s0
+14:34:38.146 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding remote address /fe80:0:0:0:6d0e:ae32:c9a2:9e22%wlp2s0
+14:34:38.147 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding remote address /131.246.85.12
+14:34:38.148 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding remote multicast interface wlp2s0
+14:34:38.148 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding IP addresses for network interface lo
+14:34:38.149 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Is this a loopback interface? true
+14:34:38.149 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Is this a multicast interface? false
+14:34:38.150 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding loopback address /0:0:0:0:0:0:0:1%lo
+14:34:38.150 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding loopback address /127.0.0.1
+14:34:38.170 [DEBUG] [org.gradle.messaging.remote.internal.inet.TcpIncomingConnector] Listening on [6951ed63-bc6b-494e-bfbf-0fba927e3c9c port:46106, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]].
+14:34:38.174 [DEBUG] [org.gradle.launcher.daemon.server.Daemon] Daemon starting at: Wed May 17 14:34:38 CEST 2017, with address: [6951ed63-bc6b-494e-bfbf-0fba927e3c9c port:46106, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:34:38.174 [INFO] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Advertising the daemon address to the clients: [6951ed63-bc6b-494e-bfbf-0fba927e3c9c port:46106, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:34:38.175 [DEBUG] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Advertised daemon context: DefaultDaemonContext[uid=be096141-6ef6-4518-9d4c-50aeaecabc12,javaHome=/usr/lib/jvm/java-8-openjdk-amd64,daemonRegistryDir=/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon,pid=11685,idleTimeout=60000,daemonOpts=-XX:MaxPermSize=256m,-XX:+HeapDumpOnOutOfMemoryError,-Xmx1024m,-Dfile.encoding=UTF-8,-Duser.country=US,-Duser.language=en,-Duser.variant]
+14:34:38.176 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Storing daemon address: [6951ed63-bc6b-494e-bfbf-0fba927e3c9c port:46106, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]], context: DefaultDaemonContext[uid=be096141-6ef6-4518-9d4c-50aeaecabc12,javaHome=/usr/lib/jvm/java-8-openjdk-amd64,daemonRegistryDir=/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon,pid=11685,idleTimeout=60000,daemonOpts=-XX:MaxPermSize=256m,-XX:+HeapDumpOnOutOfMemoryError,-Xmx1024m,-Dfile.encoding=UTF-8,-Duser.country=US,-Duser.language=en,-Duser.variant]
+14:34:38.188 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+14:34:38.190 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+14:34:38.323 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+14:34:38.324 [LIFECYCLE] [org.gradle.launcher.daemon.server.Daemon] Daemon server started.
+14:34:38.326 [DEBUG] [org.gradle.launcher.daemon.bootstrap.DaemonStartupCommunication] Completed writing the daemon greeting. Closing streams...
+14:34:38.327 [DEBUG] [org.gradle.launcher.daemon.server.Daemon] requestStopOnIdleTimeout(60000 MILLISECONDS) called on daemon
+14:34:38.328 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Idle timeout: waiting for daemon to stop or be idle for 60000ms
+14:34:38.329 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is idle, sleeping until state change or idle timeout at Wed May 17 14:35:38 CEST 2017
+14:34:38.332 [DEBUG] [org.gradle.messaging.remote.internal.inet.TcpIncomingConnector] Accepted connection from /127.0.0.1:41532 to /127.0.0.1:46106.
+14:34:38.425 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 14: received class org.gradle.launcher.daemon.protocol.Build
+14:34:38.425 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received non-IO message from client: Build{id=9f043a4b-465f-4e45-99c0-83e6f7bb5100.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}
+14:34:38.426 [INFO] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Received command: Build{id=9f043a4b-465f-4e45-99c0-83e6f7bb5100.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}.
+14:34:38.427 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Starting executing command: Build{id=9f043a4b-465f-4e45-99c0-83e6f7bb5100.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3} with connection: socket connection from /127.0.0.1:46106 to /127.0.0.1:41532.
+14:34:38.441 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: started DaemonCommandExecution[command = Build{id=9f043a4b-465f-4e45-99c0-83e6f7bb5100.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}, connection = org.gradle.launcher.daemon.server.DefaultDaemonConnection@1a3d9f1] after 0.0 minutes of idle
+14:34:38.442 [INFO] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Marking the daemon as busy, address: [6951ed63-bc6b-494e-bfbf-0fba927e3c9c port:46106, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:34:38.442 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Marking busy by address: [6951ed63-bc6b-494e-bfbf-0fba927e3c9c port:46106, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:34:38.443 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+14:34:38.444 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+14:34:38.449 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+14:34:38.450 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] updating lastActivityAt to 1495024478450
+14:34:38.450 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is busy, sleeping until state changes.
+14:34:38.452 [INFO] [org.gradle.launcher.daemon.server.exec.StartBuildOrRespondWithBusy] Daemon is about to start building Build{id=9f043a4b-465f-4e45-99c0-83e6f7bb5100.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}. Dispatching build started information...
+14:34:38.453 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 16: dispatching class org.gradle.launcher.daemon.protocol.BuildStarted
+14:34:38.459 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 14: received class org.gradle.launcher.daemon.protocol.CloseInput
+14:34:38.459 [DEBUG] [org.gradle.launcher.daemon.server.exec.EstablishBuildEnvironment] Configuring env variables: {PATH=/usr/local/gradle/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/mahsa/.rvm/bin, LC_MEASUREMENT=de_DE.UTF-8, XAUTHORITY=/home/mahsa/.Xauthority, XMODIFIERS=@im=ibus, LC_TELEPHONE=de_DE.UTF-8, XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop, GDMSESSION=ubuntu, MANDATORY_PATH=/usr/share/gconf/ubuntu.mandatory.path, LC_TIME=de_DE.UTF-8, GTK_IM_MODULE=ibus, DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-2NEFvW1xNb, DEFAULTS_PATH=/usr/share/gconf/ubuntu.default.path, XDG_CURRENT_DESKTOP=Unity, LD_LIBRARY_PATH=/home/mahsa/Downloads/idea-IC-171.4073.35/bin:, UPSTART_SESSION=unix:abstract=/com/ubuntu/upstart-session/1000/1820, QT4_IM_MODULE=xim, LC_PAPER=de_DE.UTF-8, SESSION_MANAGER=local/mahsa-VPCEA15FG:@/tmp/.ICE-unix/2251,unix/mahsa-VPCEA15FG:/tmp/.ICE-unix/2251, QT_LINUX_ACCESSIBILITY_ALWAYS_ON=1, LOGNAME=mahsa, JOB=unity-settings-daemon, PWD=/home/mahsa, IM_CONFIG_PHASE=1, LANGUAGE=en_US, SHELL=/bin/bash, LC_ADDRESS=de_DE.UTF-8, GIO_LAUNCHED_DESKTOP_FILE=/usr/share/applications/jetbrains-idea-ce.desktop, GTK2_MODULES=overlay-scrollbar, INSTANCE=, GNOME_DESKTOP_SESSION_ID=this-is-deprecated, UPSTART_INSTANCE=, GTK_MODULES=gail:atk-bridge:unity-gtk-module, CLUTTER_IM_MODULE=xim, XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0, COMPIZ_BIN_PATH=/usr/bin/, SESSIONTYPE=gnome-session, XDG_SESSION_DESKTOP=ubuntu, SHLVL=0, LC_IDENTIFICATION=de_DE.UTF-8, LC_MONETARY=de_DE.UTF-8, COMPIZ_CONFIG_PROFILE=ubuntu, QT_IM_MODULE=ibus, UPSTART_JOB=unity7, XFILESEARCHPATH=/usr/dt/app-defaults/%L/Dt, XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/usr/share/upstart/xdg:/etc/xdg, LANG=en_US.UTF-8, GNOME_KEYRING_CONTROL=, XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0, XDG_SESSION_ID=c2, XDG_SESSION_TYPE=x11, GRADLE_HOME=/usr/local/gradle, DISPLAY=:0, LC_NAME=de_DE.UTF-8, GDM_LANG=en_US, XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/mahsa, UPSTART_EVENTS=xsession started, GPG_AGENT_INFO=/home/mahsa/.gnupg/S.gpg-agent:0:1, DESKTOP_SESSION=ubuntu, SESSION=ubuntu, USER=mahsa, XDG_MENU_PREFIX=gnome-, GIO_LAUNCHED_DESKTOP_FILE_PID=7347, QT_ACCESSIBILITY=1, LC_NUMERIC=de_DE.UTF-8, SSH_AUTH_SOCK=/run/user/1000/keyring/ssh, XDG_SEAT=seat0, NLSPATH=/usr/dt/lib/nls/msg/%L/%N.cat, QT_QPA_PLATFORMTHEME=appmenu-qt5, XDG_VTNR=7, XDG_RUNTIME_DIR=/run/user/1000, HOME=/home/mahsa, GNOME_KEYRING_PID=}
+14:34:38.460 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received IO message from client: org.gradle.launcher.daemon.protocol.CloseInput@435881ec
+14:34:38.483 [DEBUG] [org.gradle.launcher.daemon.server.exec.LogToClient] About to start relaying all logs to the client via the connection.
+14:34:38.483 [INFO] [org.gradle.launcher.daemon.server.exec.LogToClient] The client will now receive all logging from the daemon (pid: 11685). The daemon log file: /home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon/2.12/daemon-11685.out.log
+14:34:38.496 [INFO] [org.gradle.launcher.daemon.server.health.DaemonHealthTracker] Starting build in new daemon [memory: 954.7 MB]
+14:34:38.498 [INFO] [org.gradle.launcher.daemon.server.exec.ForwardClientInput] Closing daemon's stdin at end of input.
+14:34:38.498 [INFO] [org.gradle.launcher.daemon.server.exec.ForwardClientInput] The daemon will no longer process any standard input.
+14:34:38.504 [DEBUG] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] The daemon has started executing the build.
+14:34:38.505 [INFO] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] Executing build with daemon context: DefaultDaemonContext[uid=be096141-6ef6-4518-9d4c-50aeaecabc12,javaHome=/usr/lib/jvm/java-8-openjdk-amd64,daemonRegistryDir=/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon,pid=11685,idleTimeout=60000,daemonOpts=-XX:MaxPermSize=256m,-XX:+HeapDumpOnOutOfMemoryError,-Xmx1024m,-Dfile.encoding=UTF-8,-Duser.country=US,-Duser.language=en,-Duser.variant]
+14:34:38.711 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 14: received class org.gradle.launcher.daemon.protocol.Cancel
+14:34:38.713 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received cancel message from client: Cancel[id=9f043a4b-465f-4e45-99c0-83e6f7bb5100.2]
+14:34:38.714 [INFO] [org.gradle.launcher.daemon.server.exec.HandleCancel] HandleCancel processing Build{id=9f043a4b-465f-4e45-99c0-83e6f7bb5100.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}
+14:34:38.714 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Cancel requested: will wait for daemon to become idle.
+14:34:38.715 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Cancel: daemon is busy, sleeping until state changes.
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Build cancelled.
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
+
+BUILD FAILED
+
+Total time: 3.672 secs
+14:34:40.904 [DEBUG] [org.gradle.cache.internal.DefaultCacheAccess] Cache Plugin Resolution Cache (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/plugin-resolution) was closed 0 times.
+14:34:40.915 [DEBUG] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] The daemon has finished executing the build.
+14:34:41.139 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is busy, sleeping until state changes.
+14:34:41.143 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: finished waiting for DaemonCommandExecution[command = Build{id=9f043a4b-465f-4e45-99c0-83e6f7bb5100.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}, connection = org.gradle.launcher.daemon.server.DefaultDaemonConnection@1a3d9f1]. Result org.gradle.launcher.daemon.server.DaemonStateCoordinator@713ded84 with state Running
+14:34:41.144 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: completed DaemonCommandExecution[command = Build{id=9f043a4b-465f-4e45-99c0-83e6f7bb5100.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}, connection = org.gradle.launcher.daemon.server.DefaultDaemonConnection@1a3d9f1]
+14:34:41.144 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] updating lastActivityAt to 1495024481144
+14:34:41.145 [INFO] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Marking the daemon as idle, address: [6951ed63-bc6b-494e-bfbf-0fba927e3c9c port:46106, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:34:41.145 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Marking idle by address: [6951ed63-bc6b-494e-bfbf-0fba927e3c9c port:46106, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:34:41.147 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+14:34:41.149 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] The file lock is held by a different Gradle process (pid: 11717, operation: ). Will attempt to ping owner at port 40105
+14:34:41.352 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+14:34:41.358 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+14:34:41.361 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Cancel: daemon is idle now.
+14:34:41.362 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is idle, sleeping until state change or idle timeout at Wed May 17 14:35:41 CEST 2017
+14:34:41.363 [DEBUG] [org.gradle.launcher.daemon.server.exec.ReturnResult] Daemon is dispatching the build result: Failure[value=org.gradle.initialization.ReportedException: org.gradle.internal.exceptions.LocationAwareException: Build cancelled.]
+14:34:41.365 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: dispatching class org.gradle.launcher.daemon.protocol.Failure
+14:34:41.457 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Finishing executing command: Build{id=9f043a4b-465f-4e45-99c0-83e6f7bb5100.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}
+14:34:41.478 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 14: received class org.gradle.launcher.daemon.protocol.Finished
+14:34:41.478 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received non-IO message from client: org.gradle.launcher.daemon.protocol.Finished@5e460adb
+14:34:41.480 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Received finished message: org.gradle.launcher.daemon.protocol.Finished@5e460adb
+14:34:41.481 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: stopping connection
+14:34:41.488 [DEBUG] [org.gradle.messaging.remote.internal.inet.SocketConnection] Discarding EOFException: java.io.EOFException
+14:34:41.489 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 14: received null
+14:34:41.489 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received end-of-input from client.
+14:34:41.490 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: stopping connection
+14:34:44.051 [DEBUG] [org.gradle.messaging.remote.internal.inet.TcpIncomingConnector] Accepted connection from /127.0.0.1:41536 to /127.0.0.1:46106.
+14:34:44.065 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 18: received class org.gradle.launcher.daemon.protocol.Build
+14:34:44.067 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received non-IO message from client: Build{id=eb1f5498-569d-4ba2-9bbd-b8fcc898ad79.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}
+14:34:44.067 [INFO] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Received command: Build{id=eb1f5498-569d-4ba2-9bbd-b8fcc898ad79.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}.
+14:34:44.068 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Starting executing command: Build{id=eb1f5498-569d-4ba2-9bbd-b8fcc898ad79.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3} with connection: socket connection from /127.0.0.1:46106 to /127.0.0.1:41536.
+14:34:44.074 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: started DaemonCommandExecution[command = Build{id=eb1f5498-569d-4ba2-9bbd-b8fcc898ad79.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}, connection = org.gradle.launcher.daemon.server.DefaultDaemonConnection@249d267f] after 0.0 minutes of idle
+14:34:44.075 [INFO] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Marking the daemon as busy, address: [6951ed63-bc6b-494e-bfbf-0fba927e3c9c port:46106, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:34:44.075 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Marking busy by address: [6951ed63-bc6b-494e-bfbf-0fba927e3c9c port:46106, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:34:44.076 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+14:34:44.076 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+14:34:44.087 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+14:34:44.088 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] updating lastActivityAt to 1495024484088
+14:34:44.088 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is busy, sleeping until state changes.
+14:34:44.089 [INFO] [org.gradle.launcher.daemon.server.exec.StartBuildOrRespondWithBusy] Daemon is about to start building Build{id=eb1f5498-569d-4ba2-9bbd-b8fcc898ad79.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}. Dispatching build started information...
+14:34:44.089 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 16: dispatching class org.gradle.launcher.daemon.protocol.BuildStarted
+14:34:44.091 [DEBUG] [org.gradle.launcher.daemon.server.exec.EstablishBuildEnvironment] Configuring env variables: {PATH=/usr/local/gradle/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/mahsa/.rvm/bin, LC_MEASUREMENT=de_DE.UTF-8, XAUTHORITY=/home/mahsa/.Xauthority, XMODIFIERS=@im=ibus, LC_TELEPHONE=de_DE.UTF-8, XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop, GDMSESSION=ubuntu, MANDATORY_PATH=/usr/share/gconf/ubuntu.mandatory.path, LC_TIME=de_DE.UTF-8, GTK_IM_MODULE=ibus, DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-2NEFvW1xNb, DEFAULTS_PATH=/usr/share/gconf/ubuntu.default.path, XDG_CURRENT_DESKTOP=Unity, LD_LIBRARY_PATH=/home/mahsa/Downloads/idea-IC-171.4073.35/bin:, UPSTART_SESSION=unix:abstract=/com/ubuntu/upstart-session/1000/1820, QT4_IM_MODULE=xim, LC_PAPER=de_DE.UTF-8, SESSION_MANAGER=local/mahsa-VPCEA15FG:@/tmp/.ICE-unix/2251,unix/mahsa-VPCEA15FG:/tmp/.ICE-unix/2251, QT_LINUX_ACCESSIBILITY_ALWAYS_ON=1, LOGNAME=mahsa, JOB=unity-settings-daemon, PWD=/home/mahsa, IM_CONFIG_PHASE=1, LANGUAGE=en_US, SHELL=/bin/bash, LC_ADDRESS=de_DE.UTF-8, GIO_LAUNCHED_DESKTOP_FILE=/usr/share/applications/jetbrains-idea-ce.desktop, GTK2_MODULES=overlay-scrollbar, INSTANCE=, GNOME_DESKTOP_SESSION_ID=this-is-deprecated, UPSTART_INSTANCE=, GTK_MODULES=gail:atk-bridge:unity-gtk-module, CLUTTER_IM_MODULE=xim, XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0, COMPIZ_BIN_PATH=/usr/bin/, SESSIONTYPE=gnome-session, XDG_SESSION_DESKTOP=ubuntu, SHLVL=0, LC_IDENTIFICATION=de_DE.UTF-8, LC_MONETARY=de_DE.UTF-8, COMPIZ_CONFIG_PROFILE=ubuntu, QT_IM_MODULE=ibus, UPSTART_JOB=unity7, XFILESEARCHPATH=/usr/dt/app-defaults/%L/Dt, XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/usr/share/upstart/xdg:/etc/xdg, LANG=en_US.UTF-8, GNOME_KEYRING_CONTROL=, XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0, XDG_SESSION_ID=c2, XDG_SESSION_TYPE=x11, GRADLE_HOME=/usr/local/gradle, DISPLAY=:0, LC_NAME=de_DE.UTF-8, GDM_LANG=en_US, XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/mahsa, UPSTART_EVENTS=xsession started, GPG_AGENT_INFO=/home/mahsa/.gnupg/S.gpg-agent:0:1, DESKTOP_SESSION=ubuntu, SESSION=ubuntu, USER=mahsa, XDG_MENU_PREFIX=gnome-, GIO_LAUNCHED_DESKTOP_FILE_PID=7347, QT_ACCESSIBILITY=1, LC_NUMERIC=de_DE.UTF-8, SSH_AUTH_SOCK=/run/user/1000/keyring/ssh, XDG_SEAT=seat0, NLSPATH=/usr/dt/lib/nls/msg/%L/%N.cat, QT_QPA_PLATFORMTHEME=appmenu-qt5, XDG_VTNR=7, XDG_RUNTIME_DIR=/run/user/1000, HOME=/home/mahsa, GNOME_KEYRING_PID=}
+14:34:44.095 [DEBUG] [org.gradle.launcher.daemon.server.exec.LogToClient] About to start relaying all logs to the client via the connection.
+14:34:44.096 [INFO] [org.gradle.launcher.daemon.server.exec.LogToClient] The client will now receive all logging from the daemon (pid: 11685). The daemon log file: /home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon/2.12/daemon-11685.out.log
+14:34:44.097 [INFO] [org.gradle.launcher.daemon.server.health.DaemonHealthTracker] Starting 2nd build in daemon [uptime: 5.976 secs, performance: 99%, memory: 11% of 954.7 MB]
+14:34:44.111 [DEBUG] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] The daemon has started executing the build.
+14:34:44.112 [INFO] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] Executing build with daemon context: DefaultDaemonContext[uid=be096141-6ef6-4518-9d4c-50aeaecabc12,javaHome=/usr/lib/jvm/java-8-openjdk-amd64,daemonRegistryDir=/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon,pid=11685,idleTimeout=60000,daemonOpts=-XX:MaxPermSize=256m,-XX:+HeapDumpOnOutOfMemoryError,-Xmx1024m,-Dfile.encoding=UTF-8,-Duser.country=US,-Duser.language=en,-Duser.variant]
+14:34:44.113 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 18: received class org.gradle.launcher.daemon.protocol.CloseInput
+14:34:44.114 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received IO message from client: org.gradle.launcher.daemon.protocol.CloseInput@4f1c4b1a
+14:34:44.116 [INFO] [org.gradle.launcher.daemon.server.exec.ForwardClientInput] Closing daemon's stdin at end of input.
+14:34:44.116 [INFO] [org.gradle.launcher.daemon.server.exec.ForwardClientInput] The daemon will no longer process any standard input.
+:genAst UP-TO-DATE
+:genCup UP-TO-DATE
+:genJflex UP-TO-DATE
+:gen UP-TO-DATE
+:compileJava UP-TO-DATE
+:processResources UP-TO-DATE
+:classes UP-TO-DATE
+:jar UP-TO-DATE
+:assemble UP-TO-DATE
+:compileTestJava UP-TO-DATE
+:processTestResources UP-TO-DATE
+:testClasses UP-TO-DATE
+:test
+
+minijava.analysis.ClassChecks > duplicateFieldName FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > testOk1 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > testOk2 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > overrideCheck1 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > overrideCheck2 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > overrideCheck3 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > overrideCheck4 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > overrideCheck5 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > overrideCheck6 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > duplicateMethodName FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > duplicateParamName FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > argName FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > extendsMainClass FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > inheritanceCycle1 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > inheritanceCycle2 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > inheritanceCycle3 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > extendsNonexistingClass FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > duplicateClassName FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/NestedVars1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/LinearSearch.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/PrecedenceTest3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/IdentifierTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/VarDeclTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/Factorial.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/ExtendsTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/MainTest2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/BlockComments1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/PrecedenceTest4.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/ArrayTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/MoreThan4.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/TreeVisitor.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/NestedVars2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/BinaryTree.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/BubbleSort.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/MainTest3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/OperatorTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/MinimalProgram.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/MethodDeclTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/OperatorChainingTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/AllocTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/LinkedList.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/Minus.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/fieldAccess.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/QuickSort.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/MethodInvokeTest2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/NestedVars3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/MethodInvokeTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/WhileTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/IfTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/MainTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/Div.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/PrecedenceTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/PrecedenceTest2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ThisInMain.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ReturnInMain.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NewTest-err3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ThisTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/SameNameAsMainClass.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ArrayTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/OverrideTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/MDeclTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NotEnoughArgs.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ClassTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ClassTest-err3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/DuplicateField.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/WhileTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ParamTest-err3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/DeclTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NestedVarsErr4.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NestedVarsErr2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err9.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/MDeclTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/VarTest-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NewTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ThisTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err8.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/TooManyArgs.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/UnknownSupertype.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BoolTest-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NestedVarsErr3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/TreeVisitor-error.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/AndTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/DeclTest-err3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ParamTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ArrayTest-err4.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/OverrideTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BasicTest-error.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/DuplicateParam.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/DeclTest-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/AssignToInt.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ExtendsTest-err3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/Minus.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ExtendsTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NewTest-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err7.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ExtendsTest-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err10.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ArrayTest-err3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/CyclicInheritance-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/MethodTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/OverrideTest-err3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ArrayTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/IntTest-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err6.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/Div.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NestedVarsErr1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/MethodTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/IfTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err4.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/PrintTest-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ClassTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ParamTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/UnopTest-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NonexistingField.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err5.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+328 tests completed, 118 failed
+:test FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':test'.
+> There were failing tests. See the report at: file:///home/mahsa/Tu%20Kl/Compiler/group11/ex3/build/reports/tests/index.html
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
+
+BUILD FAILED
+
+Total time: 12.608 secs
+14:34:56.645 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache fileHashes.bin (/home/mahsa/Tu Kl/Compiler/group11/ex3/.gradle/2.12/taskArtifacts/fileHashes.bin)
+14:34:56.646 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache taskArtifacts.bin (/home/mahsa/Tu Kl/Compiler/group11/ex3/.gradle/2.12/taskArtifacts/taskArtifacts.bin)
+14:34:56.647 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache fileSnapshots.bin (/home/mahsa/Tu Kl/Compiler/group11/ex3/.gradle/2.12/taskArtifacts/fileSnapshots.bin)
+14:34:56.648 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache outputFileStates.bin (/home/mahsa/Tu Kl/Compiler/group11/ex3/.gradle/2.12/taskArtifacts/outputFileStates.bin)
+14:34:56.648 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on task history cache (/home/mahsa/Tu Kl/Compiler/group11/ex3/.gradle/2.12/taskArtifacts).
+14:34:56.649 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on cp_init class cache for initialization script '/tmp/ijinit.gradle' (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/scripts/ijinit_87o07vfof6oy13dwbhyezc40k/cp_init).
+14:34:56.650 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on init class cache for initialization script '/tmp/ijinit.gradle' (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/scripts/ijinit_87o07vfof6oy13dwbhyezc40k/init).
+14:34:56.650 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on cp_proj class cache for build file '/home/mahsa/Tu Kl/Compiler/group11/ex3/build.gradle' (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/scripts/build_3cv522gay4h9to9s8j857svaz/cp_proj).
+14:34:56.650 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on proj class cache for build file '/home/mahsa/Tu Kl/Compiler/group11/ex3/build.gradle' (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/scripts/build_3cv522gay4h9to9s8j857svaz/proj).
+14:34:56.652 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.resolveengine.store.CachedStoreFactory] Resolution result cache closed. Cache reads: 0, disk reads: 0 (avg: 0.0 secs, total: 0.0 secs)
+14:34:56.654 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.resolveengine.store.CachedStoreFactory] Resolution result cache closed. Cache reads: 0, disk reads: 0 (avg: 0.0 secs, total: 0.0 secs)
+14:34:56.654 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.resolveengine.store.ResolutionResultsStoreFactory] Deleted 2 resolution results binary files in 0.003 secs
+14:34:56.655 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache artifact-at-repository.bin (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/modules-2/metadata-2.16/artifact-at-repository.bin)
+14:34:56.655 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache module-metadata.bin (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/modules-2/metadata-2.16/module-metadata.bin)
+14:34:56.655 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on artifact cache (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/modules-2).
+14:34:56.656 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.ivyresolve.memcache.InMemoryCachedRepositoryFactory] In-memory dependency metadata cache closed. Repos cached: 3, cache instances: 1, modules served from cache: 4, artifacts: 4
+14:34:56.656 [DEBUG] [org.gradle.cache.internal.DefaultCacheAccess] Cache Plugin Resolution Cache (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/plugin-resolution) was closed 0 times.
+14:34:56.657 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on cache directory workerMain (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/workerMain).
+14:34:56.658 [DEBUG] [org.gradle.api.internal.tasks.compile.daemon.CompilerDaemonManager] Stopping 0 compiler daemon(s).
+14:34:56.658 [INFO] [org.gradle.api.internal.tasks.compile.daemon.CompilerDaemonManager] Stopped 0 compiler daemon(s).
+14:34:56.659 [DEBUG] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] The daemon has finished executing the build.
+14:34:56.670 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is busy, sleeping until state changes.
+14:34:56.670 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: finished waiting for DaemonCommandExecution[command = Build{id=eb1f5498-569d-4ba2-9bbd-b8fcc898ad79.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}, connection = org.gradle.launcher.daemon.server.DefaultDaemonConnection@249d267f]. Result org.gradle.launcher.daemon.server.DaemonStateCoordinator@713ded84 with state Running
+14:34:56.671 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: completed DaemonCommandExecution[command = Build{id=eb1f5498-569d-4ba2-9bbd-b8fcc898ad79.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}, connection = org.gradle.launcher.daemon.server.DefaultDaemonConnection@249d267f]
+14:34:56.671 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] updating lastActivityAt to 1495024496671
+14:34:56.671 [INFO] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Marking the daemon as idle, address: [6951ed63-bc6b-494e-bfbf-0fba927e3c9c port:46106, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:34:56.671 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Marking idle by address: [6951ed63-bc6b-494e-bfbf-0fba927e3c9c port:46106, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:34:56.672 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+14:34:56.672 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+14:34:56.678 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+14:34:56.678 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is idle, sleeping until state change or idle timeout at Wed May 17 14:35:56 CEST 2017
+14:34:56.679 [DEBUG] [org.gradle.launcher.daemon.server.exec.ReturnResult] Daemon is dispatching the build result: Failure[value=org.gradle.initialization.ReportedException: org.gradle.internal.exceptions.LocationAwareException: Execution failed for task ':test'.]
+14:34:56.679 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: dispatching class org.gradle.launcher.daemon.protocol.Failure
+14:34:56.694 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 18: received class org.gradle.launcher.daemon.protocol.Finished
+14:34:56.695 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received non-IO message from client: org.gradle.launcher.daemon.protocol.Finished@41dbbc89
+14:34:56.696 [DEBUG] [org.gradle.messaging.remote.internal.inet.SocketConnection] Discarding EOFException: java.io.EOFException
+14:34:56.696 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 18: received null
+14:34:56.696 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received end-of-input from client.
+14:34:56.705 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Finishing executing command: Build{id=eb1f5498-569d-4ba2-9bbd-b8fcc898ad79.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}
+14:34:56.711 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Received finished message: null
+14:34:56.712 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: stopping connection
+14:34:56.713 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: stopping connection
+14:34:59.076 [DEBUG] [org.gradle.messaging.remote.internal.inet.TcpIncomingConnector] Accepted connection from /127.0.0.1:41540 to /127.0.0.1:46106.
+14:34:59.087 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 35: received class org.gradle.launcher.daemon.protocol.Build
+14:34:59.088 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received non-IO message from client: Build{id=d25dc3b3-8516-42e6-95bd-b765fcc1c4fb.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}
+14:34:59.090 [INFO] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Received command: Build{id=d25dc3b3-8516-42e6-95bd-b765fcc1c4fb.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}.
+14:34:59.091 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Starting executing command: Build{id=d25dc3b3-8516-42e6-95bd-b765fcc1c4fb.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3} with connection: socket connection from /127.0.0.1:46106 to /127.0.0.1:41540.
+14:34:59.092 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: started DaemonCommandExecution[command = Build{id=d25dc3b3-8516-42e6-95bd-b765fcc1c4fb.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}, connection = org.gradle.launcher.daemon.server.DefaultDaemonConnection@4be0ec34] after 0.0 minutes of idle
+14:34:59.092 [INFO] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Marking the daemon as busy, address: [6951ed63-bc6b-494e-bfbf-0fba927e3c9c port:46106, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:34:59.092 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Marking busy by address: [6951ed63-bc6b-494e-bfbf-0fba927e3c9c port:46106, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:34:59.092 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+14:34:59.093 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+14:34:59.096 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+14:34:59.098 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] updating lastActivityAt to 1495024499098
+14:34:59.099 [INFO] [org.gradle.launcher.daemon.server.exec.StartBuildOrRespondWithBusy] Daemon is about to start building Build{id=d25dc3b3-8516-42e6-95bd-b765fcc1c4fb.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}. Dispatching build started information...
+14:34:59.100 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 16: dispatching class org.gradle.launcher.daemon.protocol.BuildStarted
+14:34:59.100 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is busy, sleeping until state changes.
+14:34:59.101 [DEBUG] [org.gradle.launcher.daemon.server.exec.EstablishBuildEnvironment] Configuring env variables: {PATH=/usr/local/gradle/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/mahsa/.rvm/bin, LC_MEASUREMENT=de_DE.UTF-8, XAUTHORITY=/home/mahsa/.Xauthority, XMODIFIERS=@im=ibus, LC_TELEPHONE=de_DE.UTF-8, XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop, GDMSESSION=ubuntu, MANDATORY_PATH=/usr/share/gconf/ubuntu.mandatory.path, LC_TIME=de_DE.UTF-8, GTK_IM_MODULE=ibus, DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-2NEFvW1xNb, DEFAULTS_PATH=/usr/share/gconf/ubuntu.default.path, XDG_CURRENT_DESKTOP=Unity, LD_LIBRARY_PATH=/home/mahsa/Downloads/idea-IC-171.4073.35/bin:, UPSTART_SESSION=unix:abstract=/com/ubuntu/upstart-session/1000/1820, QT4_IM_MODULE=xim, LC_PAPER=de_DE.UTF-8, SESSION_MANAGER=local/mahsa-VPCEA15FG:@/tmp/.ICE-unix/2251,unix/mahsa-VPCEA15FG:/tmp/.ICE-unix/2251, QT_LINUX_ACCESSIBILITY_ALWAYS_ON=1, LOGNAME=mahsa, JOB=unity-settings-daemon, PWD=/home/mahsa, IM_CONFIG_PHASE=1, LANGUAGE=en_US, SHELL=/bin/bash, LC_ADDRESS=de_DE.UTF-8, GIO_LAUNCHED_DESKTOP_FILE=/usr/share/applications/jetbrains-idea-ce.desktop, GTK2_MODULES=overlay-scrollbar, INSTANCE=, GNOME_DESKTOP_SESSION_ID=this-is-deprecated, UPSTART_INSTANCE=, GTK_MODULES=gail:atk-bridge:unity-gtk-module, CLUTTER_IM_MODULE=xim, XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0, COMPIZ_BIN_PATH=/usr/bin/, SESSIONTYPE=gnome-session, XDG_SESSION_DESKTOP=ubuntu, SHLVL=0, LC_IDENTIFICATION=de_DE.UTF-8, LC_MONETARY=de_DE.UTF-8, COMPIZ_CONFIG_PROFILE=ubuntu, QT_IM_MODULE=ibus, UPSTART_JOB=unity7, XFILESEARCHPATH=/usr/dt/app-defaults/%L/Dt, XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/usr/share/upstart/xdg:/etc/xdg, LANG=en_US.UTF-8, GNOME_KEYRING_CONTROL=, XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0, XDG_SESSION_ID=c2, XDG_SESSION_TYPE=x11, GRADLE_HOME=/usr/local/gradle, DISPLAY=:0, LC_NAME=de_DE.UTF-8, GDM_LANG=en_US, XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/mahsa, UPSTART_EVENTS=xsession started, GPG_AGENT_INFO=/home/mahsa/.gnupg/S.gpg-agent:0:1, DESKTOP_SESSION=ubuntu, SESSION=ubuntu, USER=mahsa, XDG_MENU_PREFIX=gnome-, GIO_LAUNCHED_DESKTOP_FILE_PID=7347, QT_ACCESSIBILITY=1, LC_NUMERIC=de_DE.UTF-8, SSH_AUTH_SOCK=/run/user/1000/keyring/ssh, XDG_SEAT=seat0, NLSPATH=/usr/dt/lib/nls/msg/%L/%N.cat, QT_QPA_PLATFORMTHEME=appmenu-qt5, XDG_VTNR=7, XDG_RUNTIME_DIR=/run/user/1000, HOME=/home/mahsa, GNOME_KEYRING_PID=}
+14:34:59.104 [DEBUG] [org.gradle.launcher.daemon.server.exec.LogToClient] About to start relaying all logs to the client via the connection.
+14:34:59.104 [INFO] [org.gradle.launcher.daemon.server.exec.LogToClient] The client will now receive all logging from the daemon (pid: 11685). The daemon log file: /home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon/2.12/daemon-11685.out.log
+14:34:59.105 [INFO] [org.gradle.launcher.daemon.server.health.DaemonHealthTracker] Starting 3rd build in daemon [uptime: 20.984 secs, performance: 97%, memory: 21% of 954.7 MB]
+14:34:59.105 [DEBUG] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] The daemon has started executing the build.
+14:34:59.106 [INFO] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] Executing build with daemon context: DefaultDaemonContext[uid=be096141-6ef6-4518-9d4c-50aeaecabc12,javaHome=/usr/lib/jvm/java-8-openjdk-amd64,daemonRegistryDir=/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon,pid=11685,idleTimeout=60000,daemonOpts=-XX:MaxPermSize=256m,-XX:+HeapDumpOnOutOfMemoryError,-Xmx1024m,-Dfile.encoding=UTF-8,-Duser.country=US,-Duser.language=en,-Duser.variant]
+:genAst UP-TO-DATE
+:genCup UP-TO-DATE
+:genJflex UP-TO-DATE
+:gen UP-TO-DATE
+:compileJava UP-TO-DATE
+:processResources UP-TO-DATE
+:classes UP-TO-DATE
+:jar UP-TO-DATE
+:assemble UP-TO-DATE
+:compileTestJava UP-TO-DATE
+:processTestResources UP-TO-DATE
+:testClasses UP-TO-DATE
+:test
+
+minijava.analysis.ClassChecks > duplicateFieldName FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > testOk1 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > testOk2 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > overrideCheck1 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > overrideCheck2 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > overrideCheck3 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > overrideCheck4 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > overrideCheck5 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > overrideCheck6 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > duplicateMethodName FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > duplicateParamName FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > argName FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > extendsMainClass FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > inheritanceCycle1 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > inheritanceCycle2 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > inheritanceCycle3 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > extendsNonexistingClass FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > duplicateClassName FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/NestedVars1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/LinearSearch.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/PrecedenceTest3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/IdentifierTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/VarDeclTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/Factorial.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/ExtendsTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/MainTest2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/BlockComments1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/PrecedenceTest4.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/ArrayTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/MoreThan4.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/TreeVisitor.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/NestedVars2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/BinaryTree.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/BubbleSort.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/MainTest3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/OperatorTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/MinimalProgram.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/MethodDeclTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/OperatorChainingTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/AllocTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/LinkedList.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/Minus.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/fieldAccess.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/QuickSort.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/MethodInvokeTest2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/NestedVars3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/MethodInvokeTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/WhileTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/IfTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/MainTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/Div.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/PrecedenceTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/PrecedenceTest2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ThisInMain.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ReturnInMain.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NewTest-err3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ThisTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/SameNameAsMainClass.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ArrayTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/OverrideTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/MDeclTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NotEnoughArgs.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ClassTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ClassTest-err3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/DuplicateField.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/WhileTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ParamTest-err3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/DeclTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NestedVarsErr4.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NestedVarsErr2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err9.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/MDeclTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/VarTest-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NewTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ThisTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err8.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/TooManyArgs.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/UnknownSupertype.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BoolTest-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NestedVarsErr3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/TreeVisitor-error.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/AndTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/DeclTest-err3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ParamTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ArrayTest-err4.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/OverrideTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BasicTest-error.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/DuplicateParam.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/DeclTest-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/AssignToInt.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ExtendsTest-err3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/Minus.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ExtendsTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NewTest-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err7.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ExtendsTest-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err10.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ArrayTest-err3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/CyclicInheritance-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/MethodTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/OverrideTest-err3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ArrayTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/IntTest-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err6.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/Div.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NestedVarsErr1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/MethodTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/IfTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err4.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/PrintTest-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ClassTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ParamTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/UnopTest-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NonexistingField.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err5.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+328 tests completed, 118 failed
+:test FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':test'.
+> There were failing tests. See the report at: file:///home/mahsa/Tu%20Kl/Compiler/group11/ex3/build/reports/tests/index.html
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
+
+BUILD FAILED
+
+Total time: 5.275 secs
+14:35:04.335 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache fileHashes.bin (/home/mahsa/Tu Kl/Compiler/group11/ex3/.gradle/2.12/taskArtifacts/fileHashes.bin)
+14:35:04.336 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on task history cache (/home/mahsa/Tu Kl/Compiler/group11/ex3/.gradle/2.12/taskArtifacts).
+14:35:04.336 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on cp_init class cache for initialization script '/tmp/ijinit1.gradle' (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/scripts/ijinit1_1v0div0a3b3tcxteu5c9moni/cp_init).
+14:35:04.337 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on init class cache for initialization script '/tmp/ijinit1.gradle' (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/scripts/ijinit1_1v0div0a3b3tcxteu5c9moni/init).
+14:35:04.337 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on cp_proj class cache for build file '/home/mahsa/Tu Kl/Compiler/group11/ex3/build.gradle' (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/scripts/build_3cv522gay4h9to9s8j857svaz/cp_proj).
+14:35:04.337 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on proj class cache for build file '/home/mahsa/Tu Kl/Compiler/group11/ex3/build.gradle' (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/scripts/build_3cv522gay4h9to9s8j857svaz/proj).
+14:35:04.338 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.resolveengine.store.CachedStoreFactory] Resolution result cache closed. Cache reads: 0, disk reads: 0 (avg: 0.0 secs, total: 0.0 secs)
+14:35:04.338 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.resolveengine.store.CachedStoreFactory] Resolution result cache closed. Cache reads: 0, disk reads: 0 (avg: 0.0 secs, total: 0.0 secs)
+14:35:04.339 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.resolveengine.store.ResolutionResultsStoreFactory] Deleted 2 resolution results binary files in 0.001 secs
+14:35:04.339 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache module-metadata.bin (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/modules-2/metadata-2.16/module-metadata.bin)
+14:35:04.339 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache artifact-at-repository.bin (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/modules-2/metadata-2.16/artifact-at-repository.bin)
+14:35:04.340 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on artifact cache (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/modules-2).
+14:35:04.340 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.ivyresolve.memcache.InMemoryCachedRepositoryFactory] In-memory dependency metadata cache closed. Repos cached: 3, cache instances: 1, modules served from cache: 4, artifacts: 4
+14:35:04.341 [DEBUG] [org.gradle.cache.internal.DefaultCacheAccess] Cache Plugin Resolution Cache (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/plugin-resolution) was closed 0 times.
+14:35:04.341 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on cache directory workerMain (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/workerMain).
+14:35:04.344 [DEBUG] [org.gradle.api.internal.tasks.compile.daemon.CompilerDaemonManager] Stopping 0 compiler daemon(s).
+14:35:04.345 [INFO] [org.gradle.api.internal.tasks.compile.daemon.CompilerDaemonManager] Stopped 0 compiler daemon(s).
+14:35:04.345 [DEBUG] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] The daemon has finished executing the build.
+14:35:04.350 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: finished waiting for DaemonCommandExecution[command = Build{id=d25dc3b3-8516-42e6-95bd-b765fcc1c4fb.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}, connection = org.gradle.launcher.daemon.server.DefaultDaemonConnection@4be0ec34]. Result org.gradle.launcher.daemon.server.DaemonStateCoordinator@713ded84 with state Running
+14:35:04.350 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: completed DaemonCommandExecution[command = Build{id=d25dc3b3-8516-42e6-95bd-b765fcc1c4fb.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}, connection = org.gradle.launcher.daemon.server.DefaultDaemonConnection@4be0ec34]
+14:35:04.351 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] updating lastActivityAt to 1495024504351
+14:35:04.351 [INFO] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Marking the daemon as idle, address: [6951ed63-bc6b-494e-bfbf-0fba927e3c9c port:46106, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:35:04.351 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Marking idle by address: [6951ed63-bc6b-494e-bfbf-0fba927e3c9c port:46106, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:35:04.352 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+14:35:04.352 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+14:35:04.356 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+14:35:04.356 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is idle, sleeping until state change or idle timeout at Wed May 17 14:36:04 CEST 2017
+14:35:04.357 [DEBUG] [org.gradle.launcher.daemon.server.exec.ReturnResult] Daemon is dispatching the build result: Failure[value=org.gradle.initialization.ReportedException: org.gradle.internal.exceptions.LocationAwareException: Execution failed for task ':test'.]
+14:35:04.357 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: dispatching class org.gradle.launcher.daemon.protocol.Failure
+14:35:04.360 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Finishing executing command: Build{id=d25dc3b3-8516-42e6-95bd-b765fcc1c4fb.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}
+14:35:04.378 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 35: received class org.gradle.launcher.daemon.protocol.Finished
+14:35:04.378 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received non-IO message from client: org.gradle.launcher.daemon.protocol.Finished@a46b308
+14:35:04.379 [DEBUG] [org.gradle.messaging.remote.internal.inet.SocketConnection] Discarding EOFException: java.io.EOFException
+14:35:04.379 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 35: received null
+14:35:04.379 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received end-of-input from client.
+14:35:04.382 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Received finished message: null
+14:35:04.382 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: stopping connection
+14:35:04.390 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: stopping connection
+14:35:19.823 [DEBUG] [org.gradle.messaging.remote.internal.inet.TcpIncomingConnector] Accepted connection from /127.0.0.1:41544 to /127.0.0.1:46106.
+14:35:19.831 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 49: received class org.gradle.launcher.daemon.protocol.Build
+14:35:19.831 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received non-IO message from client: Build{id=6491f805-f8c7-429f-8cc6-305c7c14d644.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}
+14:35:19.831 [INFO] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Received command: Build{id=6491f805-f8c7-429f-8cc6-305c7c14d644.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}.
+14:35:19.832 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Starting executing command: Build{id=6491f805-f8c7-429f-8cc6-305c7c14d644.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3} with connection: socket connection from /127.0.0.1:46106 to /127.0.0.1:41544.
+14:35:19.833 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: started DaemonCommandExecution[command = Build{id=6491f805-f8c7-429f-8cc6-305c7c14d644.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}, connection = org.gradle.launcher.daemon.server.DefaultDaemonConnection@7e7b733f] after 0.0 minutes of idle
+14:35:19.833 [INFO] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Marking the daemon as busy, address: [6951ed63-bc6b-494e-bfbf-0fba927e3c9c port:46106, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:35:19.833 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Marking busy by address: [6951ed63-bc6b-494e-bfbf-0fba927e3c9c port:46106, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:35:19.834 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+14:35:19.834 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+14:35:19.849 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+14:35:19.850 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] updating lastActivityAt to 1495024519849
+14:35:19.850 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is busy, sleeping until state changes.
+14:35:19.850 [INFO] [org.gradle.launcher.daemon.server.exec.StartBuildOrRespondWithBusy] Daemon is about to start building Build{id=6491f805-f8c7-429f-8cc6-305c7c14d644.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}. Dispatching build started information...
+14:35:19.850 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 16: dispatching class org.gradle.launcher.daemon.protocol.BuildStarted
+14:35:19.851 [DEBUG] [org.gradle.launcher.daemon.server.exec.EstablishBuildEnvironment] Configuring env variables: {PATH=/usr/local/gradle/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/mahsa/.rvm/bin, LC_MEASUREMENT=de_DE.UTF-8, XAUTHORITY=/home/mahsa/.Xauthority, XMODIFIERS=@im=ibus, LC_TELEPHONE=de_DE.UTF-8, XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop, GDMSESSION=ubuntu, MANDATORY_PATH=/usr/share/gconf/ubuntu.mandatory.path, LC_TIME=de_DE.UTF-8, GTK_IM_MODULE=ibus, DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-2NEFvW1xNb, DEFAULTS_PATH=/usr/share/gconf/ubuntu.default.path, XDG_CURRENT_DESKTOP=Unity, LD_LIBRARY_PATH=/home/mahsa/Downloads/idea-IC-171.4073.35/bin:, UPSTART_SESSION=unix:abstract=/com/ubuntu/upstart-session/1000/1820, QT4_IM_MODULE=xim, LC_PAPER=de_DE.UTF-8, SESSION_MANAGER=local/mahsa-VPCEA15FG:@/tmp/.ICE-unix/2251,unix/mahsa-VPCEA15FG:/tmp/.ICE-unix/2251, QT_LINUX_ACCESSIBILITY_ALWAYS_ON=1, LOGNAME=mahsa, JOB=unity-settings-daemon, PWD=/home/mahsa, IM_CONFIG_PHASE=1, LANGUAGE=en_US, SHELL=/bin/bash, LC_ADDRESS=de_DE.UTF-8, GIO_LAUNCHED_DESKTOP_FILE=/usr/share/applications/jetbrains-idea-ce.desktop, GTK2_MODULES=overlay-scrollbar, INSTANCE=, GNOME_DESKTOP_SESSION_ID=this-is-deprecated, UPSTART_INSTANCE=, GTK_MODULES=gail:atk-bridge:unity-gtk-module, CLUTTER_IM_MODULE=xim, XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0, COMPIZ_BIN_PATH=/usr/bin/, SESSIONTYPE=gnome-session, XDG_SESSION_DESKTOP=ubuntu, SHLVL=0, LC_IDENTIFICATION=de_DE.UTF-8, LC_MONETARY=de_DE.UTF-8, COMPIZ_CONFIG_PROFILE=ubuntu, QT_IM_MODULE=ibus, UPSTART_JOB=unity7, XFILESEARCHPATH=/usr/dt/app-defaults/%L/Dt, XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/usr/share/upstart/xdg:/etc/xdg, LANG=en_US.UTF-8, GNOME_KEYRING_CONTROL=, XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0, XDG_SESSION_ID=c2, XDG_SESSION_TYPE=x11, GRADLE_HOME=/usr/local/gradle, DISPLAY=:0, LC_NAME=de_DE.UTF-8, GDM_LANG=en_US, XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/mahsa, UPSTART_EVENTS=xsession started, GPG_AGENT_INFO=/home/mahsa/.gnupg/S.gpg-agent:0:1, DESKTOP_SESSION=ubuntu, SESSION=ubuntu, USER=mahsa, XDG_MENU_PREFIX=gnome-, GIO_LAUNCHED_DESKTOP_FILE_PID=7347, QT_ACCESSIBILITY=1, LC_NUMERIC=de_DE.UTF-8, SSH_AUTH_SOCK=/run/user/1000/keyring/ssh, XDG_SEAT=seat0, NLSPATH=/usr/dt/lib/nls/msg/%L/%N.cat, QT_QPA_PLATFORMTHEME=appmenu-qt5, XDG_VTNR=7, XDG_RUNTIME_DIR=/run/user/1000, HOME=/home/mahsa, GNOME_KEYRING_PID=}
+14:35:19.854 [DEBUG] [org.gradle.launcher.daemon.server.exec.LogToClient] About to start relaying all logs to the client via the connection.
+14:35:19.854 [INFO] [org.gradle.launcher.daemon.server.exec.LogToClient] The client will now receive all logging from the daemon (pid: 11685). The daemon log file: /home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon/2.12/daemon-11685.out.log
+14:35:19.855 [INFO] [org.gradle.launcher.daemon.server.health.DaemonHealthTracker] Starting 4th build in daemon [uptime: 41.735 secs, performance: 98%, memory: 23% of 954.7 MB]
+14:35:19.860 [DEBUG] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] The daemon has started executing the build.
+14:35:19.861 [INFO] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] Executing build with daemon context: DefaultDaemonContext[uid=be096141-6ef6-4518-9d4c-50aeaecabc12,javaHome=/usr/lib/jvm/java-8-openjdk-amd64,daemonRegistryDir=/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon,pid=11685,idleTimeout=60000,daemonOpts=-XX:MaxPermSize=256m,-XX:+HeapDumpOnOutOfMemoryError,-Xmx1024m,-Dfile.encoding=UTF-8,-Duser.country=US,-Duser.language=en,-Duser.variant]
+14:35:19.873 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 49: received class org.gradle.launcher.daemon.protocol.CloseInput
+14:35:19.873 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received IO message from client: org.gradle.launcher.daemon.protocol.CloseInput@7217d36
+:genAst UP-TO-DATE
+:genCup UP-TO-DATE
+:genJflex UP-TO-DATE
+:gen UP-TO-DATE
+:compileJava UP-TO-DATE
+:processResources UP-TO-DATE
+:classes UP-TO-DATE
+:jar UP-TO-DATE
+:assemble UP-TO-DATE
+:compileTestJava UP-TO-DATE
+:processTestResources UP-TO-DATE
+:testClasses UP-TO-DATE
+:test
+
+minijava.analysis.ClassChecks > duplicateFieldName FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > testOk1 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > testOk2 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > overrideCheck1 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > overrideCheck2 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > overrideCheck3 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > overrideCheck4 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > overrideCheck5 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > overrideCheck6 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > duplicateMethodName FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > duplicateParamName FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > argName FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > extendsMainClass FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > inheritanceCycle1 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > inheritanceCycle2 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > inheritanceCycle3 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > extendsNonexistingClass FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > duplicateClassName FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/NestedVars1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/LinearSearch.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/PrecedenceTest3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/IdentifierTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/VarDeclTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/Factorial.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/ExtendsTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/MainTest2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/BlockComments1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/PrecedenceTest4.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/ArrayTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/MoreThan4.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/TreeVisitor.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/NestedVars2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/BinaryTree.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/BubbleSort.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/MainTest3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/OperatorTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/MinimalProgram.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/MethodDeclTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/OperatorChainingTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/AllocTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/LinkedList.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/Minus.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/fieldAccess.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/QuickSort.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/MethodInvokeTest2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/NestedVars3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/MethodInvokeTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/WhileTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/IfTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/MainTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/Div.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/PrecedenceTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/PrecedenceTest2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ThisInMain.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ReturnInMain.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NewTest-err3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ThisTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/SameNameAsMainClass.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ArrayTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/OverrideTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/MDeclTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NotEnoughArgs.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ClassTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ClassTest-err3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/DuplicateField.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/WhileTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ParamTest-err3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/DeclTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NestedVarsErr4.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NestedVarsErr2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err9.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/MDeclTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/VarTest-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NewTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ThisTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err8.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/TooManyArgs.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/UnknownSupertype.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BoolTest-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NestedVarsErr3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/TreeVisitor-error.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/AndTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/DeclTest-err3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ParamTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ArrayTest-err4.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/OverrideTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BasicTest-error.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/DuplicateParam.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/DeclTest-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/AssignToInt.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ExtendsTest-err3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/Minus.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ExtendsTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NewTest-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err7.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ExtendsTest-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err10.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ArrayTest-err3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/CyclicInheritance-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/MethodTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/OverrideTest-err3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ArrayTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/IntTest-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err6.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/Div.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NestedVarsErr1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/MethodTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/IfTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err4.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/PrintTest-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ClassTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ParamTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/UnopTest-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NonexistingField.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err5.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+328 tests completed, 118 failed
+:test FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':test'.
+> There were failing tests. See the report at: file:///home/mahsa/Tu%20Kl/Compiler/group11/ex3/build/reports/tests/index.html
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
+
+BUILD FAILED
+
+Total time: 4.984 secs
+14:35:24.791 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache fileHashes.bin (/home/mahsa/Tu Kl/Compiler/group11/ex3/.gradle/2.12/taskArtifacts/fileHashes.bin)
+14:35:24.791 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on task history cache (/home/mahsa/Tu Kl/Compiler/group11/ex3/.gradle/2.12/taskArtifacts).
+14:35:24.792 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on cp_init class cache for initialization script '/tmp/ijinit2.gradle' (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/scripts/ijinit2_3sriqtc00stfgd0btmpohqf75/cp_init).
+14:35:24.792 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on init class cache for initialization script '/tmp/ijinit2.gradle' (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/scripts/ijinit2_3sriqtc00stfgd0btmpohqf75/init).
+14:35:24.792 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on cp_proj class cache for build file '/home/mahsa/Tu Kl/Compiler/group11/ex3/build.gradle' (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/scripts/build_3cv522gay4h9to9s8j857svaz/cp_proj).
+14:35:24.793 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on proj class cache for build file '/home/mahsa/Tu Kl/Compiler/group11/ex3/build.gradle' (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/scripts/build_3cv522gay4h9to9s8j857svaz/proj).
+14:35:24.793 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.resolveengine.store.CachedStoreFactory] Resolution result cache closed. Cache reads: 0, disk reads: 0 (avg: 0.0 secs, total: 0.0 secs)
+14:35:24.794 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.resolveengine.store.CachedStoreFactory] Resolution result cache closed. Cache reads: 0, disk reads: 0 (avg: 0.0 secs, total: 0.0 secs)
+14:35:24.794 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.resolveengine.store.ResolutionResultsStoreFactory] Deleted 2 resolution results binary files in 0.001 secs
+14:35:24.794 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache module-metadata.bin (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/modules-2/metadata-2.16/module-metadata.bin)
+14:35:24.794 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache artifact-at-repository.bin (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/modules-2/metadata-2.16/artifact-at-repository.bin)
+14:35:24.795 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on artifact cache (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/modules-2).
+14:35:24.795 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.ivyresolve.memcache.InMemoryCachedRepositoryFactory] In-memory dependency metadata cache closed. Repos cached: 3, cache instances: 1, modules served from cache: 4, artifacts: 4
+14:35:24.795 [DEBUG] [org.gradle.cache.internal.DefaultCacheAccess] Cache Plugin Resolution Cache (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/plugin-resolution) was closed 0 times.
+14:35:24.796 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on cache directory workerMain (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/workerMain).
+14:35:24.804 [DEBUG] [org.gradle.api.internal.tasks.compile.daemon.CompilerDaemonManager] Stopping 0 compiler daemon(s).
+14:35:24.805 [INFO] [org.gradle.api.internal.tasks.compile.daemon.CompilerDaemonManager] Stopped 0 compiler daemon(s).
+14:35:24.805 [DEBUG] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] The daemon has finished executing the build.
+14:35:24.809 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is busy, sleeping until state changes.
+14:35:24.810 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: finished waiting for DaemonCommandExecution[command = Build{id=6491f805-f8c7-429f-8cc6-305c7c14d644.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}, connection = org.gradle.launcher.daemon.server.DefaultDaemonConnection@7e7b733f]. Result org.gradle.launcher.daemon.server.DaemonStateCoordinator@713ded84 with state Running
+14:35:24.810 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: completed DaemonCommandExecution[command = Build{id=6491f805-f8c7-429f-8cc6-305c7c14d644.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}, connection = org.gradle.launcher.daemon.server.DefaultDaemonConnection@7e7b733f]
+14:35:24.810 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] updating lastActivityAt to 1495024524810
+14:35:24.812 [INFO] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Marking the daemon as idle, address: [6951ed63-bc6b-494e-bfbf-0fba927e3c9c port:46106, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:35:24.812 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Marking idle by address: [6951ed63-bc6b-494e-bfbf-0fba927e3c9c port:46106, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:35:24.813 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+14:35:24.813 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+14:35:24.816 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+14:35:24.817 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is idle, sleeping until state change or idle timeout at Wed May 17 14:36:24 CEST 2017
+14:35:24.817 [DEBUG] [org.gradle.launcher.daemon.server.exec.ReturnResult] Daemon is dispatching the build result: Failure[value=org.gradle.initialization.ReportedException: org.gradle.internal.exceptions.LocationAwareException: Execution failed for task ':test'.]
+14:35:24.817 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: dispatching class org.gradle.launcher.daemon.protocol.Failure
+14:35:24.824 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Finishing executing command: Build{id=6491f805-f8c7-429f-8cc6-305c7c14d644.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}
+14:35:24.825 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 49: received class org.gradle.launcher.daemon.protocol.Finished
+14:35:24.826 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received non-IO message from client: org.gradle.launcher.daemon.protocol.Finished@9e683a2
+14:35:24.826 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Received finished message: org.gradle.launcher.daemon.protocol.Finished@9e683a2
+14:35:24.826 [DEBUG] [org.gradle.messaging.remote.internal.inet.SocketConnection] Discarding EOFException: java.io.EOFException
+14:35:24.827 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 49: received null
+14:35:24.827 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received end-of-input from client.
+14:35:24.827 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: stopping connection
+14:35:24.829 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: stopping connection
+14:35:33.565 [DEBUG] [org.gradle.messaging.remote.internal.inet.TcpIncomingConnector] Accepted connection from /127.0.0.1:41550 to /127.0.0.1:46106.
+14:35:33.573 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 63: received class org.gradle.launcher.daemon.protocol.Build
+14:35:33.574 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received non-IO message from client: Build{id=d0573f31-d95b-4dee-b190-97a8c726c190.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}
+14:35:33.575 [INFO] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Received command: Build{id=d0573f31-d95b-4dee-b190-97a8c726c190.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}.
+14:35:33.575 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Starting executing command: Build{id=d0573f31-d95b-4dee-b190-97a8c726c190.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3} with connection: socket connection from /127.0.0.1:46106 to /127.0.0.1:41550.
+14:35:33.576 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: started DaemonCommandExecution[command = Build{id=d0573f31-d95b-4dee-b190-97a8c726c190.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}, connection = org.gradle.launcher.daemon.server.DefaultDaemonConnection@3f8c47d8] after 0.0 minutes of idle
+14:35:33.576 [INFO] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Marking the daemon as busy, address: [6951ed63-bc6b-494e-bfbf-0fba927e3c9c port:46106, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:35:33.577 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Marking busy by address: [6951ed63-bc6b-494e-bfbf-0fba927e3c9c port:46106, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:35:33.577 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+14:35:33.577 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+14:35:33.581 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+14:35:33.582 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] updating lastActivityAt to 1495024533582
+14:35:33.582 [INFO] [org.gradle.launcher.daemon.server.exec.StartBuildOrRespondWithBusy] Daemon is about to start building Build{id=d0573f31-d95b-4dee-b190-97a8c726c190.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}. Dispatching build started information...
+14:35:33.583 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 16: dispatching class org.gradle.launcher.daemon.protocol.BuildStarted
+14:35:33.583 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is busy, sleeping until state changes.
+14:35:33.584 [DEBUG] [org.gradle.launcher.daemon.server.exec.EstablishBuildEnvironment] Configuring env variables: {PATH=/usr/local/gradle/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/mahsa/.rvm/bin, LC_MEASUREMENT=de_DE.UTF-8, XAUTHORITY=/home/mahsa/.Xauthority, XMODIFIERS=@im=ibus, LC_TELEPHONE=de_DE.UTF-8, XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop, GDMSESSION=ubuntu, MANDATORY_PATH=/usr/share/gconf/ubuntu.mandatory.path, LC_TIME=de_DE.UTF-8, GTK_IM_MODULE=ibus, DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-2NEFvW1xNb, DEFAULTS_PATH=/usr/share/gconf/ubuntu.default.path, XDG_CURRENT_DESKTOP=Unity, LD_LIBRARY_PATH=/home/mahsa/Downloads/idea-IC-171.4073.35/bin:, UPSTART_SESSION=unix:abstract=/com/ubuntu/upstart-session/1000/1820, QT4_IM_MODULE=xim, LC_PAPER=de_DE.UTF-8, SESSION_MANAGER=local/mahsa-VPCEA15FG:@/tmp/.ICE-unix/2251,unix/mahsa-VPCEA15FG:/tmp/.ICE-unix/2251, QT_LINUX_ACCESSIBILITY_ALWAYS_ON=1, LOGNAME=mahsa, JOB=unity-settings-daemon, PWD=/home/mahsa, IM_CONFIG_PHASE=1, LANGUAGE=en_US, SHELL=/bin/bash, LC_ADDRESS=de_DE.UTF-8, GIO_LAUNCHED_DESKTOP_FILE=/usr/share/applications/jetbrains-idea-ce.desktop, GTK2_MODULES=overlay-scrollbar, INSTANCE=, GNOME_DESKTOP_SESSION_ID=this-is-deprecated, UPSTART_INSTANCE=, GTK_MODULES=gail:atk-bridge:unity-gtk-module, CLUTTER_IM_MODULE=xim, XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0, COMPIZ_BIN_PATH=/usr/bin/, SESSIONTYPE=gnome-session, XDG_SESSION_DESKTOP=ubuntu, SHLVL=0, LC_IDENTIFICATION=de_DE.UTF-8, LC_MONETARY=de_DE.UTF-8, COMPIZ_CONFIG_PROFILE=ubuntu, QT_IM_MODULE=ibus, UPSTART_JOB=unity7, XFILESEARCHPATH=/usr/dt/app-defaults/%L/Dt, XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/usr/share/upstart/xdg:/etc/xdg, LANG=en_US.UTF-8, GNOME_KEYRING_CONTROL=, XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0, XDG_SESSION_ID=c2, XDG_SESSION_TYPE=x11, GRADLE_HOME=/usr/local/gradle, DISPLAY=:0, LC_NAME=de_DE.UTF-8, GDM_LANG=en_US, XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/mahsa, UPSTART_EVENTS=xsession started, GPG_AGENT_INFO=/home/mahsa/.gnupg/S.gpg-agent:0:1, DESKTOP_SESSION=ubuntu, SESSION=ubuntu, USER=mahsa, XDG_MENU_PREFIX=gnome-, GIO_LAUNCHED_DESKTOP_FILE_PID=7347, QT_ACCESSIBILITY=1, LC_NUMERIC=de_DE.UTF-8, SSH_AUTH_SOCK=/run/user/1000/keyring/ssh, XDG_SEAT=seat0, NLSPATH=/usr/dt/lib/nls/msg/%L/%N.cat, QT_QPA_PLATFORMTHEME=appmenu-qt5, XDG_VTNR=7, XDG_RUNTIME_DIR=/run/user/1000, HOME=/home/mahsa, GNOME_KEYRING_PID=}
+14:35:33.586 [DEBUG] [org.gradle.launcher.daemon.server.exec.LogToClient] About to start relaying all logs to the client via the connection.
+14:35:33.587 [INFO] [org.gradle.launcher.daemon.server.exec.LogToClient] The client will now receive all logging from the daemon (pid: 11685). The daemon log file: /home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon/2.12/daemon-11685.out.log
+14:35:33.588 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 63: received class org.gradle.launcher.daemon.protocol.CloseInput
+14:35:33.588 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received IO message from client: org.gradle.launcher.daemon.protocol.CloseInput@db46d54
+14:35:33.588 [INFO] [org.gradle.launcher.daemon.server.health.DaemonHealthTracker] Starting 5th build in daemon [uptime: 55.467 secs, performance: 98%, memory: 23% of 954.7 MB]
+14:35:33.596 [DEBUG] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] The daemon has started executing the build.
+14:35:33.597 [INFO] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] Executing build with daemon context: DefaultDaemonContext[uid=be096141-6ef6-4518-9d4c-50aeaecabc12,javaHome=/usr/lib/jvm/java-8-openjdk-amd64,daemonRegistryDir=/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon,pid=11685,idleTimeout=60000,daemonOpts=-XX:MaxPermSize=256m,-XX:+HeapDumpOnOutOfMemoryError,-Xmx1024m,-Dfile.encoding=UTF-8,-Duser.country=US,-Duser.language=en,-Duser.variant]
+14:35:33.600 [INFO] [org.gradle.launcher.daemon.server.exec.ForwardClientInput] Closing daemon's stdin at end of input.
+14:35:33.600 [INFO] [org.gradle.launcher.daemon.server.exec.ForwardClientInput] The daemon will no longer process any standard input.
+:genAst UP-TO-DATE
+:genCup UP-TO-DATE
+:genJflex UP-TO-DATE
+:gen UP-TO-DATE
+:compileJava UP-TO-DATE
+:processResources UP-TO-DATE
+:classes UP-TO-DATE
+:jar UP-TO-DATE
+:assemble UP-TO-DATE
+:compileTestJava UP-TO-DATE
+:processTestResources UP-TO-DATE
+:testClasses UP-TO-DATE
+:test
+
+minijava.analysis.ClassChecks > duplicateFieldName FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > testOk1 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > testOk2 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > overrideCheck1 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > overrideCheck2 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > overrideCheck3 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > overrideCheck4 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > overrideCheck5 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > overrideCheck6 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > duplicateMethodName FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > duplicateParamName FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > argName FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > extendsMainClass FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > inheritanceCycle1 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > inheritanceCycle2 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > inheritanceCycle3 FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > extendsNonexistingClass FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > duplicateClassName FAILED
+    java.lang.IndexOutOfBoundsException at ClassChecks.java:234
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/NestedVars1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/LinearSearch.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/PrecedenceTest3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/IdentifierTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/VarDeclTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/Factorial.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/ExtendsTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/MainTest2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/BlockComments1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/PrecedenceTest4.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/ArrayTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/MoreThan4.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/TreeVisitor.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/NestedVars2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/BinaryTree.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/BubbleSort.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/MainTest3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/OperatorTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/MinimalProgram.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/MethodDeclTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/OperatorChainingTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/AllocTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/LinkedList.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/Minus.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/fieldAccess.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/QuickSort.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/MethodInvokeTest2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/NestedVars3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/MethodInvokeTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/WhileTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/IfTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/MainTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/Div.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/PrecedenceTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/ok/PrecedenceTest2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ThisInMain.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ReturnInMain.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NewTest-err3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ThisTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/SameNameAsMainClass.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ArrayTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/OverrideTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/MDeclTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NotEnoughArgs.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ClassTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ClassTest-err3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/DuplicateField.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/WhileTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ParamTest-err3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/DeclTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NestedVarsErr4.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NestedVarsErr2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err9.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/MDeclTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/VarTest-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NewTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ThisTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err8.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/TooManyArgs.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/UnknownSupertype.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BoolTest-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NestedVarsErr3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/TreeVisitor-error.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/AndTest.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/DeclTest-err3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ParamTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ArrayTest-err4.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/OverrideTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BasicTest-error.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/DuplicateParam.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/DeclTest-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/AssignToInt.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ExtendsTest-err3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/Minus.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ExtendsTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NewTest-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err7.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ExtendsTest-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err10.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ArrayTest-err3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/CyclicInheritance-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/MethodTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/OverrideTest-err3.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ArrayTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/IntTest-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err6.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/Div.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NestedVarsErr1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/MethodTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/IfTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err4.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/PrintTest-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ClassTest-err1.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ParamTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/UnopTest-err.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NonexistingField.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err5.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err2.java] FAILED
+    java.lang.IndexOutOfBoundsException at FileAnalysisTest.java:69
+
+328 tests completed, 118 failed
+:test FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':test'.
+> There were failing tests. See the report at: file:///home/mahsa/Tu%20Kl/Compiler/group11/ex3/build/reports/tests/index.html
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
+
+BUILD FAILED
+
+Total time: 4.62 secs
+14:35:38.170 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache fileHashes.bin (/home/mahsa/Tu Kl/Compiler/group11/ex3/.gradle/2.12/taskArtifacts/fileHashes.bin)
+14:35:38.170 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on task history cache (/home/mahsa/Tu Kl/Compiler/group11/ex3/.gradle/2.12/taskArtifacts).
+14:35:38.171 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on cp_init class cache for initialization script '/tmp/ijinit3.gradle' (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/scripts/ijinit3_7q0vao8ggmz7fxh0nte6d73el/cp_init).
+14:35:38.171 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on init class cache for initialization script '/tmp/ijinit3.gradle' (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/scripts/ijinit3_7q0vao8ggmz7fxh0nte6d73el/init).
+14:35:38.171 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on cp_proj class cache for build file '/home/mahsa/Tu Kl/Compiler/group11/ex3/build.gradle' (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/scripts/build_3cv522gay4h9to9s8j857svaz/cp_proj).
+14:35:38.172 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on proj class cache for build file '/home/mahsa/Tu Kl/Compiler/group11/ex3/build.gradle' (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/scripts/build_3cv522gay4h9to9s8j857svaz/proj).
+14:35:38.172 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.resolveengine.store.CachedStoreFactory] Resolution result cache closed. Cache reads: 0, disk reads: 0 (avg: 0.0 secs, total: 0.0 secs)
+14:35:38.173 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.resolveengine.store.CachedStoreFactory] Resolution result cache closed. Cache reads: 0, disk reads: 0 (avg: 0.0 secs, total: 0.0 secs)
+14:35:38.174 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.resolveengine.store.ResolutionResultsStoreFactory] Deleted 2 resolution results binary files in 0.001 secs
+14:35:38.174 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache artifact-at-repository.bin (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/modules-2/metadata-2.16/artifact-at-repository.bin)
+14:35:38.174 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache module-metadata.bin (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/modules-2/metadata-2.16/module-metadata.bin)
+14:35:38.174 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on artifact cache (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/modules-2).
+14:35:38.175 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.ivyresolve.memcache.InMemoryCachedRepositoryFactory] In-memory dependency metadata cache closed. Repos cached: 3, cache instances: 1, modules served from cache: 4, artifacts: 4
+14:35:38.175 [DEBUG] [org.gradle.cache.internal.DefaultCacheAccess] Cache Plugin Resolution Cache (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/plugin-resolution) was closed 0 times.
+14:35:38.175 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on cache directory workerMain (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/workerMain).
+14:35:38.176 [DEBUG] [org.gradle.api.internal.tasks.compile.daemon.CompilerDaemonManager] Stopping 0 compiler daemon(s).
+14:35:38.176 [INFO] [org.gradle.api.internal.tasks.compile.daemon.CompilerDaemonManager] Stopped 0 compiler daemon(s).
+14:35:38.177 [DEBUG] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] The daemon has finished executing the build.
+14:35:38.179 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: finished waiting for DaemonCommandExecution[command = Build{id=d0573f31-d95b-4dee-b190-97a8c726c190.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}, connection = org.gradle.launcher.daemon.server.DefaultDaemonConnection@3f8c47d8]. Result org.gradle.launcher.daemon.server.DaemonStateCoordinator@713ded84 with state Running
+14:35:38.180 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: completed DaemonCommandExecution[command = Build{id=d0573f31-d95b-4dee-b190-97a8c726c190.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}, connection = org.gradle.launcher.daemon.server.DefaultDaemonConnection@3f8c47d8]
+14:35:38.180 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] updating lastActivityAt to 1495024538180
+14:35:38.180 [INFO] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Marking the daemon as idle, address: [6951ed63-bc6b-494e-bfbf-0fba927e3c9c port:46106, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:35:38.180 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Marking idle by address: [6951ed63-bc6b-494e-bfbf-0fba927e3c9c port:46106, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:35:38.181 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+14:35:38.181 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+14:35:38.184 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+14:35:38.184 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is idle, sleeping until state change or idle timeout at Wed May 17 14:36:38 CEST 2017
+14:35:38.185 [DEBUG] [org.gradle.launcher.daemon.server.exec.ReturnResult] Daemon is dispatching the build result: Failure[value=org.gradle.initialization.ReportedException: org.gradle.internal.exceptions.LocationAwareException: Execution failed for task ':test'.]
+14:35:38.185 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: dispatching class org.gradle.launcher.daemon.protocol.Failure
+14:35:38.188 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Finishing executing command: Build{id=d0573f31-d95b-4dee-b190-97a8c726c190.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}
+14:35:38.218 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 63: received class org.gradle.launcher.daemon.protocol.Finished
+14:35:38.219 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received non-IO message from client: org.gradle.launcher.daemon.protocol.Finished@3739292
+14:35:38.219 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Received finished message: org.gradle.launcher.daemon.protocol.Finished@3739292
+14:35:38.219 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: stopping connection
+14:35:38.220 [DEBUG] [org.gradle.messaging.remote.internal.inet.SocketConnection] Discarding EOFException: java.io.EOFException
+14:35:38.221 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 63: received null
+14:35:38.221 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received end-of-input from client.
+14:35:38.222 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: stopping connection
+14:36:38.181 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Idle timeout: daemon has been idle for requested period. Stopping now.
+14:36:38.181 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Marking daemon stopped due to idle timeout. The daemon is running a build: false
+14:36:38.182 [DEBUG] [org.gradle.launcher.daemon.server.Daemon] stop() called on daemon
+14:36:38.182 [INFO] [org.gradle.launcher.daemon.server.Daemon] Stop requested. Daemon is removing its presence from the registry...
+14:36:38.182 [DEBUG] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Removing our presence to clients, eg. removing this address from the registry: [6951ed63-bc6b-494e-bfbf-0fba927e3c9c port:46106, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:36:38.183 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Removing daemon address: [6951ed63-bc6b-494e-bfbf-0fba927e3c9c port:46106, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:36:38.184 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+14:36:38.185 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+14:36:38.186 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+14:36:38.186 [DEBUG] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Address removed from registry.
+Daemon vm is shutting down... The daemon has exited normally or was terminated in response to a user interrupt.
+14:36:38.189 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Removing daemon address: [6951ed63-bc6b-494e-bfbf-0fba927e3c9c port:46106, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+14:36:38.190 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+14:36:38.190 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+14:36:38.191 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
