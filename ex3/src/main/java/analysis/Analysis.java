@@ -116,6 +116,7 @@ public class Analysis {
                                for(int i=0;i<parentParameters.size();i++)
                                {
 
+
                                    MJType parentType = parentParameters.get(i).getType();
                                    MJType childType = childParameters.get(i).getType();
                                    if(parentType.structuralEquals(childType)) {
