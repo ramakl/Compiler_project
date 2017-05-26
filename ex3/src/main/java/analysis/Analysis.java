@@ -202,7 +202,95 @@ public class Analysis {
 
             }
 
+
+
+
+
+
+       /* Hashtable<String, String> classd = new Hashtable<>(); //key - Extends; value - className
+        *//* for example class A extends B then key : A, value : B; (A->B) *//*
+        for (MJClassDecl classDecl : classDeclList) {
+            String className = classDecl.getName();
+            String extendsClass = classDecl.getExtended().toString();
+            if (!extendsClass.equalsIgnoreCase("ExtendsNothing"))
+                extendsClass = extendsClass.substring(13, extendsClass.length() - 1);
+            classd.put(extendsClass,className);
         }
+        for (MJClassDecl classDecl : classDeclList) {
+            List<MJClassDecl> classdLinkedList = new LinkedList<>();
+            classdLinkedList.add(classDecl);
+            MJExtended classDeclExtended = classDecl.getExtended();
+            if (!(classDeclExtended.toString().equals("ExtendsNothing"))) {
+                boolean parentFound = false;
+
+                for (MJClassDecl aClassDeclList : classDeclList) {
+
+                    if (classDeclExtended.toString().equals("ExtendsClass(" + aClassDeclList.getName() + ")")) {
+                        classdLinkedList.add(aClassDeclList);
+                        MJExtended copyClassDeclExtended = aClassDeclList.getExtended();
+                        parentFound = true;
+                        boolean foundINCycle = false;
+                        for (int kk = 0; kk < classdLinkedList.size(); kk++) {
+                            if (copyClassDeclExtended.equals(classdLinkedList.get(kk).getExtended().toString())) {
+                                foundINCycle = true;
+                                addError(copyClassDeclExtended, "Cycle");
+                                break;
+
+                                //@Madhu May 17 10:55 AM
+                                // do we need to collect all errors? If not, then we can use break here.
+
+                            }
+                        }
+                        if (!(copyClassDeclExtended.toString().equals("ExtendsNothing")) && foundINCycle == false) {
+                            for (MJClassDecl aClassDecl2 : classDeclList) {
+
+                                if (copyClassDeclExtended.toString().equals("ExtendsClass(" + aClassDecl2.getName() + ")")) {
+                                    classdLinkedList.add(aClassDecl2);
+                                    classDeclExtended = copyClassDeclExtended;
+
+                                }
+
+
+                                //     if (!(copyClassDeclExtended.toString().equals("ExtendsNothing")))
+                                //  extendedLinkedList.add(copyClassDeclExtended);
+                            }
+                        }
+
+                    }
+                    if (!parentFound) {
+                        addError(classDeclExtended, "not exist");
+                    }
+                    for (int kk = 0; kk < classdLinkedList.size(); kk++) {
+                        MJMethodDeclList mdl1 = classdLinkedList.get(kk).getMethods();
+                        for (int kkk = kk; kkk < classdLinkedList.size(); kkk++) {
+
+
+                            MJMethodDeclList mdl2 = classdLinkedList.get(kkk).getMethods();
+                            for (int k = 0,j=0; k < mdl2.size()&&j<mdl1.size(); j++,k++) {
+                                MJMethodDecl md = mdl1.get(j);
+                                MJMethodDecl mdd = mdl1.get(k);
+                                if(md.getName().toString().equals(mdd.getName().toString()))
+                                {
+
+                                }
+                                //@Madhu May 17 10:55 AM
+                                // do we need to collect all errors? If not, then we can use break here.
+
+                            }
+                        }
+                    }
+                        }
+                    }
+
+
+                }*/
+
+
+
+
+
+
+    }
 
             //    if(!getTypeErrors().isEmpty()){
             // throw new Exception("Error occured");
