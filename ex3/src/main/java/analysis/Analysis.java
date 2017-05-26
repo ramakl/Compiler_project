@@ -62,12 +62,11 @@ public class Analysis {
         }
 
 
-        ArrayList<MJMethodDecl> parentMethods = new ArrayList<MJMethodDecl>();
-        ArrayList<MJMethodDecl> childMethods = new ArrayList<MJMethodDecl>();
-        ArrayList<MJVarDecl> parentParameters = new ArrayList<MJVarDecl>();
-        ArrayList<MJVarDecl> childParameters = new ArrayList<MJVarDecl>();
         for(String className : classNames)
         {
+            ArrayList<MJMethodDecl> parentMethods = new ArrayList<MJMethodDecl>();
+            ArrayList<MJMethodDecl> childMethods = new ArrayList<MJMethodDecl>();
+
             String parentClass = classInfo.get(className);
             if(!parentClass.equalsIgnoreCase("extendsnothing"))
             {
@@ -78,7 +77,11 @@ public class Analysis {
                        childMethods.add(methodDecl);
                    for(MJMethodDecl methodDecl:childMethods)
                    {
-                        MJType parentReturnType = null;
+                       ArrayList<MJVarDecl> parentParameters = new ArrayList<MJVarDecl>();
+                       ArrayList<MJVarDecl> childParameters = new ArrayList<MJVarDecl>();
+                       ArrayList<MJStatement> parentBody = new ArrayList<MJStatement>();
+                       ArrayList<MJStatement> childBody = new ArrayList<MJStatement>();
+                       MJType parentReturnType = null;
                        String methodName = methodDecl.getName();
                        for(MJMethodDecl m: parentMethods)
                        {
@@ -88,14 +91,21 @@ public class Analysis {
                                    parentParameters.add(varDecl);
                                }
                                parentReturnType = m.getReturnType();
+                               for(MJStatement mjStatement: m.getMethodBody())
+                               {
+                                   parentBody.add(mjStatement);
+                               }
                                break;
                            }
 
                        }
                        boolean orderMaintained = false;
                        boolean returnTypeMaintained = false;
+                       boolean parentConsistencyMaintained = false;
+                       boolean childConsistencyMaintained = false;
                        if(signatureFound)
                        {
+                           int varCount = 0;
                            MJType childReturnType = methodDecl.getReturnType();
                            for(MJVarDecl varDecl : methodDecl.getFormalParameters())
                            {
@@ -105,18 +115,47 @@ public class Analysis {
                            {
                                for(int i=0;i<parentParameters.size();i++)
                                {
+
                                    MJType parentType = parentParameters.get(i).getType();
                                    MJType childType = childParameters.get(i).getType();
-                                   if(parentType.structuralEquals(childType))
+                                   if(parentType.structuralEquals(childType)) {
                                        orderMaintained = true;
+                                       varCount++;
+                                   }
                                }
-                               if(parentReturnType.structuralEquals(childReturnType)) {
+                               if(parentReturnType.structuralEquals(childReturnType) || childReturnType.toString().contains(className)) {
+                                   if(!childReturnType.toString().equalsIgnoreCase("typevoid"))
+                                   {
+                                        for(MJStatement mjStatement: methodDecl.getMethodBody())
+                                            childBody.add(mjStatement);
+
+                                        for(MJStatement mjStatement: childBody)
+                                        {
+                                            String childClassName = className;
+                                            if(mjStatement.toString().contains("StmtReturn(Number") || mjStatement.toString().contains("StmtReturn(NewObject("+childClassName))
+                                            {
+                                                childConsistencyMaintained = true;
+                                                break;
+                                            }
+
+
+                                        }
+                                        for(MJStatement mjStatement : parentBody)
+                                        {
+                                            if(mjStatement.toString().contains("StmtReturn(Number") || mjStatement.toString().contains("StmtReturn(NewObject("+parentClass))
+                                            {
+                                                parentConsistencyMaintained = true;
+                                                break;
+                                            }
+
+                                        }
+                                   }
                                    returnTypeMaintained = true;
                                }
                            }
-                            if(!orderMaintained || !returnTypeMaintained)
+                            if(!orderMaintained || !returnTypeMaintained || !parentConsistencyMaintained || !childConsistencyMaintained || (varCount != parentParameters.size()))
                             {
-                                addError(methodDecl,"override Error : signature Do not match");
+                                addError(methodDecl,"override Error");
                             }
                        }
 
