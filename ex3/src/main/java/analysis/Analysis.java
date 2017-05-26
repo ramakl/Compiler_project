@@ -1,5 +1,6 @@
 package analysis;
 
+import frontend.SourcePosition;
 import minijava.ast.*;
 
 import java.util.*;
@@ -19,8 +20,9 @@ public class Analysis {
 
     public void check() throws Exception {
         //TODO implement type checking here!
-
-
+        ArrayList<MJMethodDecl> parentMethodList = new ArrayList<MJMethodDecl>();
+        ArrayList<MJMethodDecl> childMethodList = new ArrayList<MJMethodDecl>();
+        Hashtable<String, ArrayList<MJMethodDecl>> methodInfo = new Hashtable<>();
         MJClassDeclList classDeclList = prog.getClassDecls();
         Hashtable<String, String> classInfo = new Hashtable<>(); //key - className; value - Extends
         /* for example class A extends B then key : A, value : B; (A->B) */
@@ -32,6 +34,139 @@ public class Analysis {
             classInfo.put(className, extendsClass);
         }
 
+        Set<String> classNames = classInfo.keySet();
+
+        for(String className : classNames)
+        {
+            String extendsClass = classInfo.get(className);
+            if(!extendsClass.equalsIgnoreCase("extendsnothing")) {
+                for (MJClassDecl classDecl : classDeclList) {
+                    if (classDecl.getName().equalsIgnoreCase(className)) {
+                        childMethodList.addAll(classDecl.getMethods());
+                        methodInfo.put(className, childMethodList);
+                    }
+
+                }
+            }
+            else
+            {
+                for(MJClassDecl classDecl : classDeclList)
+                {
+                    if(classDecl.getName().equalsIgnoreCase(className)) {
+                        parentMethodList.addAll(classDecl.getMethods());
+                        methodInfo.put(className, parentMethodList);
+                    }
+
+                }
+            }
+        }
+
+
+        for(String className : classNames)
+        {
+            ArrayList<MJMethodDecl> parentMethods = new ArrayList<MJMethodDecl>();
+            ArrayList<MJMethodDecl> childMethods = new ArrayList<MJMethodDecl>();
+
+            String parentClass = classInfo.get(className);
+            if(!parentClass.equalsIgnoreCase("extendsnothing"))
+            {
+                    boolean signatureFound = false;
+                   for(MJMethodDecl methodDecl : methodInfo.get(parentClass))
+                       parentMethods.add(methodDecl);
+                   for(MJMethodDecl methodDecl : methodInfo.get(className))
+                       childMethods.add(methodDecl);
+                   for(MJMethodDecl methodDecl:childMethods)
+                   {
+                       ArrayList<MJVarDecl> parentParameters = new ArrayList<MJVarDecl>();
+                       ArrayList<MJVarDecl> childParameters = new ArrayList<MJVarDecl>();
+                       ArrayList<MJStatement> parentBody = new ArrayList<MJStatement>();
+                       ArrayList<MJStatement> childBody = new ArrayList<MJStatement>();
+                       MJType parentReturnType = null;
+                       String methodName = methodDecl.getName();
+                       for(MJMethodDecl m: parentMethods)
+                       {
+                           if(m.getName().equalsIgnoreCase(methodName)){
+                               signatureFound = true;
+                               for(MJVarDecl varDecl : m.getFormalParameters()) {
+                                   parentParameters.add(varDecl);
+                               }
+                               parentReturnType = m.getReturnType();
+                               for(MJStatement mjStatement: m.getMethodBody())
+                               {
+                                   parentBody.add(mjStatement);
+                               }
+                               break;
+                           }
+
+                       }
+                       boolean orderMaintained = false;
+                       boolean returnTypeMaintained = false;
+                       boolean parentConsistencyMaintained = false;
+                       boolean childConsistencyMaintained = false;
+                       if(signatureFound)
+                       {
+                           int varCount = 0;
+                           MJType childReturnType = methodDecl.getReturnType();
+                           for(MJVarDecl varDecl : methodDecl.getFormalParameters())
+                           {
+                               childParameters.add(varDecl);
+                           }
+                           if(parentParameters.size() == childParameters.size())
+                           {
+                               for(int i=0;i<parentParameters.size();i++)
+                               {
+
+
+                                   MJType parentType = parentParameters.get(i).getType();
+                                   MJType childType = childParameters.get(i).getType();
+                                   if(parentType.structuralEquals(childType)) {
+                                       orderMaintained = true;
+                                       varCount++;
+                                   }
+                               }
+                               if(parentReturnType.structuralEquals(childReturnType) || childReturnType.toString().contains(className)) {
+                                   if(!childReturnType.toString().equalsIgnoreCase("typevoid"))
+                                   {
+                                        for(MJStatement mjStatement: methodDecl.getMethodBody())
+                                            childBody.add(mjStatement);
+
+                                        for(MJStatement mjStatement: childBody)
+                                        {
+                                            String childClassName = className;
+                                            if(mjStatement.toString().contains("StmtReturn(Number") || mjStatement.toString().contains("StmtReturn(NewObject("+childClassName))
+                                            {
+                                                childConsistencyMaintained = true;
+                                                break;
+                                            }
+
+
+                                        }
+                                        for(MJStatement mjStatement : parentBody)
+                                        {
+                                            if(mjStatement.toString().contains("StmtReturn(Number") || mjStatement.toString().contains("StmtReturn(NewObject("+parentClass))
+                                            {
+                                                parentConsistencyMaintained = true;
+                                                break;
+                                            }
+
+                                        }
+                                   }
+                                   returnTypeMaintained = true;
+                               }
+                           }
+                            if(!orderMaintained || !returnTypeMaintained || !parentConsistencyMaintained || !childConsistencyMaintained || (varCount != parentParameters.size()))
+                            {
+                                addError(methodDecl,"override Error");
+                            }
+                       }
+
+                   }
+            }
+
+        }
+
+
+
         for (int i = 0; i < classDeclList.size(); i++) {
             for (int j = i + 1; j < classDeclList.size(); j++) {
                 if (classDeclList.get(i).getName().equals(classDeclList.get(j).getName())) {
@@ -40,32 +175,14 @@ public class Analysis {
                 }
             }
         }
-      /*  boolean fd=false;
-        for (int i=0;i<classDeclList.size();i++) {
-            MJMethodDeclList m=classDeclList.get(i).getMethods();
-            for(int k=0;i<m.size();k++){
-                MJVarDeclList vars= m.get(k).getFormalParameters();
 
-                for (int ii=0;ii<vars.size();ii++) {
-
-                    for (int j = ii + 1; j < vars.size(); j++) {
-                        if (vars.get(ii).getName().equals(vars.get(j).getName())) {
-                            addError(classDeclList.get(i), "duplicatePramsName");
-                            fd=true;
-                            break;
-                        }
-
-                    }
-                }
-            }
-        }*/
 
         for (int i = 0; i < classDeclList.size(); i++) {
             MJMethodDeclList m = classDeclList.get(i).getMethods();
             for (int ii = 0; ii < m.size(); ii++) {
                 for (int j = ii + 1; j < m.size(); j++) {
                     if (m.get(ii).getName().equals(m.get(j).getName())) {
-                        addError(classDeclList.get(i), "duplicateMetodName");
+                        addError(classDeclList.get(i), "duplicateMethodName");
                         break;
                     }
 
@@ -87,7 +204,7 @@ public class Analysis {
             }
         }
 
-        Set<String> classNames = classInfo.keySet();
+
         String mainClass = this.prog.getMainClass().getName();
         for (String className : classNames) {
             String extendsClass = classInfo.get(className);
@@ -106,7 +223,6 @@ public class Analysis {
         }
 
 /*
->>>>>>>}
 
         argName() : ClassChecks.java
 
@@ -182,15 +298,13 @@ public class Analysis {
 
                                 }
                             }
-                            if (!(copyClassDeclExtended.toString().equals("ExtendsNothing")) && foundINCycle == false) {
+                            if (!(copyClassDeclExtended.toString().equals("ExtendsNothing")) && !foundINCycle) {
                                 extendedLinkedList.add(copyClassDeclExtended);
                                 classDeclExtended = copyClassDeclExtended;
 
                             }
 
 
-                            //     if (!(copyClassDeclExtended.toString().equals("ExtendsNothing")))
-                            //  extendedLinkedList.add(copyClassDeclExtended);
                         }
 
                     }
@@ -292,61 +406,11 @@ public class Analysis {
 
     }
 
-            //    if(!getTypeErrors().isEmpty()){
-            // throw new Exception("Error occured");
-            //@Madhu May 17 10:55 AM
-            //we need to process the Errors and handle them appropriately
-            //like throwing an exception or so.
-            //  }
-
-
-            // MJClassDeclList cdll = prog.getClassDecls();
-            //  List<MJExtended> ex = new LinkedList<>();
-
-            //  }
-            //  }*/
-        /*MJClassDeclList cdll = prog.getClassDecls();
-
-
-        for (int j = 0; j < cdll.size(); j++) {
-            MJClassDecl cdd = cdll.get(j);
-            MJExtended cee = cdd.getExtended();
 
 
 
 
-
-                  if (!(cee.toString().equals("ExtendsNothing"))) {
-                      ex.add(cee);
-                    for (int ii = 0; ii < classDeclList.size(); ii++) {
-
-                        if (cee.toString().equals("ExtendsClass(" + cdll.get(ii).getName() + ")")) {
-
-                            cee = cdll.get(ii).getExtended();
-                            for (int kk = 0; kk < ex.size(); kk++)
-                                if (cee.equals(ex.get(kk)))
-                                    addError(cee, "cycle");
-                                else
-                                    ex.add(cee);
-
-                        }
-
-
-
-
-
-                    }
-
-                }
-
-
-
-        }*/
-
-
-
-
-        public List<TypeError> getTypeErrors () {
+    public List<TypeError> getTypeErrors () {
             return new ArrayList<>(typeErrors);
         }
     }
