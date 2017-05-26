@@ -60,7 +60,50 @@ public class Analysis {
                 }
             }
         }
+       int h=0;
+        for (MJClassDecl classDecl : classDeclList) {
+            List<MJExtended> extendedLinkedList = new LinkedList<>();
+            MJExtended classDeclExtended = classDecl.getExtended();
 
+            if (!(classDeclExtended.toString().equals("ExtendsNothing"))) {
+                boolean parentFound = false;
+                extendedLinkedList.add(classDeclExtended);
+                for (MJClassDecl aClassDeclList : classDeclList) {
+
+                    if (classDeclExtended.toString().equals("ExtendsClass(" + aClassDeclList.getName() + ")")) {
+                        MJExtended copyClassDeclExtended = aClassDeclList.getExtended();
+                        parentFound = true;
+                        h=1;
+                        boolean foundINCycle = false;
+                        for (int kk = 0; kk < extendedLinkedList.size(); kk++) {
+                            if (copyClassDeclExtended.equals(extendedLinkedList.get(kk))) {
+                                foundINCycle = true;
+                                addError(copyClassDeclExtended, "Cycle");
+                                break;
+
+                                //@Madhu May 17 10:55 AM
+                                // do we need to collect all errors? If not, then we can use break here.
+
+                            }
+                        }
+                        if (!(copyClassDeclExtended.toString().equals("ExtendsNothing")) && !foundINCycle) {
+                            extendedLinkedList.add(copyClassDeclExtended);
+                            classDeclExtended = copyClassDeclExtended;
+
+                        }
+
+
+                    }
+
+                }
+                if (!parentFound) {
+                    addError(classDeclExtended, "not exist");
+                    break;
+                }
+            }
+
+
+        }
 
         for(String className : classNames)
         {
@@ -68,7 +111,7 @@ public class Analysis {
             ArrayList<MJMethodDecl> childMethods = new ArrayList<MJMethodDecl>();
 
             String parentClass = classInfo.get(className);
-            if(!parentClass.equalsIgnoreCase("extendsnothing"))
+            if(!parentClass.equalsIgnoreCase("extendsnothing")&&h==1)
             {
                     boolean signatureFound = false;
                    for(MJMethodDecl methodDecl : methodInfo.get(parentClass))
@@ -274,47 +317,6 @@ public class Analysis {
             }
 
 
-            for (MJClassDecl classDecl : classDeclList) {
-                List<MJExtended> extendedLinkedList = new LinkedList<>();
-                MJExtended classDeclExtended = classDecl.getExtended();
-
-                if (!(classDeclExtended.toString().equals("ExtendsNothing"))) {
-                    boolean parentFound = false;
-                    extendedLinkedList.add(classDeclExtended);
-                    for (MJClassDecl aClassDeclList : classDeclList) {
-
-                        if (classDeclExtended.toString().equals("ExtendsClass(" + aClassDeclList.getName() + ")")) {
-                            MJExtended copyClassDeclExtended = aClassDeclList.getExtended();
-                             parentFound = true;
-                            boolean foundINCycle = false;
-                            for (int kk = 0; kk < extendedLinkedList.size(); kk++) {
-                                if (copyClassDeclExtended.equals(extendedLinkedList.get(kk))) {
-                                    foundINCycle = true;
-                                    addError(copyClassDeclExtended, "Cycle");
-                                    break;
-
-                                    //@Madhu May 17 10:55 AM
-                                    // do we need to collect all errors? If not, then we can use break here.
-
-                                }
-                            }
-                            if (!(copyClassDeclExtended.toString().equals("ExtendsNothing")) && !foundINCycle) {
-                                extendedLinkedList.add(copyClassDeclExtended);
-                                classDeclExtended = copyClassDeclExtended;
-
-                            }
-
-
-                        }
-
-                    }
-                    if (!parentFound) {
-                        addError(classDeclExtended, "not exist");
-                    }
-                }
-
-
-            }
 
 
 
