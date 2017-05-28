@@ -456,8 +456,8 @@ public class Analysis {
                         type = type.substring(4, type.length());
 
                         typeMatched = ((expr instanceof MJBoolConst) && type.equalsIgnoreCase("bool"))
-                                || ((expr instanceof  MJUnaryMinus) && type.equalsIgnoreCase("int"))
-                                || ((expr instanceof MJNegate) && type.equalsIgnoreCase("int"));
+                                || ((expr instanceof  MJExprUnary) && type.equalsIgnoreCase("int"))
+                                || ((expr instanceof MJExprUnary) && type.equalsIgnoreCase("int"));
 
                         if(!typeMatched)
                         {
