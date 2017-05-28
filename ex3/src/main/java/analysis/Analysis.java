@@ -459,6 +459,9 @@ public class Analysis {
                                 || ((expr instanceof  MJExprUnary) && type.equalsIgnoreCase("int"))
                                 || ((expr instanceof MJExprUnary) && type.equalsIgnoreCase("int"));
 
+                        if(expr instanceof MJExprBinary  && ((MJExprBinary) expr).getOperator() instanceof MJDiv && type.equalsIgnoreCase("int"))
+                            typeMatched = false;
+
                         if(!typeMatched)
                         {
                             addError(varDecl, "variable type do not match with assignment");
@@ -479,6 +482,30 @@ public class Analysis {
                 if(((MJStmtPrint) statement).getPrinted() instanceof MJBoolConst)
                 {
                     addError(statement, "cannot print a boolean constant");
+                }
+                else
+                {
+                    if(((MJStmtPrint) statement).getPrinted() instanceof MJExprBinary)
+                    {
+                        MJExpr left = ((MJExprBinary) ((MJStmtPrint) statement).getPrinted()).getLeft();
+                        MJExpr right = ((MJExprBinary) ((MJStmtPrint) statement).getPrinted()).getRight();
+                        MJOperator operator = ((MJExprBinary) ((MJStmtPrint) statement).getPrinted()).getOperator();
+                        boolean condition = (left instanceof MJBoolConst) || (left instanceof MJBoolConst) || (operator instanceof MJAnd);
+                        if(condition)
+                        {
+                            addError(statement, "boolean expressions cannot be printed");
+                        }
+                    }
+                    else if(((MJStmtPrint) statement).getPrinted() instanceof MJExprUnary)
+                    {
+                        MJUnaryOperator operator = ((MJExprUnary)((MJStmtPrint) statement).getPrinted()).getUnaryOperator();
+                        MJExpr expr = ((MJExprUnary)((MJStmtPrint) statement).getPrinted()).getExpr();
+                        if(operator instanceof MJNegate && expr instanceof MJBoolConst)
+                        {
+                            addError(statement,"cannot negate boolean expression and print it");
+                        }
+
+                    }
                 }
             }
             else if(statement instanceof MJStmtIf )
