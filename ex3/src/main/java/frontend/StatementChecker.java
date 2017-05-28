@@ -31,4 +31,5 @@ public class StatementChecker extends MJElement.DefaultVisitor {
             frontend.getSyntaxErrors().add(new SyntaxError(e, "The expression " + e + " cannot appear as a statement."));
         }
     }
+
 }
