@@ -220,6 +220,7 @@ public class Analysis {
         }
 
 
+
         for (int i = 0; i < classDeclList.size(); i++) {
             MJMethodDeclList m = classDeclList.get(i).getMethods();
             for (int ii = 0; ii < m.size(); ii++) {
@@ -249,6 +250,8 @@ public class Analysis {
 
 
         String mainClass = this.prog.getMainClass().getName();
+
+        processMain((MJMainClass) this.prog.getMainClass());
         for (String className : classNames) {
             String extendsClass = classInfo.get(className);
             if (!extendsClass.equalsIgnoreCase("extendsNothing")) {
@@ -408,8 +411,64 @@ public class Analysis {
 
     }
 
+    public void processMain(MJMainClass element)
+    {
+        LinkedList<MJVarDecl> mainVars = new LinkedList<>();
+        int count = 0;
+        for(MJStatement statement : element.getMainBody())
+        {
+            boolean variableFound = false;
+            if(statement instanceof MJVarDecl) {
+                MJVarDecl varDecl = (MJVarDecl) statement;
+                boolean duplicateFound = false;
+                for(MJVarDecl vars: mainVars)
+                {
+                    if(vars.getName().equalsIgnoreCase(varDecl.getName())){
+                        addError(varDecl, "duplicate variable declared");
+                        duplicateFound = true;
+                        break;
+                    }
 
+                }
+                if(!duplicateFound)
+                    mainVars.add((MJVarDecl) statement);
+            }
+            else if(statement instanceof MJStmtAssign)
+            {
+                MJStmtAssign line = (MJStmtAssign) statement;
+                MJVarUse var = (MJVarUse) line.getLeft();
+                boolean typeMatched = false;
+                for(MJVarDecl varDecl : mainVars)
+                {
+                    if(varDecl.getName().equalsIgnoreCase(var.getVarName()))
+                    {
+                        variableFound = true;
+                        MJExpr expr = line.getRight();
+                        String type = varDecl.getType().toString();
+                        type = type.substring(4, type.length());
 
+                        typeMatched = ((expr instanceof MJBoolConst) && type.equalsIgnoreCase("bool"))
+                                || ((expr instanceof  MJUnaryMinus) && type.equalsIgnoreCase("int"))
+                                || ((expr instanceof MJNegate) && type.equalsIgnoreCase("int"));
+
+                        if(!typeMatched)
+                        {
+                            addError(varDecl, "variable type do not match with assignment");
+
+                        }
+
+                        break;
+                    }
+                }
+
+            }
+        }
+    }
+
+    public void processBlock(MJBlock block)
+    {
+
+    }
 
 
     public List<TypeError> getTypeErrors () {
