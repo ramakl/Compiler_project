@@ -60,6 +60,14 @@ public class Analysis {
                 }
             }
         }
+        for(MJClassDecl classDecl : classDeclList)
+        {
+            if(this.prog.getMainClass().getName().equalsIgnoreCase(classDecl.getName()))
+            {
+                addError(classDecl,"class Name cannot be same as Main class Name");
+            }
+        }
+
        int h=0;
         for (MJClassDecl classDecl : classDeclList) {
             List<MJExtended> extendedLinkedList = new LinkedList<>();
@@ -461,6 +469,30 @@ public class Analysis {
                     }
                 }
 
+            }
+            else if(statement instanceof MJStmtReturn)
+            {
+                addError(statement,"Main cannot return any value");
+            }
+            else if(statement instanceof MJStmtPrint)
+            {
+                if(((MJStmtPrint) statement).getPrinted() instanceof MJBoolConst)
+                {
+                    addError(statement, "cannot print a boolean constant");
+                }
+            }
+            else if(statement instanceof MJStmtIf )
+            {
+                boolean condition = ((MJStmtIf) statement).getCondition() instanceof MJBoolConst;
+                if(!condition)
+                    addError(statement, "If condition can only have boolean condition");
+
+            }
+            else if(statement instanceof MJStmtWhile)
+            {
+                boolean condition = ((MJStmtWhile) statement).getCondition() instanceof MJBoolConst;
+                if(!condition)
+                    addError(statement, "While Condition can only have boolean condition ");
             }
         }
     }
