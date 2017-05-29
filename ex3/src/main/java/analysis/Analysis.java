@@ -1,6 +1,7 @@
 package analysis;
 
 import frontend.SourcePosition;
+import java_cup.runtime.Symbol;
 import minijava.ast.*;
 
 import java.util.*;
@@ -415,4 +416,6 @@ public class Analysis {
     public List<TypeError> getTypeErrors () {
             return new ArrayList<>(typeErrors);
         }
-    }
+
+
+}

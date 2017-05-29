@@ -357,3 +357,18 @@ Total time: 10.554 secs
 10:20:22.273 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Received finished message: null
 10:20:22.273 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: stopping connection
 10:20:22.279 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: stopping connection
+10:21:22.068 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Idle timeout: daemon has been idle for requested period. Stopping now.
+10:21:22.068 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Marking daemon stopped due to idle timeout. The daemon is running a build: false
+10:21:22.068 [DEBUG] [org.gradle.launcher.daemon.server.Daemon] stop() called on daemon
+10:21:22.069 [INFO] [org.gradle.launcher.daemon.server.Daemon] Stop requested. Daemon is removing its presence from the registry...
+10:21:22.069 [DEBUG] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Removing our presence to clients, eg. removing this address from the registry: [3daa4838-c019-47f8-9b05-d7f166ef7f67 port:41451, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+10:21:22.069 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Removing daemon address: [3daa4838-c019-47f8-9b05-d7f166ef7f67 port:41451, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+10:21:22.071 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+10:21:22.071 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+10:21:22.074 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+10:21:22.075 [DEBUG] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Address removed from registry.
+Daemon vm is shutting down... The daemon has exited normally or was terminated in response to a user interrupt.
+10:21:22.118 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Removing daemon address: [3daa4838-c019-47f8-9b05-d7f166ef7f67 port:41451, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+10:21:22.119 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+10:21:22.119 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+10:21:22.120 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
