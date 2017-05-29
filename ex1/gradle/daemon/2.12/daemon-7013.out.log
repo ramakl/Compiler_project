@@ -1,0 +1,633 @@
+12:08:03.072 [INFO] [org.gradle.launcher.daemon.server.Daemon] start() called on daemon - DefaultDaemonContext[uid=febb35e5-fedc-4499-a205-359b186d34a8,javaHome=/usr/lib/jvm/java-8-openjdk-amd64,daemonRegistryDir=/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon,pid=7013,idleTimeout=60000,daemonOpts=-XX:MaxPermSize=256m,-XX:+HeapDumpOnOutOfMemoryError,-Xmx1024m,-Dfile.encoding=UTF-8,-Duser.country=US,-Duser.language=en,-Duser.variant]
+12:08:03.077 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] updating lastActivityAt to 1495793283077
+12:08:03.089 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding IP addresses for network interface wlp2s0
+12:08:03.090 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Is this a loopback interface? false
+12:08:03.090 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Is this a multicast interface? true
+12:08:03.091 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding remote address /fe80:0:0:0:cc3c:7d9c:5705:d90a%wlp2s0
+12:08:03.092 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding remote address /2a02:810b:c540:a328:db0:8466:4130:9803%wlp2s0
+12:08:03.093 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding remote address /2a02:810b:c540:a328:6c34:4abd:6c22:1167%wlp2s0
+12:08:03.093 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding remote address /192.168.0.10
+12:08:03.094 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding remote multicast interface wlp2s0
+12:08:03.094 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding IP addresses for network interface lo
+12:08:03.095 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Is this a loopback interface? true
+12:08:03.095 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Is this a multicast interface? false
+12:08:03.096 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding loopback address /0:0:0:0:0:0:0:1%lo
+12:08:03.096 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding loopback address /127.0.0.1
+12:08:03.112 [DEBUG] [org.gradle.messaging.remote.internal.inet.TcpIncomingConnector] Listening on [f9781bcd-3c6b-43bd-bbe1-e3d4112207a4 port:36754, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]].
+12:08:03.116 [DEBUG] [org.gradle.launcher.daemon.server.Daemon] Daemon starting at: Fri May 26 12:08:03 CEST 2017, with address: [f9781bcd-3c6b-43bd-bbe1-e3d4112207a4 port:36754, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+12:08:03.117 [INFO] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Advertising the daemon address to the clients: [f9781bcd-3c6b-43bd-bbe1-e3d4112207a4 port:36754, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+12:08:03.117 [DEBUG] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Advertised daemon context: DefaultDaemonContext[uid=febb35e5-fedc-4499-a205-359b186d34a8,javaHome=/usr/lib/jvm/java-8-openjdk-amd64,daemonRegistryDir=/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon,pid=7013,idleTimeout=60000,daemonOpts=-XX:MaxPermSize=256m,-XX:+HeapDumpOnOutOfMemoryError,-Xmx1024m,-Dfile.encoding=UTF-8,-Duser.country=US,-Duser.language=en,-Duser.variant]
+12:08:03.118 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Storing daemon address: [f9781bcd-3c6b-43bd-bbe1-e3d4112207a4 port:36754, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]], context: DefaultDaemonContext[uid=febb35e5-fedc-4499-a205-359b186d34a8,javaHome=/usr/lib/jvm/java-8-openjdk-amd64,daemonRegistryDir=/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon,pid=7013,idleTimeout=60000,daemonOpts=-XX:MaxPermSize=256m,-XX:+HeapDumpOnOutOfMemoryError,-Xmx1024m,-Dfile.encoding=UTF-8,-Duser.country=US,-Duser.language=en,-Duser.variant]
+12:08:03.129 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+12:08:03.131 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+12:08:03.247 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+12:08:03.248 [LIFECYCLE] [org.gradle.launcher.daemon.server.Daemon] Daemon server started.
+12:08:03.251 [DEBUG] [org.gradle.launcher.daemon.bootstrap.DaemonStartupCommunication] Completed writing the daemon greeting. Closing streams...
+12:08:03.252 [DEBUG] [org.gradle.launcher.daemon.server.Daemon] requestStopOnIdleTimeout(60000 MILLISECONDS) called on daemon
+12:08:03.253 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Idle timeout: waiting for daemon to stop or be idle for 60000ms
+12:08:03.254 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is idle, sleeping until state change or idle timeout at Fri May 26 12:09:03 CEST 2017
+12:08:03.268 [DEBUG] [org.gradle.messaging.remote.internal.inet.TcpIncomingConnector] Accepted connection from /127.0.0.1:57738 to /127.0.0.1:36754.
+12:08:03.355 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 14: received class org.gradle.launcher.daemon.protocol.Build
+12:08:03.357 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received non-IO message from client: Build{id=c1cc497a-ae12-4a14-8492-e93f1c4deba6.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}
+12:08:03.358 [INFO] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Received command: Build{id=c1cc497a-ae12-4a14-8492-e93f1c4deba6.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}.
+12:08:03.359 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Starting executing command: Build{id=c1cc497a-ae12-4a14-8492-e93f1c4deba6.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3} with connection: socket connection from /127.0.0.1:36754 to /127.0.0.1:57738.
+12:08:03.373 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: started DaemonCommandExecution[command = Build{id=c1cc497a-ae12-4a14-8492-e93f1c4deba6.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}, connection = org.gradle.launcher.daemon.server.DefaultDaemonConnection@19868420] after 0.0 minutes of idle
+12:08:03.374 [INFO] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Marking the daemon as busy, address: [f9781bcd-3c6b-43bd-bbe1-e3d4112207a4 port:36754, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+12:08:03.375 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Marking busy by address: [f9781bcd-3c6b-43bd-bbe1-e3d4112207a4 port:36754, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+12:08:03.376 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+12:08:03.377 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+12:08:03.383 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+12:08:03.384 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] updating lastActivityAt to 1495793283384
+12:08:03.385 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is busy, sleeping until state changes.
+12:08:03.386 [INFO] [org.gradle.launcher.daemon.server.exec.StartBuildOrRespondWithBusy] Daemon is about to start building Build{id=c1cc497a-ae12-4a14-8492-e93f1c4deba6.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}. Dispatching build started information...
+12:08:03.387 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 16: dispatching class org.gradle.launcher.daemon.protocol.BuildStarted
+12:08:03.392 [DEBUG] [org.gradle.launcher.daemon.server.exec.EstablishBuildEnvironment] Configuring env variables: {PATH=/usr/local/gradle/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/mahsa/.rvm/bin, LC_MEASUREMENT=de_DE.UTF-8, XAUTHORITY=/home/mahsa/.Xauthority, XMODIFIERS=@im=ibus, LC_TELEPHONE=de_DE.UTF-8, XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop, GDMSESSION=ubuntu, MANDATORY_PATH=/usr/share/gconf/ubuntu.mandatory.path, LC_TIME=de_DE.UTF-8, GTK_IM_MODULE=ibus, DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-Dl0jlNc4Ll, DEFAULTS_PATH=/usr/share/gconf/ubuntu.default.path, XDG_CURRENT_DESKTOP=Unity, LD_LIBRARY_PATH=/home/mahsa/Downloads/idea-IC-171.4073.35/bin:, UPSTART_SESSION=unix:abstract=/com/ubuntu/upstart-session/1000/1679, QT4_IM_MODULE=xim, LC_PAPER=de_DE.UTF-8, SESSION_MANAGER=local/mahsa-VPCEA15FG:@/tmp/.ICE-unix/2039,unix/mahsa-VPCEA15FG:/tmp/.ICE-unix/2039, QT_LINUX_ACCESSIBILITY_ALWAYS_ON=1, LOGNAME=mahsa, JOB=unity-settings-daemon, PWD=/home/mahsa, IM_CONFIG_PHASE=1, LANGUAGE=en_US, SHELL=/bin/bash, LC_ADDRESS=de_DE.UTF-8, GIO_LAUNCHED_DESKTOP_FILE=/usr/share/applications/jetbrains-idea-ce.desktop, GTK2_MODULES=overlay-scrollbar, INSTANCE=, GNOME_DESKTOP_SESSION_ID=this-is-deprecated, UPSTART_INSTANCE=, GTK_MODULES=gail:atk-bridge:unity-gtk-module, CLUTTER_IM_MODULE=xim, XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0, COMPIZ_BIN_PATH=/usr/bin/, SESSIONTYPE=gnome-session, XDG_SESSION_DESKTOP=ubuntu, SHLVL=0, LC_IDENTIFICATION=de_DE.UTF-8, LC_MONETARY=de_DE.UTF-8, COMPIZ_CONFIG_PROFILE=ubuntu, QT_IM_MODULE=ibus, UPSTART_JOB=unity7, XFILESEARCHPATH=/usr/dt/app-defaults/%L/Dt, XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/usr/share/upstart/xdg:/etc/xdg, LANG=en_US.UTF-8, GNOME_KEYRING_CONTROL=, XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0, XDG_SESSION_ID=c2, XDG_SESSION_TYPE=x11, GRADLE_HOME=/usr/local/gradle, DISPLAY=:0, LC_NAME=de_DE.UTF-8, GDM_LANG=en_US, XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/mahsa, UPSTART_EVENTS=xsession started, GPG_AGENT_INFO=/home/mahsa/.gnupg/S.gpg-agent:0:1, DESKTOP_SESSION=ubuntu, SESSION=ubuntu, USER=mahsa, XDG_MENU_PREFIX=gnome-, GIO_LAUNCHED_DESKTOP_FILE_PID=2592, QT_ACCESSIBILITY=1, LC_NUMERIC=de_DE.UTF-8, SSH_AUTH_SOCK=/run/user/1000/keyring/ssh, XDG_SEAT=seat0, NLSPATH=/usr/dt/lib/nls/msg/%L/%N.cat, QT_QPA_PLATFORMTHEME=appmenu-qt5, XDG_VTNR=7, XDG_RUNTIME_DIR=/run/user/1000, HOME=/home/mahsa, GNOME_KEYRING_PID=}
+12:08:03.394 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 14: received class org.gradle.launcher.daemon.protocol.CloseInput
+12:08:03.395 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received IO message from client: org.gradle.launcher.daemon.protocol.CloseInput@70b0e8b9
+12:08:03.418 [DEBUG] [org.gradle.launcher.daemon.server.exec.LogToClient] About to start relaying all logs to the client via the connection.
+12:08:03.419 [INFO] [org.gradle.launcher.daemon.server.exec.LogToClient] The client will now receive all logging from the daemon (pid: 7013). The daemon log file: /home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon/2.12/daemon-7013.out.log
+12:08:03.430 [INFO] [org.gradle.launcher.daemon.server.health.DaemonHealthTracker] Starting build in new daemon [memory: 954.7 MB]
+12:08:03.432 [INFO] [org.gradle.launcher.daemon.server.exec.ForwardClientInput] Closing daemon's stdin at end of input.
+12:08:03.432 [INFO] [org.gradle.launcher.daemon.server.exec.ForwardClientInput] The daemon will no longer process any standard input.
+12:08:03.437 [DEBUG] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] The daemon has started executing the build.
+12:08:03.438 [INFO] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] Executing build with daemon context: DefaultDaemonContext[uid=febb35e5-fedc-4499-a205-359b186d34a8,javaHome=/usr/lib/jvm/java-8-openjdk-amd64,daemonRegistryDir=/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon,pid=7013,idleTimeout=60000,daemonOpts=-XX:MaxPermSize=256m,-XX:+HeapDumpOnOutOfMemoryError,-Xmx1024m,-Dfile.encoding=UTF-8,-Duser.country=US,-Duser.language=en,-Duser.variant]
+:genAst UP-TO-DATE
+:genCup UP-TO-DATE
+:genJflex UP-TO-DATE
+:gen UP-TO-DATE
+:compileJavaNote: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+:processResources UP-TO-DATE
+:classes
+:jar
+:assemble
+:compileTestJava
+:processTestResources UP-TO-DATE
+:testClasses
+:test
+
+minijava.analysis.ClassChecks > extendsMainClass FAILED
+    java.lang.NullPointerException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > extendsNonexistingClass FAILED
+    java.lang.NullPointerException at ClassChecks.java:234
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ThisInMain.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err3.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ReturnInMain.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NewTest-err3.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ThisTest-err1.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/SameNameAsMainClass.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ArrayTest-err1.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/MDeclTest-err1.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NotEnoughArgs.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ClassTest-err2.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ClassTest-err3.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/WhileTest-err1.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ParamTest-err3.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NestedVarsErr4.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NestedVarsErr2.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err9.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/MDeclTest-err2.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/VarTest-err.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NewTest-err2.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ThisTest-err2.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err8.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/TooManyArgs.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/UnknownSupertype.java] FAILED
+    java.lang.NullPointerException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BoolTest-err.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NestedVarsErr3.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/TreeVisitor-error.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err1.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/AndTest.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ParamTest-err1.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ArrayTest-err4.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BasicTest-error.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/AssignToInt.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ExtendsTest-err3.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/Minus.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NewTest-err.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err7.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err10.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ArrayTest-err3.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/MethodTest-err1.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ArrayTest-err2.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/IntTest-err.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err6.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/Div.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NestedVarsErr1.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/MethodTest-err2.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/IfTest-err1.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err4.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/PrintTest-err.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ClassTest-err1.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ParamTest-err2.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/UnopTest-err.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NonexistingField.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err5.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err2.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+328 tests completed, 56 failed
+:test FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':test'.
+> There were failing tests. See the report at: file:///home/mahsa/Tu%20Kl/Compiler/group11/ex3/build/reports/tests/index.html
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
+
+BUILD FAILED
+
+Total time: 21.342 secs
+12:08:23.018 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on cp_proj class cache for build file '/home/mahsa/Tu Kl/Compiler/group11/ex3/build.gradle' (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/scripts/build_3cv522gay4h9to9s8j857svaz/cp_proj).
+12:08:23.021 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on proj class cache for build file '/home/mahsa/Tu Kl/Compiler/group11/ex3/build.gradle' (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/scripts/build_3cv522gay4h9to9s8j857svaz/proj).
+12:08:23.032 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache fileHashes.bin (/home/mahsa/Tu Kl/Compiler/group11/ex3/.gradle/2.12/taskArtifacts/fileHashes.bin)
+12:08:23.033 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache outputFileStates.bin (/home/mahsa/Tu Kl/Compiler/group11/ex3/.gradle/2.12/taskArtifacts/outputFileStates.bin)
+12:08:23.033 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache fileSnapshots.bin (/home/mahsa/Tu Kl/Compiler/group11/ex3/.gradle/2.12/taskArtifacts/fileSnapshots.bin)
+12:08:23.033 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache taskArtifacts.bin (/home/mahsa/Tu Kl/Compiler/group11/ex3/.gradle/2.12/taskArtifacts/taskArtifacts.bin)
+12:08:23.034 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on task history cache (/home/mahsa/Tu Kl/Compiler/group11/ex3/.gradle/2.12/taskArtifacts).
+12:08:23.035 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.ivyresolve.memcache.InMemoryCachedRepositoryFactory] In-memory dependency metadata cache closed. Repos cached: 3, cache instances: 1, modules served from cache: 4, artifacts: 4
+12:08:23.035 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache artifact-at-repository.bin (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/modules-2/metadata-2.16/artifact-at-repository.bin)
+12:08:23.036 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache module-metadata.bin (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/modules-2/metadata-2.16/module-metadata.bin)
+12:08:23.036 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on artifact cache (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/modules-2).
+12:08:23.044 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.resolveengine.store.CachedStoreFactory] Resolution result cache closed. Cache reads: 0, disk reads: 0 (avg: 0.0 secs, total: 0.0 secs)
+12:08:23.044 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.resolveengine.store.CachedStoreFactory] Resolution result cache closed. Cache reads: 0, disk reads: 0 (avg: 0.0 secs, total: 0.0 secs)
+12:08:23.045 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.resolveengine.store.ResolutionResultsStoreFactory] Deleted 2 resolution results binary files in 0.009 secs
+12:08:23.045 [DEBUG] [org.gradle.cache.internal.DefaultCacheAccess] Cache Plugin Resolution Cache (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/plugin-resolution) was closed 0 times.
+12:08:23.046 [DEBUG] [org.gradle.api.internal.tasks.compile.daemon.CompilerDaemonManager] Stopping 0 compiler daemon(s).
+12:08:23.046 [INFO] [org.gradle.api.internal.tasks.compile.daemon.CompilerDaemonManager] Stopped 0 compiler daemon(s).
+12:08:23.046 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on cache directory workerMain (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/workerMain).
+12:08:23.047 [DEBUG] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] The daemon has finished executing the build.
+12:08:23.581 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is busy, sleeping until state changes.
+12:08:23.584 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: finished waiting for DaemonCommandExecution[command = Build{id=c1cc497a-ae12-4a14-8492-e93f1c4deba6.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}, connection = org.gradle.launcher.daemon.server.DefaultDaemonConnection@19868420]. Result org.gradle.launcher.daemon.server.DaemonStateCoordinator@1a7aa605 with state Running
+12:08:23.585 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: completed DaemonCommandExecution[command = Build{id=c1cc497a-ae12-4a14-8492-e93f1c4deba6.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}, connection = org.gradle.launcher.daemon.server.DefaultDaemonConnection@19868420]
+12:08:23.585 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] updating lastActivityAt to 1495793303585
+12:08:23.586 [INFO] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Marking the daemon as idle, address: [f9781bcd-3c6b-43bd-bbe1-e3d4112207a4 port:36754, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+12:08:23.586 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Marking idle by address: [f9781bcd-3c6b-43bd-bbe1-e3d4112207a4 port:36754, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+12:08:23.652 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+12:08:23.663 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+12:08:23.683 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+12:08:23.690 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is idle, sleeping until state change or idle timeout at Fri May 26 12:09:23 CEST 2017
+12:08:23.691 [DEBUG] [org.gradle.launcher.daemon.server.exec.ReturnResult] Daemon is dispatching the build result: Failure[value=org.gradle.initialization.ReportedException: org.gradle.internal.exceptions.LocationAwareException: Execution failed for task ':test'.]
+12:08:23.692 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: dispatching class org.gradle.launcher.daemon.protocol.Failure
+12:08:23.724 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Finishing executing command: Build{id=c1cc497a-ae12-4a14-8492-e93f1c4deba6.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}
+12:08:23.750 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 14: received class org.gradle.launcher.daemon.protocol.Finished
+12:08:23.751 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received non-IO message from client: org.gradle.launcher.daemon.protocol.Finished@74907ffb
+12:08:23.751 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Received finished message: org.gradle.launcher.daemon.protocol.Finished@74907ffb
+12:08:23.751 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: stopping connection
+12:08:23.753 [DEBUG] [org.gradle.messaging.remote.internal.inet.SocketConnection] Discarding EOFException: java.io.EOFException
+12:08:23.753 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 14: received null
+12:08:23.753 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received end-of-input from client.
+12:08:23.754 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: stopping connection
+12:08:51.509 [DEBUG] [org.gradle.messaging.remote.internal.inet.TcpIncomingConnector] Accepted connection from /127.0.0.1:57752 to /127.0.0.1:36754.
+12:08:51.513 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 32: received class org.gradle.launcher.daemon.protocol.Build
+12:08:51.513 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received non-IO message from client: Build{id=fe4472c8-e8c1-4dff-971a-281741eec8fd.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}
+12:08:51.514 [INFO] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Received command: Build{id=fe4472c8-e8c1-4dff-971a-281741eec8fd.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}.
+12:08:51.514 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Starting executing command: Build{id=fe4472c8-e8c1-4dff-971a-281741eec8fd.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3} with connection: socket connection from /127.0.0.1:36754 to /127.0.0.1:57752.
+12:08:51.516 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: started DaemonCommandExecution[command = Build{id=fe4472c8-e8c1-4dff-971a-281741eec8fd.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}, connection = org.gradle.launcher.daemon.server.DefaultDaemonConnection@7ad7a016] after 0.0 minutes of idle
+12:08:51.516 [INFO] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Marking the daemon as busy, address: [f9781bcd-3c6b-43bd-bbe1-e3d4112207a4 port:36754, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+12:08:51.517 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Marking busy by address: [f9781bcd-3c6b-43bd-bbe1-e3d4112207a4 port:36754, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+12:08:51.517 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+12:08:51.517 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+12:08:51.523 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+12:08:51.524 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] updating lastActivityAt to 1495793331524
+12:08:51.524 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is busy, sleeping until state changes.
+12:08:51.525 [INFO] [org.gradle.launcher.daemon.server.exec.StartBuildOrRespondWithBusy] Daemon is about to start building Build{id=fe4472c8-e8c1-4dff-971a-281741eec8fd.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}. Dispatching build started information...
+12:08:51.525 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 16: dispatching class org.gradle.launcher.daemon.protocol.BuildStarted
+12:08:51.527 [DEBUG] [org.gradle.launcher.daemon.server.exec.EstablishBuildEnvironment] Configuring env variables: {PATH=/usr/local/gradle/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/mahsa/.rvm/bin, LC_MEASUREMENT=de_DE.UTF-8, XAUTHORITY=/home/mahsa/.Xauthority, XMODIFIERS=@im=ibus, LC_TELEPHONE=de_DE.UTF-8, XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop, GDMSESSION=ubuntu, MANDATORY_PATH=/usr/share/gconf/ubuntu.mandatory.path, LC_TIME=de_DE.UTF-8, GTK_IM_MODULE=ibus, DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-Dl0jlNc4Ll, DEFAULTS_PATH=/usr/share/gconf/ubuntu.default.path, XDG_CURRENT_DESKTOP=Unity, LD_LIBRARY_PATH=/home/mahsa/Downloads/idea-IC-171.4073.35/bin:, UPSTART_SESSION=unix:abstract=/com/ubuntu/upstart-session/1000/1679, QT4_IM_MODULE=xim, LC_PAPER=de_DE.UTF-8, SESSION_MANAGER=local/mahsa-VPCEA15FG:@/tmp/.ICE-unix/2039,unix/mahsa-VPCEA15FG:/tmp/.ICE-unix/2039, QT_LINUX_ACCESSIBILITY_ALWAYS_ON=1, LOGNAME=mahsa, JOB=unity-settings-daemon, PWD=/home/mahsa, IM_CONFIG_PHASE=1, LANGUAGE=en_US, SHELL=/bin/bash, LC_ADDRESS=de_DE.UTF-8, GIO_LAUNCHED_DESKTOP_FILE=/usr/share/applications/jetbrains-idea-ce.desktop, GTK2_MODULES=overlay-scrollbar, INSTANCE=, GNOME_DESKTOP_SESSION_ID=this-is-deprecated, UPSTART_INSTANCE=, GTK_MODULES=gail:atk-bridge:unity-gtk-module, CLUTTER_IM_MODULE=xim, XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0, COMPIZ_BIN_PATH=/usr/bin/, SESSIONTYPE=gnome-session, XDG_SESSION_DESKTOP=ubuntu, SHLVL=0, LC_IDENTIFICATION=de_DE.UTF-8, LC_MONETARY=de_DE.UTF-8, COMPIZ_CONFIG_PROFILE=ubuntu, QT_IM_MODULE=ibus, UPSTART_JOB=unity7, XFILESEARCHPATH=/usr/dt/app-defaults/%L/Dt, XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/usr/share/upstart/xdg:/etc/xdg, LANG=en_US.UTF-8, GNOME_KEYRING_CONTROL=, XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0, XDG_SESSION_ID=c2, XDG_SESSION_TYPE=x11, GRADLE_HOME=/usr/local/gradle, DISPLAY=:0, LC_NAME=de_DE.UTF-8, GDM_LANG=en_US, XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/mahsa, UPSTART_EVENTS=xsession started, GPG_AGENT_INFO=/home/mahsa/.gnupg/S.gpg-agent:0:1, DESKTOP_SESSION=ubuntu, SESSION=ubuntu, USER=mahsa, XDG_MENU_PREFIX=gnome-, GIO_LAUNCHED_DESKTOP_FILE_PID=2592, QT_ACCESSIBILITY=1, LC_NUMERIC=de_DE.UTF-8, SSH_AUTH_SOCK=/run/user/1000/keyring/ssh, XDG_SEAT=seat0, NLSPATH=/usr/dt/lib/nls/msg/%L/%N.cat, QT_QPA_PLATFORMTHEME=appmenu-qt5, XDG_VTNR=7, XDG_RUNTIME_DIR=/run/user/1000, HOME=/home/mahsa, GNOME_KEYRING_PID=}
+12:08:51.530 [DEBUG] [org.gradle.launcher.daemon.server.exec.LogToClient] About to start relaying all logs to the client via the connection.
+12:08:51.530 [INFO] [org.gradle.launcher.daemon.server.exec.LogToClient] The client will now receive all logging from the daemon (pid: 7013). The daemon log file: /home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon/2.12/daemon-7013.out.log
+12:08:51.531 [INFO] [org.gradle.launcher.daemon.server.health.DaemonHealthTracker] Starting 2nd build in daemon [uptime: 48.462 secs, performance: 98%, memory: 26% of 954.7 MB]
+12:08:51.535 [DEBUG] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] The daemon has started executing the build.
+12:08:51.536 [INFO] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] Executing build with daemon context: DefaultDaemonContext[uid=febb35e5-fedc-4499-a205-359b186d34a8,javaHome=/usr/lib/jvm/java-8-openjdk-amd64,daemonRegistryDir=/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon,pid=7013,idleTimeout=60000,daemonOpts=-XX:MaxPermSize=256m,-XX:+HeapDumpOnOutOfMemoryError,-Xmx1024m,-Dfile.encoding=UTF-8,-Duser.country=US,-Duser.language=en,-Duser.variant]
+12:08:51.540 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 32: received class org.gradle.launcher.daemon.protocol.CloseInput
+12:08:51.541 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received IO message from client: org.gradle.launcher.daemon.protocol.CloseInput@734eda4b
+:genAst UP-TO-DATE
+:genCup UP-TO-DATE
+:genJflex UP-TO-DATE
+:gen UP-TO-DATE
+:compileJava UP-TO-DATE
+:processResources UP-TO-DATE
+:classes UP-TO-DATE
+
+BUILD SUCCESSFUL
+
+Total time: 0.55 secs
+12:08:52.077 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on cp_proj class cache for build file '/home/mahsa/Tu Kl/Compiler/group11/ex3/build.gradle' (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/scripts/build_3cv522gay4h9to9s8j857svaz/cp_proj).
+12:08:52.078 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on proj class cache for build file '/home/mahsa/Tu Kl/Compiler/group11/ex3/build.gradle' (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/scripts/build_3cv522gay4h9to9s8j857svaz/proj).
+12:08:52.079 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache fileHashes.bin (/home/mahsa/Tu Kl/Compiler/group11/ex3/.gradle/2.12/taskArtifacts/fileHashes.bin)
+12:08:52.079 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on task history cache (/home/mahsa/Tu Kl/Compiler/group11/ex3/.gradle/2.12/taskArtifacts).
+12:08:52.080 [DEBUG] [org.gradle.cache.internal.DefaultCacheAccess] Cache jars (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/jars-1) was closed 0 times.
+12:08:52.080 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.ivyresolve.memcache.InMemoryCachedRepositoryFactory] In-memory dependency metadata cache closed. Repos cached: 1, cache instances: 1, modules served from cache: 0, artifacts: 0
+12:08:52.081 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache artifact-at-repository.bin (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/modules-2/metadata-2.16/artifact-at-repository.bin)
+12:08:52.081 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache module-metadata.bin (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/modules-2/metadata-2.16/module-metadata.bin)
+12:08:52.081 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on artifact cache (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/modules-2).
+12:08:52.082 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.resolveengine.store.CachedStoreFactory] Resolution result cache closed. Cache reads: 0, disk reads: 0 (avg: 0.0 secs, total: 0.0 secs)
+12:08:52.082 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.resolveengine.store.CachedStoreFactory] Resolution result cache closed. Cache reads: 0, disk reads: 0 (avg: 0.0 secs, total: 0.0 secs)
+12:08:52.083 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.resolveengine.store.ResolutionResultsStoreFactory] Deleted 2 resolution results binary files in 0.001 secs
+12:08:52.083 [DEBUG] [org.gradle.cache.internal.DefaultCacheAccess] Cache Plugin Resolution Cache (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/plugin-resolution) was closed 0 times.
+12:08:52.084 [DEBUG] [org.gradle.api.internal.tasks.compile.daemon.CompilerDaemonManager] Stopping 0 compiler daemon(s).
+12:08:52.084 [INFO] [org.gradle.api.internal.tasks.compile.daemon.CompilerDaemonManager] Stopped 0 compiler daemon(s).
+12:08:52.084 [DEBUG] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] The daemon has finished executing the build.
+12:08:52.089 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is busy, sleeping until state changes.
+12:08:52.089 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: finished waiting for DaemonCommandExecution[command = Build{id=fe4472c8-e8c1-4dff-971a-281741eec8fd.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}, connection = org.gradle.launcher.daemon.server.DefaultDaemonConnection@7ad7a016]. Result org.gradle.launcher.daemon.server.DaemonStateCoordinator@1a7aa605 with state Running
+12:08:52.090 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: completed DaemonCommandExecution[command = Build{id=fe4472c8-e8c1-4dff-971a-281741eec8fd.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}, connection = org.gradle.launcher.daemon.server.DefaultDaemonConnection@7ad7a016]
+12:08:52.090 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] updating lastActivityAt to 1495793332090
+12:08:52.090 [INFO] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Marking the daemon as idle, address: [f9781bcd-3c6b-43bd-bbe1-e3d4112207a4 port:36754, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+12:08:52.090 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Marking idle by address: [f9781bcd-3c6b-43bd-bbe1-e3d4112207a4 port:36754, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+12:08:52.090 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+12:08:52.091 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+12:08:52.095 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+12:08:52.095 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is idle, sleeping until state change or idle timeout at Fri May 26 12:09:52 CEST 2017
+12:08:52.096 [DEBUG] [org.gradle.launcher.daemon.server.exec.ReturnResult] Daemon is dispatching the build result: Success[value=org.gradle.tooling.internal.provider.BuildActionResult@5d8c24ee]
+12:08:52.096 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: dispatching class org.gradle.launcher.daemon.protocol.Success
+12:08:52.102 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Finishing executing command: Build{id=fe4472c8-e8c1-4dff-971a-281741eec8fd.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}
+12:08:52.110 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 32: received class org.gradle.launcher.daemon.protocol.Finished
+12:08:52.111 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received non-IO message from client: org.gradle.launcher.daemon.protocol.Finished@7d893a52
+12:08:52.111 [DEBUG] [org.gradle.messaging.remote.internal.inet.SocketConnection] Discarding EOFException: java.io.EOFException
+12:08:52.111 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 32: received null
+12:08:52.112 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received end-of-input from client.
+12:08:52.112 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Received finished message: null
+12:08:52.112 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: stopping connection
+12:08:52.113 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: stopping connection
+12:08:54.971 [DEBUG] [org.gradle.messaging.remote.internal.inet.TcpIncomingConnector] Accepted connection from /127.0.0.1:57754 to /127.0.0.1:36754.
+12:08:54.977 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 35: received class org.gradle.launcher.daemon.protocol.Build
+12:08:54.977 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received non-IO message from client: Build{id=8e5fc5b5-ec48-4e99-b8c2-2835f9722034.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}
+12:08:54.978 [INFO] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Received command: Build{id=8e5fc5b5-ec48-4e99-b8c2-2835f9722034.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}.
+12:08:54.978 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Starting executing command: Build{id=8e5fc5b5-ec48-4e99-b8c2-2835f9722034.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3} with connection: socket connection from /127.0.0.1:36754 to /127.0.0.1:57754.
+12:08:54.978 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: started DaemonCommandExecution[command = Build{id=8e5fc5b5-ec48-4e99-b8c2-2835f9722034.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}, connection = org.gradle.launcher.daemon.server.DefaultDaemonConnection@349bd606] after 0.0 minutes of idle
+12:08:54.979 [INFO] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Marking the daemon as busy, address: [f9781bcd-3c6b-43bd-bbe1-e3d4112207a4 port:36754, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+12:08:54.979 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Marking busy by address: [f9781bcd-3c6b-43bd-bbe1-e3d4112207a4 port:36754, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+12:08:54.979 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+12:08:54.980 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+12:08:54.989 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+12:08:54.989 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] updating lastActivityAt to 1495793334989
+12:08:54.990 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is busy, sleeping until state changes.
+12:08:54.990 [INFO] [org.gradle.launcher.daemon.server.exec.StartBuildOrRespondWithBusy] Daemon is about to start building Build{id=8e5fc5b5-ec48-4e99-b8c2-2835f9722034.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}. Dispatching build started information...
+12:08:54.990 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 16: dispatching class org.gradle.launcher.daemon.protocol.BuildStarted
+12:08:54.992 [DEBUG] [org.gradle.launcher.daemon.server.exec.EstablishBuildEnvironment] Configuring env variables: {PATH=/usr/local/gradle/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/mahsa/.rvm/bin, LC_MEASUREMENT=de_DE.UTF-8, XAUTHORITY=/home/mahsa/.Xauthority, XMODIFIERS=@im=ibus, LC_TELEPHONE=de_DE.UTF-8, XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop, GDMSESSION=ubuntu, MANDATORY_PATH=/usr/share/gconf/ubuntu.mandatory.path, LC_TIME=de_DE.UTF-8, GTK_IM_MODULE=ibus, DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-Dl0jlNc4Ll, DEFAULTS_PATH=/usr/share/gconf/ubuntu.default.path, XDG_CURRENT_DESKTOP=Unity, LD_LIBRARY_PATH=/home/mahsa/Downloads/idea-IC-171.4073.35/bin:, UPSTART_SESSION=unix:abstract=/com/ubuntu/upstart-session/1000/1679, QT4_IM_MODULE=xim, LC_PAPER=de_DE.UTF-8, SESSION_MANAGER=local/mahsa-VPCEA15FG:@/tmp/.ICE-unix/2039,unix/mahsa-VPCEA15FG:/tmp/.ICE-unix/2039, QT_LINUX_ACCESSIBILITY_ALWAYS_ON=1, LOGNAME=mahsa, JOB=unity-settings-daemon, PWD=/home/mahsa, IM_CONFIG_PHASE=1, LANGUAGE=en_US, SHELL=/bin/bash, LC_ADDRESS=de_DE.UTF-8, GIO_LAUNCHED_DESKTOP_FILE=/usr/share/applications/jetbrains-idea-ce.desktop, GTK2_MODULES=overlay-scrollbar, INSTANCE=, GNOME_DESKTOP_SESSION_ID=this-is-deprecated, UPSTART_INSTANCE=, GTK_MODULES=gail:atk-bridge:unity-gtk-module, CLUTTER_IM_MODULE=xim, XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0, COMPIZ_BIN_PATH=/usr/bin/, SESSIONTYPE=gnome-session, XDG_SESSION_DESKTOP=ubuntu, SHLVL=0, LC_IDENTIFICATION=de_DE.UTF-8, LC_MONETARY=de_DE.UTF-8, COMPIZ_CONFIG_PROFILE=ubuntu, QT_IM_MODULE=ibus, UPSTART_JOB=unity7, XFILESEARCHPATH=/usr/dt/app-defaults/%L/Dt, XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/usr/share/upstart/xdg:/etc/xdg, LANG=en_US.UTF-8, GNOME_KEYRING_CONTROL=, XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0, XDG_SESSION_ID=c2, XDG_SESSION_TYPE=x11, GRADLE_HOME=/usr/local/gradle, DISPLAY=:0, LC_NAME=de_DE.UTF-8, GDM_LANG=en_US, XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/mahsa, UPSTART_EVENTS=xsession started, GPG_AGENT_INFO=/home/mahsa/.gnupg/S.gpg-agent:0:1, DESKTOP_SESSION=ubuntu, SESSION=ubuntu, USER=mahsa, XDG_MENU_PREFIX=gnome-, GIO_LAUNCHED_DESKTOP_FILE_PID=2592, QT_ACCESSIBILITY=1, LC_NUMERIC=de_DE.UTF-8, SSH_AUTH_SOCK=/run/user/1000/keyring/ssh, XDG_SEAT=seat0, NLSPATH=/usr/dt/lib/nls/msg/%L/%N.cat, QT_QPA_PLATFORMTHEME=appmenu-qt5, XDG_VTNR=7, XDG_RUNTIME_DIR=/run/user/1000, HOME=/home/mahsa, GNOME_KEYRING_PID=}
+12:08:54.995 [DEBUG] [org.gradle.launcher.daemon.server.exec.LogToClient] About to start relaying all logs to the client via the connection.
+12:08:54.995 [INFO] [org.gradle.launcher.daemon.server.exec.LogToClient] The client will now receive all logging from the daemon (pid: 7013). The daemon log file: /home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon/2.12/daemon-7013.out.log
+12:08:54.996 [INFO] [org.gradle.launcher.daemon.server.health.DaemonHealthTracker] Starting 3rd build in daemon [uptime: 51.927 secs, performance: 96%, memory: 26% of 954.7 MB]
+12:08:54.996 [DEBUG] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] The daemon has started executing the build.
+12:08:54.997 [INFO] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] Executing build with daemon context: DefaultDaemonContext[uid=febb35e5-fedc-4499-a205-359b186d34a8,javaHome=/usr/lib/jvm/java-8-openjdk-amd64,daemonRegistryDir=/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon,pid=7013,idleTimeout=60000,daemonOpts=-XX:MaxPermSize=256m,-XX:+HeapDumpOnOutOfMemoryError,-Xmx1024m,-Dfile.encoding=UTF-8,-Duser.country=US,-Duser.language=en,-Duser.variant]
+:genAst UP-TO-DATE
+:genCup UP-TO-DATE
+:genJflex UP-TO-DATE
+:gen UP-TO-DATE
+:compileJava UP-TO-DATE
+:processResources UP-TO-DATE
+:classes UP-TO-DATE
+:jar UP-TO-DATE
+:assemble UP-TO-DATE
+:compileTestJava UP-TO-DATE
+:processTestResources UP-TO-DATE
+:testClasses UP-TO-DATE
+:test
+
+minijava.analysis.ClassChecks > extendsMainClass FAILED
+    java.lang.NullPointerException at ClassChecks.java:234
+
+minijava.analysis.ClassChecks > extendsNonexistingClass FAILED
+    java.lang.NullPointerException at ClassChecks.java:234
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ThisInMain.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err3.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ReturnInMain.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NewTest-err3.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ThisTest-err1.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/SameNameAsMainClass.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ArrayTest-err1.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/MDeclTest-err1.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NotEnoughArgs.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ClassTest-err2.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ClassTest-err3.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/WhileTest-err1.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ParamTest-err3.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NestedVarsErr4.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NestedVarsErr2.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err9.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/MDeclTest-err2.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/VarTest-err.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NewTest-err2.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ThisTest-err2.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err8.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/TooManyArgs.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/UnknownSupertype.java] FAILED
+    java.lang.NullPointerException at FileAnalysisTest.java:69
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BoolTest-err.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NestedVarsErr3.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/TreeVisitor-error.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err1.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/AndTest.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ParamTest-err1.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ArrayTest-err4.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BasicTest-error.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/AssignToInt.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ExtendsTest-err3.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/Minus.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NewTest-err.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err7.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err10.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ArrayTest-err3.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/MethodTest-err1.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ArrayTest-err2.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/IntTest-err.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err6.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/Div.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NestedVarsErr1.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/MethodTest-err2.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/IfTest-err1.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err4.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/PrintTest-err.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ClassTest-err1.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/ParamTest-err2.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/UnopTest-err.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/NonexistingField.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err5.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+minijava.analysis.FileAnalysisTest > testChecker[testdata/typechecker/error/BinopTest-err2.java] FAILED
+    java.lang.AssertionError at FileAnalysisTest.java:73
+
+328 tests completed, 56 failed
+:test FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':test'.
+> There were failing tests. See the report at: file:///home/mahsa/Tu%20Kl/Compiler/group11/ex3/build/reports/tests/index.html
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
+
+BUILD FAILED
+
+Total time: 5.642 secs
+12:09:00.601 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on cp_proj class cache for build file '/home/mahsa/Tu Kl/Compiler/group11/ex3/build.gradle' (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/scripts/build_3cv522gay4h9to9s8j857svaz/cp_proj).
+12:09:00.602 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on proj class cache for build file '/home/mahsa/Tu Kl/Compiler/group11/ex3/build.gradle' (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/scripts/build_3cv522gay4h9to9s8j857svaz/proj).
+12:09:00.607 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache fileHashes.bin (/home/mahsa/Tu Kl/Compiler/group11/ex3/.gradle/2.12/taskArtifacts/fileHashes.bin)
+12:09:00.608 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on task history cache (/home/mahsa/Tu Kl/Compiler/group11/ex3/.gradle/2.12/taskArtifacts).
+12:09:00.608 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.ivyresolve.memcache.InMemoryCachedRepositoryFactory] In-memory dependency metadata cache closed. Repos cached: 3, cache instances: 1, modules served from cache: 4, artifacts: 4
+12:09:00.609 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache module-metadata.bin (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/modules-2/metadata-2.16/module-metadata.bin)
+12:09:00.609 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache artifact-at-repository.bin (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/modules-2/metadata-2.16/artifact-at-repository.bin)
+12:09:00.609 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on artifact cache (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/modules-2).
+12:09:00.610 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.resolveengine.store.CachedStoreFactory] Resolution result cache closed. Cache reads: 0, disk reads: 0 (avg: 0.0 secs, total: 0.0 secs)
+12:09:00.611 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.resolveengine.store.CachedStoreFactory] Resolution result cache closed. Cache reads: 0, disk reads: 0 (avg: 0.0 secs, total: 0.0 secs)
+12:09:00.611 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.resolveengine.store.ResolutionResultsStoreFactory] Deleted 2 resolution results binary files in 0.001 secs
+12:09:00.611 [DEBUG] [org.gradle.cache.internal.DefaultCacheAccess] Cache Plugin Resolution Cache (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/plugin-resolution) was closed 0 times.
+12:09:00.612 [DEBUG] [org.gradle.api.internal.tasks.compile.daemon.CompilerDaemonManager] Stopping 0 compiler daemon(s).
+12:09:00.612 [INFO] [org.gradle.api.internal.tasks.compile.daemon.CompilerDaemonManager] Stopped 0 compiler daemon(s).
+12:09:00.612 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on cache directory workerMain (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/workerMain).
+12:09:00.614 [DEBUG] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] The daemon has finished executing the build.
+12:09:00.617 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is busy, sleeping until state changes.
+12:09:00.618 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: finished waiting for DaemonCommandExecution[command = Build{id=8e5fc5b5-ec48-4e99-b8c2-2835f9722034.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}, connection = org.gradle.launcher.daemon.server.DefaultDaemonConnection@349bd606]. Result org.gradle.launcher.daemon.server.DaemonStateCoordinator@1a7aa605 with state Running
+12:09:00.618 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: completed DaemonCommandExecution[command = Build{id=8e5fc5b5-ec48-4e99-b8c2-2835f9722034.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}, connection = org.gradle.launcher.daemon.server.DefaultDaemonConnection@349bd606]
+12:09:00.618 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] updating lastActivityAt to 1495793340618
+12:09:00.618 [INFO] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Marking the daemon as idle, address: [f9781bcd-3c6b-43bd-bbe1-e3d4112207a4 port:36754, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+12:09:00.618 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Marking idle by address: [f9781bcd-3c6b-43bd-bbe1-e3d4112207a4 port:36754, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+12:09:00.619 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+12:09:00.619 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+12:09:00.622 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+12:09:00.623 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is idle, sleeping until state change or idle timeout at Fri May 26 12:10:00 CEST 2017
+12:09:00.623 [DEBUG] [org.gradle.launcher.daemon.server.exec.ReturnResult] Daemon is dispatching the build result: Failure[value=org.gradle.initialization.ReportedException: org.gradle.internal.exceptions.LocationAwareException: Execution failed for task ':test'.]
+12:09:00.623 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: dispatching class org.gradle.launcher.daemon.protocol.Failure
+12:09:00.629 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Finishing executing command: Build{id=8e5fc5b5-ec48-4e99-b8c2-2835f9722034.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}
+12:09:00.644 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 35: received class org.gradle.launcher.daemon.protocol.Finished
+12:09:00.645 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received non-IO message from client: org.gradle.launcher.daemon.protocol.Finished@5a78c569
+12:09:00.645 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Received finished message: org.gradle.launcher.daemon.protocol.Finished@5a78c569
+12:09:00.645 [DEBUG] [org.gradle.messaging.remote.internal.inet.SocketConnection] Discarding EOFException: java.io.EOFException
+12:09:00.645 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: stopping connection
+12:09:00.645 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 35: received null
+12:09:00.647 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received end-of-input from client.
+12:09:00.648 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: stopping connection
+12:10:00.619 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Idle timeout: daemon has been idle for requested period. Stopping now.
+12:10:00.619 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Marking daemon stopped due to idle timeout. The daemon is running a build: false
+12:10:00.620 [DEBUG] [org.gradle.launcher.daemon.server.Daemon] stop() called on daemon
+12:10:00.620 [INFO] [org.gradle.launcher.daemon.server.Daemon] Stop requested. Daemon is removing its presence from the registry...
+12:10:00.621 [DEBUG] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Removing our presence to clients, eg. removing this address from the registry: [f9781bcd-3c6b-43bd-bbe1-e3d4112207a4 port:36754, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+12:10:00.621 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Removing daemon address: [f9781bcd-3c6b-43bd-bbe1-e3d4112207a4 port:36754, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+12:10:00.622 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+12:10:00.623 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+12:10:00.626 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+12:10:00.626 [DEBUG] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Address removed from registry.
+Daemon vm is shutting down... The daemon has exited normally or was terminated in response to a user interrupt.
+12:10:00.663 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Removing daemon address: [f9781bcd-3c6b-43bd-bbe1-e3d4112207a4 port:36754, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+12:10:00.663 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+12:10:00.664 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+12:10:00.665 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.

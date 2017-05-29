@@ -1,0 +1,628 @@
+10:27:39.504 [INFO] [org.gradle.launcher.daemon.server.Daemon] start() called on daemon - DefaultDaemonContext[uid=0d41679e-8f28-48e2-9f63-3cf4af120a43,javaHome=/usr/lib/jvm/java-8-openjdk-amd64,daemonRegistryDir=/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon,pid=7484,idleTimeout=60000,daemonOpts=-XX:MaxPermSize=256m,-XX:+HeapDumpOnOutOfMemoryError,-Xmx1024m,-Dfile.encoding=UTF-8,-Duser.country=US,-Duser.language=en,-Duser.variant]
+10:27:39.509 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] updating lastActivityAt to 1495960059509
+10:27:39.544 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding IP addresses for network interface wlp2s0
+10:27:39.545 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Is this a loopback interface? false
+10:27:39.545 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Is this a multicast interface? true
+10:27:39.546 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding remote address /fe80:0:0:0:cc3c:7d9c:5705:d90a%wlp2s0
+10:27:39.547 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding remote address /2a02:810b:c540:a328:db0:8466:4130:9803%wlp2s0
+10:27:39.549 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding remote address /2a02:810b:c540:a328:b43e:a205:b59d:cfcf%wlp2s0
+10:27:39.549 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding remote address /192.168.0.4
+10:27:39.550 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding remote multicast interface wlp2s0
+10:27:39.550 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding IP addresses for network interface lo
+10:27:39.551 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Is this a loopback interface? true
+10:27:39.552 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Is this a multicast interface? false
+10:27:39.552 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding loopback address /0:0:0:0:0:0:0:1%lo
+10:27:39.553 [DEBUG] [org.gradle.messaging.remote.internal.inet.InetAddressFactory] Adding loopback address /127.0.0.1
+10:27:39.572 [DEBUG] [org.gradle.messaging.remote.internal.inet.TcpIncomingConnector] Listening on [0c02b81e-bc1a-4f01-8353-f7d9cdac5448 port:38414, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]].
+10:27:39.576 [DEBUG] [org.gradle.launcher.daemon.server.Daemon] Daemon starting at: Sun May 28 10:27:39 CEST 2017, with address: [0c02b81e-bc1a-4f01-8353-f7d9cdac5448 port:38414, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+10:27:39.577 [INFO] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Advertising the daemon address to the clients: [0c02b81e-bc1a-4f01-8353-f7d9cdac5448 port:38414, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+10:27:39.578 [DEBUG] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Advertised daemon context: DefaultDaemonContext[uid=0d41679e-8f28-48e2-9f63-3cf4af120a43,javaHome=/usr/lib/jvm/java-8-openjdk-amd64,daemonRegistryDir=/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon,pid=7484,idleTimeout=60000,daemonOpts=-XX:MaxPermSize=256m,-XX:+HeapDumpOnOutOfMemoryError,-Xmx1024m,-Dfile.encoding=UTF-8,-Duser.country=US,-Duser.language=en,-Duser.variant]
+10:27:39.579 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Storing daemon address: [0c02b81e-bc1a-4f01-8353-f7d9cdac5448 port:38414, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]], context: DefaultDaemonContext[uid=0d41679e-8f28-48e2-9f63-3cf4af120a43,javaHome=/usr/lib/jvm/java-8-openjdk-amd64,daemonRegistryDir=/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon,pid=7484,idleTimeout=60000,daemonOpts=-XX:MaxPermSize=256m,-XX:+HeapDumpOnOutOfMemoryError,-Xmx1024m,-Dfile.encoding=UTF-8,-Duser.country=US,-Duser.language=en,-Duser.variant]
+10:27:39.591 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+10:27:39.593 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+10:27:39.736 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+10:27:39.737 [LIFECYCLE] [org.gradle.launcher.daemon.server.Daemon] Daemon server started.
+10:27:39.740 [DEBUG] [org.gradle.launcher.daemon.bootstrap.DaemonStartupCommunication] Completed writing the daemon greeting. Closing streams...
+10:27:39.741 [DEBUG] [org.gradle.launcher.daemon.server.Daemon] requestStopOnIdleTimeout(60000 MILLISECONDS) called on daemon
+10:27:39.742 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Idle timeout: waiting for daemon to stop or be idle for 60000ms
+10:27:39.743 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is idle, sleeping until state change or idle timeout at Sun May 28 10:28:39 CEST 2017
+10:27:39.763 [DEBUG] [org.gradle.messaging.remote.internal.inet.TcpIncomingConnector] Accepted connection from /127.0.0.1:33734 to /127.0.0.1:38414.
+10:27:39.878 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 14: received class org.gradle.launcher.daemon.protocol.Build
+10:27:39.879 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received non-IO message from client: Build{id=8a3b0231-83f8-4b21-ae54-9daba1491596.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}
+10:27:39.880 [INFO] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Received command: Build{id=8a3b0231-83f8-4b21-ae54-9daba1491596.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}.
+10:27:39.881 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Starting executing command: Build{id=8a3b0231-83f8-4b21-ae54-9daba1491596.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3} with connection: socket connection from /127.0.0.1:38414 to /127.0.0.1:33734.
+10:27:39.895 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: started DaemonCommandExecution[command = Build{id=8a3b0231-83f8-4b21-ae54-9daba1491596.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}, connection = org.gradle.launcher.daemon.server.DefaultDaemonConnection@19868420] after 0.0 minutes of idle
+10:27:39.896 [INFO] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Marking the daemon as busy, address: [0c02b81e-bc1a-4f01-8353-f7d9cdac5448 port:38414, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+10:27:39.897 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Marking busy by address: [0c02b81e-bc1a-4f01-8353-f7d9cdac5448 port:38414, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+10:27:39.898 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+10:27:39.898 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+10:27:39.903 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+10:27:39.904 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] updating lastActivityAt to 1495960059904
+10:27:39.905 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is busy, sleeping until state changes.
+10:27:39.906 [INFO] [org.gradle.launcher.daemon.server.exec.StartBuildOrRespondWithBusy] Daemon is about to start building Build{id=8a3b0231-83f8-4b21-ae54-9daba1491596.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}. Dispatching build started information...
+10:27:39.908 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 16: dispatching class org.gradle.launcher.daemon.protocol.BuildStarted
+10:27:39.916 [DEBUG] [org.gradle.launcher.daemon.server.exec.EstablishBuildEnvironment] Configuring env variables: {PATH=/usr/local/gradle/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/mahsa/.rvm/bin, LC_MEASUREMENT=de_DE.UTF-8, XAUTHORITY=/home/mahsa/.Xauthority, XMODIFIERS=@im=ibus, LC_TELEPHONE=de_DE.UTF-8, XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop, GDMSESSION=ubuntu, MANDATORY_PATH=/usr/share/gconf/ubuntu.mandatory.path, LC_TIME=de_DE.UTF-8, GTK_IM_MODULE=ibus, DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-nqTK77UfOY, DEFAULTS_PATH=/usr/share/gconf/ubuntu.default.path, XDG_CURRENT_DESKTOP=Unity, LD_LIBRARY_PATH=/home/mahsa/Downloads/idea-IC-171.4073.35/bin:, UPSTART_SESSION=unix:abstract=/com/ubuntu/upstart-session/1000/1796, QT4_IM_MODULE=xim, LC_PAPER=de_DE.UTF-8, SESSION_MANAGER=local/mahsa-VPCEA15FG:@/tmp/.ICE-unix/2113,unix/mahsa-VPCEA15FG:/tmp/.ICE-unix/2113, QT_LINUX_ACCESSIBILITY_ALWAYS_ON=1, LOGNAME=mahsa, JOB=unity-settings-daemon, PWD=/home/mahsa, IM_CONFIG_PHASE=1, LANGUAGE=en_US, SHELL=/bin/bash, LC_ADDRESS=de_DE.UTF-8, GIO_LAUNCHED_DESKTOP_FILE=/usr/share/applications/jetbrains-idea-ce.desktop, GTK2_MODULES=overlay-scrollbar, INSTANCE=, GNOME_DESKTOP_SESSION_ID=this-is-deprecated, UPSTART_INSTANCE=, GTK_MODULES=gail:atk-bridge:unity-gtk-module, CLUTTER_IM_MODULE=xim, XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session0, COMPIZ_BIN_PATH=/usr/bin/, SESSIONTYPE=gnome-session, XDG_SESSION_DESKTOP=ubuntu, SHLVL=0, LC_IDENTIFICATION=de_DE.UTF-8, LC_MONETARY=de_DE.UTF-8, COMPIZ_CONFIG_PROFILE=ubuntu, QT_IM_MODULE=ibus, UPSTART_JOB=unity7, XFILESEARCHPATH=/usr/dt/app-defaults/%L/Dt, XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/usr/share/upstart/xdg:/etc/xdg, LANG=en_US.UTF-8, GNOME_KEYRING_CONTROL=, XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0, XDG_SESSION_ID=c2, XDG_SESSION_TYPE=x11, GRADLE_HOME=/usr/local/gradle, DISPLAY=:0, LC_NAME=de_DE.UTF-8, GDM_LANG=en_US, XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/mahsa, UPSTART_EVENTS=xsession started, GPG_AGENT_INFO=/home/mahsa/.gnupg/S.gpg-agent:0:1, DESKTOP_SESSION=ubuntu, SESSION=ubuntu, USER=mahsa, XDG_MENU_PREFIX=gnome-, GIO_LAUNCHED_DESKTOP_FILE_PID=2599, QT_ACCESSIBILITY=1, LC_NUMERIC=de_DE.UTF-8, SSH_AUTH_SOCK=/run/user/1000/keyring/ssh, XDG_SEAT=seat0, NLSPATH=/usr/dt/lib/nls/msg/%L/%N.cat, QT_QPA_PLATFORMTHEME=appmenu-qt5, XDG_VTNR=7, XDG_RUNTIME_DIR=/run/user/1000, HOME=/home/mahsa, GNOME_KEYRING_PID=}
+10:27:39.919 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 14: received class org.gradle.launcher.daemon.protocol.CloseInput
+10:27:39.922 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received IO message from client: org.gradle.launcher.daemon.protocol.CloseInput@70b0e8b9
+10:27:39.958 [DEBUG] [org.gradle.launcher.daemon.server.exec.LogToClient] About to start relaying all logs to the client via the connection.
+10:27:39.958 [INFO] [org.gradle.launcher.daemon.server.exec.LogToClient] The client will now receive all logging from the daemon (pid: 7484). The daemon log file: /home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon/2.12/daemon-7484.out.log
+10:27:39.971 [INFO] [org.gradle.launcher.daemon.server.health.DaemonHealthTracker] Starting build in new daemon [memory: 954.7 MB]
+10:27:39.973 [INFO] [org.gradle.launcher.daemon.server.exec.ForwardClientInput] Closing daemon's stdin at end of input.
+10:27:39.973 [INFO] [org.gradle.launcher.daemon.server.exec.ForwardClientInput] The daemon will no longer process any standard input.
+10:27:39.979 [DEBUG] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] The daemon has started executing the build.
+10:27:39.980 [INFO] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] Executing build with daemon context: DefaultDaemonContext[uid=0d41679e-8f28-48e2-9f63-3cf4af120a43,javaHome=/usr/lib/jvm/java-8-openjdk-amd64,daemonRegistryDir=/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/daemon,pid=7484,idleTimeout=60000,daemonOpts=-XX:MaxPermSize=256m,-XX:+HeapDumpOnOutOfMemoryError,-Xmx1024m,-Dfile.encoding=UTF-8,-Duser.country=US,-Duser.language=en,-Duser.variant]
+:genAst UP-TO-DATE
+:genCup UP-TO-DATE
+:genJflex UP-TO-DATE
+:gen UP-TO-DATE
+:compileJava/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:30: error: cannot find symbol
+import minijava.ast.MJRead;
+                   ^
+  symbol:   class MJRead
+  location: package minijava.ast
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:287: error: cannot find symbol
+		SymbolTable symTab = SymbolTable.getInstance();
+		^
+  symbol:   class SymbolTable
+  location: class Analysis.TypeCheckNameAnalysis
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:351: error: cannot find symbol
+		public MJVarType evaluateType(MJStatement statement) {
+		       ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:355: error: cannot find symbol
+		private class TypeEvaluatorStatement implements MJStatement.Matcher<MJVarType> {
+		                                                                    ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:358: error: cannot find symbol
+			public MJVarType case_VarDecl(MJVarDecl varDecl) {
+			       ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:364: error: cannot find symbol
+			public MJVarType case_StmtWhile(MJStmtWhile stmtWhile) {
+			       ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:377: error: cannot find symbol
+			public MJVarType case_StmtExpr(MJStmtExpr stmtExpr) {
+			       ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:385: error: cannot find symbol
+			public MJVarType case_StmtAssign(MJStmtAssign stmtAssign) {
+			       ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:405: error: cannot find symbol
+			public MJVarType case_StmtPrint(MJStmtPrint stmtPrint) {
+			       ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:416: error: cannot find symbol
+			public MJVarType case_StmtIf(MJStmtIf stmtIf) {
+			       ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:430: error: cannot find symbol
+			public MJVarType case_Block(MJBlock block) {
+			       ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:445: error: cannot find symbol
+			public MJVarType case_StmtReturn(MJStmtReturn stmtReturn) {
+			       ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:477: error: cannot find symbol
+			public MJVarType evaluateExpr(MJExpr expr){
+			       ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:481: error: cannot find symbol
+			private class TypeEvaluatorExpr implements MJExpr.Matcher<MJVarType>{
+			                                                          ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:484: error: cannot find symbol
+				public MJVarType case_ExprBinary(MJExprBinary exprBinary) {
+				       ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:542: error: cannot find symbol
+				public MJVarType case_ArrayLength(MJArrayLength arrayLength) {
+				       ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:556: error: cannot find symbol
+				public MJVarType case_ArrayLookup(MJArrayLookup arrayLookup) {
+				       ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:574: error: cannot find symbol
+				public MJVarType case_Number(MJNumber number) {
+				       ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:579: error: cannot find symbol
+				public MJVarType case_NewObject(MJNewObject newObject) {
+				       ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:593: error: cannot find symbol
+				public MJVarType case_ExprUnary(MJExprUnary exprUnary) {
+				       ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:615: error: cannot find symbol
+				public MJVarType case_ExprThis(MJExprThis exprThis) {
+				       ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:629: error: cannot find symbol
+				public MJVarType case_VarUse(MJVarUse varUse) {		
+				       ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:643: error: cannot find symbol
+				public MJVarType case_ExprNull(MJExprNull exprNull) {
+				       ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:648: error: cannot find symbol
+				public MJVarType case_BoolConst(MJBoolConst boolConst) {
+				       ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:653: error: cannot find symbol
+				public MJVarType case_FieldAccess(MJFieldAccess fieldAccess) {
+				       ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:680: error: cannot find symbol
+				public MJVarType case_NewIntArray(MJNewIntArray newIntArray) {
+				       ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:692: error: cannot find symbol
+				public MJVarType case_MethodCall(MJMethodCall methodCall) {
+				       ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:748: error: cannot find symbol
+				public MJVarType case_Read(MJRead read) {
+				                           ^
+  symbol:   class MJRead
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:748: error: cannot find symbol
+				public MJVarType case_Read(MJRead read) {
+				       ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:194: error: cannot find symbol
+							MJVarType methodRetType = new MJVarType(m.getReturnType());
+							^
+  symbol:   class MJVarType
+  location: class Analysis
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:194: error: cannot find symbol
+							MJVarType methodRetType = new MJVarType(m.getReturnType());
+							                              ^
+  symbol:   class MJVarType
+  location: class Analysis
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:195: error: cannot find symbol
+							MJVarType methodSuperclassRetType = new MJVarType(superClassMethod.getReturnType());
+							^
+  symbol:   class MJVarType
+  location: class Analysis
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:195: error: cannot find symbol
+							MJVarType methodSuperclassRetType = new MJVarType(superClassMethod.getReturnType());
+							                                        ^
+  symbol:   class MJVarType
+  location: class Analysis
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:198: error: cannot find symbol
+							if ((methodRetType.getType() == MJTypes.CLASS)
+							                                ^
+  symbol:   variable MJTypes
+  location: class Analysis
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:199: error: cannot find symbol
+									&& (methodSuperclassRetType.getType() == MJTypes.CLASS)) {
+									                                         ^
+  symbol:   variable MJTypes
+  location: class Analysis
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:202: error: cannot find symbol
+									if (!MJTypes.isSubtype(classTable.get(methodRetType.getName()),
+									     ^
+  symbol:   variable MJTypes
+  location: class Analysis
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:212: error: cannot find symbol
+								if (!MJTypes.isSubtype(methodRetType, methodSuperclassRetType)) {
+								     ^
+  symbol:   variable MJTypes
+  location: class Analysis
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:255: error: cannot find symbol
+		typeErrors.addAll(SymbolTable.getInstance().getTypeErrors());
+		                  ^
+  symbol:   variable SymbolTable
+  location: class Analysis
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:256: error: cannot find symbol
+		SymbolTable.getInstance().resetAll();
+		^
+  symbol:   variable SymbolTable
+  location: class Analysis
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:257: error: cannot find symbol
+		SymbolTable.getInstance().getTypeErrors().clear();
+		^
+  symbol:   variable SymbolTable
+  location: class Analysis
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:287: error: cannot find symbol
+		SymbolTable symTab = SymbolTable.getInstance();
+		                     ^
+  symbol:   variable SymbolTable
+  location: class Analysis.TypeCheckNameAnalysis
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:360: error: cannot find symbol
+				return new MJVarType(MJTypes.BOTTOM);
+				           ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:360: error: cannot find symbol
+				return new MJVarType(MJTypes.BOTTOM);
+				                     ^
+  symbol:   variable MJTypes
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:365: error: cannot find symbol
+				MJVarType exp = evaluateExpr(stmtWhile.getCondition());
+				^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:367: error: cannot find symbol
+				if (exp.getType()!= MJTypes.BOOL){
+				                    ^
+  symbol:   variable MJTypes
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:373: error: cannot find symbol
+				return new MJVarType(MJTypes.BOTTOM);
+				           ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:373: error: cannot find symbol
+				return new MJVarType(MJTypes.BOTTOM);
+				                     ^
+  symbol:   variable MJTypes
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:379: error: cannot find symbol
+				MJVarType exp = evaluateExpr(stmtExpr.getExpr());
+				^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:387: error: cannot find symbol
+				MJVarType left = evaluateExpr(stmtAssign.getLeft());
+				^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:388: error: cannot find symbol
+				MJVarType right = evaluateExpr(stmtAssign.getRight());
+				^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:390: error: cannot find symbol
+				if ((left.getType()==MJTypes.CLASS) && (right.getType()==MJTypes.CLASS)){
+				                     ^
+  symbol:   variable MJTypes
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:390: error: cannot find symbol
+				if ((left.getType()==MJTypes.CLASS) && (right.getType()==MJTypes.CLASS)){
+				                                                         ^
+  symbol:   variable MJTypes
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:392: error: cannot find symbol
+						if (!MJTypes.isSubtype(classTable.get(right.getName()), classTable.get(left.getName()), superclassTable)) {
+						     ^
+  symbol:   variable MJTypes
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:397: error: cannot find symbol
+				} else if (!MJTypes.isSubtype(right, left)){
+				            ^
+  symbol:   variable MJTypes
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:401: error: cannot find symbol
+				return new MJVarType(MJTypes.BOTTOM);
+				           ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:401: error: cannot find symbol
+				return new MJVarType(MJTypes.BOTTOM);
+				                     ^
+  symbol:   variable MJTypes
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:406: error: cannot find symbol
+				MJVarType print = evaluateExpr(stmtPrint.getPrinted());
+				^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:408: error: cannot find symbol
+				if (print.getType() != MJTypes.INT){
+				                       ^
+  symbol:   variable MJTypes
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:412: error: cannot find symbol
+				return new MJVarType(MJTypes.BOTTOM);
+				           ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:412: error: cannot find symbol
+				return new MJVarType(MJTypes.BOTTOM);
+				                     ^
+  symbol:   variable MJTypes
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:417: error: cannot find symbol
+				MJVarType cond = evaluateExpr(stmtIf.getCondition());
+				^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:419: error: cannot find symbol
+				if (cond.getType() != MJTypes.BOOL){
+				                      ^
+  symbol:   variable MJTypes
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:426: error: cannot find symbol
+				return new MJVarType(MJTypes.BOTTOM);
+				           ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:426: error: cannot find symbol
+				return new MJVarType(MJTypes.BOTTOM);
+				                     ^
+  symbol:   variable MJTypes
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:441: error: cannot find symbol
+				return new MJVarType(MJTypes.BOTTOM);
+				           ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:441: error: cannot find symbol
+				return new MJVarType(MJTypes.BOTTOM);
+				                     ^
+  symbol:   variable MJTypes
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:446: error: cannot find symbol
+				MJVarType res = evaluateExpr(stmtReturn.getResult());
+				^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:453: error: cannot find symbol
+						return new MJVarType(MJTypes.BOTTOM);
+						           ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:453: error: cannot find symbol
+						return new MJVarType(MJTypes.BOTTOM);
+						                     ^
+  symbol:   variable MJTypes
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:462: error: cannot find symbol
+				MJVarType expReturn = new MJVarType(((MJMethodDecl)parentMethod).getReturnType());
+				^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:462: error: cannot find symbol
+				MJVarType expReturn = new MJVarType(((MJMethodDecl)parentMethod).getReturnType());
+				                          ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:463: error: cannot find symbol
+				if ((res.getType()==MJTypes.CLASS) && (expReturn.getType()==MJTypes.CLASS)){
+				                    ^
+  symbol:   variable MJTypes
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:463: error: cannot find symbol
+				if ((res.getType()==MJTypes.CLASS) && (expReturn.getType()==MJTypes.CLASS)){
+				                                                            ^
+  symbol:   variable MJTypes
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:465: error: cannot find symbol
+						if (!MJTypes.isSubtype(classTable.get(res.getName()), classTable.get(expReturn.getName()), superclassTable)) {
+						     ^
+  symbol:   variable MJTypes
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:470: error: cannot find symbol
+				} else if (!MJTypes.isSubtype(res, expReturn)){
+				            ^
+  symbol:   variable MJTypes
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:474: error: cannot find symbol
+				return new MJVarType(MJTypes.BOTTOM);
+				           ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:474: error: cannot find symbol
+				return new MJVarType(MJTypes.BOTTOM);
+				                     ^
+  symbol:   variable MJTypes
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:487: error: cannot find symbol
+					MJVarType left = evaluateExpr(exprBinary.getLeft());
+					^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:488: error: cannot find symbol
+					MJVarType right = evaluateExpr(exprBinary.getRight());
+					^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:491: error: cannot find symbol
+					MJVarType expectedReturnType;
+					^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:495: error: cannot find symbol
+							expectedReturnType = new MJVarType(MJTypes.BOOL);
+							                         ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:495: error: cannot find symbol
+							expectedReturnType = new MJVarType(MJTypes.BOOL);
+							                                   ^
+  symbol:   variable MJTypes
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:497: error: cannot find symbol
+						expectedReturnType = new MJVarType(MJTypes.INT);
+						                         ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:497: error: cannot find symbol
+						expectedReturnType = new MJVarType(MJTypes.INT);
+						                                   ^
+  symbol:   variable MJTypes
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:500: error: cannot find symbol
+					MJVarType returnType = expectedReturnType;
+					^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:505: error: cannot find symbol
+						if ((left.getType()==MJTypes.CLASS) && (right.getType()==MJTypes.CLASS)){
+						                     ^
+  symbol:   variable MJTypes
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:505: error: cannot find symbol
+						if ((left.getType()==MJTypes.CLASS) && (right.getType()==MJTypes.CLASS)){
+						                                                         ^
+  symbol:   variable MJTypes
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:507: error: cannot find symbol
+								if (!MJTypes.isSubtype(classTable.get(left.getName()), classTable.get(right.getName()), superclassTable)
+								     ^
+  symbol:   variable MJTypes
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:508: error: cannot find symbol
+										|| !MJTypes.isSubtype(classTable.get(right.getName()), classTable.get(left.getName()), superclassTable)) {
+										    ^
+  symbol:   variable MJTypes
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:512: error: cannot find symbol
+						} else {isSubt = MJTypes.isSubtype(left, right) ||  MJTypes.isSubtype(right, left);}
+						                 ^
+  symbol:   variable MJTypes
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:512: error: cannot find symbol
+						} else {isSubt = MJTypes.isSubtype(left, right) ||  MJTypes.isSubtype(right, left);}
+						                                                    ^
+  symbol:   variable MJTypes
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:518: error: cannot find symbol
+						if (left.getType() != MJTypes.BOOL){
+						                      ^
+  symbol:   variable MJTypes
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:522: error: cannot find symbol
+						if (right.getType() != MJTypes.BOOL){
+						                       ^
+  symbol:   variable MJTypes
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:527: error: cannot find symbol
+						if (left.getType() != MJTypes.INT){
+						                      ^
+  symbol:   variable MJTypes
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:531: error: cannot find symbol
+						if (right.getType() != MJTypes.INT){
+						                       ^
+  symbol:   variable MJTypes
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:536: error: cannot find symbol
+					if (errorFound){returnType = new MJVarType(MJTypes.BOTTOM);}
+					                                 ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:536: error: cannot find symbol
+					if (errorFound){returnType = new MJVarType(MJTypes.BOTTOM);}
+					                                           ^
+  symbol:   variable MJTypes
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:543: error: cannot find symbol
+					MJVarType arrayExp = evaluateExpr(arrayLength.getArrayExpr());
+					^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:546: error: cannot find symbol
+					if (arrayExp.getType() == MJTypes.INT_ARRAY){
+					                          ^
+  symbol:   variable MJTypes
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+/home/mahsa/Tu Kl/Compiler/group11/ex3/src/main/java/analysis/Analysis.java:547: error: cannot find symbol
+						return new MJVarType(MJTypes.INT);
+						           ^
+  symbol:   class MJVarType
+  location: class Analysis.TypeCheckNameAnalysis.TypeEvaluatorStatement.TypeEvaluatorExpr
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+100 errors
+ FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava'.
+> Compilation failed; see the compiler error output for details.
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
+
+BUILD FAILED
+
+Total time: 14.867 secs
+10:27:53.229 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache fileHashes.bin (/home/mahsa/Tu Kl/Compiler/group11/ex3/.gradle/2.12/taskArtifacts/fileHashes.bin)
+10:27:53.231 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache taskArtifacts.bin (/home/mahsa/Tu Kl/Compiler/group11/ex3/.gradle/2.12/taskArtifacts/taskArtifacts.bin)
+10:27:53.233 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache fileSnapshots.bin (/home/mahsa/Tu Kl/Compiler/group11/ex3/.gradle/2.12/taskArtifacts/fileSnapshots.bin)
+10:27:53.234 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache outputFileStates.bin (/home/mahsa/Tu Kl/Compiler/group11/ex3/.gradle/2.12/taskArtifacts/outputFileStates.bin)
+10:27:53.235 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on task history cache (/home/mahsa/Tu Kl/Compiler/group11/ex3/.gradle/2.12/taskArtifacts).
+10:27:53.236 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on cp_proj class cache for build file '/home/mahsa/Tu Kl/Compiler/group11/ex3/build.gradle' (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/scripts/build_3cv522gay4h9to9s8j857svaz/cp_proj).
+10:27:53.237 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on proj class cache for build file '/home/mahsa/Tu Kl/Compiler/group11/ex3/build.gradle' (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/scripts/build_3cv522gay4h9to9s8j857svaz/proj).
+10:27:53.239 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.ivyresolve.memcache.InMemoryCachedRepositoryFactory] In-memory dependency metadata cache closed. Repos cached: 1, cache instances: 1, modules served from cache: 0, artifacts: 0
+10:27:53.253 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache module-metadata.bin (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/modules-2/metadata-2.16/module-metadata.bin)
+10:27:53.253 [DEBUG] [org.gradle.cache.internal.btree.BTreePersistentIndexedCache] Closing cache artifact-at-repository.bin (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/modules-2/metadata-2.16/artifact-at-repository.bin)
+10:27:53.254 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on artifact cache (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/modules-2).
+10:27:53.255 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.resolveengine.store.CachedStoreFactory] Resolution result cache closed. Cache reads: 0, disk reads: 0 (avg: 0.0 secs, total: 0.0 secs)
+10:27:53.258 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.resolveengine.store.CachedStoreFactory] Resolution result cache closed. Cache reads: 0, disk reads: 0 (avg: 0.0 secs, total: 0.0 secs)
+10:27:53.259 [DEBUG] [org.gradle.api.internal.artifacts.ivyservice.resolveengine.store.ResolutionResultsStoreFactory] Deleted 2 resolution results binary files in 0.004 secs
+10:27:53.260 [DEBUG] [org.gradle.cache.internal.DefaultCacheAccess] Cache Plugin Resolution Cache (/home/mahsa/Tu Kl/Compiler/group11/ex1/gradle/caches/2.12/plugin-resolution) was closed 0 times.
+10:27:53.261 [DEBUG] [org.gradle.api.internal.tasks.compile.daemon.CompilerDaemonManager] Stopping 0 compiler daemon(s).
+10:27:53.262 [INFO] [org.gradle.api.internal.tasks.compile.daemon.CompilerDaemonManager] Stopped 0 compiler daemon(s).
+10:27:53.262 [DEBUG] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] The daemon has finished executing the build.
+10:27:53.637 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is busy, sleeping until state changes.
+10:27:53.638 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: finished waiting for DaemonCommandExecution[command = Build{id=8a3b0231-83f8-4b21-ae54-9daba1491596.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}, connection = org.gradle.launcher.daemon.server.DefaultDaemonConnection@19868420]. Result org.gradle.launcher.daemon.server.DaemonStateCoordinator@1a7aa605 with state Running
+10:27:53.639 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: completed DaemonCommandExecution[command = Build{id=8a3b0231-83f8-4b21-ae54-9daba1491596.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}, connection = org.gradle.launcher.daemon.server.DefaultDaemonConnection@19868420]
+10:27:53.640 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] updating lastActivityAt to 1495960073640
+10:27:53.640 [INFO] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Marking the daemon as idle, address: [0c02b81e-bc1a-4f01-8353-f7d9cdac5448 port:38414, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+10:27:53.641 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Marking idle by address: [0c02b81e-bc1a-4f01-8353-f7d9cdac5448 port:38414, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+10:27:53.642 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+10:27:53.642 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+10:27:53.646 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+10:27:53.648 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon is idle, sleeping until state change or idle timeout at Sun May 28 10:28:53 CEST 2017
+10:27:53.648 [DEBUG] [org.gradle.launcher.daemon.server.exec.ReturnResult] Daemon is dispatching the build result: Failure[value=org.gradle.initialization.ReportedException: org.gradle.internal.exceptions.LocationAwareException: Execution failed for task ':compileJava'.]
+10:27:53.649 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: dispatching class org.gradle.launcher.daemon.protocol.Failure
+10:27:53.703 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Finishing executing command: Build{id=8a3b0231-83f8-4b21-ae54-9daba1491596.1, currentDir=/home/mahsa/Tu Kl/Compiler/group11/ex3}
+10:27:53.749 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 14: received class org.gradle.launcher.daemon.protocol.Finished
+10:27:53.750 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received non-IO message from client: org.gradle.launcher.daemon.protocol.Finished@74907ffb
+10:27:53.750 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Received finished message: org.gradle.launcher.daemon.protocol.Finished@74907ffb
+10:27:53.751 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: stopping connection
+10:27:53.751 [DEBUG] [org.gradle.messaging.remote.internal.inet.SocketConnection] Discarding EOFException: java.io.EOFException
+10:27:53.751 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 14: received null
+10:27:53.753 [DEBUG] [org.gradle.launcher.daemon.server.DefaultDaemonConnection] Received end-of-input from client.
+10:27:53.753 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 13: stopping connection
+10:28:53.641 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Idle timeout: daemon has been idle for requested period. Stopping now.
+10:28:53.641 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Marking daemon stopped due to idle timeout. The daemon is running a build: false
+10:28:53.641 [DEBUG] [org.gradle.launcher.daemon.server.Daemon] stop() called on daemon
+10:28:53.642 [INFO] [org.gradle.launcher.daemon.server.Daemon] Stop requested. Daemon is removing its presence from the registry...
+10:28:53.642 [DEBUG] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Removing our presence to clients, eg. removing this address from the registry: [0c02b81e-bc1a-4f01-8353-f7d9cdac5448 port:38414, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+10:28:53.642 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Removing daemon address: [0c02b81e-bc1a-4f01-8353-f7d9cdac5448 port:38414, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+10:28:53.644 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+10:28:53.645 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+10:28:53.648 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+10:28:53.649 [DEBUG] [org.gradle.launcher.daemon.server.DomainRegistryUpdater] Address removed from registry.
+Daemon vm is shutting down... The daemon has exited normally or was terminated in response to a user interrupt.
+10:28:53.653 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Removing daemon address: [0c02b81e-bc1a-4f01-8353-f7d9cdac5448 port:38414, addresses:[/0:0:0:0:0:0:0:1%lo, /127.0.0.1]]
+10:28:53.654 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+10:28:53.655 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired.
+10:28:53.656 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.

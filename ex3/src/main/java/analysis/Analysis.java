@@ -1,6 +1,7 @@
 package analysis;
 
 import frontend.SourcePosition;
+import java_cup.runtime.Symbol;
 import minijava.ast.*;
 
 import java.util.*;
@@ -455,19 +456,44 @@ public class Analysis {
                         String type = varDecl.getType().toString();
                         type = type.substring(4, type.length());
 
-                        typeMatched = ((expr instanceof MJBoolConst) && type.equalsIgnoreCase("bool"))
-                                || ((expr instanceof  MJExprUnary) && type.equalsIgnoreCase("int"))
-                                || ((expr instanceof MJExprUnary) && type.equalsIgnoreCase("int"));
-
-                        if(expr instanceof MJExprBinary  && ((MJExprBinary) expr).getOperator() instanceof MJDiv && type.equalsIgnoreCase("int"))
-                            typeMatched = false;
-
-                        if(!typeMatched)
+                        if(expr instanceof MJExprBinary)
                         {
-                            addError(varDecl, "variable type do not match with assignment");
+                            boolean divideByZero = (expr instanceof MJExprBinary) && (((MJExprBinary) expr).getOperator() instanceof MJDiv) &&(((MJExprBinary) expr).getRight() instanceof MJExprNull);
+
+                            MJExprBinary e = (MJExprBinary) expr;
+                            MJOperator o = ((MJExprBinary) expr).getOperator();
+                            boolean accept = e.getLeft() instanceof MJBoolConst && e.getRight() instanceof MJBoolConst && (o instanceof MJAnd )
+                                    || e.getLeft() instanceof MJNumber && e.getRight() instanceof MJNumber
+                                    && ((o instanceof MJPlus)
+                                    || (o instanceof MJMinus)
+                                    || (o instanceof MJTimes)
+                                    || (o instanceof MJDiv));
+
+                            if(!accept)
+                            {
+                                addError(expr, "incompatible operations");
+                            }
+                            if(divideByZero)
+                            {
+                                addError(expr, "divide by zero");
+                                break;
+                            }
+                        }
+                        else {
+                            typeMatched = ((expr instanceof MJBoolConst) && type.equalsIgnoreCase("bool"))
+                                    || ((expr instanceof MJExprUnary) && type.equalsIgnoreCase("int"))
+                                    || ((expr instanceof MJExprUnary) && type.equalsIgnoreCase("int"));
 
                         }
 
+
+                        if(!typeMatched && !(expr instanceof MJExprBinary))
+                        {
+
+                                addError(varDecl, "variable type do not match with assignment");
+
+
+                        }
                         break;
                     }
                 }
@@ -506,6 +532,7 @@ public class Analysis {
                         }
 
                     }
+
                 }
             }
             else if(statement instanceof MJStmtIf )
@@ -533,4 +560,6 @@ public class Analysis {
     public List<TypeError> getTypeErrors () {
             return new ArrayList<>(typeErrors);
         }
-    }
+
+
+}
