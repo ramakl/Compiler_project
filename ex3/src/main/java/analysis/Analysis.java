@@ -61,6 +61,14 @@ public class Analysis {
                 }
             }
         }
+        for(MJClassDecl classDecl : classDeclList)
+        {
+            if(this.prog.getMainClass().getName().equalsIgnoreCase(classDecl.getName()))
+            {
+                addError(classDecl,"class Name cannot be same as Main class Name");
+            }
+        }
+
        int h=0;
         for (MJClassDecl classDecl : classDeclList) {
             List<MJExtended> extendedLinkedList = new LinkedList<>();
@@ -221,6 +229,7 @@ public class Analysis {
         }
 
 
+
         for (int i = 0; i < classDeclList.size(); i++) {
             MJMethodDeclList m = classDeclList.get(i).getMethods();
             for (int ii = 0; ii < m.size(); ii++) {
@@ -250,6 +259,8 @@ public class Analysis {
 
 
         String mainClass = this.prog.getMainClass().getName();
+
+        processMain((MJMainClass) this.prog.getMainClass());
         for (String className : classNames) {
             String extendsClass = classInfo.get(className);
             if (!extendsClass.equalsIgnoreCase("extendsNothing")) {
@@ -409,8 +420,141 @@ public class Analysis {
 
     }
 
+    public void processMain(MJMainClass element)
+    {
+        LinkedList<MJVarDecl> mainVars = new LinkedList<>();
+        int count = 0;
+        for(MJStatement statement : element.getMainBody())
+        {
+            boolean variableFound = false;
+            if(statement instanceof MJVarDecl) {
+                MJVarDecl varDecl = (MJVarDecl) statement;
+                boolean duplicateFound = false;
+                for(MJVarDecl vars: mainVars)
+                {
+                    if(vars.getName().equalsIgnoreCase(varDecl.getName())){
+                        addError(varDecl, "duplicate variable declared");
+                        duplicateFound = true;
+                        break;
+                    }
+
+                }
+                if(!duplicateFound)
+                    mainVars.add((MJVarDecl) statement);
+            }
+            else if(statement instanceof MJStmtAssign)
+            {
+                MJStmtAssign line = (MJStmtAssign) statement;
+                MJVarUse var = (MJVarUse) line.getLeft();
+                boolean typeMatched = false;
+                for(MJVarDecl varDecl : mainVars)
+                {
+                    if(varDecl.getName().equalsIgnoreCase(var.getVarName()))
+                    {
+                        variableFound = true;
+                        MJExpr expr = line.getRight();
+                        String type = varDecl.getType().toString();
+                        type = type.substring(4, type.length());
+
+                        if(expr instanceof MJExprBinary)
+                        {
+                            boolean divideByZero = (expr instanceof MJExprBinary) && (((MJExprBinary) expr).getOperator() instanceof MJDiv) &&(((MJExprBinary) expr).getRight() instanceof MJExprNull);
+
+                            MJExprBinary e = (MJExprBinary) expr;
+                            MJOperator o = ((MJExprBinary) expr).getOperator();
+                            boolean accept = e.getLeft() instanceof MJBoolConst && e.getRight() instanceof MJBoolConst && (o instanceof MJAnd )
+                                    || e.getLeft() instanceof MJNumber && e.getRight() instanceof MJNumber
+                                    && ((o instanceof MJPlus)
+                                    || (o instanceof MJMinus)
+                                    || (o instanceof MJTimes)
+                                    || (o instanceof MJDiv));
+
+                            if(!accept)
+                            {
+                                addError(expr, "incompatible operations");
+                            }
+                            if(divideByZero)
+                            {
+                                addError(expr, "divide by zero");
+                                break;
+                            }
+                        }
+                        else {
+                            typeMatched = ((expr instanceof MJBoolConst) && type.equalsIgnoreCase("bool"))
+                                    || ((expr instanceof MJExprUnary) && type.equalsIgnoreCase("int"))
+                                    || ((expr instanceof MJExprUnary) && type.equalsIgnoreCase("int"));
+
+                        }
 
 
+                        if(!typeMatched && !(expr instanceof MJExprBinary))
+                        {
+
+                                addError(varDecl, "variable type do not match with assignment");
+
+
+                        }
+                        break;
+                    }
+                }
+
+            }
+            else if(statement instanceof MJStmtReturn)
+            {
+                addError(statement,"Main cannot return any value");
+            }
+            else if(statement instanceof MJStmtPrint)
+            {
+                if(((MJStmtPrint) statement).getPrinted() instanceof MJBoolConst)
+                {
+                    addError(statement, "cannot print a boolean constant");
+                }
+                else
+                {
+                    if(((MJStmtPrint) statement).getPrinted() instanceof MJExprBinary)
+                    {
+                        MJExpr left = ((MJExprBinary) ((MJStmtPrint) statement).getPrinted()).getLeft();
+                        MJExpr right = ((MJExprBinary) ((MJStmtPrint) statement).getPrinted()).getRight();
+                        MJOperator operator = ((MJExprBinary) ((MJStmtPrint) statement).getPrinted()).getOperator();
+                        boolean condition = (left instanceof MJBoolConst) || (left instanceof MJBoolConst) || (operator instanceof MJAnd);
+                        if(condition)
+                        {
+                            addError(statement, "boolean expressions cannot be printed");
+                        }
+                    }
+                    else if(((MJStmtPrint) statement).getPrinted() instanceof MJExprUnary)
+                    {
+                        MJUnaryOperator operator = ((MJExprUnary)((MJStmtPrint) statement).getPrinted()).getUnaryOperator();
+                        MJExpr expr = ((MJExprUnary)((MJStmtPrint) statement).getPrinted()).getExpr();
+                        if(operator instanceof MJNegate && expr instanceof MJBoolConst)
+                        {
+                            addError(statement,"cannot negate boolean expression and print it");
+                        }
+
+                    }
+
+                }
+            }
+            else if(statement instanceof MJStmtIf )
+            {
+                boolean condition = ((MJStmtIf) statement).getCondition() instanceof MJBoolConst;
+                if(!condition)
+                    addError(statement, "If condition can only have boolean condition");
+
+            }
+            else if(statement instanceof MJStmtWhile)
+            {
+                boolean condition = ((MJStmtWhile) statement).getCondition() instanceof MJBoolConst;
+                if(!condition)
+                    addError(statement, "While Condition can only have boolean condition ");
+            }
+        }
+    }
+
+    public void processBlock(MJBlock block)
+    {
+
+    }
 
 
     public List<TypeError> getTypeErrors () {
