@@ -516,7 +516,7 @@ public class Analysis {
                         MJExpr left = ((MJExprBinary) ((MJStmtPrint) statement).getPrinted()).getLeft();
                         MJExpr right = ((MJExprBinary) ((MJStmtPrint) statement).getPrinted()).getRight();
                         MJOperator operator = ((MJExprBinary) ((MJStmtPrint) statement).getPrinted()).getOperator();
-                        boolean condition = (left instanceof MJBoolConst) || (left instanceof MJBoolConst) || (operator instanceof MJAnd);
+                        boolean condition = (left instanceof MJBoolConst) || (right instanceof MJBoolConst) || (operator instanceof MJAnd);
                         if(condition)
                         {
                             addError(statement, "boolean expressions cannot be printed");
@@ -553,6 +553,7 @@ public class Analysis {
 
     public void processBlock(MJBlock block)
     {
+
 
     }
 
