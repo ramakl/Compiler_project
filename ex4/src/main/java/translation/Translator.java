@@ -112,6 +112,7 @@ public class Translator extends Element.DefaultVisitor {
         BasicBlock label = jump.getLabel();
         Jump(label);
     }
+
     @Override
     public void visit(ReturnExpr returnExpr)
     {
