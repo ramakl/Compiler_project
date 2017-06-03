@@ -72,7 +72,7 @@ public class Translator extends Element.DefaultVisitor {
 
 					BinaryOperation(R,VarRef(x),Add(),VarRef(y));
 				}
-							if(op instanceof MJMinus)
+				if(op instanceof MJMinus)
 				{
 					BinaryOperation(R,VarRef(x),Sub(),VarRef(y));
 				}
