@@ -1,7 +1,7 @@
 package translation;
 
 import analysis.TypeContext;
-import com.sun.org.apache.xpath.internal.operations.Div;
+//import com.sun.org.apache.xpath.internal.operations.Div;
 import minijava.ast.*;
 import minillvm.ast.*;
 
@@ -36,28 +36,13 @@ public class Translator extends Element.DefaultVisitor {
 		entry.setName("entry");
 		blocks.add(entry);
 
-
+        prog.accept(this);
 		return prog;
+
+
 	}
 
-	@Override
-	public void visit(Prog prog) {
 
-		prog = Prog(TypeStructList(), GlobalList(), ProcList());
-
-		BasicBlockList blocks = BasicBlockList();
-		Proc mainProc = Proc("main", TypeInt(), ParameterList(), blocks);
-		prog.getProcedures().add(mainProc);
-
-
-		BasicBlock entry = BasicBlock(
-				Print(ConstInt(42)),
-				ReturnExpr(ConstInt(0))
-		);
-		entry.setName("entry");
-		blocks.add(entry);
-		super.visit(prog);
-	}
 
 	@Override
 	public void visit(Print print) {
@@ -84,6 +69,7 @@ public class Translator extends Element.DefaultVisitor {
 
 				if(op instanceof MJPlus)
 				{
+
 					BinaryOperation(R,VarRef(x),Add(),VarRef(y));
 				}
 							if(op instanceof MJMinus)

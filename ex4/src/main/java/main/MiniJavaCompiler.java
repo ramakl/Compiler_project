@@ -40,14 +40,15 @@ public class MiniJavaCompiler {
 
         // typecheck
         analysis = new Analysis(javaProgram);
-        analysis.check();
+        MJProgram progg=analysis.check();
         if (!analysis.getTypeErrors().isEmpty()) {
             return;
         }
 
         // translate
+
         // TODO you can pass analysis results to your translator here:
-        Translator translator = new Translator(javaProgram);
+        Translator translator = new Translator(progg);
         llvmProg = translator.translate();
 
     }
