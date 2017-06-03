@@ -4,6 +4,9 @@ import analysis.TypeContext;
 import com.sun.org.apache.xpath.internal.operations.Div;
 import minijava.ast.*;
 import minillvm.ast.*;
+
+import java.util.concurrent.locks.Condition;
+
 import static minillvm.ast.Ast.*;
 
 
@@ -102,12 +105,21 @@ public class Translator extends Element.DefaultVisitor {
 					BinaryOperation(R,VarRef(x), And(),VarRef(y));
 
 				}
-
-
-
-
-
 			}
+			else if(i instanceof TerminatingInstruction)
+            {
+                TerminatingInstruction tI = (TerminatingInstruction) i;
+                if(tI instanceof Branch)
+                {
+                    Operand condition = ((Branch) tI).getCondition();
+                    BasicBlock ifTrueLabel = ((Branch) tI).getIfTrueLabel();
+                    BasicBlock ifFalseLabel = ((Branch) tI).getIfFalseLabel();
+                    Branch(condition, ifTrueLabel, ifFalseLabel);
+
+                }
+
+
+            }
 		}
 	}
 
