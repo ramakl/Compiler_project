@@ -19,10 +19,11 @@ public class Analysis extends MJElement.DefaultVisitor {
         this.prog = prog;
     }
 
-    public void check() {
+    public MJProgram  check() {
         classTable = new ClassTable(this, prog);
 
         prog.accept(this);
+        return prog;
     }
 
     @Override
