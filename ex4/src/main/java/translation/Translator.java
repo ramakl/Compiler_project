@@ -114,10 +114,27 @@ public class Translator extends Element.DefaultVisitor {
                     Operand condition = ((Branch) tI).getCondition();
                     BasicBlock ifTrueLabel = ((Branch) tI).getIfTrueLabel();
                     BasicBlock ifFalseLabel = ((Branch) tI).getIfFalseLabel();
-                    Branch(condition, ifTrueLabel, ifFalseLabel);
-
+                    Branch(condition, ifTrueLabel, ifFalseLabel); //usage of ref?
                 }
-
+                else if(tI instanceof Jump)
+                {
+                    BasicBlock label = ((Jump) tI).getLabel();
+                    Jump(label); //usage of ref?
+                }
+                else if(tI instanceof ReturnExpr)
+                {
+                    Operand returnValue = ((ReturnExpr) tI).getReturnValue();
+                    ReturnExpr(returnValue);
+                }
+                else if(tI instanceof ReturnVoid)
+                {
+                    ReturnVoid();
+                }
+                else if(tI instanceof HaltWithError)
+                {
+                    String message = ((HaltWithError) tI).getMsg();
+                    HaltWithError(message);
+                }
 
             }
 		}
