@@ -14,6 +14,8 @@ public class Translator extends Element.DefaultVisitor {
 
 	private final MJProgram javaProg;
 
+
+
 	public Translator(MJProgram javaProg) {
 		this.javaProg = javaProg;
 	}
@@ -29,11 +31,15 @@ public class Translator extends Element.DefaultVisitor {
 		prog.getProcedures().add(mainProc);
 
 		BasicBlock entry = BasicBlock(
-				Print(ConstInt(42)),
-				ReturnExpr(ConstInt(0))
+				//Print(ConstInt(42)),
+				//ReturnExpr(ConstInt(0))
 		);
 		entry.setName("entry");
 		blocks.add(entry);
+		for (MJStatement basestm : javaProg.getMainClass().getMainBody()){
+            //blocks.add(basestm);
+        }
+
 
         prog.accept(this);
 
@@ -53,7 +59,9 @@ public class Translator extends Element.DefaultVisitor {
 	public void visit(Add add) {
 
 		super.visit(add);
+
 	}
+
 	@Override
 	public void visit(InstructionList instructionList) {
 		for (Instruction i : instructionList ) {
