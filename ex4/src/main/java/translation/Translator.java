@@ -1,6 +1,7 @@
 package translation;
 
 import analysis.TypeContext;
+import com.sun.org.apache.xpath.internal.operations.Div;
 import minijava.ast.*;
 import minillvm.ast.*;
 import static minillvm.ast.Ast.*;
@@ -81,8 +82,31 @@ public class Translator extends Element.DefaultVisitor {
 				{
 					BinaryOperation(R,VarRef(x),Add(),VarRef(y));
 				}
+							if(op instanceof MJMinus)
+				{
+					BinaryOperation(R,VarRef(x),Sub(),VarRef(y));
+				}
+				if(op instanceof MJDiv)
+				{
+					BinaryOperation(R,VarRef(x), Sdiv(),VarRef(y));
 
-		}
+				}
+				if(op instanceof MJTimes)
+				{
+					BinaryOperation(R,VarRef(x), Mul(),VarRef(y));
+
+				}
+				if(op instanceof MJAnd)
+				{
+					BinaryOperation(R,VarRef(x), And(),VarRef(y));
+
+				}
+				
+
+
+
+
+			}
 		}
 	}
 
