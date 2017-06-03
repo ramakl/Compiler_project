@@ -18,6 +18,7 @@ public class PrettyPrinter implements
 	private Map<Element, SourcePosition> sourcePositions = new HashMap<>();
 	private int currentLine = 1;
 	private int currentColumn = 0;
+	//.;
 
 	public PrettyPrinter(StringBuilder sb) {
 		this.sb = sb;
@@ -274,6 +275,9 @@ public class PrettyPrinter implements
 	public void case_Nullpointer(Nullpointer e) {
 		if (includeType) {
 			// TODO print type
+			// TypeNullpointer()
+			printWithType(e.calculateType());
+
 			append(ExpectedType.expectedType(e) + " ");
 		}
 		append("null");
@@ -409,12 +413,25 @@ public class PrettyPrinter implements
 
 	@Override
 	public void case_GetElementPtr(GetElementPtr s) {
-		Type t =s.getBaseAddress().calculateType();
+        Type p;
+		Type t = s.getBaseAddress().calculateType();
 		if (t instanceof TypePointer) {
 			t = ((TypePointer) t).getTo();
 		}
 		append(s.getVar() + " = getelementptr " + t + ", ");
-		// TODO type
+        // TODO type
+//        p = ((TypePointer) t).getTo();
+//        if (p instanceof TypePointer) {
+//            append(s.getIndices().get(1));
+//        }else {
+//            t = Ast.TypeByte();
+//        }
+//
+//        for (Operand ind : s.getIndices()) {
+//            if (ind.equals(1) ){
+//                append(s.getVar() + " = getelementptr " + t + ", ");
+//            }
+//        }
 		printWithType(s.getBaseAddress());
 		for (Operand ind : s.getIndices()) {
 			append(", ");
@@ -432,6 +449,7 @@ public class PrettyPrinter implements
 			t = ((TypePointer) addressType).getTo();
 		} else {
 			t = Ast.TypeByte();
+
 		}
 		append(s.getVar() + " = load " + t + ", ");
 		printWithType(s.getAddress());

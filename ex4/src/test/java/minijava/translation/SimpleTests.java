@@ -7,6 +7,7 @@ public class SimpleTests {
 
 	@Test
 	public void println() throws Exception {
+
 		testStatements(
 				"System.out.println(42);"
 		);
