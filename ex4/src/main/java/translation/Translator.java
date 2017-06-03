@@ -93,43 +93,44 @@ public class Translator extends Element.DefaultVisitor {
 				}
 			}
 			if(i instanceof TerminatingInstruction) {
-                ((TerminatingInstruction) i).accept(this);
+                TerminatingInstruction ti = (TerminatingInstruction) i;
+                ti.accept(new Element.DefaultVisitor() {
+
+					@Override
+					public void visit(Branch branch) {
+						Operand condition = branch.getCondition();
+						BasicBlock ifTrueLabel = branch.getIfTrueLabel();
+						BasicBlock ifFalseLabel = branch.getIfFalseLabel();
+						Branch(condition, ifTrueLabel, ifFalseLabel);
+					}
+
+					@Override
+					public void visit(Jump jump) {
+						BasicBlock label = jump.getLabel();
+						Jump(label);
+					}
+
+					@Override
+					public void visit(ReturnExpr returnExpr) {
+						Operand returnValue = returnExpr.getReturnValue();
+						ReturnExpr(returnValue);
+					}
+
+					@Override
+					public void visit(ReturnVoid returnVoid) {
+						ReturnVoid();
+					}
+
+					@Override
+					public void visit(HaltWithError haltWithError) {
+						String message = haltWithError.getMsg();
+						HaltWithError(message);
+					}
+				});
             }
 
 		}
 	}
-    @Override
-	public void visit(Branch branch)
-    {
-        Operand condition = branch.getCondition();
-        BasicBlock ifTrueLabel = branch.getIfTrueLabel();
-        BasicBlock ifFalseLabel = branch.getIfFalseLabel();
-        Branch(condition, ifTrueLabel, ifFalseLabel); //usage of ref?
-    }
-    @Override
-    public  void visit(Jump jump)
-    {
-        BasicBlock label = jump.getLabel();
-        Jump(label);
-    }
 
-    @Override
-    public void visit(ReturnExpr returnExpr)
-    {
-        Operand returnValue = returnExpr.getReturnValue();
-        ReturnExpr(returnValue);
-    }
-    @Override
-    public void visit(ReturnVoid returnVoid)
-    {
-        ReturnVoid();
-
-    }
-    @Override
-    public void visit(HaltWithError haltWithError)
-    {
-        String message = haltWithError.getMsg();
-        HaltWithError(message);
-    }
 }
 
