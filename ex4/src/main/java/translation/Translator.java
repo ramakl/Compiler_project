@@ -3,6 +3,8 @@ package translation;
 import minijava.ast.*;
 import minillvm.ast.*;
 import static minillvm.ast.Ast.*;
+import java.util.concurrent.locks.Condition;
+
 
 
 public class Translator extends Element.DefaultVisitor {
@@ -22,16 +24,13 @@ public class Translator extends Element.DefaultVisitor {
 		BasicBlockList blocks = BasicBlockList();
 		Proc mainProc = Proc("main", TypeInt(), ParameterList(), blocks);
 		prog.getProcedures().add(mainProc);
-
-
-		BasicBlock entry = BasicBlock(
-				Print(ConstInt(42)),
-				ReturnExpr(ConstInt(0))
-		);
-		entry.setName("entry");
-		blocks.add(entry);
-
-
+//		BasicBlock entry = BasicBlock(
+//				Print(ConstInt(42)),
+//				ReturnExpr(ConstInt(0))
+//		);
+//		entry.setName("entry");
+//		blocks.add(entry);
+        
 		return prog;
 	}
 
@@ -101,6 +100,19 @@ public class Translator extends Element.DefaultVisitor {
 
 				}
 			}
+			else if(i instanceof TerminatingInstruction)
+            {
+                TerminatingInstruction tI = (TerminatingInstruction) i;
+                if(tI instanceof Branch)
+                {
+                    Operand condition = ((Branch) tI).getCondition();
+                    BasicBlock ifTrueLabel = ((Branch) tI).getIfTrueLabel();
+                    BasicBlock ifFalseLabel = ((Branch) tI).getIfFalseLabel();
+                    Branch(condition, ifTrueLabel, ifFalseLabel);
+
+                }
+
+            }
 		}
 	}
 
