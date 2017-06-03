@@ -82,7 +82,7 @@ public class Translator extends Element.DefaultVisitor {
 					BinaryOperation(R,VarRef(x),Add(),VarRef(y));
 				}
 
-		}
+			}
 		}
 	}
 
