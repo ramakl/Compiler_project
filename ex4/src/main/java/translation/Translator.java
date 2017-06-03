@@ -53,8 +53,8 @@ public class Translator extends Element.DefaultVisitor {
 	@Override
 	public void visit(Add add) {
 
-		super.visit(add);
 	}
+
 	@Override
 	public void visit(InstructionList instructionList) {
 		for (Instruction i : instructionList ) {
