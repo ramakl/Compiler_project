@@ -92,39 +92,44 @@ public class Translator extends Element.DefaultVisitor {
 
 				}
 			}
-			else if(i instanceof TerminatingInstruction)
-            {
-                TerminatingInstruction tI = (TerminatingInstruction) i;
-                if(tI instanceof Branch)
-                {
-                    Operand condition = ((Branch) tI).getCondition();
-                    BasicBlock ifTrueLabel = ((Branch) tI).getIfTrueLabel();
-                    BasicBlock ifFalseLabel = ((Branch) tI).getIfFalseLabel();
-                    Branch(condition, ifTrueLabel, ifFalseLabel); //usage of ref?
-                }
-                else if(tI instanceof Jump)
-                {
-                    BasicBlock label = ((Jump) tI).getLabel();
-                    Jump(label); //usage of ref?
-                }
-                else if(tI instanceof ReturnExpr)
-                {
-                    Operand returnValue = ((ReturnExpr) tI).getReturnValue();
-                    ReturnExpr(returnValue);
-                }
-                else if(tI instanceof ReturnVoid)
-                {
-                    ReturnVoid();
-                }
-                else if(tI instanceof HaltWithError)
-                {
-                    String message = ((HaltWithError) tI).getMsg();
-                    HaltWithError(message);
-                }
-
+			if(i instanceof TerminatingInstruction) {
+                ((TerminatingInstruction) i).accept(this);
             }
+
 		}
 	}
+    @Override
+	public void visit(Branch branch)
+    {
+        Operand condition = branch.getCondition();
+        BasicBlock ifTrueLabel = branch.getIfTrueLabel();
+        BasicBlock ifFalseLabel = branch.getIfFalseLabel();
+        Branch(condition, ifTrueLabel, ifFalseLabel); //usage of ref?
+    }
+    @Override
+    public  void visit(Jump jump)
+    {
+        BasicBlock label = jump.getLabel();
+        Jump(label);
+    }
 
+    @Override
+    public void visit(ReturnExpr returnExpr)
+    {
+        Operand returnValue = returnExpr.getReturnValue();
+        ReturnExpr(returnValue);
+    }
+    @Override
+    public void visit(ReturnVoid returnVoid)
+    {
+        ReturnVoid();
+
+    }
+    @Override
+    public void visit(HaltWithError haltWithError)
+    {
+        String message = haltWithError.getMsg();
+        HaltWithError(message);
+    }
 }
 
