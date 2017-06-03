@@ -9,6 +9,7 @@ public class SimpleTests {
 	public void println() throws Exception {
 
 		testStatements(
+				//"System.out.println(42);"
 				"System.out.println(42);"
 		);
 	}
