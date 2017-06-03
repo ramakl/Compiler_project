@@ -58,12 +58,13 @@ public class Translator extends Element.DefaultVisitor {
 
 	@Override
 	public void visit(Print print) {
-
+		int op = Integer.parseInt(print.getE().toString()) ;
+		Print(ConstInt(op));
 		super.visit(print);
 	}
 	@Override
 	public void visit(Add add) {
-       
+
 		super.visit(add);
 	}
 	@Override
@@ -101,7 +102,7 @@ public class Translator extends Element.DefaultVisitor {
 					BinaryOperation(R,VarRef(x), And(),VarRef(y));
 
 				}
-				
+
 
 
 
