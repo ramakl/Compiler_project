@@ -78,6 +78,7 @@ public class Translator extends Element.DefaultVisitor {
                         addToAssign(branch);
 					}
 
+
 					@Override
 					public void visit(Jump jump) {
 					    super.visit(jump);
