@@ -51,12 +51,7 @@ public class Translator extends Element.DefaultVisitor {
 	}
 
 
-	@Override
-	public void visit(Print print) {
-		int op = Integer.parseInt(print.getE().toString()) ;
-		Print(ConstInt(op));
-		super.visit(print);
-	}
+
 	@Override
 	public void visit(Add add) {
 
@@ -69,7 +64,7 @@ public class Translator extends Element.DefaultVisitor {
 		for (Instruction i : instructionList ) {
 
 
-			 if(i instanceof TerminatingInstruction) {
+			if(i instanceof TerminatingInstruction) {
                 TerminatingInstruction ti = (TerminatingInstruction) i;
                 ti.accept(new Element.DefaultVisitor() {
 
@@ -180,9 +175,48 @@ public class Translator extends Element.DefaultVisitor {
                     }
                 });
 			}
+			else if(i instanceof Print){
+
+				Print p = (Print) i;
+				p.accept(new Element.DefaultVisitor() {
+				@Override
+				public void visit(Print print){
+					int op = Integer.parseInt(print.getE().toString()) ;
+					Print(ConstInt(op));
+					super.visit(print);
+
+				}
+
+
+			});
+			}
+
+			else if(i instanceof Store){
+
+				Store s = (Store) i;
+				s.accept(new Element.DefaultVisitor() {
+					@Override
+					public void visit(Store store){
+						Operand y=store.getAddress();
+						Operand  v =store.getValue();
+						TemporaryVar x = TemporaryVar(y.toString());
+						//TemporaryVar x = TemporaryVar("x");
+
+						Alloca(x, TypeInt());
+						//Store(VarRef(x), ConstInt(42));
+
+						Store(VarRef(x), ConstInt(Integer.parseInt(v.toString())));
+
+						super.visit(store);
+
+					}
+
+
+				});
+			}
+		}
 
 		}
-	}
 
 
 
