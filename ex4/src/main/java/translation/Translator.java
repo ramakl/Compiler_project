@@ -13,7 +13,11 @@ import java.util.concurrent.locks.Condition;
 public class Translator extends Element.DefaultVisitor {
 
 	private final MJProgram javaProg;
-    BasicBlockList BKL = BasicBlockList();
+	// @mahsa: We need to have a block to add serveral submethods to one basic block of a parent method
+    BasicBlock BKL = BasicBlock();
+    public BasicBlock getOpenBlock() {
+        return BKL;
+    }
 
 	public Translator(MJProgram javaProg) {
 		this.javaProg = javaProg;
@@ -36,9 +40,12 @@ public class Translator extends Element.DefaultVisitor {
 		entry.setName("entry");
 		blocks.add(entry);
 
+        this.BKL= entry;
+        BKL.add( ReturnExpr(ConstInt(0)) );
         prog.accept(this);
 
 		return prog;
+
 
 
 	}
@@ -135,16 +142,36 @@ public class Translator extends Element.DefaultVisitor {
                     @Override
                     public void visit(Alloc alloc) {
                         super.visit(alloc);
+                        //Alloc(TemporaryVar("t"), ConstInt(100))
+                        TemporaryVar tpacclocvar = TemporaryVar("t");
+                        addToInstruction(Alloc(tpacclocvar, ConstInt(100)));
+
                     }
 
                     @Override
                     public void visit(Alloca alloca) {
+
                         super.visit(alloca);
+                        //Alloca(TemporaryVar("x"), TypeInt())
+                        TemporaryVar tpacclocavar = TemporaryVar("x");
+                        addToInstruction(Alloca(tpacclocavar, TypeInt()));
                     }
 
                     @Override
                     public void visit(BinaryOperation binaryOperation) {
+
                         super.visit(binaryOperation);
+                        //BinaryOperation(x,ConstInt(5), Add(), ConstInt(4)),
+                        TemporaryVar IndexX = TemporaryVar("X");
+                        addToInstruction(BinaryOperation(IndexX,ConstInt(5), Add(), ConstInt(4)));
+                        //BinaryOperation(y,VarRef(x), Sdiv(), ConstInt(2))
+                        TemporaryVar IndexY = TemporaryVar("Y");
+                        addToInstruction(BinaryOperation(IndexY,VarRef(IndexX), Sdiv(), ConstInt(2)));
+                        //BinaryOperation(z,VarRef(x), Slt(), VarRef(y))
+                        TemporaryVar IndexZ = TemporaryVar("Z");
+                        addToInstruction(BinaryOperation(IndexZ,VarRef(IndexX), Slt(), VarRef(IndexY)));
+
+
                     }
 
                     @Override
@@ -210,6 +237,9 @@ public class Translator extends Element.DefaultVisitor {
     {
         String message = haltWithError.getMsg();
         HaltWithError(message);
+    }
+    void addToInstruction(Instruction i){
+        BKL.add(i);
     }
 
 }
