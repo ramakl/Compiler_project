@@ -144,7 +144,7 @@ public class Translator extends Element.DefaultVisitor {
                         super.visit(alloc);
                         //Alloc(TemporaryVar("t"), ConstInt(100))
                         TemporaryVar tpacclocvar = TemporaryVar("t");
-                        addToInstruction(Alloc(tpacclocvar, ConstInt(100)));
+                        addToAssign(Alloc(tpacclocvar, ConstInt(100)));
 
                     }
 
@@ -154,7 +154,7 @@ public class Translator extends Element.DefaultVisitor {
                         super.visit(alloca);
                         //Alloca(TemporaryVar("x"), TypeInt())
                         TemporaryVar tpacclocavar = TemporaryVar("x");
-                        addToInstruction(Alloca(tpacclocavar, TypeInt()));
+                        addToAssign(Alloca(tpacclocavar, TypeInt()));
                     }
 
                     @Override
@@ -163,13 +163,13 @@ public class Translator extends Element.DefaultVisitor {
                         super.visit(binaryOperation);
                         //BinaryOperation(x,ConstInt(5), Add(), ConstInt(4)),
                         TemporaryVar IndexX = TemporaryVar("X");
-                        addToInstruction(BinaryOperation(IndexX,ConstInt(5), Add(), ConstInt(4)));
+                        addToAssign(BinaryOperation(IndexX,ConstInt(5), Add(), ConstInt(4)));
                         //BinaryOperation(y,VarRef(x), Sdiv(), ConstInt(2))
                         TemporaryVar IndexY = TemporaryVar("Y");
-                        addToInstruction(BinaryOperation(IndexY,VarRef(IndexX), Sdiv(), ConstInt(2)));
+                        addToAssign(BinaryOperation(IndexY,VarRef(IndexX), Sdiv(), ConstInt(2)));
                         //BinaryOperation(z,VarRef(x), Slt(), VarRef(y))
                         TemporaryVar IndexZ = TemporaryVar("Z");
-                        addToInstruction(BinaryOperation(IndexZ,VarRef(IndexX), Slt(), VarRef(IndexY)));
+                        addToAssign(BinaryOperation(IndexZ,VarRef(IndexX), Slt(), VarRef(IndexY)));
 
 
                     }
@@ -238,7 +238,8 @@ public class Translator extends Element.DefaultVisitor {
         String message = haltWithError.getMsg();
         HaltWithError(message);
     }
-    void addToInstruction(Instruction i){
+    //Add to the Assign Block
+    void addToAssign(Instruction i){
         BKL.add(i);
     }
 
