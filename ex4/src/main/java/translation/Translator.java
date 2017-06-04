@@ -307,7 +307,13 @@ public class Translator extends Element.DefaultVisitor {
         super.visit(typeStruct);
     }
 
-
+    @Override
+    public void visit(StructField structField)
+    {
+        Type type = structField.getType(); //ref
+        String name = structField.getName();
+        StructField(type.copy(), name); //copy instead of ref?
+    }
 
     //Add to the Assign Block
     void addToAssign(Instruction i){
