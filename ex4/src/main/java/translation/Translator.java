@@ -76,6 +76,7 @@ public class Translator extends Element.DefaultVisitor {
 
 					@Override
 					public void visit(Branch branch) {
+						super.visit(branch);
 						Operand condition = branch.getCondition();
 						BasicBlock ifTrueLabel = branch.getIfTrueLabel();
 						BasicBlock ifFalseLabel = branch.getIfFalseLabel();
@@ -84,23 +85,27 @@ public class Translator extends Element.DefaultVisitor {
 
 					@Override
 					public void visit(Jump jump) {
+					    super.visit(jump);
 						BasicBlock label = jump.getLabel();
 						Jump(label);
 					}
 
 					@Override
 					public void visit(ReturnExpr returnExpr) {
+					    super.visit(returnExpr);
 						Operand returnValue = returnExpr.getReturnValue();
 						ReturnExpr(returnValue);
 					}
 
 					@Override
 					public void visit(ReturnVoid returnVoid) {
+					    super.visit(returnVoid);
 						ReturnVoid();
 					}
 
 					@Override
 					public void visit(HaltWithError haltWithError) {
+					    super.visit(haltWithError);
 						String message = haltWithError.getMsg();
 						HaltWithError(message);
 					}
@@ -132,45 +137,15 @@ public class Translator extends Element.DefaultVisitor {
 
                         super.visit(binaryOperation);
 
-						    Operand el=  binaryOperation.getLeft();
-							Operand er=binaryOperation.getRight();
-							TemporaryVar x=TemporaryVar(el.toString());
-							TemporaryVar y=TemporaryVar(er.toString());
-						    Operator op=binaryOperation.getOperator();
-							TemporaryVar R=TemporaryVar(el.toString());
-
-							if(op instanceof MJPlus)
-							{
-								BinaryOperation(R,VarRef(x),Add(),VarRef(y));
-							}
-							if(op instanceof MJMinus)
-							{
-								BinaryOperation(R,VarRef(x),Sub(),VarRef(y));
-							}
-							if(op instanceof MJDiv)
-							{
-								BinaryOperation(R,VarRef(x), Sdiv(),VarRef(y));
-
-							}
-							if(op instanceof MJTimes)
-							{
-								BinaryOperation(R,VarRef(x), Mul(),VarRef(y));
-
-							}
-							if(op instanceof MJAnd)
-							{
-								BinaryOperation(R,VarRef(x), And(),VarRef(y));
-
-							}
                         //BinaryOperation(x,ConstInt(5), Add(), ConstInt(4)),
-                        //TemporaryVar IndexX = TemporaryVar("X");
-                        //addToAssign(BinaryOperation(IndexX,ConstInt(5), Add(), ConstInt(4)));
+                        TemporaryVar IndexX = TemporaryVar("X");
+                        addToAssign(BinaryOperation(IndexX,ConstInt(5), Add(), ConstInt(4)));
                         //BinaryOperation(y,VarRef(x), Sdiv(), ConstInt(2))
-                        //TemporaryVar IndexY = TemporaryVar("Y");
-                        //addToAssign(BinaryOperation(IndexY,VarRef(IndexX), Sdiv(), ConstInt(2)));
+                        TemporaryVar IndexY = TemporaryVar("Y");
+                        addToAssign(BinaryOperation(IndexY,VarRef(IndexX), Sdiv(), ConstInt(2)));
                         //BinaryOperation(z,VarRef(x), Slt(), VarRef(y))
-                        //TemporaryVar IndexZ = TemporaryVar("Z");
-                        //addToAssign(BinaryOperation(IndexZ,VarRef(IndexX), Slt(), VarRef(IndexY)));
+                        TemporaryVar IndexZ = TemporaryVar("Z");
+                        addToAssign(BinaryOperation(IndexZ,VarRef(IndexX), Slt(), VarRef(IndexY)));
 
 
                     }
@@ -244,40 +219,9 @@ public class Translator extends Element.DefaultVisitor {
 
 		}
 
-    @Override
-	public void visit(Branch branch)
-    {
-        Operand condition = branch.getCondition();
-        BasicBlock ifTrueLabel = branch.getIfTrueLabel();
-        BasicBlock ifFalseLabel = branch.getIfFalseLabel();
-        Branch(condition, ifTrueLabel, ifFalseLabel); //usage of ref?
-    }
-    @Override
-    public  void visit(Jump jump)
-    {
-        BasicBlock label = jump.getLabel();
-        //BKL.add(label);
-        Jump(label);
-    }
 
-    @Override
-    public void visit(ReturnExpr returnExpr)
-    {
-        Operand returnValue = returnExpr.getReturnValue();
-        ReturnExpr(returnValue);
-    }
-    @Override
-    public void visit(ReturnVoid returnVoid)
-    {
-        ReturnVoid();
 
-    }
-    @Override
-    public void visit(HaltWithError haltWithError)
-    {
-        String message = haltWithError.getMsg();
-        HaltWithError(message);
-    }
+
     //Add to the Assign Block
     void addToAssign(Instruction i){
         BKL.add(i);
