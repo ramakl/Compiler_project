@@ -209,6 +209,18 @@ public class Translator extends Element.DefaultVisitor {
 
 				});
 			}
+			else if(i instanceof CommentInstr ){
+				CommentInstr com =(CommentInstr)i;
+				com.accept(new Element.DefaultVisitor() {
+					@Override
+					public void visit(CommentInstr commentinstr){
+						String com =commentinstr.getText();
+						CommentInstr(com);
+					}
+
+				});
+			}
+
 		}
 
 		}
