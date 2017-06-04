@@ -51,14 +51,6 @@ public class Translator extends Element.DefaultVisitor {
 	}
 
 
-
-	@Override
-	public void visit(Add add) {
-
-		super.visit(add);
-
-	}
-
 	@Override
 	public void visit(InstructionList instructionList) {
 		for (Instruction i : instructionList ) {
@@ -195,10 +187,8 @@ public class Translator extends Element.DefaultVisitor {
 						Operand y=store.getAddress();
 						Operand  v =store.getValue();
 						TemporaryVar x = TemporaryVar(y.toString());
-						//TemporaryVar x = TemporaryVar("x");
 
 						Alloca(x, TypeInt());
-						//Store(VarRef(x), ConstInt(42));
 
 						Store(VarRef(x), ConstInt(Integer.parseInt(v.toString())));
 
