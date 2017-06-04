@@ -54,14 +54,6 @@ public class Translator extends Element.DefaultVisitor {
 	}
 
 
-
-	@Override
-	public void visit(Add add) {
-
-		super.visit(add);
-
-	}
-
 	@Override
 	public void visit(InstructionList instructionList) {
 		for (Instruction i : instructionList ) {
@@ -77,34 +69,40 @@ public class Translator extends Element.DefaultVisitor {
 						Operand condition = branch.getCondition();
 						BasicBlock ifTrueLabel = branch.getIfTrueLabel();
 						BasicBlock ifFalseLabel = branch.getIfFalseLabel();
-						Branch(condition, ifTrueLabel, ifFalseLabel);
+                        branch = Branch(condition, ifTrueLabel, ifFalseLabel);
+                        addToAssign(branch);
 					}
+
 
 					@Override
 					public void visit(Jump jump) {
 					    super.visit(jump);
 						BasicBlock label = jump.getLabel();
-						Jump(label);
+						jump = Jump(label);
+						addToAssign(jump);
 					}
 
 					@Override
 					public void visit(ReturnExpr returnExpr) {
 					    super.visit(returnExpr);
 						Operand returnValue = returnExpr.getReturnValue();
-						ReturnExpr(returnValue);
+						returnExpr = ReturnExpr(returnValue);
+						addToAssign(returnExpr);
 					}
 
 					@Override
 					public void visit(ReturnVoid returnVoid) {
 					    super.visit(returnVoid);
-						ReturnVoid();
+						returnVoid = ReturnVoid();
+						addToAssign(returnVoid);
 					}
 
 					@Override
 					public void visit(HaltWithError haltWithError) {
 					    super.visit(haltWithError);
 						String message = haltWithError.getMsg();
-						HaltWithError(message);
+						haltWithError = HaltWithError(message);
+						addToAssign(haltWithError);
 					}
 				});
             }//@Mahsa start working
@@ -248,10 +246,8 @@ public class Translator extends Element.DefaultVisitor {
 						Operand y=store.getAddress();
 						Operand  v =store.getValue();
 						TemporaryVar x = TemporaryVar(y.toString());
-						//TemporaryVar x = TemporaryVar("x");
 
 						Alloca(x, TypeInt());
-						//Store(VarRef(x), ConstInt(42));
 
 						Store(VarRef(x), ConstInt(Integer.parseInt(v.toString())));
 
@@ -262,6 +258,18 @@ public class Translator extends Element.DefaultVisitor {
 
 				});
 			}
+			else if(i instanceof CommentInstr ){
+				CommentInstr com =(CommentInstr)i;
+				com.accept(new Element.DefaultVisitor() {
+					@Override
+					public void visit(CommentInstr commentinstr){
+						String com =commentinstr.getText();
+						CommentInstr(com);
+					}
+
+				});
+			}
+
 		}
 
 		}
