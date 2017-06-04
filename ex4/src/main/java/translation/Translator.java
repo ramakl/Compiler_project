@@ -93,7 +93,7 @@ public class Translator extends Element.DefaultVisitor {
 
 				}
 			}
-			if(i instanceof TerminatingInstruction) {
+			else if(i instanceof TerminatingInstruction) {
                 TerminatingInstruction ti = (TerminatingInstruction) i;
                 ti.accept(new Element.DefaultVisitor() {
 
@@ -129,6 +129,50 @@ public class Translator extends Element.DefaultVisitor {
 					}
 				});
             }
+            else if (i instanceof Assign) {
+				Assign asg = (Assign) i;
+				asg.accept(new Element.DefaultVisitor() {
+                    @Override
+                    public void visit(Alloc alloc) {
+                        super.visit(alloc);
+                    }
+
+                    @Override
+                    public void visit(Alloca alloca) {
+                        super.visit(alloca);
+                    }
+
+                    @Override
+                    public void visit(BinaryOperation binaryOperation) {
+                        super.visit(binaryOperation);
+                    }
+
+                    @Override
+                    public void visit(Bitcast bitcast) {
+                        super.visit(bitcast);
+                    }
+
+                    @Override
+                    public void visit(Call call) {
+                        super.visit(call);
+                    }
+
+                    @Override
+                    public void visit(GetElementPtr getElementPtr) {
+                        super.visit(getElementPtr);
+                    }
+
+                    @Override
+                    public void visit(Load load) {
+                        super.visit(load);
+                    }
+
+                    @Override
+                    public void visit(PhiNode phiNode) {
+                        super.visit(phiNode);
+                    }
+                });
+			}
 
 		}
 	}
