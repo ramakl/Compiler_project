@@ -50,14 +50,12 @@ public class Translator extends Element.DefaultVisitor {
 		return prog;
 
 
-
 	}
 
 
 	@Override
 	public void visit(InstructionList instructionList) {
 		for (Instruction i : instructionList ) {
-
 
 			if(i instanceof TerminatingInstruction) {
                 TerminatingInstruction ti = (TerminatingInstruction) i;
@@ -274,6 +272,40 @@ public class Translator extends Element.DefaultVisitor {
 
 		}
 
+    @Override
+    public void visit(TypeArray typeArray)
+    {
+        Type of = typeArray.getOf();
+        int size = typeArray.getSize();
+        TypeArray(of.copy(), size);
+
+
+    }
+    @Override
+    public void visit(TypePointer typePointer)
+    {
+        Type to = typePointer.getTo();
+        TypePointer(to.copy());
+    }
+
+    @Override
+    public void visit(TypeProc typeProc)
+    {
+        Type resultType = typeProc.getResultType();
+        TypeRefList typeRefList = typeProc.getArgTypes();
+        TypeProc(typeRefList, resultType.copy());
+        super.visit(typeProc);
+
+    }
+
+    @Override
+    public void visit(TypeStruct typeStruct)
+    {
+        String name = typeStruct.getName();
+        StructFieldList structFieldList = typeStruct.getFields();
+        TypeStruct(name, structFieldList);
+        super.visit(typeStruct);
+    }
 
 
 
@@ -282,5 +314,6 @@ public class Translator extends Element.DefaultVisitor {
         BKL.add(i);
     }
 
+    //All the types to be added together just like addToAssign?
 }
 
