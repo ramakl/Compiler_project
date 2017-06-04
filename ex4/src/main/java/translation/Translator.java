@@ -64,12 +64,6 @@ public class Translator extends Element.DefaultVisitor {
 		for (Instruction i : instructionList ) {
 
 
-
-
-
-							| CommentInstr(String text)
-
-
 			if(i instanceof TerminatingInstruction) {
                 TerminatingInstruction ti = (TerminatingInstruction) i;
                 ti.accept(new Element.DefaultVisitor() {
