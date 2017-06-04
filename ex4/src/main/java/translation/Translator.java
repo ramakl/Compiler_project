@@ -6,6 +6,9 @@ import analysis.TypeContext;
 import minijava.ast.*;
 import minillvm.ast.*;
 import static minillvm.ast.Ast.*;
+import static minillvm.ast.Ast.GetElementPtr;
+import static minillvm.ast.Ast.TypePointer;
+
 import java.util.concurrent.locks.Condition;
 
 
@@ -104,7 +107,7 @@ public class Translator extends Element.DefaultVisitor {
 						HaltWithError(message);
 					}
 				});
-            }
+            }//@Mahsa start working
             else if (i instanceof Assign) {
 				Assign asg = (Assign) i;
 				asg.accept(new Element.DefaultVisitor() {
@@ -147,29 +150,79 @@ public class Translator extends Element.DefaultVisitor {
                     @Override
                     public void visit(Bitcast bitcast) {
                         super.visit(bitcast);
+                        TemporaryVar IndexX = TemporaryVar("X");
+                        TemporaryVar IndexY = TemporaryVar("Y");
+                        addToAssign(Alloc(IndexX, ConstInt(128)));
+                        addToAssign(Bitcast(IndexY, TypePointer(Ast.TypeByte()), VarRef(IndexX)));
+
+
                     }
 
                     @Override
                     public void visit(Call call) {
                         super.visit(call);
+                        //Call(x, ProcedureRef(f), OperandList(ConstInt(4), ConstBool(true)))
+                        BasicBlockList bbl = BasicBlockList();
+                        Proc callProc = Proc("f", TypeInt(), ParameterList(),bbl);;
+                        TemporaryVar IndexX = TemporaryVar("X");
+                        addToAssign(Call(IndexX, ProcedureRef(callProc),  OperandList(ConstInt(4),ConstBool(true))));
                     }
 
                     @Override
                     public void visit(GetElementPtr getElementPtr) {
+
                         super.visit(getElementPtr);
+                        TemporaryVar IndexX = TemporaryVar("X");
+                        TemporaryVar IndexY = TemporaryVar("Y");
+                        TypeStruct myStruct = TypeStruct("myStruct",StructFieldList(StructField(TypeBool(), "a"),StructField(TypeBool(), "b"),StructField(TypeInt(), "c")));
+                        TypePointer p = TypePointer(myStruct);
+                        //Operand baseAddress = (TypePointer) myStruct;
+                        //addToAssign(GetElementPtr(IndexX,VarRef(p),OperandList(ConstInt(0), ConstInt(1)));
+                        addToAssign(Load(IndexY ,VarRef(IndexX)));
+
                     }
 
                     @Override
                     public void visit(Load load) {
                         super.visit(load);
+                        TemporaryVar IndexX = TemporaryVar("X");
+                        TemporaryVar IndexY = TemporaryVar("Y");
+                        addToAssign(Alloca(IndexX, TypeInt()));
+                        addToAssign(Store(VarRef(IndexX), ConstInt(32)));
+                        addToAssign(Load(IndexY, VarRef(IndexX)));
                     }
 
                     @Override
                     public void visit(PhiNode phiNode) {
                         super.visit(phiNode);
+                        TemporaryVar a1 = TemporaryVar("a1");
+                        TemporaryVar IndexX = TemporaryVar("X");
+                        BasicBlock block1 = BasicBlock(
+                                Load(a1, VarRef(IndexX))
+                        );
+                        block1.setName("b1");
+                        TemporaryVar a2 = TemporaryVar("a2");
+                        TemporaryVar IndexY = TemporaryVar("Y");
+                        BasicBlock block2 = BasicBlock(
+                                Load(a2, VarRef(IndexY))
+                        );
+                        block2.setName("b2");
+                        TemporaryVar a = TemporaryVar("a");
+                        BasicBlock block3 = BasicBlock(PhiNode(a,TypeInt(),
+                                PhiNodeChoiceList(
+                                PhiNodeChoice(block1, Ast.VarRef(a1)),
+                                PhiNodeChoice(block2, Ast.VarRef(a2))
+                                )
+                        ));
+                        block3.setName("b3");
+                        block1.add(Jump(block3));
+                        block2.add(Jump(block3));
+                        BasicBlockList blocks = BasicBlockList(
+                                block1, block2, block3
+                        );
                     }
                 });
-			}
+			}//@mahsa End
 			else if(i instanceof Print){
 
 				Print p = (Print) i;
