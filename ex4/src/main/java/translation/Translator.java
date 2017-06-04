@@ -75,6 +75,7 @@ public class Translator extends Element.DefaultVisitor {
 
 					@Override
 					public void visit(Branch branch) {
+						super.visit(branch);
 						Operand condition = branch.getCondition();
 						BasicBlock ifTrueLabel = branch.getIfTrueLabel();
 						BasicBlock ifFalseLabel = branch.getIfFalseLabel();
@@ -83,23 +84,27 @@ public class Translator extends Element.DefaultVisitor {
 
 					@Override
 					public void visit(Jump jump) {
+					    super.visit(jump);
 						BasicBlock label = jump.getLabel();
 						Jump(label);
 					}
 
 					@Override
 					public void visit(ReturnExpr returnExpr) {
+					    super.visit(returnExpr);
 						Operand returnValue = returnExpr.getReturnValue();
 						ReturnExpr(returnValue);
 					}
 
 					@Override
 					public void visit(ReturnVoid returnVoid) {
+					    super.visit(returnVoid);
 						ReturnVoid();
 					}
 
 					@Override
 					public void visit(HaltWithError haltWithError) {
+					    super.visit(haltWithError);
 						String message = haltWithError.getMsg();
 						HaltWithError(message);
 					}
@@ -204,40 +209,9 @@ public class Translator extends Element.DefaultVisitor {
 		}
 	}
 
-    @Override
-	public void visit(Branch branch)
-    {
-        Operand condition = branch.getCondition();
-        BasicBlock ifTrueLabel = branch.getIfTrueLabel();
-        BasicBlock ifFalseLabel = branch.getIfFalseLabel();
-        Branch(condition, ifTrueLabel, ifFalseLabel); //usage of ref?
-    }
-    @Override
-    public  void visit(Jump jump)
-    {
-        BasicBlock label = jump.getLabel();
-        //BKL.add(label);
-        Jump(label);
-    }
 
-    @Override
-    public void visit(ReturnExpr returnExpr)
-    {
-        Operand returnValue = returnExpr.getReturnValue();
-        ReturnExpr(returnValue);
-    }
-    @Override
-    public void visit(ReturnVoid returnVoid)
-    {
-        ReturnVoid();
 
-    }
-    @Override
-    public void visit(HaltWithError haltWithError)
-    {
-        String message = haltWithError.getMsg();
-        HaltWithError(message);
-    }
+
     //Add to the Assign Block
     void addToAssign(Instruction i){
         BKL.add(i);
