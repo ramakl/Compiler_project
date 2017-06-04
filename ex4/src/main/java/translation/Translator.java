@@ -79,34 +79,39 @@ public class Translator extends Element.DefaultVisitor {
 						Operand condition = branch.getCondition();
 						BasicBlock ifTrueLabel = branch.getIfTrueLabel();
 						BasicBlock ifFalseLabel = branch.getIfFalseLabel();
-						Branch(condition, ifTrueLabel, ifFalseLabel);
+                        branch = Branch(condition, ifTrueLabel, ifFalseLabel);
+                        addToAssign(branch);
 					}
 
 					@Override
 					public void visit(Jump jump) {
 					    super.visit(jump);
 						BasicBlock label = jump.getLabel();
-						Jump(label);
+						jump = Jump(label);
+						addToAssign(jump);
 					}
 
 					@Override
 					public void visit(ReturnExpr returnExpr) {
 					    super.visit(returnExpr);
 						Operand returnValue = returnExpr.getReturnValue();
-						ReturnExpr(returnValue);
+						returnExpr = ReturnExpr(returnValue);
+						addToAssign(returnExpr);
 					}
 
 					@Override
 					public void visit(ReturnVoid returnVoid) {
 					    super.visit(returnVoid);
-						ReturnVoid();
+						returnVoid = ReturnVoid();
+						addToAssign(returnVoid);
 					}
 
 					@Override
 					public void visit(HaltWithError haltWithError) {
 					    super.visit(haltWithError);
 						String message = haltWithError.getMsg();
-						HaltWithError(message);
+						haltWithError = HaltWithError(message);
+						addToAssign(haltWithError);
 					}
 				});
             }
@@ -142,6 +147,7 @@ public class Translator extends Element.DefaultVisitor {
 							TemporaryVar y=TemporaryVar(er.toString());
 						    Operator op=binaryOperation.getOperator();
 							TemporaryVar R=TemporaryVar(el.toString());
+
 
 							if(op instanceof MJPlus)
 							{
@@ -208,8 +214,6 @@ public class Translator extends Element.DefaultVisitor {
 
 		}
 	}
-
-
 
 
     //Add to the Assign Block
