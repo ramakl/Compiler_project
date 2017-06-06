@@ -60,6 +60,7 @@ public class Translator extends Element.DefaultVisitor{
 
 
         this.BKL = entry;
+
         BKL.add(ReturnExpr(ConstInt(0)));
         prog.accept(this);
         //For-loop to read each stmt of main class -> main body
@@ -73,56 +74,86 @@ public class Translator extends Element.DefaultVisitor{
     }
 
 
-
-
-	private class StmtMatcher implements MJStatement.MatcherVoid {
+	private class StmtMatcher implements MJElement.Matcher {
         @Override
-        public void case_StmtIf(MJStmtIf stmtIf) {
+        public Operand case_StmtIf(MJStmtIf stmtIf) {
+            return  ConstInt(0);
 
         }
 
         @Override
-        public void case_StmtWhile(MJStmtWhile stmtWhile) {
+        public Operand case_StmtWhile(MJStmtWhile stmtWhile) {
+            return  ConstInt(0);
 
         }
 
         @Override
-        public void case_StmtReturn(MJStmtReturn stmtReturn) {
+        public Operand case_StmtReturn(MJStmtReturn stmtReturn) {
             MJExpr stex = stmtReturn.getResult();
             //ReturnExpr(ConstInt(stex));
+            return  ConstInt(0);
 
         }
 
         @Override
-        public void case_StmtPrint(MJStmtPrint stmtPrint) {
-        	//MJExpr ex=stmtPrint.getPrinted();
+        public Operand case_StmtPrint(MJStmtPrint stmtPrint) {
+        	MJExpr ex=stmtPrint.getPrinted();
 			//Operand o=(Operand)ex;
-
 			Print(ConstInt(42));
+            return  ConstInt(0);
+        }
 
-
-
-
+        @Override
+        public Operand case_Block(MJBlock block) {
+            return  ConstInt(0);
 
         }
 
         @Override
-        public void case_Block(MJBlock block) {
+        public Operand case_StmtAssign(MJStmtAssign stmtAssign) {
+            return  ConstInt(0);
 
         }
 
         @Override
-        public void case_StmtAssign(MJStmtAssign stmtAssign) {
+        public Operand case_StmtExpr(MJStmtExpr stmtExpr) {
+            return  ConstInt(0);
 
         }
 
         @Override
-        public void case_StmtExpr(MJStmtExpr stmtExpr) {
+        public Operand case_VarDecl(MJVarDecl varDecl) {
+            return  ConstInt(0);
 
         }
 
         @Override
-        public void case_VarDecl(MJVarDecl varDecl) {
+        public Operand case_BoolConst(MJBoolConst boolConst) {
+            return  ConstInt(0);
+
+        }
+
+        @Override
+        public Operand case_Number(MJNumber number) {
+            return ConstInt(number.getIntValue());
+
+        }
+
+        @Override
+        public Operand case_ExprBinary(MJExprBinary exprBinary) {
+            return  ConstInt(0);
+
+        }
+
+        @Override
+        public Operand case_VarUse(MJVarUse varUse) {
+            return  ConstInt(0);
+
+        }
+
+        @Override
+        public Operand case_ExprNull(MJExprNull exprNull) {
+            return  ConstInt(0);
 
         }
     }
