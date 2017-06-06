@@ -215,8 +215,9 @@ public class Translator extends Element.DefaultVisitor{
 
 
 
-			return ConstInt(0);
+			return ReturnExpr(ConstInt(0));
 		}
+
 
 		@Override
 		public Object case_StmtReturn(MJStmtReturn stmtReturn) {
