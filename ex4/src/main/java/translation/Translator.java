@@ -73,7 +73,8 @@ public class Translator extends Element.DefaultVisitor{
 		return prog;
     }
 
-
+//: we should do this for the first üart (Block, StmtIf, StmtWhile, StmtReturn, StmtPrint, StmtExpr,
+	//StmtAssign, ExprBinary, ExprUnary, BoolConst, VarUse, Number.)
 	private class StmtMatcher implements MJElement.Matcher {
 
 
@@ -101,7 +102,7 @@ public class Translator extends Element.DefaultVisitor{
 		public Object case_Plus(MJPlus plus) {
 			return Add();
 		}
-
+     //stm-while
 		@Override
 		public Object case_StmtWhile(MJStmtWhile stmtWhile) {
 			return null;
@@ -122,7 +123,7 @@ public class Translator extends Element.DefaultVisitor{
 
 			return And();
 		}
-
+        //ExprUnary
 		@Override
 		public Object case_ExprUnary(MJExprUnary exprUnary) {
 			return null;
@@ -137,13 +138,13 @@ public class Translator extends Element.DefaultVisitor{
 		public Object case_ExtendsNothing(MJExtendsNothing extendsNothing) {
 			return null;
 		}
-
+	//Number
 		@Override
 		public Object case_Number(MJNumber number) {
 			int x=number.getIntValue();
 			return x;
 		}
-
+        //VarUse
 		@Override
 		public Object case_VarUse(MJVarUse varUse) {
 			return null;
@@ -153,12 +154,15 @@ public class Translator extends Element.DefaultVisitor{
 		public Object case_ExprList(MJExprList exprList) {
 			return null;
 		}
-
+        //stm-assign
 		@Override
 		public Object case_StmtAssign(MJStmtAssign stmtAssign) {
 			MJExpr left =stmtAssign.getLeft();
+			Object l=left.match(new StmtMatcher());
 			MJExpr right=stmtAssign.getRight();
-
+			Object r=right.match(new StmtMatcher());
+			//Alloc();
+			//Alloca();
 			return null;
 		}
 
@@ -186,7 +190,7 @@ public class Translator extends Element.DefaultVisitor{
 		public Object case_NewObject(MJNewObject newObject) {
 			return null;
 		}
-
+        //Block
 		@Override
 		public Object case_Block(MJBlock block) {
 			return null;
@@ -196,7 +200,7 @@ public class Translator extends Element.DefaultVisitor{
 		public Object case_ClassDeclList(MJClassDeclList classDeclList) {
 			return null;
 		}
-
+       //ExprBinary
 		@Override
 		public Object case_ExprBinary(MJExprBinary exprBinary) {
 			MJExpr left=exprBinary.getLeft();
@@ -218,7 +222,7 @@ public class Translator extends Element.DefaultVisitor{
 			return ReturnExpr(ConstInt(0));
 		}
 
-
+        //stm-return
 		@Override
 		public Object case_StmtReturn(MJStmtReturn stmtReturn) {
 		MJExpr e=	stmtReturn.getResult();
@@ -227,9 +231,10 @@ public class Translator extends Element.DefaultVisitor{
 			return ReturnExpr(ConstInt(Integer.parseInt(u.toString())));
 			//return null;
 		}
-
+        //stm-expr
 		@Override
 		public Object case_StmtExpr(MJStmtExpr stmtExpr) {
+			MJExpr ex=stmtExpr.getExpr();
 			return null;
 		}
 
@@ -247,7 +252,7 @@ public class Translator extends Element.DefaultVisitor{
 		public Object case_ClassDecl(MJClassDecl classDecl) {
 			return null;
 		}
-
+        //stm-print
 		@Override
 		public Object case_StmtPrint(MJStmtPrint stmtPrint) {
 
@@ -268,7 +273,7 @@ public class Translator extends Element.DefaultVisitor{
 		public Object case_MainClass(MJMainClass mainClass) {
 			return null;
 		}
-
+		//BoolConst
 		@Override
 		public Object case_BoolConst(MJBoolConst boolConst) {
 			return null;
@@ -288,7 +293,7 @@ public class Translator extends Element.DefaultVisitor{
 		public Object case_TypeIntArray(MJTypeIntArray typeIntArray) {
 			return null;
 		}
-
+        //stm-if
 		@Override
 		public Object case_StmtIf(MJStmtIf stmtIf) {
 			return null;
