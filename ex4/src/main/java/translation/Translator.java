@@ -221,7 +221,11 @@ public class Translator extends Element.DefaultVisitor{
 
 		@Override
 		public Object case_StmtReturn(MJStmtReturn stmtReturn) {
-			return null;
+		MJExpr e=	stmtReturn.getResult();
+			Object u=e.match(new StmtMatcher());
+
+			return ReturnExpr(ConstInt(Integer.parseInt(u.toString())));
+			//return null;
 		}
 
 		@Override
@@ -250,8 +254,9 @@ public class Translator extends Element.DefaultVisitor{
 			MJExpr ex=  stmtPrint.getPrinted();
 		    Object u=ex.match(new StmtMatcher());
 
-			Print(ConstInt(Integer.parseInt(u.toString())));
+			 Print(ConstInt(Integer.parseInt(u.toString())));
 			return ReturnExpr(ConstInt(0));
+			//return  null;
 		}
 
 		@Override
