@@ -87,7 +87,7 @@ public class Translator extends Element.DefaultVisitor{
 
 
 
-	private class StmtMatcher implements MJStatement.MatcherVoid {
+	/*private class StmtMatcher implements MJStatement.MatcherVoid {
         @Override
         public void case_StmtIf(MJStmtIf stmtIf) {
 
@@ -106,10 +106,11 @@ public class Translator extends Element.DefaultVisitor{
 
         @Override
         public void case_StmtPrint(MJStmtPrint stmtPrint) {
-        	//MJExpr ex=stmtPrint.getPrinted();
+        	MJExpr ex=stmtPrint.getPrinted();
 			//Operand o=(Operand)ex;
 
-			Print(ConstInt(42));
+            int x=  Integer.parseInt((ex.toString()));
+			Print(ConstInt(x));
 
 
 
@@ -137,7 +138,7 @@ public class Translator extends Element.DefaultVisitor{
 
         }
     }
-}
+}*/
 
 
 //	@Override
