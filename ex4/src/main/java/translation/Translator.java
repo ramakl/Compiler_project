@@ -5,6 +5,8 @@ import analysis.TypeContext;
 
 import minijava.ast.*;
 import minillvm.ast.*;
+import org.omg.CORBA._IDLTypeStub;
+
 import static minillvm.ast.Ast.*;
 import static minillvm.ast.Ast.GetElementPtr;
 import static minillvm.ast.Ast.TypePointer;
@@ -22,7 +24,7 @@ import java.util.concurrent.locks.Condition;
 //it's only assign to it once.
 
 
-public class Translator extends Element.DefaultVisitor {
+public class Translator extends Element.DefaultVisitor{
 
     private final MJProgram javaProg;
     // @mahsa: We need to have a block to add serveral submethods to one basic block of a parent method
@@ -36,8 +38,10 @@ public class Translator extends Element.DefaultVisitor {
         this.javaProg = javaProg;
     }
 
-    public Prog translate() {
-        // TODO add your translation code here
+	public Prog translate() {
+
+		// TODO add your translation code here
+
 
         // TODO here is an example of a minimal program (remove this)
         Prog prog = Prog(TypeStructList(), GlobalList(), ProcList());
@@ -46,12 +50,14 @@ public class Translator extends Element.DefaultVisitor {
         Proc mainProc = Proc("main", TypeInt(), ParameterList(), blocks);
         prog.getProcedures().add(mainProc);
 
+
         BasicBlock entry = BasicBlock(
                 //Print(ConstInt(42)),
                 //ReturnExpr(ConstInt(0))
         );
         entry.setName("entry");
         blocks.add(entry);
+
 
         this.BKL = entry;
         BKL.add(ReturnExpr(ConstInt(0)));
@@ -60,13 +66,16 @@ public class Translator extends Element.DefaultVisitor {
         for (MJStatement stmt : javaProg.getMainClass().getMainBody()) {
             stmt.match(new StmtMatcher());
 
-        }
-        return prog;
 
+		}
 
+		return prog;
     }
 
-    private class StmtMatcher implements MJStatement.MatcherVoid {
+
+
+
+	private class StmtMatcher implements MJStatement.MatcherVoid {
         @Override
         public void case_StmtIf(MJStmtIf stmtIf) {
 
@@ -80,12 +89,20 @@ public class Translator extends Element.DefaultVisitor {
         @Override
         public void case_StmtReturn(MJStmtReturn stmtReturn) {
             MJExpr stex = stmtReturn.getResult();
-            ReturnExpr(ConstInt(stex));
+            //ReturnExpr(ConstInt(stex));
 
         }
 
         @Override
         public void case_StmtPrint(MJStmtPrint stmtPrint) {
+        	//MJExpr ex=stmtPrint.getPrinted();
+			//Operand o=(Operand)ex;
+
+			Print(ConstInt(42));
+
+
+
+
 
         }
 

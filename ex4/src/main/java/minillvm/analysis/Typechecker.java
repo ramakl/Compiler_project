@@ -54,7 +54,8 @@ public class Typechecker {
 			// unknown
 			return Ast.TypeByte();
 		} if (parent instanceof Assign) {
-			return ((Assign) parent).match(new Assign.Matcher<Type>() {
+			return
+					((Assign) parent).match(new Assign.Matcher<Type>() {
 				@Override
 				public Type case_Alloc(Alloc alloc) {
 					return Ast.TypePointer(Ast.TypeByte());
