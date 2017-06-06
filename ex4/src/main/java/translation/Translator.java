@@ -76,159 +76,162 @@ public class Translator extends Element.DefaultVisitor{
 
 	private class StmtMatcher implements MJElement.Matcher {
 
+
 		@Override
-		public Operand  case_Program(MJProgram program) {
+		public Object case_Program(MJProgram program) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_FieldAccess(MJFieldAccess fieldAccess) {
+		public Object case_FieldAccess(MJFieldAccess fieldAccess) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_MethodDecl(MJMethodDecl methodDecl) {
+		public Object case_MethodDecl(MJMethodDecl methodDecl) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_VarDecl(MJVarDecl varDecl) {
+		public Object case_VarDecl(MJVarDecl varDecl) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_Plus(MJPlus plus) {
+		public Object case_Plus(MJPlus plus) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_StmtWhile(MJStmtWhile stmtWhile) {
+		public Object case_StmtWhile(MJStmtWhile stmtWhile) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_MethodCall(MJMethodCall methodCall) {
+		public Object case_MethodCall(MJMethodCall methodCall) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_Negate(MJNegate negate) {
+		public Object case_Negate(MJNegate negate) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_And(MJAnd and) {
+		public Object case_And(MJAnd and) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_ExprUnary(MJExprUnary exprUnary) {
+		public Object case_ExprUnary(MJExprUnary exprUnary) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_Times(MJTimes times) {
+		public Object case_Times(MJTimes times) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_ExtendsNothing(MJExtendsNothing extendsNothing) {
+		public Object case_ExtendsNothing(MJExtendsNothing extendsNothing) {
 			return null;
 		}
 
 		@Override
-		public Operand case_Number(MJNumber number) {
-			return ConstInt(number.getIntValue());
+		public Object case_Number(MJNumber number) {
+			int x=number.getIntValue();
+			return x;
 		}
 
 		@Override
-		public Operand  case_VarUse(MJVarUse varUse) {
+		public Object case_VarUse(MJVarUse varUse) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_ExprList(MJExprList exprList) {
+		public Object case_ExprList(MJExprList exprList) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_StmtAssign(MJStmtAssign stmtAssign) {
+		public Object case_StmtAssign(MJStmtAssign stmtAssign) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_TypeInt(MJTypeInt typeInt) {
+		public Object case_TypeInt(MJTypeInt typeInt) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_Equals(MJEquals equals) {
+		public Object case_Equals(MJEquals equals) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_Less(MJLess less) {
+		public Object case_Less(MJLess less) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_Div(MJDiv div) {
+		public Object case_Div(MJDiv div) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_NewObject(MJNewObject newObject) {
+		public Object case_NewObject(MJNewObject newObject) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_Block(MJBlock block) {
+		public Object case_Block(MJBlock block) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_ClassDeclList(MJClassDeclList classDeclList) {
+		public Object case_ClassDeclList(MJClassDeclList classDeclList) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_ExprBinary(MJExprBinary exprBinary) {
+		public Object case_ExprBinary(MJExprBinary exprBinary) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_StmtReturn(MJStmtReturn stmtReturn) {
+		public Object case_StmtReturn(MJStmtReturn stmtReturn) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_StmtExpr(MJStmtExpr stmtExpr) {
+		public Object case_StmtExpr(MJStmtExpr stmtExpr) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_Minus(MJMinus minus) {
+		public Object case_Minus(MJMinus minus) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_ExprNull(MJExprNull exprNull) {
+		public Object case_ExprNull(MJExprNull exprNull) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_ClassDecl(MJClassDecl classDecl) {
+		public Object case_ClassDecl(MJClassDecl classDecl) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_StmtPrint(MJStmtPrint stmtPrint) {
+		public Object case_StmtPrint(MJStmtPrint stmtPrint) {
 
-		   MJExpr ex=  stmtPrint.getPrinted();
-			ex.match(new StmtMatcher());
+			MJExpr ex=  stmtPrint.getPrinted();
+		  Object u=ex.match(new StmtMatcher());
 
-		   Print((Operand)ex);
-			return null;
+			Print(ConstInt(Integer.parseInt(u.toString())));
+			return ConstInt(0);
+
 		}
 
 		@Override
@@ -237,67 +240,67 @@ public class Translator extends Element.DefaultVisitor{
 		}
 
 		@Override
-		public Operand  case_MainClass(MJMainClass mainClass) {
+		public Object case_MainClass(MJMainClass mainClass) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_BoolConst(MJBoolConst boolConst) {
+		public Object case_BoolConst(MJBoolConst boolConst) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_TypeClass(MJTypeClass typeClass) {
+		public Object case_TypeClass(MJTypeClass typeClass) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_NewIntArray(MJNewIntArray newIntArray) {
+		public Object case_NewIntArray(MJNewIntArray newIntArray) {
 			return null;
 		}
 
 		@Override
-		public Operand case_TypeIntArray(MJTypeIntArray typeIntArray) {
+		public Object case_TypeIntArray(MJTypeIntArray typeIntArray) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_StmtIf(MJStmtIf stmtIf) {
+		public Object case_StmtIf(MJStmtIf stmtIf) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_ExprThis(MJExprThis exprThis) {
+		public Object case_ExprThis(MJExprThis exprThis) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_VarDeclList(MJVarDeclList varDeclList) {
+		public Object case_VarDeclList(MJVarDeclList varDeclList) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_UnaryMinus(MJUnaryMinus unaryMinus) {
+		public Object case_UnaryMinus(MJUnaryMinus unaryMinus) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_TypeBool(MJTypeBool typeBool) {
+		public Object case_TypeBool(MJTypeBool typeBool) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_ArrayLength(MJArrayLength arrayLength) {
+		public Object case_ArrayLength(MJArrayLength arrayLength) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_ArrayLookup(MJArrayLookup arrayLookup) {
+		public Object case_ArrayLookup(MJArrayLookup arrayLookup) {
 			return null;
 		}
 
 		@Override
-		public Operand  case_MethodDeclList(MJMethodDeclList methodDeclList) {
+		public Object case_MethodDeclList(MJMethodDeclList methodDeclList) {
 			return null;
 		}
 	}
