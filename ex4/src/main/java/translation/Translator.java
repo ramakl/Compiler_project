@@ -5,6 +5,8 @@ import analysis.TypeContext;
 
 import minijava.ast.*;
 import minillvm.ast.*;
+import org.omg.CORBA._IDLTypeStub;
+
 import static minillvm.ast.Ast.*;
 import static minillvm.ast.Ast.GetElementPtr;
 import static minillvm.ast.Ast.TypePointer;
@@ -13,7 +15,7 @@ import java.util.concurrent.locks.Condition;
 
 
 
-public class Translator extends Element.DefaultVisitor {
+public class Translator extends Element.DefaultVisitor{
 
 	private final MJProgram javaProg;
 	// @mahsa: We need to have a block to add serveral submethods to one basic block of a parent method
@@ -27,6 +29,7 @@ public class Translator extends Element.DefaultVisitor {
 	}
 
 	public Prog translate() {
+
 		// TODO add your translation code here
 
 		// TODO here is an example of a minimal program (remove this)
@@ -37,8 +40,9 @@ public class Translator extends Element.DefaultVisitor {
 		prog.getProcedures().add(mainProc);
 
 		BasicBlock entry = BasicBlock(
-				//Print(ConstInt(42)),
-				//ReturnExpr(ConstInt(0))
+
+				Print(ConstInt(42)),
+				ReturnExpr(ConstInt(0))
 		);
 		entry.setName("entry");
 		blocks.add(entry);
@@ -47,6 +51,14 @@ public class Translator extends Element.DefaultVisitor {
         BKL.add( ReturnExpr(ConstInt(0)) );
         prog.accept(this);
 
+		MJBlock b=javaProg.getMainClass().getMainBody();
+		for (MJStatement stat:b)
+		{
+
+			MJStmtPrint p=	stat.match((MJStmtPrint.Matcher())this);
+			p.getPrinted();
+
+	    }
 		return prog;
 
 
@@ -269,9 +281,7 @@ public class Translator extends Element.DefaultVisitor {
 			}
 
 		}
-
 		}
-
     @Override
     public void visit(TypeArray typeArray)
     {
