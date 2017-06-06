@@ -56,24 +56,12 @@ public class Translator extends Element.DefaultVisitor {
         this.BKL = entry;
         BKL.add(ReturnExpr(ConstInt(0)));
         prog.accept(this);
-        //For loop for read an each stmt of main class -> main body
+        //For-loop to read each stmt of main class -> main body
         for (MJStatement stmt : javaProg.getMainClass().getMainBody()) {
             stmt.match(new StmtMatcher());
 
         }
-
         return prog;
-
-
-
-        //p = i.machter(stmt);
-        //Overriting the machter case_stmt (){}
-
-//
-//
-//                match(
-//                MJStmtIf();
-//        );
 
 
     }
@@ -81,7 +69,6 @@ public class Translator extends Element.DefaultVisitor {
     private class StmtMatcher implements MJStatement.MatcherVoid {
         @Override
         public void case_StmtIf(MJStmtIf stmtIf) {
-
 
         }
 
@@ -92,6 +79,8 @@ public class Translator extends Element.DefaultVisitor {
 
         @Override
         public void case_StmtReturn(MJStmtReturn stmtReturn) {
+            MJExpr stex = stmtReturn.getResult();
+            ReturnExpr(ConstInt(stex));
 
         }
 
