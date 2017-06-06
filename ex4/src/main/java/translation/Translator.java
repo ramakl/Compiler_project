@@ -251,8 +251,7 @@ public class Translator extends Element.DefaultVisitor{
 		    Object u=ex.match(new StmtMatcher());
 
 			Print(ConstInt(Integer.parseInt(u.toString())));
-			return ConstInt(0);
-
+			return ReturnExpr(ConstInt(0));
 		}
 
 		@Override
