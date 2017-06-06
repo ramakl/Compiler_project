@@ -75,86 +75,225 @@ public class Translator extends Element.DefaultVisitor{
 
 
 	private class StmtMatcher implements MJElement.Matcher {
-        @Override
-        public Operand case_StmtIf(MJStmtIf stmtIf) {
-            return  ConstInt(0);
 
+        @Override
+        public Object case_Plus(MJPlus plus) {
+            return null;
         }
 
         @Override
-        public Operand case_StmtWhile(MJStmtWhile stmtWhile) {
-            return  ConstInt(0);
-
+        public Object case_StmtIf(MJStmtIf stmtIf) {
+            return null;
         }
 
         @Override
-        public Operand case_StmtReturn(MJStmtReturn stmtReturn) {
-            MJExpr stex = stmtReturn.getResult();
-            //ReturnExpr(ConstInt(stex));
-            return  ConstInt(0);
-
+        public Object case_FieldAccess(MJFieldAccess fieldAccess) {
+            return null;
         }
 
         @Override
-        public Operand case_StmtPrint(MJStmtPrint stmtPrint) {
-        	MJExpr ex=stmtPrint.getPrinted();
-			//Operand o=(Operand)ex;
-			Print(ConstInt(42));
-            return  ConstInt(0);
+        public Object case_ClassDeclList(MJClassDeclList classDeclList) {
+            return null;
         }
 
         @Override
-        public Operand case_Block(MJBlock block) {
-            return  ConstInt(0);
-
+        public Object case_StmtWhile(MJStmtWhile stmtWhile) {
+            return null;
         }
 
         @Override
-        public Operand case_StmtAssign(MJStmtAssign stmtAssign) {
-            return  ConstInt(0);
-
+        public Object case_ExprList(MJExprList exprList) {
+            return null;
         }
 
         @Override
-        public Operand case_StmtExpr(MJStmtExpr stmtExpr) {
-            return  ConstInt(0);
-
+        public Object case_Negate(MJNegate negate) {
+            return null;
         }
 
         @Override
-        public Operand case_VarDecl(MJVarDecl varDecl) {
-            return  ConstInt(0);
-
+        public Object case_NewObject(MJNewObject newObject) {
+            return null;
         }
 
         @Override
-        public Operand case_BoolConst(MJBoolConst boolConst) {
-            return  ConstInt(0);
+        public Object case_And(MJAnd and) {
+            return null;
+        }
 
+        @Override
+        public Object case_MainClass(MJMainClass mainClass) {
+            return null;
+        }
+
+        @Override
+        public Object case_ArrayLength(MJArrayLength arrayLength) {
+            return null;
+        }
+
+        @Override
+        public Object case_MethodDeclList(MJMethodDeclList methodDeclList) {
+            return null;
+        }
+
+        @Override
+        public Object case_TypeClass(MJTypeClass typeClass) {
+            return null;
+        }
+
+        @Override
+        public Object case_ArrayLookup(MJArrayLookup arrayLookup) {
+            return null;
+        }
+
+        @Override
+        public Object case_BoolConst(MJBoolConst boolConst) {
+            return null;
+        }
+
+        @Override
+        public Object case_StmtExpr(MJStmtExpr stmtExpr) {
+            return null;
+        }
+
+        @Override
+        public Object case_StmtPrint(MJStmtPrint stmtPrint) {
+            return null;
+        }
+
+        @Override
+        public Object case_TypeIntArray(MJTypeIntArray typeIntArray) {
+            return null;
+        }
+
+        @Override
+        public Object case_ExprThis(MJExprThis exprThis) {
+            return null;
         }
 
         @Override
         public Operand case_Number(MJNumber number) {
             return ConstInt(number.getIntValue());
-
         }
 
         @Override
-        public Operand case_ExprBinary(MJExprBinary exprBinary) {
-            return  ConstInt(0);
-
+        public Object case_VarUse(MJVarUse varUse) {
+            return null;
         }
 
         @Override
-        public Operand case_VarUse(MJVarUse varUse) {
-            return  ConstInt(0);
-
+        public Object case_ExprUnary(MJExprUnary exprUnary) {
+            return null;
         }
 
         @Override
-        public Operand case_ExprNull(MJExprNull exprNull) {
-            return  ConstInt(0);
+        public Object case_ExtendsNothing(MJExtendsNothing extendsNothing) {
+            return null;
+        }
 
+        @Override
+        public Object case_ClassDecl(MJClassDecl classDecl) {
+            return null;
+        }
+
+        @Override
+        public Object case_Div(MJDiv div) {
+            return null;
+        }
+
+        @Override
+        public Object case_TypeBool(MJTypeBool typeBool) {
+            return null;
+        }
+
+        @Override
+        public Object case_VarDecl(MJVarDecl varDecl) {
+            return null;
+        }
+
+        @Override
+        public Object case_Times(MJTimes times) {
+            return null;
+        }
+
+        @Override
+        public Object case_MethodCall(MJMethodCall methodCall) {
+            return null;
+        }
+
+        @Override
+        public Object case_MethodDecl(MJMethodDecl methodDecl) {
+            return null;
+        }
+
+        @Override
+        public Object case_VarDeclList(MJVarDeclList varDeclList) {
+            return null;
+        }
+
+        @Override
+        public Object case_Minus(MJMinus minus) {
+            return null;
+        }
+
+        @Override
+        public Object case_StmtReturn(MJStmtReturn stmtReturn) {
+            return null;
+        }
+
+        @Override
+        public Object case_UnaryMinus(MJUnaryMinus unaryMinus) {
+            return null;
+        }
+
+        @Override
+        public Object case_ExprNull(MJExprNull exprNull) {
+            return null;
+        }
+
+        @Override
+        public Object case_ExprBinary(MJExprBinary exprBinary) {
+            return null;
+        }
+
+        @Override
+        public Object case_ExtendsClass(MJExtendsClass extendsClass) {
+            return null;
+        }
+
+        @Override
+        public Object case_TypeInt(MJTypeInt typeInt) {
+            return null;
+        }
+
+        @Override
+        public Object case_Less(MJLess less) {
+            return null;
+        }
+
+        @Override
+        public Object case_StmtAssign(MJStmtAssign stmtAssign) {
+            return null;
+        }
+
+        @Override
+        public Object case_NewIntArray(MJNewIntArray newIntArray) {
+            return null;
+        }
+
+        @Override
+        public Object case_Block(MJBlock block) {
+            return null;
+        }
+
+        @Override
+        public Object case_Program(MJProgram program) {
+            return null;
+        }
+
+        @Override
+        public Object case_Equals(MJEquals equals) {
+            return null;
         }
     }
 }
