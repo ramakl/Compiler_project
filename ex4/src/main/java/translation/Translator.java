@@ -99,7 +99,7 @@ public class Translator extends Element.DefaultVisitor{
 
 		@Override
 		public Object case_Plus(MJPlus plus) {
-			return null;
+			return Add();
 		}
 
 		@Override
@@ -119,7 +119,8 @@ public class Translator extends Element.DefaultVisitor{
 
 		@Override
 		public Object case_And(MJAnd and) {
-			return null;
+
+			return And();
 		}
 
 		@Override
@@ -129,7 +130,7 @@ public class Translator extends Element.DefaultVisitor{
 
 		@Override
 		public Object case_Times(MJTimes times) {
-			return null;
+			return Mul();
 		}
 
 		@Override
@@ -155,6 +156,9 @@ public class Translator extends Element.DefaultVisitor{
 
 		@Override
 		public Object case_StmtAssign(MJStmtAssign stmtAssign) {
+			MJExpr left =stmtAssign.getLeft();
+			MJExpr right=stmtAssign.getRight();
+
 			return null;
 		}
 
@@ -175,7 +179,7 @@ public class Translator extends Element.DefaultVisitor{
 
 		@Override
 		public Object case_Div(MJDiv div) {
-			return null;
+			return Sdiv();
 		}
 
 		@Override
@@ -195,7 +199,23 @@ public class Translator extends Element.DefaultVisitor{
 
 		@Override
 		public Object case_ExprBinary(MJExprBinary exprBinary) {
-			return null;
+			MJExpr left=exprBinary.getLeft();
+			Object l=left.match(new StmtMatcher());
+			MJExpr right=exprBinary.getRight();
+			Object r=right.match(new StmtMatcher());
+			MJOperator op= exprBinary.getOperator();
+			Object ad=op.match(new StmtMatcher());
+			TemporaryVar x=TemporaryVar(l.toString());
+
+			TemporaryVar y=TemporaryVar(r.toString());
+
+			TemporaryVar R=TemporaryVar(l.toString());
+
+			BinaryOperation(R,VarRef(x),(Operator) ad,VarRef(y));
+
+
+
+			return ConstInt(0);
 		}
 
 		@Override
@@ -210,7 +230,7 @@ public class Translator extends Element.DefaultVisitor{
 
 		@Override
 		public Object case_Minus(MJMinus minus) {
-			return null;
+			return Sub();
 		}
 
 		@Override
@@ -227,7 +247,7 @@ public class Translator extends Element.DefaultVisitor{
 		public Object case_StmtPrint(MJStmtPrint stmtPrint) {
 
 			MJExpr ex=  stmtPrint.getPrinted();
-		  Object u=ex.match(new StmtMatcher());
+		    Object u=ex.match(new StmtMatcher());
 
 			Print(ConstInt(Integer.parseInt(u.toString())));
 			return ConstInt(0);
