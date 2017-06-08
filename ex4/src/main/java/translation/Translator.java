@@ -105,6 +105,11 @@ public class Translator extends Element.DefaultVisitor{
      //stm-while
 		@Override
 		public Object case_StmtWhile(MJStmtWhile stmtWhile) {
+			MJExpr condition = stmtWhile.getCondition();
+			MJStatement loopBody = stmtWhile.getLoopBody();
+			loopBody.match(new StmtMatcher()); //looping through the body
+			//how to get the TrueLabel and FalseLabel?
+			//use Branch and Jump statement together
 			return null;
 		}
 
@@ -178,12 +183,12 @@ public class Translator extends Element.DefaultVisitor{
 
 		@Override
 		public Object case_TypeInt(MJTypeInt typeInt) {
-			return null;
+			return TypeInt();
 		}
 
 		@Override
 		public Object case_Equals(MJEquals equals) {
-			return null;
+			return Eq();
 		}
 
 		@Override
@@ -203,7 +208,13 @@ public class Translator extends Element.DefaultVisitor{
         //Block
 		@Override
 		public Object case_Block(MJBlock block) {
-			return null;
+			InstructionList i = null;
+			for(MJStatement statement : block)
+			{
+				i.add((Instruction)statement);
+			}
+			return BasicBlock(i);
+
 		}
 
 		@Override
@@ -240,12 +251,13 @@ public class Translator extends Element.DefaultVisitor{
 
 			return ReturnExpr(ConstInt(Integer.parseInt(u.toString())));
 			//return null;
+			//we cannot use Integer.parseInt if there is, for example return 2.0;
 		}
         //stm-expr
 		@Override
 		public Object case_StmtExpr(MJStmtExpr stmtExpr) {
 			MJExpr ex=stmtExpr.getExpr();
-			return null;
+			return ex.match(new StmtMatcher());
 		}
 
 		@Override
@@ -309,10 +321,12 @@ public class Translator extends Element.DefaultVisitor{
 			MJExpr co =stmtIf.getCondition();
 			MJStatement t =stmtIf.getIfTrue();
 			MJStatement f =stmtIf.getIfFalse();
-
+			BasicBlock trueLabel = (BasicBlock) t;
+			BasicBlock falseLabel = (BasicBlock) f;
+			Operand o = (Operand) co;
 			Object coo=co.match(new StmtMatcher());
 			Object tt=t.match(new StmtMatcher());
-			
+
  			Object ff=f.match(new StmtMatcher());
 			TemporaryVar x=TemporaryVar(coo.toString());
 			/*BasicBlock block1 = BasicBlock(
@@ -343,7 +357,7 @@ public class Translator extends Element.DefaultVisitor{
 
 
 
-			return null;
+			return Branch(o, trueLabel, falseLabel);
 		}
 
 		@Override
@@ -363,7 +377,7 @@ public class Translator extends Element.DefaultVisitor{
 
 		@Override
 		public Object case_TypeBool(MJTypeBool typeBool) {
-			return null;
+			return TypeBool();
 		}
 
 		@Override
