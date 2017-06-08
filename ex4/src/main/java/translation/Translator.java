@@ -306,6 +306,43 @@ public class Translator extends Element.DefaultVisitor{
         //stm-if
 		@Override
 		public Object case_StmtIf(MJStmtIf stmtIf) {
+			MJExpr co =stmtIf.getCondition();
+			MJStatement t =stmtIf.getIfTrue();
+			MJStatement f =stmtIf.getIfFalse();
+
+			Object coo=co.match(new StmtMatcher());
+			Object tt=t.match(new StmtMatcher());
+			
+ 			Object ff=f.match(new StmtMatcher());
+			TemporaryVar x=TemporaryVar(coo.toString());
+			/*BasicBlock block1 = BasicBlock(
+					//Load(a1, VarRef(x))
+			);
+			block1.setName("b1");
+			BasicBlock block2 = BasicBlock(
+					//Load(a2, VarRef(y))
+			);
+			block2.setName("b2");
+			BasicBlock block3 = BasicBlock(
+					//PhiNode(a, TypeInt(), PhiNodeChoiceList(
+					//		PhiNodeChoice(block1, Ast.VarRef(a1)),
+						//	PhiNodeChoice(block2, Ast.VarRef(a2))
+					//)
+					);
+			block3.setName("b3");
+			block1.add(Jump(block3));
+			block2.add(Jump(block3));
+			BasicBlockList blocks = BasicBlockList(
+					block1, block2, block3
+			);
+
+		*/
+
+			//Branch(VarRef(x), tt, ff);
+
+
+
+
 			return null;
 		}
 
