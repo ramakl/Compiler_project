@@ -126,6 +126,16 @@ public class Translator extends Element.DefaultVisitor{
         //ExprUnary
 		@Override
 		public Object case_ExprUnary(MJExprUnary exprUnary) {
+			MJExpr ex= exprUnary.getExpr();
+
+			MJUnaryOperator  o=exprUnary.getUnaryOperator();
+			Object e=ex.match(new StmtMatcher());
+			TemporaryVar x=TemporaryVar(e.toString());
+			Object ad=o.match(new StmtMatcher());
+			if(ad instanceof Sub){
+				//Sub(VarRef(x));???? how we can use sub instead binary operation
+			}
+
 			return null;
 		}
 
