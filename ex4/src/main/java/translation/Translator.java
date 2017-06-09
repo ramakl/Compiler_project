@@ -321,13 +321,15 @@ public class Translator extends Element.DefaultVisitor{
 			MJExpr co =stmtIf.getCondition();
 			MJStatement t =stmtIf.getIfTrue();
 			MJStatement f =stmtIf.getIfFalse();
-			BasicBlock trueLabel = (BasicBlock) t;
-			BasicBlock falseLabel = (BasicBlock) f;
+			//BasicBlock trueLabel = (BasicBlock) t;
+			//BasicBlock falseLabel = (BasicBlock) f;
 			Operand o = (Operand) co;
 			Object coo=co.match(new StmtMatcher());
 			Object tt=t.match(new StmtMatcher());
 
  			Object ff=f.match(new StmtMatcher());
+			BasicBlock trueLabel = (BasicBlock) tt;
+			BasicBlock falseLabel = (BasicBlock) ff;
 			TemporaryVar x=TemporaryVar(coo.toString());
 			/*BasicBlock block1 = BasicBlock(
 					//Load(a1, VarRef(x))
@@ -357,7 +359,7 @@ public class Translator extends Element.DefaultVisitor{
 
 
 
-			return Branch(o, trueLabel, falseLabel);
+			return Branch(VarRef(x), trueLabel, falseLabel);
 		}
 
 		@Override
