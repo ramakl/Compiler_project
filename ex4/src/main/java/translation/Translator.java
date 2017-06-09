@@ -60,15 +60,19 @@ public class Translator extends Element.DefaultVisitor{
 
 
         this.BKL = entry;
-
-        BKL.add(ReturnExpr(ConstInt(0)));
-        prog.accept(this);
-        //For-loop to read each stmt of main class -> main body
-        for (MJStatement stmt : javaProg.getMainClass().getMainBody()) {
-            stmt.match(new StmtMatcher());
+		for (MJStatement stmt : javaProg.getMainClass().getMainBody()) {
+			BKL.add((Instruction)stmt.match(new StmtMatcher()));
 
 
 		}
+        BKL.add(ReturnExpr(ConstInt(0)));
+        prog.accept(this);
+        //For-loop to read each stmt of main class -> main body
+        //for (MJStatement stmt : javaProg.getMainClass().getMainBody()) {
+         //   stmt.match(new StmtMatcher());
+
+
+		//}
 
 		return prog;
     }
@@ -281,8 +285,9 @@ public class Translator extends Element.DefaultVisitor{
 			MJExpr ex=  stmtPrint.getPrinted();
 		    Object u=ex.match(new StmtMatcher());
 
-			 Print(ConstInt(Integer.parseInt(u.toString())));
-			return ReturnExpr(ConstInt(0));
+			return Print(ConstInt(Integer.parseInt(u.toString())));
+
+			// ReturnExpr(ConstInt(0));
 			//return  null;
 		}
 
@@ -357,7 +362,7 @@ public class Translator extends Element.DefaultVisitor{
 			//Branch(VarRef(x), tt, ff);
 
 
-
+			//Branch(o, trueLabel, falseLabel); what is more crrect?
 
 			return Branch(VarRef(x), trueLabel, falseLabel);
 		}
