@@ -240,11 +240,12 @@ public class Translator extends Element.DefaultVisitor{
 
 			TemporaryVar R=TemporaryVar(l.toString());
 
-			BinaryOperation(R,VarRef(x),(Operator) ad,VarRef(y));
 
 
 
-			return ReturnExpr(ConstInt(0));
+			BKL.add(BinaryOperation(R,VarRef(x),(Operator) ad,VarRef(y)));
+			//return BinaryOperation(R,VarRef(x),(Operator) ad,VarRef(y));
+			return VarRef(R);
 		}
 
         //stm-return
