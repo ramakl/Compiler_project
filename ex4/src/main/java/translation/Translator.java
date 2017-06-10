@@ -243,7 +243,7 @@ public class Translator extends Element.DefaultVisitor{
 
 
 
-			BKL.add(BinaryOperation(R,VarRef(x),(Operator) ad,VarRef(y)));
+			BinaryOperation(R,VarRef(x),(Operator) ad,VarRef(y));
 			//return BinaryOperation(R,VarRef(x),(Operator) ad,VarRef(y));
 			return VarRef(R);
 		}
@@ -286,7 +286,7 @@ public class Translator extends Element.DefaultVisitor{
 			MJExpr ex=  stmtPrint.getPrinted();
 		    Object u=ex.match(new StmtMatcher());
 
-			return Print(ConstInt(Integer.parseInt(u.toString())));
+			return Print((Operand)(u));
 
 			// ReturnExpr(ConstInt(0));
 			//return  null;
