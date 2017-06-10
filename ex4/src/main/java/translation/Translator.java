@@ -177,7 +177,8 @@ public class Translator extends Element.DefaultVisitor{
 		@Override
 		public Object case_StmtAssign(MJStmtAssign stmtAssign) {
 			MJExpr left =stmtAssign.getLeft();
-			Object l=left.match(new StmtMatcher());
+			//Object l=left.match(new StmtMatcher());
+			Operand l=left.match(new StmtMatcher());
 			MJExpr right=stmtAssign.getRight();
 			Object r=right.match(new StmtMatcher());
 			//Alloc();
@@ -271,8 +272,8 @@ public class Translator extends Element.DefaultVisitor{
 		}
 
 		@Override
-		public Object case_ExprNull(MJExprNull exprNull) {
-			return null;
+		public Operand case_ExprNull(MJExprNull exprNull) {
+			return Nullpointer();
 		}
 
 		@Override
@@ -402,6 +403,64 @@ public class Translator extends Element.DefaultVisitor{
 		public Object case_MethodDeclList(MJMethodDeclList methodDeclList) {
 			return null;
 		}
+	}
+	public Operand get_R(MJExpr exp) {
+
+		class ExprrightGenrtMatcher implements MJExpr.Matcher<Operand>{
+			@Override
+			public Operand case_ExprBinary(MJExprBinary exprBinary) {
+				Operand right = get_R(exprBinary.getLeft());
+				Operand left = get_L(exprBinary.getRight());
+				Operator operation = exprBinary.getOperator().match(new MJOperator.Matcher<Operator>() {
+					@Override
+					public Operator case_Div(MJDiv div) {
+						return Sdiv();
+					}
+
+					@Override
+					public Operator case_And(MJAnd and) {
+						return And();
+					}
+
+					@Override
+					public Operator case_Equals(MJEquals equals) {
+						return Eq();
+					}
+
+					@Override
+					public Operator case_Less(MJLess less) {
+						return Slt();
+					}
+
+					@Override
+					public Operator case_Minus(MJMinus minus) {
+						return Sub();
+					}
+
+					@Override
+					public Operator case_Plus(MJPlus plus) {
+						return Add();
+					}
+
+					@Override
+					public Operator case_Times(MJTimes times) {
+						return Mul();
+					}
+				});
+
+				TemporaryVar result = TemporaryVar(
+						"BOpResultLine" + exprBinary.getSourcePosition().getLine());
+
+				addToAssign(BinaryOperation(result, left, operation, right));
+
+				return VarRef(result);
+			}
+		}
+
+	}
+	//    //Add to the Assign Block
+	void addToAssign(Instruction i){
+		BKL.add(i);
 	}
 }
 
@@ -671,10 +730,7 @@ public class Translator extends Element.DefaultVisitor{
 //        StructField(type.copy(), name); //copy instead of ref?
 //    }
 //
-//    //Add to the Assign Block
-//    void addToAssign(Instruction i){
-//        BKL.add(i);
-//    }
+
 //
 //    //All the types to be added together just like addToAssign?
 //}
