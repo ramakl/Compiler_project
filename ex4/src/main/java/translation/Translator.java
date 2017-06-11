@@ -3,6 +3,7 @@ package translation;
 import analysis.TypeContext;
 //import com.sun.org.apache.xpath.internal.operations.Div;
 
+import com.sun.javafx.fxml.expression.Expression;
 import minijava.ast.*;
 import minillvm.ast.*;
 import org.omg.CORBA._IDLTypeStub;
@@ -177,8 +178,8 @@ public class Translator extends Element.DefaultVisitor{
 		@Override
 		public Object case_StmtAssign(MJStmtAssign stmtAssign) {
 			MJExpr left =stmtAssign.getLeft();
-			//Object l=left.match(new StmtMatcher());
-			Operand l=left.match(new StmtMatcher());
+			Object l=left.match(new StmtMatcher());
+			//Operand l=left.match(new StmtMatcher());
 			MJExpr right=stmtAssign.getRight();
 			Object r=right.match(new StmtMatcher());
 			//Alloc();
@@ -239,14 +240,22 @@ public class Translator extends Element.DefaultVisitor{
 
 			TemporaryVar y=TemporaryVar(r.toString());
 
-			TemporaryVar R=TemporaryVar(l.toString());
-
-
-
-
-			BinaryOperation(R,VarRef(x),(Operator) ad,VarRef(y));
+			//TemporaryVar R=TemporaryVar(l.toString());
+			//BinaryOperation(R,VarRef(x),(Operator) ad,VarRef(y));
 			//return BinaryOperation(R,VarRef(x),(Operator) ad,VarRef(y));
-			return VarRef(R);
+
+			TemporaryVar result = TemporaryVar(
+					"BOpResultLine" + exprBinary.getSourcePosition().getLine());
+			//Parameter(TypeInt(), x.toString());
+			Parameter xx= Parameter(TypeInt(), x.toString());
+			Parameter yy= Parameter(TypeInt(), y.toString());
+			ParameterList().add(xx);
+			ParameterList().add(yy);
+
+
+			addToAssign(BinaryOperation(result,VarRef(x),(Operator) ad,VarRef(y)));
+			return VarRef(result);
+			//return VarRef(R);
 		}
 
         //stm-return
@@ -286,9 +295,15 @@ public class Translator extends Element.DefaultVisitor{
 
 			MJExpr ex=  stmtPrint.getPrinted();
 		    Object u=ex.match(new StmtMatcher());
-
-			return Print((Operand)(u));
-
+            if(u instanceof Operand){
+				return Print((Operand)(u));
+			}
+			else{
+				//TemporaryVar g=TemporaryVar(u.toString());
+			//	Parameter xx= Parameter(TypeInt(), u.toString());
+			//ParameterList().add(xx);
+			return Print(ConstInt(Integer.parseInt(u.toString())));
+			}
 			// ReturnExpr(ConstInt(0));
 			//return  null;
 		}
@@ -404,7 +419,7 @@ public class Translator extends Element.DefaultVisitor{
 			return null;
 		}
 	}
-	public Operand get_R(MJExpr exp) {
+	/*public Operand get_R(MJExpr exp) {
 
 		class ExprrightGenrtMatcher implements MJExpr.Matcher<Operand>{
 			@Override
@@ -456,8 +471,9 @@ public class Translator extends Element.DefaultVisitor{
 				return VarRef(result);
 			}
 		}
+    }*/
 
-	}
+
 	//    //Add to the Assign Block
 	void addToAssign(Instruction i){
 		BKL.add(i);
