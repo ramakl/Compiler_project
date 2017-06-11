@@ -4,6 +4,7 @@ import analysis.TypeContext;
 import analysis.TypeInformation;
 //import com.sun.org.apache.xpath.internal.operations.Div;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import minijava.ast.*;
 import minillvm.ast.*;
 import org.omg.CORBA._IDLTypeStub;
@@ -104,8 +105,31 @@ public class Translator extends Element.DefaultVisitor{
 		@Override
 		public Object case_VarDecl(MJVarDecl varDecl) {
             MJType type = varDecl.getType();
-            //To Do
-            return ConstInt(0);
+            Type llvmtype = type.match(new MJType.Matcher<Type>() {
+                @Override
+                public Type case_TypeBool(MJTypeBool typeBool) {
+                    return TypeBool();
+                }
+
+                @Override
+                public Type case_TypeIntArray(MJTypeIntArray typeIntArray) {
+                    return TypeArray(TypeInt(), typeIntArray.size());
+                }
+
+                @Override
+                public Type case_TypeClass(MJTypeClass typeClass) {
+                    return null;
+                }
+
+                @Override
+                public Type case_TypeInt(MJTypeInt typeInt) {
+                    return TypeInt();
+                }
+            });
+            TemporaryVar x = TemporaryVar("autoVar$"+varDecl.getName());
+            //addToAssign(Alloca(x,llvmtype));
+            //return ConstInt(0);
+            return Alloca(x,llvmtype);
 
 		}
 
@@ -183,15 +207,15 @@ public class Translator extends Element.DefaultVisitor{
         //stm-assign
 		@Override
 		public Object case_StmtAssign(MJStmtAssign stmtAssign) {
-			//MJExpr left =stmtAssign.getLeft();
-			//Object l=left.match(new StmtMatcher());
-			//MJExpr right=stmtAssign.getRight();
-			//Object r=right.match(new StmtMatcher());
+			MJExpr left =stmtAssign.getLeft();
+			Object l=left.match(new StmtMatcher());
+			MJExpr right=stmtAssign.getRight();
+			Object r=right.match(new StmtMatcher());
 			//Alloc();
 			//Alloca();
-            Operand leftOp = get_L(stmtAssign.getLeft());
-            Operand rightOp = get_R(stmtAssign.getRight());
-            addToAssign(Store(leftOp,rightOp));
+            //Operand leftOp = get_L(stmtAssign.getLeft());
+            //Operand rightOp = get_R(stmtAssign.getRight());
+            //addToAssign(Store());
 
 			return ConstInt(0);
 		}
@@ -296,11 +320,14 @@ public class Translator extends Element.DefaultVisitor{
 
 			MJExpr ex=  stmtPrint.getPrinted();
 		    Object u=ex.match(new StmtMatcher());
-
 			return Print(ConstInt(Integer.parseInt(u.toString())));
 
 			// ReturnExpr(ConstInt(0));
-			//return  null;
+//            Operand printed = get_R(stmtPrint.getPrinted());
+//            Print print = Print(printed);
+//            addToAssign(print);
+//			return  ConstInt(0);
+
 		}
 
 		@Override
