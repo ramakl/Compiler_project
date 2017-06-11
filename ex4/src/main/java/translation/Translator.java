@@ -212,16 +212,11 @@ public class Translator extends Element.DefaultVisitor{
 		@Override
 		public Object case_StmtAssign(MJStmtAssign stmtAssign) {
 			MJExpr left =stmtAssign.getLeft();
-			Object l=left.match(new StmtMatcher());
-
-			//Operand l=left.match(new StmtMatcher());
+			Operand leftOp = get_L(left);
 
 			MJExpr right=stmtAssign.getRight();
-			Object r=right.match(new StmtMatcher());
-			//Alloc();
-			//Alloca();
-            //Operand leftOp = get_L(stmtAssign.getLeft());
-            //Operand rightOp = get_R(stmtAssign.getRight());
+            Operand rightOp = get_R(right);
+
             //addToAssign(Store());
 
 			return ConstInt(0);
@@ -466,67 +461,31 @@ public class Translator extends Element.DefaultVisitor{
 		}
 	}
 
-	/*public Operand get_R(MJExpr exp) {
+	public Operand get_R(MJExpr exp) {
 
-		class ExprrightGenrtMatcher implements MJExpr.Matcher<Operand>{
->>>>>>> b515917464f4d436959f2443b9e5b67628036074
-			@Override
-			public Operand case_ExprBinary(MJExprBinary exprBinary) {
-				Operand right = get_R(exprBinary.getRight());
-				Operand left = get_L(exprBinary.getLeft());
-				Operator op = exprBinary.getOperator().match(new MJOperator.Matcher<Operator>() {
-					@Override
-					public Operator case_Div(MJDiv div) {
-						return Sdiv();
-					}
-
-					@Override
-					public Operator case_And(MJAnd and) {
-						return And();
-					}
-
-					@Override
-					public Operator case_Equals(MJEquals equals) {
-						return Eq();
-					}
-
-					@Override
-					public Operator case_Less(MJLess less) {
-						return Slt();
-					}
-
-					@Override
-					public Operator case_Minus(MJMinus minus) {
-						return Sub();
-					}
-
-					@Override
-					public Operator case_Plus(MJPlus plus) {
-						return Add();
-					}
-
-					@Override
-					public Operator case_Times(MJTimes times) {
-						return Mul();
-					}
-				});
-
-				TemporaryVar result = TemporaryVar(
-						"BOpResultLine" + exprBinary.getSourcePosition().getLine());
-
-				addToAssign(BinaryOperation(result, left, op, right));
-
-				return VarRef(result);
-			}
-<<<<<<< HEAD
+        Operand rightop = exp.match(new MJExpr.Matcher<Operand>() {
+            @Override
+            public Operand case_FieldAccess(MJFieldAccess fieldAccess) {
+                return null;
+            }
 
             @Override
-            public Operand case_ArrayLookup(MJArrayLookup arrayLookup) {
+            public Operand case_MethodCall(MJMethodCall methodCall) {
+                return null;
+            }
+
+            @Override
+            public Operand case_NewObject(MJNewObject newObject) {
                 return null;
             }
 
             @Override
             public Operand case_ArrayLength(MJArrayLength arrayLength) {
+                return null;
+            }
+
+            @Override
+            public Operand case_ArrayLookup(MJArrayLookup arrayLookup) {
                 return null;
             }
 
@@ -541,32 +500,61 @@ public class Translator extends Element.DefaultVisitor{
             }
 
             @Override
+            public Operand case_ExprBinary(MJExprBinary exprBinary) {
+                Operand right = get_R(exprBinary.getRight());
+                Operand left = get_L(exprBinary.getLeft());
+                Operator op = exprBinary.getOperator().match(new MJOperator.Matcher<Operator>() {
+                     @Override
+                     public Operator case_Div(MJDiv div) {
+                         return Sdiv();
+                     }
+
+                     @Override
+                     public Operator case_And(MJAnd and) {
+                         return And();
+                     }
+
+                     @Override
+                     public Operator case_Equals(MJEquals equals) {
+                         return Eq();
+                     }
+
+                     @Override
+                     public Operator case_Less(MJLess less) {
+                         return Slt();
+                     }
+
+                     @Override
+                     public Operator case_Minus(MJMinus minus) {
+                         return Sub();
+                     }
+
+                     @Override
+                     public Operator case_Plus(MJPlus plus) {
+                         return Add();
+                     }
+
+                     @Override
+                     public Operator case_Times(MJTimes times) {
+                         return Mul();
+                     }
+                 });
+                TemporaryVar result = TemporaryVar(
+                        "BOpResultLine" + exprBinary.getSourcePosition().getLine());
+
+                addToAssign(BinaryOperation(result, left, op, right));
+
+				return VarRef(result);
+
+            }
+
+            @Override
             public Operand case_ExprThis(MJExprThis exprThis) {
                 return null;
             }
 
             @Override
-            public Operand case_ExprUnary(MJExprUnary exprUnary) {
-                return null;
-            }
-
-            @Override
-            public Operand case_FieldAccess(MJFieldAccess fieldAccess) {
-                return null;
-            }
-
-            @Override
-            public Operand case_MethodCall(MJMethodCall methodCall) {
-                return null;
-            }
-
-            @Override
             public Operand case_NewIntArray(MJNewIntArray newIntArray) {
-                return null;
-            }
-
-            @Override
-            public Operand case_NewObject(MJNewObject newObject) {
                 return null;
             }
 
@@ -579,10 +567,18 @@ public class Translator extends Element.DefaultVisitor{
             public Operand case_VarUse(MJVarUse varUse) {
                 return null;
             }
-        }
-		return exp.match(new ExprRightGenrtMatcher());
 
-	}
+            @Override
+            public Operand case_ExprUnary(MJExprUnary exprUnary) {
+                return null;
+            }
+        });
+        return rightop;
+        }
+
+
+
+
 	public Operand get_L(MJExpr exp) {
         //Left side of an Assign could be one of the following cases, So we should define them first
         Map<MJNewObject, MJClassDecl> objCls = new HashMap<MJNewObject,MJClassDecl>();
@@ -590,22 +586,78 @@ public class Translator extends Element.DefaultVisitor{
         Map<MJFieldAccess, MJVarDecl> fieldAccVarDecl = new HashMap<MJFieldAccess,MJVarDecl>();
         Map<MJMethodCall, MJMethodDecl> methodCallsDecl = new HashMap<MJMethodCall,MJMethodDecl>();
         //return 212 doesn't mean anything
-        if (exp instanceof MJVarUse) {
-            MJVarUse var = (MJVarUse) exp;
-            MJVarDecl varDecl = varUseDecl.get(var);
-            if (tempVars.containsKey(varDecl)) {
-                TemporaryVar x = tempVars.get(varDecl);
-                return VarRef(x);
+        Operand leftop = exp.match(new MJExpr.Matcher<Operand>() {
+            @Override
+            public Operand case_FieldAccess(MJFieldAccess fieldAccess) {
+                return null;
             }
-        }
 
-        return ConstInt(212);
+            @Override
+            public Operand case_MethodCall(MJMethodCall methodCall) {
+                return null;
+            }
+
+            @Override
+            public Operand case_NewObject(MJNewObject newObject) {
+                return null;
+            }
+
+            @Override
+            public Operand case_ArrayLength(MJArrayLength arrayLength) {
+                return null;
+            }
+
+            @Override
+            public Operand case_ArrayLookup(MJArrayLookup arrayLookup) {
+                return null;
+            }
+
+            @Override
+            public Operand case_BoolConst(MJBoolConst boolConst) {
+                return null;
+            }
+
+            @Override
+            public Operand case_ExprNull(MJExprNull exprNull) {
+                return null;
+            }
+
+            @Override
+            public Operand case_ExprBinary(MJExprBinary exprBinary) {
+                return null;
+            }
+
+            @Override
+            public Operand case_ExprThis(MJExprThis exprThis) {
+                return null;
+            }
+
+            @Override
+            public Operand case_NewIntArray(MJNewIntArray newIntArray) {
+                return null;
+            }
+
+            @Override
+            public Operand case_Number(MJNumber number) {
+                return null;
+            }
+
+            @Override
+            public Operand case_VarUse(MJVarUse varUse) {
+                return null;
+            }
+
+            @Override
+            public Operand case_ExprUnary(MJExprUnary exprUnary) {
+                return null;
+            }
+        });
+
+        return leftop;
 
     }//To do the rest of the cases
 
-=======
-		}
-    }*/
+
 
 
 

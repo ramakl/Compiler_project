@@ -31,6 +31,14 @@ public class SimpleTests {
 				"System.out.println(x);"
 		);
 	}
+	@Test
+	public void test11() throws Exception {
+		testStatements(
+				"int x;",
+				"x = 42;",
+				"System.out.println(x);"
+		);
+	}
 
 
 	@Test
