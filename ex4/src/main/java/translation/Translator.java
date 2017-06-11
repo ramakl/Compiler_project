@@ -130,7 +130,7 @@ public class Translator extends Element.DefaultVisitor{
                     return TypeInt();
                 }
             });
-            TemporaryVar x = TemporaryVar("autoVar$"+varDecl.getName());
+            TemporaryVar x = TemporaryVar(varDecl.getName());
             //addToAssign(Alloca(x,llvmtype));
             //return ConstInt(0);
             return Alloca(x,llvmtype);
@@ -217,9 +217,9 @@ public class Translator extends Element.DefaultVisitor{
 			MJExpr right=stmtAssign.getRight();
             Operand rightOp = get_R(right);
 
-            //addToAssign(Store());
+            //addToAssign(Store(leftOp,rightOp));
 
-			return ConstInt(0);
+			return Store(leftOp,rightOp);
 		}
 
 		@Override
@@ -491,12 +491,17 @@ public class Translator extends Element.DefaultVisitor{
 
             @Override
             public Operand case_BoolConst(MJBoolConst boolConst) {
-                return null;
+                TemporaryVar x = TemporaryVar(boolConst.toString());
+                addToAssign(Alloca(x, TypeBool() ));
+                return ConstInt(0);
+
             }
 
             @Override
             public Operand case_ExprNull(MJExprNull exprNull) {
-                return null;
+                TemporaryVar x = TemporaryVar(exprNull.toString());
+                addToAssign(Alloca(x,TypeNullpointer()));
+                return ConstInt(0);
             }
 
             @Override
@@ -560,7 +565,12 @@ public class Translator extends Element.DefaultVisitor{
 
             @Override
             public Operand case_Number(MJNumber number) {
-                return null;
+                int val = number.getIntValue();
+                String numberAsString = Integer.toString(val);
+                TemporaryVar x = TemporaryVar(numberAsString);
+                addToAssign(Alloca(x, TypeInt() ));
+                return VarRef(x);
+
             }
 
             @Override
@@ -644,7 +654,9 @@ public class Translator extends Element.DefaultVisitor{
 
             @Override
             public Operand case_VarUse(MJVarUse varUse) {
-                return null;
+                TemporaryVar varU = TemporaryVar(varUse.getVarName());
+                //addToAssign(Load(varU,VarRef(varU)));
+                return VarRef(varU);
             }
 
             @Override
