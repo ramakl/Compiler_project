@@ -1,6 +1,7 @@
 package translation;
 
 import analysis.TypeContext;
+import analysis.TypeInformation;
 //import com.sun.org.apache.xpath.internal.operations.Div;
 
 import minijava.ast.*;
@@ -12,6 +13,8 @@ import static minillvm.ast.Ast.GetElementPtr;
 import static minillvm.ast.Ast.TypePointer;
 
 import java.security.PublicKey;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.concurrent.locks.Condition;
 
 //basicly translation overview, you get minijava program and our translator have to translate it to LLVM
@@ -33,6 +36,7 @@ public class Translator extends Element.DefaultVisitor{
     public BasicBlock getOpenBlock() {
         return BKL;
     }
+    Map< MJVarDecl, TemporaryVar > tempVars = new HashMap< MJVarDecl, TemporaryVar >();;
 
     public Translator(MJProgram javaProg) {
         this.javaProg = javaProg;
@@ -99,7 +103,10 @@ public class Translator extends Element.DefaultVisitor{
 
 		@Override
 		public Object case_VarDecl(MJVarDecl varDecl) {
-			return null;
+            MJType type = varDecl.getType();
+            //To Do
+            return ConstInt(0);
+
 		}
 
 		@Override
@@ -176,14 +183,17 @@ public class Translator extends Element.DefaultVisitor{
         //stm-assign
 		@Override
 		public Object case_StmtAssign(MJStmtAssign stmtAssign) {
-			MJExpr left =stmtAssign.getLeft();
+			//MJExpr left =stmtAssign.getLeft();
 			//Object l=left.match(new StmtMatcher());
-			Operand l=left.match(new StmtMatcher());
-			MJExpr right=stmtAssign.getRight();
-			Object r=right.match(new StmtMatcher());
+			//MJExpr right=stmtAssign.getRight();
+			//Object r=right.match(new StmtMatcher());
 			//Alloc();
 			//Alloca();
-			return null;
+            Operand leftOp = get_L(stmtAssign.getLeft());
+            Operand rightOp = get_R(stmtAssign.getRight());
+            addToAssign(Store(leftOp,rightOp));
+
+			return ConstInt(0);
 		}
 
 		@Override
@@ -405,13 +415,13 @@ public class Translator extends Element.DefaultVisitor{
 		}
 	}
 	public Operand get_R(MJExpr exp) {
-
-		class ExprrightGenrtMatcher implements MJExpr.Matcher<Operand>{
+        //Right side of an Assign could be one of the following cases:
+		class ExprRightGenrtMatcher implements MJExpr.Matcher<Operand>{
 			@Override
 			public Operand case_ExprBinary(MJExprBinary exprBinary) {
-				Operand right = get_R(exprBinary.getLeft());
-				Operand left = get_L(exprBinary.getRight());
-				Operator operation = exprBinary.getOperator().match(new MJOperator.Matcher<Operator>() {
+				Operand right = get_R(exprBinary.getRight());
+				Operand left = get_L(exprBinary.getLeft());
+				Operator op = exprBinary.getOperator().match(new MJOperator.Matcher<Operator>() {
 					@Override
 					public Operator case_Div(MJDiv div) {
 						return Sdiv();
@@ -451,13 +461,94 @@ public class Translator extends Element.DefaultVisitor{
 				TemporaryVar result = TemporaryVar(
 						"BOpResultLine" + exprBinary.getSourcePosition().getLine());
 
-				addToAssign(BinaryOperation(result, left, operation, right));
+				addToAssign(BinaryOperation(result, left, op, right));
 
 				return VarRef(result);
 			}
-		}
+
+            @Override
+            public Operand case_ArrayLookup(MJArrayLookup arrayLookup) {
+                return null;
+            }
+
+            @Override
+            public Operand case_ArrayLength(MJArrayLength arrayLength) {
+                return null;
+            }
+
+            @Override
+            public Operand case_BoolConst(MJBoolConst boolConst) {
+                return null;
+            }
+
+            @Override
+            public Operand case_ExprNull(MJExprNull exprNull) {
+                return null;
+            }
+
+            @Override
+            public Operand case_ExprThis(MJExprThis exprThis) {
+                return null;
+            }
+
+            @Override
+            public Operand case_ExprUnary(MJExprUnary exprUnary) {
+                return null;
+            }
+
+            @Override
+            public Operand case_FieldAccess(MJFieldAccess fieldAccess) {
+                return null;
+            }
+
+            @Override
+            public Operand case_MethodCall(MJMethodCall methodCall) {
+                return null;
+            }
+
+            @Override
+            public Operand case_NewIntArray(MJNewIntArray newIntArray) {
+                return null;
+            }
+
+            @Override
+            public Operand case_NewObject(MJNewObject newObject) {
+                return null;
+            }
+
+            @Override
+            public Operand case_Number(MJNumber number) {
+                return null;
+            }
+
+            @Override
+            public Operand case_VarUse(MJVarUse varUse) {
+                return null;
+            }
+        }
+		return exp.match(new ExprRightGenrtMatcher());
 
 	}
+	public Operand get_L(MJExpr exp) {
+        //Left side of an Assign could be one of the following cases, So we should define them first
+        Map<MJNewObject, MJClassDecl> objCls = new HashMap<MJNewObject,MJClassDecl>();
+        Map<MJVarUse, MJVarDecl> varUseDecl = new HashMap<MJVarUse,MJVarDecl>();
+        Map<MJFieldAccess, MJVarDecl> fieldAccVarDecl = new HashMap<MJFieldAccess,MJVarDecl>();
+        Map<MJMethodCall, MJMethodDecl> methodCallsDecl = new HashMap<MJMethodCall,MJMethodDecl>();
+        //return 212 doesn't mean anything
+        if (exp instanceof MJVarUse) {
+            MJVarUse var = (MJVarUse) exp;
+            MJVarDecl varDecl = varUseDecl.get(var);
+            if (tempVars.containsKey(varDecl)) {
+                TemporaryVar x = tempVars.get(varDecl);
+                return VarRef(x);
+            }
+        }
+
+        return ConstInt(212);
+
+    }//To do the rest of the cases
+
 	//    //Add to the Assign Block
 	void addToAssign(Instruction i){
 		BKL.add(i);
