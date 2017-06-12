@@ -35,8 +35,8 @@ public class SimpleTests {
 	public void test11() throws Exception {
 		testStatements(
 				"int x;",
-				"x = 42;",
-				"System.out.println(x);"
+				"x = 42;"
+
 		);
 	}
 
