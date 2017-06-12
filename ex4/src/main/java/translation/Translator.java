@@ -70,7 +70,8 @@ public class Translator extends Element.DefaultVisitor{
 
         this.BKL = entry;
 		for (MJStatement stmt : javaProg.getMainClass().getMainBody()) {
-			BKL.add((Instruction)stmt.match(new StmtMatcher()));
+            Object match = stmt.match(new StmtMatcher());
+            BKL.add((Instruction) match);
 
 
 		}
@@ -201,7 +202,19 @@ public class Translator extends Element.DefaultVisitor{
         //VarUse
 		@Override
 		public Object case_VarUse(MJVarUse varUse) {
-			return null;
+		    VarRef v = null;
+            for(int i=BKL.size()-1; i>0;i--)
+            {
+                if(BKL.get(i) instanceof Store)
+                {
+                    Store s = (Store) BKL.get(i);
+                    if(s.getAddress().toString().contains(varUse.getVarName()) ) {
+                        v = (VarRef) s.getValue();
+                        break;
+                    }
+                }
+            }
+			return v;
 		}
 
 		@Override
@@ -327,6 +340,29 @@ public class Translator extends Element.DefaultVisitor{
         //stm-print
 		@Override
 		public Operand case_StmtPrint(MJStmtPrint stmtPrint) {
+
+
+			MJExpr ex=  stmtPrint.getPrinted();
+		    Object u=ex.match(new StmtMatcher());
+
+		    if(u instanceof Operand){
+				Print((Operand)(u));
+			}
+			else{
+				//TemporaryVar g=TemporaryVar(u.toString());
+			//	Parameter xx= Parameter(TypeInt(), u.toString());
+			//ParameterList().add(xx);
+            if(u != null)
+			    Print(ConstInt(Integer.parseInt(u.toString())));
+            else
+                return null;
+			}
+
+			// ReturnExpr(ConstInt(0));
+//            Operand printed = get_R(stmtPrint.getPrinted());
+//            Print print = Print(printed);
+//            addToAssign(print);
+//			return  ConstInt(0);
 
 
         return ConstInt(0);
@@ -632,7 +668,12 @@ public class Translator extends Element.DefaultVisitor{
 
             @Override
             public Operand case_Number(MJNumber number) {
-                return null;
+                int val = number.getIntValue();
+                String numberAsString = Integer.toString(val);
+                TemporaryVar x = TemporaryVar(numberAsString);
+                addToAssign(Alloca(x, TypeInt() ));
+                return VarRef(x);
+
             }
 
             @Override
