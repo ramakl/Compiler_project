@@ -72,10 +72,10 @@ public class Translator extends Element.DefaultVisitor{
         //blocks.add(entry);
 		for (MJStatement stmt : javaProg.getMainClass().getMainBody()) {
             //Object match = stmt.match(new StmtMatcher());
-            stmt.match(new StmtMatcher());
-            for (Instruction i: BKL){
-                entry.add(i);
-            }
+			//Object match = stmt.match(new StmtMatcher());
+
+			entry.add((Instruction) stmt.match(new StmtMatcher()));
+
 
 
 
@@ -396,10 +396,12 @@ public class Translator extends Element.DefaultVisitor{
 		    Object u=ex.match(new StmtMatcher());
 
 		    if(u instanceof Operand){
-                BKL.add((Instruction)Print((Operand) u));
+               // BKL.add((Instruction)Print((Operand) u));
+				return((Instruction)Print((Operand) u));
 			}
 			else if(u != null){
-                BKL.add((Instruction)Print(ConstInt(Integer.parseInt(u.toString()))));
+                //BKL.add((Instruction)Print(ConstInt(Integer.parseInt(u.toString()))));
+				return ((Instruction)Print(ConstInt(Integer.parseInt(u.toString()))));
             }
 				//TemporaryVar g=TemporaryVar(u.toString());
 			//	Parameter xx= Parameter(TypeInt(), u.toString());
@@ -416,7 +418,7 @@ public class Translator extends Element.DefaultVisitor{
 //			return  ConstInt(0);
 
 
-        return ConstInt(0);
+       // return ConstInt(0);
 		}
 
 		@Override
