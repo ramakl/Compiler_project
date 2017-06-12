@@ -73,8 +73,11 @@ public class Translator extends Element.DefaultVisitor{
 			BKL.add((Instruction)stmt.match(new StmtMatcher()));
 
 
+
 		}
+
         BKL.add(ReturnExpr(ConstInt(0)));
+		blocks.add(BKL);
         prog.accept(this);
         //For-loop to read each stmt of main class -> main body
         //for (MJStatement stmt : javaProg.getMainClass().getMainBody()) {
