@@ -729,6 +729,20 @@ public class Translator extends Element.DefaultVisitor{
             public Operand case_VarUse(MJVarUse varUse) {
                 TemporaryVar varU = TemporaryVar(varUse.getVarName());
                 //addToAssign();
+                //!-- Start Madhu
+                //We need to find the value of varUse variable and use "load" instruction to put the value
+                //in the temporary Variable
+                // i.e., Load(varU, <<varUse>>);
+                //Problem : Load accepts Operand as the second argument but varUse type is MJVarUse.
+                /*Operand o = null;
+                if(varUse.getParent() instanceof  MJStmtAssign)
+                {
+                    o.match(new MJStmtAssign.Matcher<Operand>(
+
+                    ));
+                    Load(varU, o);
+                }*/
+                //!-- End Madhu
                 return VarRef(varU);
             }
 
