@@ -73,9 +73,10 @@ public class Translator extends Element.DefaultVisitor{
 		for (MJStatement stmt : javaProg.getMainClass().getMainBody()) {
             //Object match = stmt.match(new StmtMatcher());
             stmt.match(new StmtMatcher());
-            for (Instruction i: BKL){
-                entry.add(i.copy());
+
             }
+        for (Instruction i: BKL){
+            entry.add(i.copy());
 
 
 		}
@@ -242,8 +243,8 @@ public class Translator extends Element.DefaultVisitor{
             Operand rightOp = get_R(right);
 
             //addToAssign(Store(leftOp.copy(),rightOp.copy()));
-
-			return Store(leftOp,rightOp);
+            BKL.add(Store(leftOp,rightOp));
+			return leftOp.copy();
 		}
 
 		@Override
