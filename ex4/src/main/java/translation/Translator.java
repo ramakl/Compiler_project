@@ -74,7 +74,7 @@ public class Translator extends Element.DefaultVisitor{
             //Object match = stmt.match(new StmtMatcher());
             stmt.match(new StmtMatcher());
             for (Instruction i: BKL){
-                entry.add(i);
+                entry.add(i.copy());
             }
 
 
@@ -143,7 +143,8 @@ public class Translator extends Element.DefaultVisitor{
             //blocks.add(BKL);
 
             //return ConstInt(0);
-            return Alloca(x,llvmtype);
+            BKL.add(Alloca(x,llvmtype));
+            return VarRef(x.copy());
 
 		}
 
