@@ -9,6 +9,7 @@ import com.sun.org.apache.xpath.internal.operations.Bool;
 
 //import com.sun.javafx.fxml.expression.Expression;
 
+import jdk.nashorn.internal.ir.Block;
 import minijava.ast.*;
 import minillvm.ast.*;
 import org.omg.CORBA._IDLTypeStub;
@@ -33,14 +34,14 @@ import java.util.concurrent.locks.Condition;
 
 
 public class Translator extends Element.DefaultVisitor{
-
+    public static BasicBlockList BKL = BasicBlockList();
     private final MJProgram javaProg;
     // @mahsa: We need to have a block to add serveral submethods to one basic block of a parent method
-    BasicBlock BKL = BasicBlock();
 
-    public BasicBlock getOpenBlock() {
-        return BKL;
-    }
+
+    //public BasicBlock getOpenBlock() {
+        //return BKL;
+    //}
     Map< MJVarDecl, TemporaryVar > tempVars = new HashMap< MJVarDecl, TemporaryVar >();;
 
     public Translator(MJProgram javaProg) {
@@ -56,26 +57,25 @@ public class Translator extends Element.DefaultVisitor{
         Prog prog = Prog(TypeStructList(), GlobalList(), ProcList());
 
         BasicBlockList blocks = BasicBlockList();
+        //BasicBlockList blocks = BKL;
         Proc mainProc = Proc("main", TypeInt(), ParameterList(), blocks);
         prog.getProcedures().add(mainProc);
-
 
         BasicBlock entry = BasicBlock(
                 //Print(ConstInt(42)),
                 //ReturnExpr(ConstInt(0))
+
         );
+
         entry.setName("entry");
-        blocks.add(entry);
-
-
-        this.BKL = entry;
+        //blocks.add(entry);
 		for (MJStatement stmt : javaProg.getMainClass().getMainBody()) {
-            Object match = stmt.match(new StmtMatcher());
-            BKL.add((Instruction) match);
-
+            //Object match = stmt.match(new StmtMatcher());
+            entry.add((Instruction) stmt.match(new StmtMatcher()));
 
 		}
-        BKL.add(ReturnExpr(ConstInt(0)));
+        entry.add((Instruction) ReturnExpr(ConstInt(0)));
+        blocks.add(entry);
         prog.accept(this);
         //For-loop to read each stmt of main class -> main body
         //for (MJStatement stmt : javaProg.getMainClass().getMainBody()) {
@@ -83,7 +83,6 @@ public class Translator extends Element.DefaultVisitor{
 
 
 		//}
-
 		return prog;
     }
 
@@ -132,7 +131,9 @@ public class Translator extends Element.DefaultVisitor{
                 }
             });
             TemporaryVar x = TemporaryVar(varDecl.getName());
-            addToAssign(Alloca(x.copy(),llvmtype));
+            //addToAssign(Alloca(x.copy(),llvmtype));
+            //blocks.add(BKL);
+
             //return ConstInt(0);
             return Alloca(x,llvmtype);
 
@@ -230,7 +231,7 @@ public class Translator extends Element.DefaultVisitor{
 			MJExpr right=stmtAssign.getRight();
             Operand rightOp = get_R(right);
 
-            addToAssign(Store(leftOp.copy(),rightOp.copy()));
+            //addToAssign(Store(leftOp.copy(),rightOp.copy()));
 
 			return Store(leftOp,rightOp);
 		}
@@ -301,7 +302,7 @@ public class Translator extends Element.DefaultVisitor{
 			ParameterList().add(yy);
 
 
-			addToAssign(BinaryOperation(result,VarRef(x),(Operator) ad,VarRef(y)));
+			//addToAssign(BinaryOperation(result,VarRef(x),(Operator) ad,VarRef(y)));
 			return VarRef(result);
 			//return VarRef(R);
 		}
@@ -339,21 +340,19 @@ public class Translator extends Element.DefaultVisitor{
 		}
         //stm-print
 		@Override
-		public Operand case_StmtPrint(MJStmtPrint stmtPrint) {
-
-
+		public Object case_StmtPrint(MJStmtPrint stmtPrint) {
 			MJExpr ex=  stmtPrint.getPrinted();
 		    Object u=ex.match(new StmtMatcher());
 
 		    if(u instanceof Operand){
-				Print((Operand)(u));
+				return Print((Operand)(u));
 			}
 			else{
 				//TemporaryVar g=TemporaryVar(u.toString());
 			//	Parameter xx= Parameter(TypeInt(), u.toString());
 			//ParameterList().add(xx);
             if(u != null)
-			    Print(ConstInt(Integer.parseInt(u.toString())));
+			    return Print(ConstInt(Integer.parseInt(u.toString())));
             else
                 return null;
 			}
@@ -365,7 +364,7 @@ public class Translator extends Element.DefaultVisitor{
 //			return  ConstInt(0);
 
 
-        return ConstInt(0);
+        //return ConstInt(0);
 		}
 
 		@Override
@@ -511,7 +510,7 @@ public class Translator extends Element.DefaultVisitor{
             @Override
             public Operand case_BoolConst(MJBoolConst boolConst) {
                 TemporaryVar x = TemporaryVar(boolConst.toString());
-                addToAssign(Alloca(x, TypeBool() ));
+                //addToAssign(Alloca(x, TypeBool() ));
                 return ConstInt(0);
 
             }
@@ -519,7 +518,7 @@ public class Translator extends Element.DefaultVisitor{
             @Override
             public Operand case_ExprNull(MJExprNull exprNull) {
                 TemporaryVar x = TemporaryVar(exprNull.toString());
-                addToAssign(Alloca(x,TypeNullpointer()));
+                //addToAssign(Alloca(x,TypeNullpointer()));
                 return ConstInt(0);
             }
 
@@ -563,10 +562,9 @@ public class Translator extends Element.DefaultVisitor{
                          return Mul();
                      }
                  });
-                TemporaryVar result = TemporaryVar(
-                        "BOpResultLine" + exprBinary.getSourcePosition().getLine());
+                TemporaryVar result = TemporaryVar(left.toString() );
 
-                addToAssign(BinaryOperation(result, left, op, right));
+                //addToAssign(BinaryOperation(result, left, op, right));
 
 				return VarRef(result);
 
@@ -587,7 +585,7 @@ public class Translator extends Element.DefaultVisitor{
                 int val = number.getIntValue();
                 String numberAsString = Integer.toString(val);
                 TemporaryVar x = TemporaryVar(numberAsString);
-                addToAssign(Alloca(x, TypeInt() ));
+                //addToAssign(Alloca(x, TypeInt() ));
                 return VarRef(x);
 
             }
@@ -671,7 +669,7 @@ public class Translator extends Element.DefaultVisitor{
                 int val = number.getIntValue();
                 String numberAsString = Integer.toString(val);
                 TemporaryVar x = TemporaryVar(numberAsString);
-                addToAssign(Alloca(x, TypeInt() ));
+                //addToAssign(Alloca(x, TypeInt() ));
                 return VarRef(x);
 
             }
@@ -698,9 +696,9 @@ public class Translator extends Element.DefaultVisitor{
 
 
 	//    //Add to the Assign Block
-	void addToAssign(Instruction i){
-		BKL.add(i);
-	}
+	//void addToAssign(Instruction i){
+	//	BKL.add(i);
+	//}
 }
 
 
