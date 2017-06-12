@@ -131,7 +131,7 @@ public class Translator extends Element.DefaultVisitor{
                 }
             });
             TemporaryVar x = TemporaryVar(varDecl.getName());
-            //addToAssign(Alloca(x,llvmtype));
+            addToAssign(Alloca(x.copy(),llvmtype));
             //return ConstInt(0);
             return Alloca(x,llvmtype);
 
@@ -217,7 +217,7 @@ public class Translator extends Element.DefaultVisitor{
 			MJExpr right=stmtAssign.getRight();
             Operand rightOp = get_R(right);
 
-            //addToAssign(Store(leftOp,rightOp));
+            addToAssign(Store(leftOp.copy(),rightOp.copy()));
 
 			return Store(leftOp,rightOp);
 		}
@@ -326,27 +326,10 @@ public class Translator extends Element.DefaultVisitor{
 		}
         //stm-print
 		@Override
-		public Object case_StmtPrint(MJStmtPrint stmtPrint) {
+		public Operand case_StmtPrint(MJStmtPrint stmtPrint) {
 
-			MJExpr ex=  stmtPrint.getPrinted();
-		    Object u=ex.match(new StmtMatcher());
 
-            if(u instanceof Operand){
-				return Print((Operand)(u));
-			}
-			else{
-				//TemporaryVar g=TemporaryVar(u.toString());
-			//	Parameter xx= Parameter(TypeInt(), u.toString());
-			//ParameterList().add(xx);
-
-			return Print(ConstInt(Integer.parseInt(u.toString())));
-			}
-			// ReturnExpr(ConstInt(0));
-//            Operand printed = get_R(stmtPrint.getPrinted());
-//            Print print = Print(printed);
-//            addToAssign(print);
-//			return  ConstInt(0);
-
+        return ConstInt(0);
 		}
 
 		@Override
@@ -655,7 +638,7 @@ public class Translator extends Element.DefaultVisitor{
             @Override
             public Operand case_VarUse(MJVarUse varUse) {
                 TemporaryVar varU = TemporaryVar(varUse.getVarName());
-                //addToAssign(Load(varU,VarRef(varU)));
+                //addToAssign();
                 return VarRef(varU);
             }
 
