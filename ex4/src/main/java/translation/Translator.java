@@ -145,7 +145,9 @@ public class Translator extends Element.DefaultVisitor{
 
             //return ConstInt(0);
             BKL.add(Alloca(x,llvmtype));
-            return VarRef(x.copy());
+            tempVars.put(varDecl, x);
+            return VarRef(x);
+
 
 		}
 
@@ -213,6 +215,8 @@ public class Translator extends Element.DefaultVisitor{
         //VarUse
 		@Override
 		public Object case_VarUse(MJVarUse varUse) {
+		    TemporaryVar varN = TemporaryVar(varUse.getVarName());
+
 //		    VarRef v = null;
 //            for(int i=BKL.size()-1; i>0;i--)
 //            {
@@ -226,7 +230,9 @@ public class Translator extends Element.DefaultVisitor{
 //                }
 //            }
 //			return v;
-			return ConstInt(0);
+			//return ConstInt(0);
+            BKL.add(Load(varN,get_L(varUse)));
+            return VarRef(varN);
 		}
 
 		@Override
@@ -633,10 +639,10 @@ public class Translator extends Element.DefaultVisitor{
             @Override
             public Operand case_Number(MJNumber number) {
                 int val = number.getIntValue();
-                String numberAsString = Integer.toString(val);
-                TemporaryVar x = TemporaryVar(numberAsString);
+                //String numberAsString = Integer.toString(val);
+                //TemporaryVar x = TemporaryVar(numberAsString);
                 //addToAssign(Alloca(x, TypeInt() ));
-                return VarRef(x);
+                return ConstInt(val);
 
             }
 
@@ -727,7 +733,24 @@ public class Translator extends Element.DefaultVisitor{
 
             @Override
             public Operand case_VarUse(MJVarUse varUse) {
-                TemporaryVar varU = TemporaryVar(varUse.getVarName());
+                MJVarUse varDecl = (MJVarUse) exp;
+                MJVarDecl varDeclvar = varDecl.getVariableDeclaration();
+                //TemporaryVar y = TemporaryVar("y"+varUse.getVarName());
+
+                if (tempVars.containsKey(varDeclvar)) {
+                    TemporaryVar x = tempVars.get(varDeclvar);
+                    //BKL.add(Load(y, varDeclvar));
+                    //BKL.add(Load(y, varDeclvar.getSourcePosition().toString()));
+                    //BKL.add(Load(y,VarRef(x)));
+                    return VarRef(x);
+                } else {
+                    // This should never happen
+                    throw new RuntimeException(
+                            "Variable not found during translation");
+                }
+
+
+
                 //addToAssign();
                 //!-- Start Madhu
                 //We need to find the value of varUse variable and use "load" instruction to put the value
@@ -744,7 +767,8 @@ public class Translator extends Element.DefaultVisitor{
                 }*/
                 //!-- End Madhu
 
-                return VarRef(varU);
+
+                //return VarRef(varN);
             }
 
             @Override
