@@ -18,7 +18,7 @@ public class SimpleTests {
 	@Test
 	public void test0() throws Exception {
 		testStatements(
-				"System.out.println(42*7);"
+				"System.out.println(42*7+3);"
 		);
 	}
 
@@ -27,7 +27,7 @@ public class SimpleTests {
 		testStatements(
 				"int x;",
 				"x = 42;",
-				"x = x + 1;",
+				//"x = x + 1;",
 				"System.out.println(x);"
 		);
 	}
