@@ -71,8 +71,12 @@ public class Translator extends Element.DefaultVisitor{
 		entry.setName("entry");
 		//blocks.add(entry);
 		for (MJStatement stmt : javaProg.getMainClass().getMainBody()) {
-			//Object match = stmt.match(new StmtMatcher());
-			stmt.match(new StmtMatcher());
+			Object match = stmt.match(new StmtMatcher());
+			if(match instanceof Instruction)
+			{
+				entry.add((Instruction)match);
+			}
+			//stmt.match(new StmtMatcher());
 		}
 		//for (Instruction i: BKL){
 
@@ -182,7 +186,7 @@ public class Translator extends Element.DefaultVisitor{
 				//Sub(VarRef(x));???? how we can use sub instead binary operation
 				TemporaryVar result = TemporaryVar("ss");
 				entry.add((Instruction) BinaryOperation(result,(ConstInt(0)),(Operator)ad,(Operand)(e)));
-
+				return VarRef(result);
 			}
 			return null;
 		}
@@ -284,13 +288,13 @@ public class Translator extends Element.DefaultVisitor{
 			BasicBlock bloc = BasicBlock();
 			bloc.setName("bloc"+o+"");
 			for(MJStatement statement : block)
-
 			{
 				Object statementt=statement.match(new StmtMatcher());
+                if(statementt instanceof Instruction)
+				{
 
-
-				bloc.add(ReturnExpr(ConstInt(0)));
-
+				bloc.add((Instruction)statementt);
+				}
 			}
 
 			return bloc;
@@ -384,15 +388,18 @@ public class Translator extends Element.DefaultVisitor{
 			//Operand u = get_L(ex);
 			if(u instanceof Operand){
 				if (u instanceof TypePointer){
-					entry.add(Print(ConstInt(1)));
+					//entry.add(Print(ConstInt(1)));
+					return ((Instruction)Print(ConstInt(1)));
 				}
 				else {
-					entry.add(Print((Operand) u));
+					//entry.add(Print((Operand) u));
+
+					return ((Instruction)Print((Operand) u));
 				}
-				return ConstInt(0);
+				//return ConstInt(0);
 			}
 			else if(u != null){
-				entry.add((Instruction)Print(ConstInt(Integer.parseInt(u.toString()))));
+				//entry.add((Instruction)Print(ConstInt(Integer.parseInt(u.toString()))));
 
 				return ((Instruction)Print(ConstInt(Integer.parseInt(u.toString()))));
 
