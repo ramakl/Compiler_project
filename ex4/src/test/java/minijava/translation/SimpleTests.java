@@ -50,7 +50,7 @@ public class SimpleTests {
 				"int x;",
 				"x = 42;",
 				"if (true)",
-				"{System.out.println(4);}",
+				"{System.out.println(4);System.out.println(2);}",
 				"else","{System.out.println(5);}"
 
 		);
