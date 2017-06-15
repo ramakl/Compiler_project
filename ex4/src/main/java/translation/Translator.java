@@ -257,8 +257,8 @@ public class Translator extends Element.DefaultVisitor{
 			MJExpr right=stmtAssign.getRight();
 			//Operand rightOp = get_R(right);
 			Operand rightOp=(Operand) right.match(new StmtMatcher());
-			entry.add(Store(leftOp,rightOp));
-			return ConstInt(0);
+			//entry.add(Store(leftOp,rightOp));
+			return Store(leftOp,rightOp);
 
 		}
 		@Override
