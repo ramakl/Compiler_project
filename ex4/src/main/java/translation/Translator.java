@@ -49,6 +49,7 @@ import java.util.concurrent.locks.Condition;
 public class Translator extends Element.DefaultVisitor{
 	public static InstructionList BKL = InstructionList();
 	BasicBlock entry = BasicBlock();
+	BasicBlockList blocks;
 	public int o =0;
 	private final MJProgram javaProg;
 	// @mahsa: We need to have a block to add serveral submethods to one basic block of a parent method
@@ -64,7 +65,7 @@ public class Translator extends Element.DefaultVisitor{
 		// TODO add your translation code here
 		// TODO here is an example of a minimal program (remove this)
 		Prog prog = Prog(TypeStructList(), GlobalList(), ProcList());
-		BasicBlockList blocks = BasicBlockList();
+		 blocks = BasicBlockList();
 		//BasicBlockList blocks = BKL;
 		Proc mainProc = Proc("main", TypeInt(), ParameterList(), blocks);
 		prog.getProcedures().add(mainProc);
@@ -149,11 +150,15 @@ public class Translator extends Element.DefaultVisitor{
 		@Override
 		public Object case_StmtWhile(MJStmtWhile stmtWhile) {
 			MJExpr condition = stmtWhile.getCondition();
-
+			Object cond=condition.match(new StmtMatcher());
 			MJStatement loopBody = stmtWhile.getLoopBody();
 
-			loopBody.match(new StmtMatcher()); //looping through the body
-
+			Object loop=loopBody.match(new StmtMatcher()); //looping through the body
+			/*L0: SLT (%cmp, %x, %y)
+			BRANCH (%cmp, L1, L2)
+			L1: ADD (%x, %x, CINT(1))
+			JUMP (L0)
+			L2: ...*/
 			//how to get the TrueLabel and FalseLabel?
 
 			//use Branch and Jump statement together
@@ -283,8 +288,6 @@ public class Translator extends Element.DefaultVisitor{
 		@Override
 		public Object case_Block(MJBlock block) {
             o=o+1;
-			InstructionList i = null;
-			//BasicBlockList blockss = BasicBlockList();
 			BasicBlock bloc = BasicBlock();
 			bloc.setName("bloc"+o+"");
 			for(MJStatement statement : block)
@@ -292,8 +295,9 @@ public class Translator extends Element.DefaultVisitor{
 				Object statementt=statement.match(new StmtMatcher());
                 if(statementt instanceof Instruction)
 				{
-
+					//entry.add((Instruction)statementt);
 				bloc.add((Instruction)statementt);
+
 				}
 			}
 
@@ -456,33 +460,23 @@ public class Translator extends Element.DefaultVisitor{
 			MJExpr co =stmtIf.getCondition();
 			MJStatement t =stmtIf.getIfTrue();
 			MJStatement f =stmtIf.getIfFalse();
-			//BasicBlock trueLabel = (BasicBlock) t;
-			//BasicBlock falseLabel = (BasicBlock) f;
-		//Operand o = (Operand) co;
 			Object coo=co.match(new StmtMatcher());
 			Object tt=t.match(new StmtMatcher());
 			Object ff=f.match(new StmtMatcher());
 			BasicBlock trueLabel = (BasicBlock) tt;
 			BasicBlock falseLabel = (BasicBlock) ff;
+			BasicBlock bloc3=BasicBlock(
+					Jump(entry)
+			);
+			bloc3.setName("b3");
+
+			trueLabel.add(Jump(bloc3));
+			blocks.add(trueLabel);
+
+			falseLabel.add(Jump(bloc3));
+			blocks.add(falseLabel);
+			blocks.add(bloc3);
 			//TemporaryVar x=TemporaryVar(coo.toString());
-            /*BasicBlock block1 = BasicBlock(//Load(a1, VarRef(x)));
-            block1.setName("b1");
-            BasicBlock block2 = BasicBlock(//Load(a2, VarRef(y)));
-            block2.setName("b2");
-            BasicBlock block3 = BasicBlock(
-                                  //PhiNode(a, TypeInt(), PhiNodeChoiceList(
-                                 // PhiNodeChoice(block1, Ast.VarRef(a1)),
-                                // PhiNodeChoice(block2, Ast.VarRef(a2))
-                                //) );
-            block3.setName("b3");
-            block1.add(Jump(block3));
-            block2.add(Jump(block3));
-            BasicBlockList blocks = BasicBlockList(
-               block1, block2, block3
-            );
-            */
-			//Branch(VarRef(x), tt, ff);
-			//Branch(o, trueLabel, falseLabel); what is more crrect?
 			entry.add(Branch((Operand)coo, trueLabel, falseLabel));
 			return null;
 
