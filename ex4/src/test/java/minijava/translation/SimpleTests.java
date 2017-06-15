@@ -18,10 +18,15 @@ public class SimpleTests {
 	@Test
 	public void test0() throws Exception {
 		testStatements(
-				"System.out.println(42*7);"
+				"System.out.println(42*7+3);"
 		);
 	}
-
+	@Test
+	public void test55() throws Exception {
+		testStatements(
+				"System.out.println(-1);"
+		);
+	}
 	@Test
 	public void test1() throws Exception {
 		testStatements(
@@ -39,8 +44,17 @@ public class SimpleTests {
 
 		);
 	}
+	@Test
+	public void test12() throws Exception {
+		testStatements(
+				"int x;",
+				"x = 42;",
+				"if (true)",
+				"{x=5;}",
+				"else","{ x = 7;}"
 
-
+		);
+	}
 	@Test
 	public void test2() throws Exception {
 		testStatements(
