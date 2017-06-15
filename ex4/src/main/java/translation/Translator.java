@@ -279,7 +279,7 @@ public class Translator extends Element.DefaultVisitor{
 
 		}
 
-		//Block
+		//Block written by @rama
 		@Override
 		public Object case_Block(MJBlock block) {
             o=o+1;
@@ -305,7 +305,7 @@ public class Translator extends Element.DefaultVisitor{
 			return null;
 
 		}
-		//ExprBinary
+		//ExprBinary written by @rama
 		@Override
 		public Object case_ExprBinary(MJExprBinary exprBinary) {
 
@@ -339,7 +339,7 @@ public class Translator extends Element.DefaultVisitor{
 			//return (Operand)(result);
 			return VarRef(result);
 		}
-		//stm-return
+		//stm-return written by @rama
 		@Override
 		public Object case_StmtReturn(MJStmtReturn stmtReturn) {
 			MJExpr e= stmtReturn.getResult();
@@ -452,7 +452,7 @@ public class Translator extends Element.DefaultVisitor{
 			return null;
 
 		}
-		//stm-if
+		//stm-if written by @rama
 		@Override
 		public Object case_StmtIf(MJStmtIf stmtIf) {
 			MJExpr co =stmtIf.getCondition();
