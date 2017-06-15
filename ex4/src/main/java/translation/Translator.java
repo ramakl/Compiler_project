@@ -5,6 +5,7 @@ import analysis.TypeInformation;
 //import com.sun.org.apache.xpath.internal.operations.Div;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 //import com.sun.javafx.fxml.expression.Expression;
+import com.sun.org.apache.xpath.internal.operations.Neg;
 import jdk.nashorn.internal.ir.Block;
 
 import minijava.ast.*;
@@ -48,6 +49,7 @@ import java.util.concurrent.locks.Condition;
 public class Translator extends Element.DefaultVisitor{
 	public static InstructionList BKL = InstructionList();
 	BasicBlock entry = BasicBlock();
+	public int o =0;
 	private final MJProgram javaProg;
 	// @mahsa: We need to have a block to add serveral submethods to one basic block of a parent method
 	//public BasicBlock getOpenBlock() {
@@ -257,7 +259,7 @@ public class Translator extends Element.DefaultVisitor{
 		@Override
 		public Object case_Less(MJLess less) {
 
-			return null;
+			return  Slt();
 
 		}
 		@Override
@@ -272,14 +274,15 @@ public class Translator extends Element.DefaultVisitor{
 			return null;
 
 		}
+
 		//Block
 		@Override
 		public Object case_Block(MJBlock block) {
-
+            o=o+1;
 			InstructionList i = null;
 			//BasicBlockList blockss = BasicBlockList();
 			BasicBlock bloc = BasicBlock();
-			bloc.setName("bloc");
+			bloc.setName("bloc"+o+"");
 			for(MJStatement statement : block)
 
 			{
@@ -456,7 +459,7 @@ public class Translator extends Element.DefaultVisitor{
 			Object ff=f.match(new StmtMatcher());
 			BasicBlock trueLabel = (BasicBlock) tt;
 			BasicBlock falseLabel = (BasicBlock) ff;
-			//TemporaryVar x=TemporaryVar(coo.toString());
+			TemporaryVar x=TemporaryVar(coo.toString());
             /*BasicBlock block1 = BasicBlock(//Load(a1, VarRef(x)));
             block1.setName("b1");
             BasicBlock block2 = BasicBlock(//Load(a2, VarRef(y)));
@@ -475,7 +478,7 @@ public class Translator extends Element.DefaultVisitor{
             */
 			//Branch(VarRef(x), tt, ff);
 			//Branch(o, trueLabel, falseLabel); what is more crrect?
-			entry.add(Branch((Operand)coo, trueLabel, falseLabel));
+			entry.add(Branch(VarRef(x), trueLabel, falseLabel));
 			return null;
 
 		}
