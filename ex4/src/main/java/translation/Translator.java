@@ -321,11 +321,9 @@ public class Translator extends Element.DefaultVisitor{
 			//Operand l = get_L(exprBinary.getLeft());
 
 			//MJOperator op= exprBinary.getOperator();
-
 			MJOperator  op = exprBinary.getOperator();
 
 			Object ad = op.match(new StmtMatcher());
-
 			//Operand runOp = op.match();
 
 			//TemporaryVar x=TemporaryVar(l.toString());
@@ -431,7 +429,7 @@ public class Translator extends Element.DefaultVisitor{
 		@Override
 		public Object case_BoolConst(MJBoolConst boolConst) {
 
-			return boolConst.getBoolValue();
+			return ConstBool(boolConst.getBoolValue()) ;
 
 		}
 		@Override
@@ -466,7 +464,7 @@ public class Translator extends Element.DefaultVisitor{
 			Object ff=f.match(new StmtMatcher());
 			BasicBlock trueLabel = (BasicBlock) tt;
 			BasicBlock falseLabel = (BasicBlock) ff;
-			TemporaryVar x=TemporaryVar(coo.toString());
+			//TemporaryVar x=TemporaryVar(coo.toString());
             /*BasicBlock block1 = BasicBlock(//Load(a1, VarRef(x)));
             block1.setName("b1");
             BasicBlock block2 = BasicBlock(//Load(a2, VarRef(y)));
@@ -485,7 +483,7 @@ public class Translator extends Element.DefaultVisitor{
             */
 			//Branch(VarRef(x), tt, ff);
 			//Branch(o, trueLabel, falseLabel); what is more crrect?
-			entry.add(Branch(VarRef(x), trueLabel, falseLabel));
+			entry.add(Branch((Operand)coo, trueLabel, falseLabel));
 			return null;
 
 		}
