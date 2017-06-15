@@ -49,7 +49,9 @@ import java.util.concurrent.locks.Condition;
 public class Translator extends Element.DefaultVisitor{
 	public static InstructionList BKL = InstructionList();
 	BasicBlock entry = BasicBlock();
+	BasicBlock end= BasicBlock();
 	BasicBlockList blocks;
+	boolean br=false;
 	public int o =0;
 	private final MJProgram javaProg;
 	// @mahsa: We need to have a block to add serveral submethods to one basic block of a parent method
@@ -83,8 +85,14 @@ public class Translator extends Element.DefaultVisitor{
 
 		//entry.add(i);
 		//}
-		entry.add(ReturnExpr(ConstInt(0)));
+		end.add(ReturnExpr(ConstInt(0)));
+		if(!br){
+			entry.add(ReturnExpr(ConstInt(0)));
+		}
+
+
 		blocks.add(entry);
+		blocks.add(end);
 		prog.accept(this);
 		//For-loop to read each stmt of main class -> main bod
 		//for (MJStatement stmt : javaProg.getMainClass().getMainBody()) {
@@ -466,9 +474,10 @@ public class Translator extends Element.DefaultVisitor{
 			BasicBlock trueLabel = (BasicBlock) tt;
 			BasicBlock falseLabel = (BasicBlock) ff;
 			BasicBlock bloc3=BasicBlock(
-					Jump(entry)
+					Jump(end)
 			);
 			bloc3.setName("b3");
+			br=true;
 
 			trueLabel.add(Jump(bloc3));
 			blocks.add(trueLabel);
