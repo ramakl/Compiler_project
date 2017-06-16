@@ -45,16 +45,13 @@ public class SimpleTests {
 		);
 	}
 	@Test
-	public void test12() throws Exception {
+	public void test14() throws Exception {
 		testStatements(
-				"int x;",
-				"x = 42;",
-				"if (true)",
-				"{System.out.println(4);System.out.println(2);}",
-				"else","{System.out.println(5);}"
+				"int [] a;","a= new int[10];"
 
 		);
 	}
+
     @Test
     public void test13() throws Exception {
         testStatements(
@@ -72,10 +69,9 @@ public class SimpleTests {
 		testStatements(
 				"int x;",
 				"x = 42;",
-				"while (0 < x) {",
-				"	System.out.println(x);",
-				"	x = x - 1;",
-				"}"
+				"while (true)",
+				"	{System.out.println(x);",
+				" System.out.println(3);}"
 		);
 	}
 
