@@ -55,6 +55,18 @@ public class SimpleTests {
 
 		);
 	}
+    @Test
+    public void test13() throws Exception {
+        testStatements(
+                "int x;",
+                "x = 42;",
+                "if (true)",
+                "{System.out.println(4);System.out.println(2);}",
+                "else","{System.out.println(5);}",
+                "System.out.println(6);"
+
+        );
+    }
 	@Test
 	public void test2() throws Exception {
 		testStatements(
