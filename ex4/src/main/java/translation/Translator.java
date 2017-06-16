@@ -162,14 +162,15 @@ public class Translator extends Element.DefaultVisitor{
 			MJStatement loopBody = stmtWhile.getLoopBody();
 
 			Object loop=loopBody.match(new StmtMatcher()); //looping through the body
-			/*L0: SLT (%cmp, %x, %y)
-			BRANCH (%cmp, L1, L2)
-			L1: ADD (%x, %x, CINT(1))
-			JUMP (L0)
-			L2: ...*/
-			//how to get the TrueLabel and FalseLabel?
+			BasicBlock L2=BasicBlock(
+					Jump(end)
+			);
+			L2.setName("b3");
+			br=true;
 
-			//use Branch and Jump statement together
+			Branch ((Operand)cond, (BasicBlock)loop, L2);
+
+
 
 			return null;
 		}
