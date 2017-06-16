@@ -73,8 +73,8 @@ public class Translator extends Element.DefaultVisitor{
 		prog.getProcedures().add(mainProc);
 		entry.setName("entry");
 		//blocks.add(entry);
-		blocks.add(entry);
-		currentBlock = entry;
+        currentBlock = entry;
+        blocks.add(currentBlock);
 		for (MJStatement stmt : javaProg.getMainClass().getMainBody()) {
 			Object match = stmt.match(new StmtMatcher());
 			if(match instanceof Instruction)
@@ -88,15 +88,23 @@ public class Translator extends Element.DefaultVisitor{
 		//entry.add(i);
 		//}
         currentBlock = end;
-		currentBlock.add(ReturnExpr(ConstInt(0)));
+
 		if(!br){
 
             currentBlock = entry;
-            currentBlock.add(ReturnExpr(ConstInt(0)));
         }
+        currentBlock.add(ReturnExpr(ConstInt(0)));
+        boolean blockFound = false;
+		for(BasicBlock b : blocks)
+        {
+            if(b == currentBlock){
+                blockFound = true;
+                break;
+            }
 
-
-		blocks.add(currentBlock);
+        }
+        if(!blockFound)
+		    blocks.add(currentBlock);
 		prog.accept(this);
 		//For-loop to read each stmt of main class -> main bod
 		//for (MJStatement stmt : javaProg.getMainClass().getMainBody()) {
@@ -171,11 +179,8 @@ public class Translator extends Element.DefaultVisitor{
 			L2.setName("b3");
 			br=true;
 
-			Branch ((Operand)cond, loop, L2);
-
-
-
-			return null;
+			entry.add(Branch((Operand)cond, loop, L2));
+			return ConstInt(0);
 		}
 		@Override
 		public Object case_MethodCall(MJMethodCall methodCall) {
@@ -325,18 +330,14 @@ public class Translator extends Element.DefaultVisitor{
 		@Override
 		public Object case_ExprBinary(MJExprBinary exprBinary) {
 
-			MJExpr left=exprBinary.getLeft();
+			//MJExpr left=exprBinary.getLeft();
+			//Object l=left.match(new StmtMatcher());
+			//MJExpr right=exprBinary.getRight();
+			//Object r=right.match(new StmtMatcher());
 
-			Object l=left.match(new StmtMatcher());
+            Operand right = get_R(exprBinary.getRight());
+            Operand left = get_L(exprBinary.getLeft());
 
-			MJExpr right=exprBinary.getRight();
-
-			Object r=right.match(new StmtMatcher());
-			//Operand r = get_R(exprBinary.getRight());
-
-			//Operand l = get_L(exprBinary.getLeft());
-
-			//MJOperator op= exprBinary.getOperator();
 			MJOperator  op = exprBinary.getOperator();
 
 			Object ad = op.match(new StmtMatcher());
@@ -349,8 +350,8 @@ public class Translator extends Element.DefaultVisitor{
 			//BinaryOperation(R,VarRef(x),(Operator) ad,VarRef(y));
 			TemporaryVar result = TemporaryVar("result");
 			TemporaryVar s = TemporaryVar("s");
-			Load(s,(Operand) l);
-			entry.add(BinaryOperation(result, (Operand) s,(Operator)ad,(Operand)(r)));
+			//Load lR = Load(s,right);
+			entry.add(BinaryOperation(result, left,(Operator) ad, right));
 			//addToAssign(BinaryOperation(result,VarRef(x),(Operator) ad,VarRef(y)));
 			//return (Operand)(result);
 			return VarRef(result);
