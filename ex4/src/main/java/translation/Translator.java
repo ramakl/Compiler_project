@@ -22,7 +22,7 @@ import static minillvm.ast.Ast.GetElementPtr;
 import static minillvm.ast.Ast.TypePointer;
 
 
-
+import java.lang.reflect.Array;
 import java.security.PublicKey;
 
 import java.util.Map;
@@ -52,6 +52,8 @@ public class Translator extends Element.DefaultVisitor{
 	BasicBlockList blocks;
 	BasicBlock currentBlock;
 	boolean br=false;
+	boolean arr=false;
+	Operand ArraySize;
 	public int o =0;
 	private final MJProgram javaProg;
 	// @mahsa: We need to have a block to add serveral submethods to one basic block of a parent method
@@ -59,6 +61,7 @@ public class Translator extends Element.DefaultVisitor{
 	//return BKL;
 	//}
 	Map< MJVarDecl, TemporaryVar > tempVars = new HashMap< MJVarDecl, TemporaryVar >();
+	Map< VarRef,TemporaryVar > temprefense = new HashMap<  VarRef,TemporaryVar >();
 	public Translator(MJProgram javaProg) {
 		this.javaProg = javaProg;
 
@@ -67,14 +70,14 @@ public class Translator extends Element.DefaultVisitor{
 		// TODO add your translation code here
 		// TODO here is an example of a minimal program (remove this)
 		Prog prog = Prog(TypeStructList(), GlobalList(), ProcList());
-		 blocks = BasicBlockList();
+		blocks = BasicBlockList();
 		//BasicBlockList blocks = BKL;
 		Proc mainProc = Proc("main", TypeInt(), ParameterList(), blocks);
 		prog.getProcedures().add(mainProc);
 		entry.setName("entry");
 		//blocks.add(entry);
-        currentBlock = entry;
-        blocks.add(currentBlock);
+		currentBlock = entry;
+		blocks.add(currentBlock);
 		for (MJStatement stmt : javaProg.getMainClass().getMainBody()) {
 			Object match = stmt.match(new StmtMatcher());
 			if(match instanceof Instruction)
@@ -87,24 +90,24 @@ public class Translator extends Element.DefaultVisitor{
 
 		//entry.add(i);
 		//}
-        currentBlock = end;
+		currentBlock = end;
 
 		if(!br){
 
-            currentBlock = entry;
-        }
-        currentBlock.add(ReturnExpr(ConstInt(0)));
-        boolean blockFound = false;
+			currentBlock = entry;
+		}
+		currentBlock.add(ReturnExpr(ConstInt(0)));
+		boolean blockFound = false;
 		for(BasicBlock b : blocks)
-        {
-            if(b == currentBlock){
-                blockFound = true;
-                break;
-            }
+		{
+			if(b == currentBlock){
+				blockFound = true;
+				break;
+			}
 
-        }
-        if(!blockFound)
-		    blocks.add(currentBlock);
+		}
+		if(!blockFound)
+			blocks.add(currentBlock);
 		prog.accept(this);
 		//For-loop to read each stmt of main class -> main bod
 		//for (MJStatement stmt : javaProg.getMainClass().getMainBody()) {
@@ -159,6 +162,7 @@ public class Translator extends Element.DefaultVisitor{
 			entry.add(Alloca(x,llvmtype));
 			//Hesitated about varDecl in tempVars
 			tempVars.put(varDecl, x);
+			//temprefense.put(VarRef(x),x);
 			return VarRef(x);
 
 		}
@@ -244,6 +248,7 @@ public class Translator extends Element.DefaultVisitor{
 				//BKL.add(Load(y, varDeclvar));
 				//BKL.add(Load(y, varDeclvar.getSourcePosition().toString()));
 				//entry.add(Load(y,VarRef(x)));
+				//temprefense.put( VarRef(x),x);
 				return VarRef(x);
 				//return x;
 			} else {
@@ -264,10 +269,23 @@ public class Translator extends Element.DefaultVisitor{
 			//Operand leftOp=(Operand) left.match(new StmtMatcher());
 			//MJExpr right=stmtAssign.getRight();
 			//Operand rightOp=(Operand) right.match(new StmtMatcher());
-            Operand rightOp = get_R(stmtAssign.getRight());
-            Operand leftOp = get_L(stmtAssign.getLeft());
-			//entry.add(Store(leftOp,rightOp));
-			return Store(leftOp,rightOp);
+			Operand rightOp = get_R(stmtAssign.getRight());
+			Operand leftOp = get_L(stmtAssign.getLeft());
+
+			if(arr){
+                TemporaryVar x = TemporaryVar("c");
+                TemporaryVar d = TemporaryVar("d");
+
+                Load lArray = Load(x,leftOp);
+                entry.add(lArray);
+                entry.add(Alloc(d,rightOp));
+                TypePointer pointerToSize = TypePointer(ArraySize.calculateType());
+                return Store(VarRef(d), ArraySize.copy());
+            }
+
+
+			//entry.add(Alloc((TemporaryVar) leftOp,rightOp));
+			return ConstInt(0);
 
 		}
 		@Override
@@ -304,13 +322,13 @@ public class Translator extends Element.DefaultVisitor{
 		//Block written by @rama
 		@Override
 		public Object case_Block(MJBlock block) {
-            o=o+1;
+			o=o+1;
 			BasicBlock bloc = BasicBlock();
 			bloc.setName("bloc"+o+"");
 			for(MJStatement statement : block)
 			{
 				Object statementt=statement.match(new StmtMatcher());
-                if(statementt instanceof Instruction)
+				if(statementt instanceof Instruction)
 				{
 					//entry.add((Instruction)statementt);
 					bloc.add((Instruction)statementt);
@@ -335,8 +353,8 @@ public class Translator extends Element.DefaultVisitor{
 			//MJExpr right=exprBinary.getRight();
 			//Object r=right.match(new StmtMatcher());
 
-            Operand right = get_R(exprBinary.getRight());
-            Operand left = get_L(exprBinary.getLeft());
+			Operand right = get_R(exprBinary.getRight());
+			Operand left = get_L(exprBinary.getLeft());
 
 			MJOperator  op = exprBinary.getOperator();
 
@@ -406,9 +424,9 @@ public class Translator extends Element.DefaultVisitor{
 			TemporaryVar val = TemporaryVar("val");
 			//Operand u = get_L(ex);
 			if(u instanceof Operand){
-                //Load l = Load(val,u);
-                //entry.add(l);
-			   // entry.add(Print(u));
+				//Load l = Load(val,u);
+				//entry.add(l);
+				// entry.add(Print(u));
 				return Print(u);
 			}
 			else if(u != null){
@@ -452,11 +470,27 @@ public class Translator extends Element.DefaultVisitor{
 			return null;
 
 		}
+		//matcher
 		@Override
 		public Object case_NewIntArray(MJNewIntArray newIntArray) {
 
-			return null;
+         MJExpr size=  newIntArray.getArraySize();
+         Object  sizeArray=size.match(new StmtMatcher());
+         TemporaryVar NewSize = TemporaryVar("NewSize");
+         TemporaryVar NewSize2 = TemporaryVar("NewSize2");
+         //Load lR = Load(s,right);
+			entry.add(BinaryOperation(NewSize,(Operand) sizeArray,(Operator) Mul(), ConstInt(4)));
+			entry.add(BinaryOperation(NewSize2,(Operand)NewSize,(Operator) Add(), ConstInt(4)));
+		/*	if(arr){
 
+				if (temprefense.containsKey()) {
+					TemporaryVar x = temprefense.get();
+					entry.add(Alloc(x,VarRef(NewSize2)));
+					entry.add(Store(VarRef(x),(Operand) sizeArray));
+				}
+			}*/
+			arr=true;
+			return VarRef(NewSize2);
 		}
 		@Override
 		public Object case_TypeIntArray(MJTypeIntArray typeIntArray) {
@@ -545,51 +579,30 @@ public class Translator extends Element.DefaultVisitor{
 				return null;
 
 			}
-
-
-
 			@Override
-
 			public Operand case_MethodCall(MJMethodCall methodCall) {
 
 				return null;
 
 			}
-
-
-
 			@Override
-
 			public Operand case_NewObject(MJNewObject newObject) {
 
 				return null;
 
 			}
-
-
-
 			@Override
-
 			public Operand case_ArrayLength(MJArrayLength arrayLength) {
 
 				return null;
 
 			}
-
-
-
 			@Override
-
 			public Operand case_ArrayLookup(MJArrayLookup arrayLookup) {
-
 				return null;
 
 			}
-
-
-
 			@Override
-
 			public Operand case_BoolConst(MJBoolConst boolConst) {
 
 				TemporaryVar x = TemporaryVar(boolConst.toString());
@@ -598,79 +611,91 @@ public class Translator extends Element.DefaultVisitor{
 
 				return ConstInt(0);
 
-
-
 			}
-
-
-
 			@Override
-
 			public Operand case_ExprNull(MJExprNull exprNull) {
 				TemporaryVar x = TemporaryVar("x");
 				entry.add(Alloca(x,TypeNullpointer()));
 				return ConstInt(0);
 
 			}
-
-
-            // get right exprbinry
 			@Override
+
 			public Operand case_ExprBinary(MJExprBinary exprBinary) {
+				//Operand right = get_R(exprBinary.getRight());
+				Operand right = exprBinary.getRight().match(this);
+				//Operand left = get_L(exprBinary.getLeft());
+				Operand left = exprBinary.getLeft().match(this);
+				Operator op = exprBinary.getOperator().match(new MJOperator.Matcher<Operator>() {
 
-				MJExpr left=exprBinary.getLeft();
+					@Override
+					public Operator case_Div(MJDiv div) {
+						return Sdiv();
+					}
 
-				Object l=left.match(new StmtMatcher());
+					@Override
+					public Operator case_And(MJAnd and) {
+						return And();
+					}
 
-				MJExpr right=exprBinary.getRight();
 
-				Object r=right.match(new StmtMatcher());
-				//Operand r = get_R(exprBinary.getRight());
+					@Override
+					public Operator case_Equals(MJEquals equals) {
+						return Eq();
+					}
 
-				//Operand l = get_L(exprBinary.getLeft());
+					@Override
+					public Operator case_Less(MJLess less) {
+						return Slt();
+					}
 
-				//MJOperator op= exprBinary.getOperator();
-				MJOperator  op = exprBinary.getOperator();
+					@Override
+					public Operator case_Minus(MJMinus minus) {
+						return Sub();
+					}
 
-				Object ad = op.match(new StmtMatcher());
-				//Operand runOp = op.match();
+					@Override
+					public Operator case_Plus(MJPlus plus) {
+						return Add();
+					}
 
-				//TemporaryVar x=TemporaryVar(l.toString());
+					@Override
+					public Operator case_Times(MJTimes times) {
+						return Mul();
+					}
 
-				//TemporaryVar y=TemporaryVar(r.toString());
-				//TemporaryVar R=TemporaryVar(l.toString());
-				//BinaryOperation(R,VarRef(x),(Operator) ad,VarRef(y));
-				TemporaryVar result = TemporaryVar("result");
-				TemporaryVar s = TemporaryVar("s");
-				Load(s,(Operand) l);
-				entry.add(BinaryOperation(result, (Operand) s,(Operator)ad,(Operand)(r)));
-				//addToAssign(BinaryOperation(result,VarRef(x),(Operator) ad,VarRef(y)));
-				//return (Operand)(result);
+				});
+
+				TemporaryVar result = TemporaryVar("result" );
+				entry.add(BinaryOperation(result, left, op, right));
 				return VarRef(result);
 			}
-
-
-
 			@Override
-
 			public Operand case_ExprThis(MJExprThis exprThis) {
 
 				return null;
 
 			}
-
-
-
+            //right
 			@Override
-
 			public Operand case_NewIntArray(MJNewIntArray newIntArray) {
 
-				return null;
+				MJExpr size=  newIntArray.getArraySize();
+				Object  s=size.match(new StmtMatcher());
+				TemporaryVar res = TemporaryVar("res");
+				TemporaryVar res2 = TemporaryVar("res2");
+				//TemporaryVar arraysize = TemporaryVar("arraysize");
+				//Load lR = Load(s,right);
+				entry.add(BinaryOperation(res, (Operand)s,(Operator) Mul(), ConstInt(4)));
+				//entry.add(Load(arraysize,(((Operand) s).copy())));
+                ArraySize = (Operand) s;
+				entry.add(BinaryOperation(res2, VarRef(res),(Operator) Add(), ConstInt(4)));
+				arr=true;
+				//Alloc(res2)
+				return VarRef(res2);
+
 
 			}
-
-
-
 			@Override
 			//Number writen by @mahsa in get_R
 			public Operand case_Number(MJNumber number) {
@@ -681,22 +706,23 @@ public class Translator extends Element.DefaultVisitor{
 			//VarUse of get_R
 			@Override
 			public Operand case_VarUse(MJVarUse varUse) {
-                //MJVarUse varDecl = (MJVarUse) exp;
-                MJVarDecl varDeclvar = varUse.getVariableDeclaration();
-                TemporaryVar y = TemporaryVar("y");
+				//MJVarUse varDecl = (MJVarUse) exp;
+				MJVarDecl varDeclvar = varUse.getVariableDeclaration();
+				TemporaryVar y = TemporaryVar("y");
 
-                if (tempVars.containsKey(varDeclvar)) {
-                    TemporaryVar x = tempVars.get(varDeclvar);
-                    //BKL.add(Load(y, varDeclvar));
-                    //BKL.add(Load(y, varDeclvar.getSourcePosition().toString()));
-                    Load l = Load(y,VarRef(x));
-                    entry.add(l);
-                    return VarRef(l.getVar());
-                } else {
-                    // This should never happen
-                    throw new RuntimeException(
-                            "Variable not found during translation");
-                }
+				if (tempVars.containsKey(varDeclvar)) {
+					TemporaryVar x = tempVars.get(varDeclvar);
+					//temprefense.put( VarRef(x),x);
+					//BKL.add(Load(y, varDeclvar));
+					//BKL.add(Load(y, varDeclvar.getSourcePosition().toString()));
+					Load l = Load(y,VarRef(x));
+					entry.add(l);
+					return VarRef(l.getVar());
+				} else {
+					// This should never happen
+					throw new RuntimeException(
+							"Variable not found during translation");
+				}
 
 			}
 			@Override
@@ -725,7 +751,7 @@ public class Translator extends Element.DefaultVisitor{
 
 
 	//This Method Gets Left side of the exp, written by @Monireh
-    public Operand get_L(MJExpr exp) {
+	public Operand get_L(MJExpr exp) {
 
 		//Left side of an Assign could be one of the following cases, So we should define them first
 
@@ -809,39 +835,13 @@ public class Translator extends Element.DefaultVisitor{
 
 			}
 
-            //get leftexprbinary
+
+
 			@Override
+
 			public Operand case_ExprBinary(MJExprBinary exprBinary) {
 
-				MJExpr left=exprBinary.getLeft();
-
-				Object l=left.match(new StmtMatcher());
-
-				MJExpr right=exprBinary.getRight();
-
-				Object r=right.match(new StmtMatcher());
-				//Operand r = get_R(exprBinary.getRight());
-
-				//Operand l = get_L(exprBinary.getLeft());
-
-				//MJOperator op= exprBinary.getOperator();
-				MJOperator  op = exprBinary.getOperator();
-
-				Object ad = op.match(new StmtMatcher());
-				//Operand runOp = op.match();
-
-				//TemporaryVar x=TemporaryVar(l.toString());
-
-				//TemporaryVar y=TemporaryVar(r.toString());
-				//TemporaryVar R=TemporaryVar(l.toString());
-				//BinaryOperation(R,VarRef(x),(Operator) ad,VarRef(y));
-				TemporaryVar result = TemporaryVar("result");
-				TemporaryVar s = TemporaryVar("s");
-				Load(s,(Operand) l);
-				entry.add(BinaryOperation(result, (Operand) s,(Operator)ad,(Operand)(r)));
-				//addToAssign(BinaryOperation(result,VarRef(x),(Operator) ad,VarRef(y)));
-				//return (Operand)(result);
-				return VarRef(result);
+				return null;
 
 
 
@@ -858,12 +858,20 @@ public class Translator extends Element.DefaultVisitor{
 			}
 
 
-
+            //left
 			@Override
-
 			public Operand case_NewIntArray(MJNewIntArray newIntArray) {
 
-				return null;
+				MJExpr size=  newIntArray.getArraySize();
+				Object  s=size.match(new StmtMatcher());
+				TemporaryVar res = TemporaryVar("s");
+				TemporaryVar res2 = TemporaryVar("s");
+				//Load lR = Load(s,right);
+				BinaryOperation(res, (Operand)size,(Operator) Mul(), ConstInt(4));
+				BinaryOperation(res2, (Operand)res,(Operator) Add(), ConstInt(4));
+				//Alloc(res2)
+				return VarRef(res2);
+
 			}
 
 			@Override
@@ -885,6 +893,7 @@ public class Translator extends Element.DefaultVisitor{
 
 				if (tempVars.containsKey(varDeclvar)) {
 					TemporaryVar x = tempVars.get(varDeclvar);
+					//temprefense.put( VarRef(x),x);
 					//BKL.add(Load(y, varDeclvar));
 					//BKL.add(Load(y, varDeclvar.getSourcePosition().toString()));
 					//BKL.add(Load(y,VarRef(x)));
@@ -920,7 +929,6 @@ public class Translator extends Element.DefaultVisitor{
 
 	}//To do the rest of the cases
 }
-
 
 
 
