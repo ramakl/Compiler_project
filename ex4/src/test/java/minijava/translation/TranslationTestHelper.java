@@ -34,16 +34,16 @@ public class TranslationTestHelper {
 		Map<String, String> env = System.getenv();
 		if (env.containsKey("LLVM_COMPILER_PATH")) {
 			String LLVM_BASE = env.get("LLVM_COMPILER_PATH");
-			//LLVM_LLI_EXE = Paths.get(LLVM_BASE, "lli").toString();
-			LLVM_LLI_EXE = Paths.get(LLVM_BASE, "lli-3.9").toString();
-			//LLVM_OPT_EXE = Paths.get(LLVM_BASE, "opt").toString();
-			LLVM_OPT_EXE = Paths.get(LLVM_BASE, "opt-3.9").toString();
+			LLVM_LLI_EXE = Paths.get(LLVM_BASE, "lli").toString();
+			//LLVM_LLI_EXE = Paths.get(LLVM_BASE, "lli-3.9").toString();
+			LLVM_OPT_EXE = Paths.get(LLVM_BASE, "opt").toString();
+			//LLVM_OPT_EXE = Paths.get(LLVM_BASE, "opt-3.9").toString();
 
 		} else {
-			//LLVM_LLI_EXE = "lli";
-			LLVM_LLI_EXE = "lli-3.9";
-			//LLVM_OPT_EXE = "opt";
-			LLVM_OPT_EXE = "opt-3.9";
+			LLVM_LLI_EXE = "lli";
+			//LLVM_LLI_EXE = "lli-3.9";
+			LLVM_OPT_EXE = "opt";
+			//LLVM_OPT_EXE = "opt-3.9";
 		}
 		testOutputFolder.mkdirs();
 	}

@@ -73,6 +73,7 @@ public class Translator extends Element.DefaultVisitor{
 		prog.getProcedures().add(mainProc);
 		entry.setName("entry");
 		//blocks.add(entry);
+		blocks.add(entry);
 		for (MJStatement stmt : javaProg.getMainClass().getMainBody()) {
 			Object match = stmt.match(new StmtMatcher());
 			if(match instanceof Instruction)
@@ -91,7 +92,7 @@ public class Translator extends Element.DefaultVisitor{
 		}
 
 
-		blocks.add(entry);
+
 		blocks.add(end);
 		prog.accept(this);
 		//For-loop to read each stmt of main class -> main bod
