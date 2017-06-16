@@ -1,4 +1,3 @@
-
 package translation;
 import analysis.TypeContext;
 import analysis.TypeInformation;
@@ -229,13 +228,13 @@ public class Translator extends Element.DefaultVisitor{
 		public Object case_VarUse(MJVarUse varUse) {
 			MJVarUse varDecl = varUse;
 			MJVarDecl varDeclvar = varDecl.getVariableDeclaration();
-			//TemporaryVar y = TemporaryVar("y"+varUse.getVarName());
+			//TemporaryVar y = TemporaryVar("y");
 
 			if (tempVars.containsKey(varDeclvar)) {
 				TemporaryVar x = tempVars.get(varDeclvar);
 				//BKL.add(Load(y, varDeclvar));
 				//BKL.add(Load(y, varDeclvar.getSourcePosition().toString()));
-				//BKL.add(Load(y,VarRef(x)));
+				//entry.add(Load(y,VarRef(x)));
 				return VarRef(x);
 				//return x;
 			} else {
@@ -252,12 +251,12 @@ public class Translator extends Element.DefaultVisitor{
 		@Override
 		public Object case_StmtAssign(MJStmtAssign stmtAssign) {
 
-			MJExpr left =stmtAssign.getLeft();
-			//Operand leftOp = get_L(left);
-			Operand leftOp=(Operand) left.match(new StmtMatcher());
-			MJExpr right=stmtAssign.getRight();
-			//Operand rightOp = get_R(right);
-			Operand rightOp=(Operand) right.match(new StmtMatcher());
+			//MJExpr left =stmtAssign.getLeft();
+			//Operand leftOp=(Operand) left.match(new StmtMatcher());
+			//MJExpr right=stmtAssign.getRight();
+			//Operand rightOp=(Operand) right.match(new StmtMatcher());
+            Operand rightOp = get_R(stmtAssign.getRight());
+            Operand leftOp = get_L(stmtAssign.getLeft());
 			//entry.add(Store(leftOp,rightOp));
 			return Store(leftOp,rightOp);
 
@@ -344,8 +343,10 @@ public class Translator extends Element.DefaultVisitor{
 			//TemporaryVar y=TemporaryVar(r.toString());
 			//TemporaryVar R=TemporaryVar(l.toString());
 			//BinaryOperation(R,VarRef(x),(Operator) ad,VarRef(y));
-			TemporaryVar result = TemporaryVar("s");
-			entry.add((Instruction) BinaryOperation(result,(Operand)(l),(Operator)ad,(Operand)(r)));
+			TemporaryVar result = TemporaryVar("result");
+			TemporaryVar s = TemporaryVar("s");
+			Load(s,(Operand) l);
+			entry.add(BinaryOperation(result, (Operand) s,(Operator)ad,(Operand)(r)));
 			//addToAssign(BinaryOperation(result,VarRef(x),(Operator) ad,VarRef(y)));
 			//return (Operand)(result);
 			return VarRef(result);
@@ -395,23 +396,18 @@ public class Translator extends Element.DefaultVisitor{
 		@Override
 		public Object case_StmtPrint(MJStmtPrint stmtPrint) {
 			MJExpr ex=  stmtPrint.getPrinted();
-			Object u=ex.match(new StmtMatcher());
+			//Operand u=(Operand) ex.match(new StmtMatcher());
+			Operand u = get_R(ex);
+			TemporaryVar val = TemporaryVar("val");
 			//Operand u = get_L(ex);
 			if(u instanceof Operand){
-				if (u instanceof TypePointer){
-					//entry.add(Print(ConstInt(1)));
-					return ((Instruction)Print(ConstInt(1)));
-				}
-				else {
-					//entry.add(Print((Operand) u));
-
-					return ((Instruction)Print((Operand) u));
-				}
-				//return ConstInt(0);
+                //Load l = Load(val,u);
+                //entry.add(l);
+			    entry.add(Print(u));
+				return ConstInt(0);
 			}
 			else if(u != null){
 				//entry.add((Instruction)Print(ConstInt(Integer.parseInt(u.toString()))));
-
 				return ((Instruction)Print(ConstInt(Integer.parseInt(u.toString()))));
 
 			}
@@ -532,8 +528,8 @@ public class Translator extends Element.DefaultVisitor{
 		}
 	}
 
-	//This Method Gets Right side of the exp
-	/*public Operand get_R(MJExpr exp) {
+	//This Method Gets Right side of the exp, written by @Monireh
+	public Operand get_R(MJExpr exp) {
 		Operand rightop = exp.match(new MJExpr.Matcher<Operand>() {
 
 			@Override
@@ -617,76 +613,46 @@ public class Translator extends Element.DefaultVisitor{
 
 			public Operand case_ExprBinary(MJExprBinary exprBinary) {
 
-				Operand right = get_R(exprBinary.getRight());
-
-				Operand left = get_L(exprBinary.getLeft());
-
+				//Operand right = get_R(exprBinary.getRight());
+				Operand right = exprBinary.getRight().match(this);
+				//Operand left = get_L(exprBinary.getLeft());
+				Operand left = exprBinary.getLeft().match(this);
 				Operator op = exprBinary.getOperator().match(new MJOperator.Matcher<Operator>() {
 
 					@Override
-
 					public Operator case_Div(MJDiv div) {
-
 						return Sdiv();
-
 					}
 
-
-
 					@Override
-
 					public Operator case_And(MJAnd and) {
-
 						return And();
-
 					}
 
 
-
 					@Override
-
 					public Operator case_Equals(MJEquals equals) {
-
 						return Eq();
-
 					}
 
-
-
 					@Override
-
 					public Operator case_Less(MJLess less) {
-
 						return Slt();
-
 					}
 
-
-
 					@Override
-
 					public Operator case_Minus(MJMinus minus) {
-
 						return Sub();
-
 					}
 
-
-
 					@Override
-
 					public Operator case_Plus(MJPlus plus) {
-
 						return Add();
-
 					}
 
 					@Override
-
 					public Operator case_Times(MJTimes times) {
-
 						return Mul();
-
 					}
 
 				});
@@ -728,7 +694,22 @@ public class Translator extends Element.DefaultVisitor{
 			//VarUse of get_R
 			@Override
 			public Operand case_VarUse(MJVarUse varUse) {
-				return null;
+                //MJVarUse varDecl = (MJVarUse) exp;
+                MJVarDecl varDeclvar = varUse.getVariableDeclaration();
+                TemporaryVar y = TemporaryVar("y");
+
+                if (tempVars.containsKey(varDeclvar)) {
+                    TemporaryVar x = tempVars.get(varDeclvar);
+                    //BKL.add(Load(y, varDeclvar));
+                    //BKL.add(Load(y, varDeclvar.getSourcePosition().toString()));
+                    Load l = Load(y,VarRef(x));
+                    entry.add(l);
+                    return VarRef(l.getVar());
+                } else {
+                    // This should never happen
+                    throw new RuntimeException(
+                            "Variable not found during translation");
+                }
 
 			}
 			@Override
@@ -743,11 +724,11 @@ public class Translator extends Element.DefaultVisitor{
 
 		return rightop;
 
-	}*/
+	}
 
 
-	//This Method Gets Left side of the exp
-/*	public Operand get_L(MJExpr exp) {
+	//This Method Gets Left side of the exp, written by @Monireh
+    public Operand get_L(MJExpr exp) {
 
 		//Left side of an Assign could be one of the following cases, So we should define them first
 
@@ -905,8 +886,9 @@ public class Translator extends Element.DefaultVisitor{
 		});
 		return leftop;
 
-	}//To do the rest of the cases*/
+	}//To do the rest of the cases
 }
+
 
 
 
