@@ -273,14 +273,15 @@ public class Translator extends Element.DefaultVisitor{
 			Operand leftOp = get_L(stmtAssign.getLeft());
 
 			if(arr){
-                TemporaryVar x = TemporaryVar("c");
-                TemporaryVar d = TemporaryVar("d");
+                TemporaryVar x = TemporaryVar("C");
+                TemporaryVar d = TemporaryVar("D");
 
                 Load lArray = Load(x,leftOp);
                 entry.add(lArray);
-                entry.add(Alloc(d,rightOp));
-                TypePointer pointerToSize = TypePointer(ArraySize.calculateType());
-                return Store(VarRef(d), ArraySize.copy());
+                entry.add(Alloca(d,rightOp.calculateType()));
+
+                entry.add(Store(VarRef(d), ArraySize.copy()));
+                return ConstInt(0);
             }
 
 
