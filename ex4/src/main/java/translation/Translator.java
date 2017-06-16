@@ -73,8 +73,8 @@ public class Translator extends Element.DefaultVisitor{
 		prog.getProcedures().add(mainProc);
 		entry.setName("entry");
 		//blocks.add(entry);
-		blocks.add(entry);
-		currentBlock = entry;
+        currentBlock = entry;
+        blocks.add(currentBlock);
 		for (MJStatement stmt : javaProg.getMainClass().getMainBody()) {
 			Object match = stmt.match(new StmtMatcher());
 			if(match instanceof Instruction)
@@ -88,15 +88,23 @@ public class Translator extends Element.DefaultVisitor{
 		//entry.add(i);
 		//}
         currentBlock = end;
-		currentBlock.add(ReturnExpr(ConstInt(0)));
+
 		if(!br){
 
             currentBlock = entry;
-            currentBlock.add(ReturnExpr(ConstInt(0)));
         }
+        currentBlock.add(ReturnExpr(ConstInt(0)));
+        boolean blockFound = false;
+		for(BasicBlock b : blocks)
+        {
+            if(b == currentBlock){
+                blockFound = true;
+                break;
+            }
 
-
-		blocks.add(currentBlock);
+        }
+        if(!blockFound)
+		    blocks.add(currentBlock);
 		prog.accept(this);
 		//For-loop to read each stmt of main class -> main bod
 		//for (MJStatement stmt : javaProg.getMainClass().getMainBody()) {
