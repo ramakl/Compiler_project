@@ -160,15 +160,14 @@ public class Translator extends Element.DefaultVisitor{
 			MJExpr condition = stmtWhile.getCondition();
 			Object cond=condition.match(new StmtMatcher());
 			MJStatement loopBody = stmtWhile.getLoopBody();
-
-			Object loop=loopBody.match(new StmtMatcher()); //looping through the body
+			BasicBlock loop =(BasicBlock)loopBody.match(new StmtMatcher()); //looping through the body
 			BasicBlock L2=BasicBlock(
 					Jump(end)
 			);
 			L2.setName("b3");
 			br=true;
 
-			Branch ((Operand)cond, (BasicBlock)loop, L2);
+			Branch ((Operand)cond, loop, L2);
 
 
 
@@ -404,8 +403,8 @@ public class Translator extends Element.DefaultVisitor{
 			if(u instanceof Operand){
                 //Load l = Load(val,u);
                 //entry.add(l);
-			    entry.add(Print(u));
-				return ConstInt(0);
+			   // entry.add(Print(u));
+				return Print(u);
 			}
 			else if(u != null){
 				//entry.add((Instruction)Print(ConstInt(Integer.parseInt(u.toString()))));
@@ -717,6 +716,16 @@ public class Translator extends Element.DefaultVisitor{
 
 			public Operand case_ExprUnary(MJExprUnary exprUnary) {
 
+				MJExpr ex= exprUnary.getExpr();
+				MJUnaryOperator  o=exprUnary.getUnaryOperator();
+				Object e=ex.match(new StmtMatcher());
+				Object ad=o.match(new StmtMatcher());
+				if(ad instanceof Sub){
+					//Sub(VarRef(x));???? how we can use sub instead binary operation
+					TemporaryVar result = TemporaryVar("ss");
+					entry.add((Instruction) BinaryOperation(result,(ConstInt(0)),(Operator)ad,(Operand)(e)));
+					return VarRef(result);
+				}
 				return null;
 
 			}
@@ -875,11 +884,20 @@ public class Translator extends Element.DefaultVisitor{
 
 
 			}
-
+			//unary left written by rama
 			@Override
-
 			public Operand case_ExprUnary(MJExprUnary exprUnary) {
 
+				MJExpr ex= exprUnary.getExpr();
+				MJUnaryOperator  o=exprUnary.getUnaryOperator();
+				Object e=ex.match(new StmtMatcher());
+				Object ad=o.match(new StmtMatcher());
+				if(ad instanceof Sub){
+					//Sub(VarRef(x));???? how we can use sub instead binary operation
+					TemporaryVar result = TemporaryVar("ss");
+					entry.add((Instruction) BinaryOperation(result,(ConstInt(0)),(Operator)ad,(Operand)(e)));
+					return VarRef(result);
+				}
 				return null;
 
 			}
