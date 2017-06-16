@@ -304,7 +304,7 @@ public class Translator extends Element.DefaultVisitor{
                 if(statementt instanceof Instruction)
 				{
 					//entry.add((Instruction)statementt);
-				bloc.add((Instruction)statementt);
+					bloc.add((Instruction)statementt);
 
 				}
 			}
@@ -608,57 +608,38 @@ public class Translator extends Element.DefaultVisitor{
 			}
 
 
-
+            // get right exprbinry
 			@Override
-
 			public Operand case_ExprBinary(MJExprBinary exprBinary) {
 
-				//Operand right = get_R(exprBinary.getRight());
-				Operand right = exprBinary.getRight().match(this);
-				//Operand left = get_L(exprBinary.getLeft());
-				Operand left = exprBinary.getLeft().match(this);
-				Operator op = exprBinary.getOperator().match(new MJOperator.Matcher<Operator>() {
+				MJExpr left=exprBinary.getLeft();
 
-					@Override
-					public Operator case_Div(MJDiv div) {
-						return Sdiv();
-					}
+				Object l=left.match(new StmtMatcher());
 
-					@Override
-					public Operator case_And(MJAnd and) {
-						return And();
-					}
+				MJExpr right=exprBinary.getRight();
 
+				Object r=right.match(new StmtMatcher());
+				//Operand r = get_R(exprBinary.getRight());
 
-					@Override
-					public Operator case_Equals(MJEquals equals) {
-						return Eq();
-					}
+				//Operand l = get_L(exprBinary.getLeft());
 
-					@Override
-					public Operator case_Less(MJLess less) {
-						return Slt();
-					}
+				//MJOperator op= exprBinary.getOperator();
+				MJOperator  op = exprBinary.getOperator();
 
-					@Override
-					public Operator case_Minus(MJMinus minus) {
-						return Sub();
-					}
+				Object ad = op.match(new StmtMatcher());
+				//Operand runOp = op.match();
 
-					@Override
-					public Operator case_Plus(MJPlus plus) {
-						return Add();
-					}
+				//TemporaryVar x=TemporaryVar(l.toString());
 
-					@Override
-					public Operator case_Times(MJTimes times) {
-						return Mul();
-					}
-
-				});
-
-				TemporaryVar result = TemporaryVar("result" );
-				entry.add(BinaryOperation(result, left, op, right));
+				//TemporaryVar y=TemporaryVar(r.toString());
+				//TemporaryVar R=TemporaryVar(l.toString());
+				//BinaryOperation(R,VarRef(x),(Operator) ad,VarRef(y));
+				TemporaryVar result = TemporaryVar("result");
+				TemporaryVar s = TemporaryVar("s");
+				Load(s,(Operand) l);
+				entry.add(BinaryOperation(result, (Operand) s,(Operator)ad,(Operand)(r)));
+				//addToAssign(BinaryOperation(result,VarRef(x),(Operator) ad,VarRef(y)));
+				//return (Operand)(result);
 				return VarRef(result);
 			}
 
@@ -822,13 +803,39 @@ public class Translator extends Element.DefaultVisitor{
 
 			}
 
-
-
+            //get leftexprbinary
 			@Override
-
 			public Operand case_ExprBinary(MJExprBinary exprBinary) {
 
-				return null;
+				MJExpr left=exprBinary.getLeft();
+
+				Object l=left.match(new StmtMatcher());
+
+				MJExpr right=exprBinary.getRight();
+
+				Object r=right.match(new StmtMatcher());
+				//Operand r = get_R(exprBinary.getRight());
+
+				//Operand l = get_L(exprBinary.getLeft());
+
+				//MJOperator op= exprBinary.getOperator();
+				MJOperator  op = exprBinary.getOperator();
+
+				Object ad = op.match(new StmtMatcher());
+				//Operand runOp = op.match();
+
+				//TemporaryVar x=TemporaryVar(l.toString());
+
+				//TemporaryVar y=TemporaryVar(r.toString());
+				//TemporaryVar R=TemporaryVar(l.toString());
+				//BinaryOperation(R,VarRef(x),(Operator) ad,VarRef(y));
+				TemporaryVar result = TemporaryVar("result");
+				TemporaryVar s = TemporaryVar("s");
+				Load(s,(Operand) l);
+				entry.add(BinaryOperation(result, (Operand) s,(Operator)ad,(Operand)(r)));
+				//addToAssign(BinaryOperation(result,VarRef(x),(Operator) ad,VarRef(y)));
+				//return (Operand)(result);
+				return VarRef(result);
 
 
 

@@ -53,6 +53,7 @@ public class SimpleTests {
 				"{System.out.println(4);System.out.println(2);}",
 				"else","{System.out.println(5);}"
 
+
 		);
 	}
 	@Test
@@ -60,10 +61,9 @@ public class SimpleTests {
 		testStatements(
 				"int x;",
 				"x = 42;",
-				"while (0 < x) {",
-				"	System.out.println(x);",
-				"	x = x - 1;",
-				"}"
+				"while (true)",
+				"	{System.out.println(x);",
+				" System.out.println(3);}"
 		);
 	}
 
