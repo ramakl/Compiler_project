@@ -50,6 +50,7 @@ public class Translator extends Element.DefaultVisitor{
 	BasicBlock entry = BasicBlock();
 	BasicBlock end= BasicBlock();
 	BasicBlockList blocks;
+	BasicBlock currentBlock;
 	boolean br=false;
 	public int o =0;
 	private final MJProgram javaProg;
@@ -73,11 +74,12 @@ public class Translator extends Element.DefaultVisitor{
 		entry.setName("entry");
 		//blocks.add(entry);
 		blocks.add(entry);
+		currentBlock = entry;
 		for (MJStatement stmt : javaProg.getMainClass().getMainBody()) {
 			Object match = stmt.match(new StmtMatcher());
 			if(match instanceof Instruction)
 			{
-				entry.add((Instruction)match);
+				currentBlock.add((Instruction)match);
 			}
 			//stmt.match(new StmtMatcher());
 		}
@@ -85,14 +87,16 @@ public class Translator extends Element.DefaultVisitor{
 
 		//entry.add(i);
 		//}
-		end.add(ReturnExpr(ConstInt(0)));
+        currentBlock = end;
+		currentBlock.add(ReturnExpr(ConstInt(0)));
 		if(!br){
-			entry.add(ReturnExpr(ConstInt(0)));
-		}
+
+            currentBlock = entry;
+            currentBlock.add(ReturnExpr(ConstInt(0)));
+        }
 
 
-
-		blocks.add(end);
+		blocks.add(currentBlock);
 		prog.accept(this);
 		//For-loop to read each stmt of main class -> main bod
 		//for (MJStatement stmt : javaProg.getMainClass().getMainBody()) {
@@ -482,6 +486,7 @@ public class Translator extends Element.DefaultVisitor{
 			falseLabel.add(Jump(bloc3));
 			blocks.add(falseLabel);
 			blocks.add(bloc3);
+			currentBlock = end;
 			//TemporaryVar x=TemporaryVar(coo.toString());
 			entry.add(Branch((Operand)coo, trueLabel, falseLabel));
 			return null;
