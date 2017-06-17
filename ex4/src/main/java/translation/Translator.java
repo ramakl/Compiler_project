@@ -173,9 +173,10 @@ public class Translator extends Element.DefaultVisitor{
         public Object case_Plus(MJPlus plus) {
             return Add();
         }
-        //stm-while
+        //stm-while pair Working Rama Madhusudhan
         @Override
         public Object case_StmtWhile(MJStmtWhile stmtWhile) {
+            
             MJExpr condition = stmtWhile.getCondition();
             Object cond=condition.match(new StmtMatcher());
 
@@ -208,18 +209,26 @@ public class Translator extends Element.DefaultVisitor{
             blocks.add(condi);
             entry.add(ReturnExpr(ConstInt(0)));
             return ConstInt(0);
-
+            //Madhusudhan code for While
 			/*MJExpr condition = stmtWhile.getCondition();
 			Object cond=condition.match(new StmtMatcher());
+
 			MJStatement loopBody = stmtWhile.getLoopBody();
+
 			BasicBlock loop =(BasicBlock)loopBody.match(new StmtMatcher()); //looping through the body
 			BasicBlock L2=BasicBlock(
 					Jump(end)
 			);
-			L2.setName("b3");
+			loop.setName("loop");
+            for(Instruction i : loop)
+			currentBlock.add(i.copy());
+            currentBlock.add(Branch((Operand)cond, currentBlock, L2));
+			L2.setName("L2");
 			br=true;
 
-			entry.add(Branch((Operand)cond, loop, L2));
+
+			currentBlock = L2;
+			blocks.add(currentBlock);
 			return ConstInt(0);*/
         }
         @Override
@@ -461,7 +470,10 @@ public class Translator extends Element.DefaultVisitor{
         @Override
         public Operand case_ExprNull(MJExprNull exprNull) {
 
-            return Nullpointer();
+            TemporaryVar x = TemporaryVar("x");
+            currentBlock.add(Alloca(x,TypeNullpointer()));
+            return ConstInt(0);
+
         }
         @Override
         public Object case_ClassDecl(MJClassDecl classDecl) {
@@ -549,8 +561,7 @@ public class Translator extends Element.DefaultVisitor{
         @Override
         public Object case_TypeIntArray(MJTypeIntArray typeIntArray) {
 
-            return null;
-
+            return TypeArray(TypeInt(), typeIntArray.size());
         }
         //stm-if written by @rama
         @Override
@@ -614,20 +625,64 @@ public class Translator extends Element.DefaultVisitor{
         @Override
         public Object case_ArrayLookup(MJArrayLookup arrayLookup) {
 
+            MJExpr exp= arrayLookup.getArrayExpr();
+            MJExpr in=  arrayLookup.getArrayIndex();
+            Object index=in.match(new StmtMatcher());
+            Object expr=exp.match(new StmtMatcher());
+            //BinaryOperation(R,VarRef(x),(Operator) ad,VarRef(y));
+            //TemporaryVar result = TemporaryVar("result");
+            TemporaryVar x = TemporaryVar("x");
+            //Load lR = Load(s,right);
+            //currentBlock.add(BinaryOperation(result, expr,(Operator) Eq(),Null));
+            //addToAssign(BinaryOperation(result,VarRef(x),(Operator) ad,VarRef(y)));
+            //return (Operand)(result);
+            //return VarRef(result);
+            Load(x,(Operand)expr);
+            TemporaryVar comp1 = TemporaryVar("comp1");
+            TemporaryVar comp2 = TemporaryVar("comp2");
+            TemporaryVar comp3 = TemporaryVar("comp3");
+            currentBlock.add(BinaryOperation(comp1, (Operand)index,(Operator)Slt(),VarRef(x)));
+            currentBlock.add(BinaryOperation(comp2, ConstInt(-1),(Operator)Slt(),(Operand)((Operand) index).copy()));
+            currentBlock.add(BinaryOperation(comp3,VarRef(comp1),(Operator)And(),VarRef(comp2)));
+            BasicBlock L3 =BasicBlock(
+                    Jump(end)
+            );
+            L3.setName("L3");
+
+            TemporaryVar t2 = TemporaryVar("t2");
+            OperandList t22=OperandList();
+            t22.add(VarRef(t2).copy());
+            TemporaryVar t3 = TemporaryVar("t2");
+            TemporaryVar b= TemporaryVar("t2");
+            BasicBlock L1 =BasicBlock(
+
+                    BinaryOperation(t2, (Operand)((Operand) index).copy(),(Operator)Add(),ConstInt(1)),
+                    GetElementPtr(t3,(Operand)((Operand) expr).copy(),t22),
+                    Load(b,VarRef(t3)),
+                    Jump(L3)
+            );
+            L1.setName("L1");
+            BasicBlock L2 =BasicBlock(
+                    HaltWithError( "error")
+
+            );
+            L2.setName("L2");
+            currentBlock.add(Branch(VarRef(comp3),L1,L2));
+
+
+
             return null;
+
         }
         @Override
         public Object case_MethodDeclList(MJMethodDeclList methodDeclList) {
             return null;
         }
     }
-
     //This Method Gets Right side of the exp, written by @Monireh
     public Operand get_R(MJExpr exp) {
         Operand rightop = exp.match(new MJExpr.Matcher<Operand>() {
-
             @Override
-
             public Operand case_FieldAccess(MJFieldAccess fieldAccess) {
 
                 return null;
@@ -720,8 +775,8 @@ public class Translator extends Element.DefaultVisitor{
                 return ConstInt(0);
 
             }
+            //right
             @Override
-
             public Operand case_ExprBinary(MJExprBinary exprBinary) {
                 //Operand right = get_R(exprBinary.getRight());
                 Operand right = exprBinary.getRight().match(this);
@@ -855,8 +910,8 @@ public class Translator extends Element.DefaultVisitor{
                 }
 
             }
+            //right
             @Override
-
             public Operand case_ExprUnary(MJExprUnary exprUnary) {
 
                 MJExpr ex= exprUnary.getExpr();
@@ -864,7 +919,7 @@ public class Translator extends Element.DefaultVisitor{
                 Object e=ex.match(new StmtMatcher());
                 Object ad=o.match(new StmtMatcher());
                 if(ad instanceof Sub){
-                    //Sub(VarRef(x));???? how we can use sub instead binary operation
+
                     TemporaryVar result = TemporaryVar("ss");
                     currentBlock.add((Instruction) BinaryOperation(result,(ConstInt(0)),(Operator)ad,(Operand)(e)));
                     return VarRef(result);
@@ -874,12 +929,8 @@ public class Translator extends Element.DefaultVisitor{
             }
 
         });
-
         return rightop;
-
     }
-
-
     //This Method Gets Left side of the exp, written by @Monireh
     public Operand get_L(MJExpr exp) {
 
@@ -894,84 +945,183 @@ public class Translator extends Element.DefaultVisitor{
         Map<MJMethodCall, MJMethodDecl> methodCallsDecl = new HashMap<MJMethodCall,MJMethodDecl>();
 
         //return 212 doesn't mean anything
-
         Operand leftop = exp.match(new MJExpr.Matcher<Operand>() {
-
             @Override
-
             public Operand case_FieldAccess(MJFieldAccess fieldAccess) {
 
                 return null;
 
             }
-
-
-
             @Override
-
             public Operand case_MethodCall(MJMethodCall methodCall) {
 
                 return null;
 
             }
-
-
-
             @Override
-
             public Operand case_NewObject(MJNewObject newObject) {
 
                 return null;
 
             }
-
-
-
             @Override
-
             public Operand case_ArrayLength(MJArrayLength arrayLength) {
 
                 return null;
 
             }
-
-
-
+            //left
             @Override
-
             public Operand case_ArrayLookup(MJArrayLookup arrayLookup) {
 
+                MJExpr exp= arrayLookup.getArrayExpr();
+                MJExpr in=  arrayLookup.getArrayIndex();
+                Object index=in.match(new StmtMatcher());
+                Object expr=exp.match(new StmtMatcher());
+                //BinaryOperation(R,VarRef(x),(Operator) ad,VarRef(y));
+                //TemporaryVar result = TemporaryVar("result");
+                TemporaryVar x = TemporaryVar("x");
+                //Load lR = Load(s,right);
+                //currentBlock.add(BinaryOperation(result, expr,(Operator) Eq(),Null));
+                //addToAssign(BinaryOperation(result,VarRef(x),(Operator) ad,VarRef(y)));
+                //return (Operand)(result);
+                //return VarRef(result);
+                Load(x,(Operand)expr);
+                TemporaryVar comp1 = TemporaryVar("comp1");
+                TemporaryVar comp2 = TemporaryVar("comp2");
+                TemporaryVar comp3 = TemporaryVar("comp3");
+                currentBlock.add(BinaryOperation(comp1, (Operand)index,(Operator)Slt(),VarRef(x)));
+                currentBlock.add(BinaryOperation(comp2, ConstInt(-1),(Operator)Slt(),(Operand)((Operand) index).copy()));
+                currentBlock.add(BinaryOperation(comp3,VarRef(comp1),(Operator)And(),VarRef(comp2)));
+                BasicBlock L3 =BasicBlock(
+                        Jump(end)
+                );
+                L3.setName("L3");
+
+                TemporaryVar t2 = TemporaryVar("t2");
+                OperandList t22=OperandList();
+                t22.add(VarRef(t2).copy());
+                TemporaryVar t3 = TemporaryVar("t2");
+                TemporaryVar b= TemporaryVar("t2");
+                BasicBlock L1 =BasicBlock(
+
+                        BinaryOperation(t2, (Operand)((Operand) index).copy(),(Operator)Add(),ConstInt(1)),
+                        GetElementPtr(t3,(Operand)((Operand) expr).copy(),t22),
+                        Load(b,VarRef(t3)),
+                        Jump(L3)
+                );
+                L1.setName("L1");
+                BasicBlock L2 =BasicBlock(
+                        HaltWithError( "error")
+
+                );
+                L2.setName("L2");
+                currentBlock.add(Branch(VarRef(comp3),L1,L2));
+
+
+
                 return null;
 
+
             }
-
-
-
+            //left
             @Override
-
             public Operand case_BoolConst(MJBoolConst boolConst) {
 
-                return null;
+                return ConstBool(boolConst.getBoolValue()) ;
 
             }
-
-
-
             @Override
-
             public Operand case_ExprNull(MJExprNull exprNull) {
 
-                return null;
+                TemporaryVar x = TemporaryVar("x");
+                currentBlock.add(Alloca(x,TypeNullpointer()));
+                return ConstInt(0);
+
 
             }
 
 
-
+            //left
             @Override
-
             public Operand case_ExprBinary(MJExprBinary exprBinary) {
 
-                return null;
+                //Operand right = get_R(exprBinary.getRight());
+                Operand right = exprBinary.getRight().match(this);
+                //Operand left = get_L(exprBinary.getLeft());
+                Operand left = exprBinary.getLeft().match(this);
+                Operator op = exprBinary.getOperator().match(new MJOperator.Matcher<Operator>() {
+
+                    @Override
+                    public Operator case_Div(MJDiv div) {
+                        return Sdiv();
+                    }
+
+                    @Override
+                    public Operator case_And(MJAnd and) {
+                        return And();
+                    }
+
+
+                    @Override
+                    public Operator case_Equals(MJEquals equals) {
+                        return Eq();
+                    }
+
+                    @Override
+                    public Operator case_Less(MJLess less) {
+                        return Slt();
+                    }
+
+                    @Override
+                    public Operator case_Minus(MJMinus minus) {
+                        return Sub();
+                    }
+
+                    @Override
+                    public Operator case_Plus(MJPlus plus) {
+                        return Add();
+                    }
+
+                    @Override
+                    public Operator case_Times(MJTimes times) {
+                        return Mul();
+                    }
+
+                });
+
+                //Load lR = Load(s,right);
+                if(op instanceof Sdiv){
+
+                    TemporaryVar resultr = TemporaryVar("ss");
+                    TemporaryVar resul = TemporaryVar("s");
+                    currentBlock.add(BinaryOperation(resul,right,(Operator)Eq(),ConstInt(0)));
+                    BasicBlock L1 =BasicBlock(
+                            BinaryOperation(resultr,left,(Operator)Sdiv(),right.copy())
+
+                    );
+                    L1.setName("L1");
+
+                    L1.add( Jump(end));
+                    blocks.add(L1);
+                    BasicBlock L2 =BasicBlock(
+
+                            HaltWithError("devby Zero")
+                    );
+                    L1.setName("L2");
+                    blocks.add(L2);
+                    br=true;
+
+                    currentBlock.add((Instruction) Branch(VarRef(resul),L1,L2));
+                    currentBlock = end;
+                    //currentBlock=end;
+
+                    return VarRef(resultr);
+                }
+
+                TemporaryVar result = TemporaryVar("result" );
+                currentBlock.add(BinaryOperation(result, left, op, right));
+                return VarRef(result);
 
 
 
