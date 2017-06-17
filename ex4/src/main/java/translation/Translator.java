@@ -75,9 +75,11 @@ public class Translator extends Element.DefaultVisitor{
         Proc mainProc = Proc("main", TypeInt(), ParameterList(), blocks);
         prog.getProcedures().add(mainProc);
         entry.setName("entry");
+        end.setName("end");
         //blocks.add(entry);
         currentBlock = entry;
         blocks.add(currentBlock);
+        //blocks.add(end);
         for (MJStatement stmt : javaProg.getMainClass().getMainBody()) {
             Object match = stmt.match(new StmtMatcher());
             if(match instanceof Instruction)
@@ -96,6 +98,7 @@ public class Translator extends Element.DefaultVisitor{
 
             currentBlock = entry;
         }
+
         currentBlock.add(ReturnExpr(ConstInt(0)));
         boolean blockFound = false;
         for(BasicBlock b : blocks)
@@ -403,6 +406,23 @@ public class Translator extends Element.DefaultVisitor{
             TemporaryVar result = TemporaryVar("result");
             TemporaryVar s = TemporaryVar("s");
             //Load lR = Load(s,right);
+            if(ad instanceof Sdiv){
+
+                TemporaryVar resultr = TemporaryVar("ss");
+                TemporaryVar resul = TemporaryVar("s");
+                currentBlock.add(BinaryOperation(resul,right,(Operator)Eq(),ConstInt(0)));
+                BasicBlock L1 =BasicBlock(
+                        BinaryOperation(resultr,left,(Operator)Sdiv(),right.copy()),
+                        Jump(end)
+                );
+                L1.setName("L1");
+                blocks.add(L1);
+                //erro
+                currentBlock.add((Instruction) Branch(VarRef(resul),L1,end));
+
+
+                return VarRef(resultr);
+            }
             currentBlock.add(BinaryOperation(result, left,(Operator) ad, right));
             //addToAssign(BinaryOperation(result,VarRef(x),(Operator) ad,VarRef(y)));
             //return (Operand)(result);
@@ -745,6 +765,35 @@ public class Translator extends Element.DefaultVisitor{
                     }
 
                 });
+
+                //Load lR = Load(s,right);
+                if(op instanceof Sdiv){
+
+                    TemporaryVar resultr = TemporaryVar("ss");
+                    TemporaryVar resul = TemporaryVar("s");
+                    currentBlock.add(BinaryOperation(resul,right,(Operator)Eq(),ConstInt(0)));
+                    BasicBlock L1 =BasicBlock(
+                            BinaryOperation(resultr,left,(Operator)Sdiv(),right.copy())
+
+                    );
+                    L1.setName("L1");
+
+                    L1.add( Jump(end));
+                    blocks.add(L1);
+                    BasicBlock L2 =BasicBlock(
+
+                            HaltWithError("devby Zero")
+                    );
+                    L1.setName("L2");
+                    blocks.add(L2);
+                    br=true;
+
+                    currentBlock.add((Instruction) Branch(VarRef(resul),L1,L2));
+                    currentBlock = end;
+                    //currentBlock=end;
+
+                    return VarRef(resultr);
+                }
 
                 TemporaryVar result = TemporaryVar("result" );
                 currentBlock.add(BinaryOperation(result, left, op, right));

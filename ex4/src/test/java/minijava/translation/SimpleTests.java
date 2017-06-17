@@ -10,7 +10,7 @@ public class SimpleTests {
 
 		testStatements(
 				//"System.out.println(42);"
-				"System.out.println(42);"
+				"System.out.println(42/0);"
 
 		);
 	}
