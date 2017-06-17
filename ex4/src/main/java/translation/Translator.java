@@ -179,8 +179,9 @@ public class Translator extends Element.DefaultVisitor{
             MJStatement loopBody = stmtWhile.getLoopBody();
             BasicBlock loop= BasicBlock() ;
             currentBlock=loop;
-            loop =(BasicBlock)loopBody.match(new StmtMatcher());
-
+            BasicBlock loopp =(BasicBlock)loopBody.match(new StmtMatcher());
+            for(Instruction i : loopp)
+                currentBlock.add(i.copy());
             //looping through the body
             BasicBlock L2=BasicBlock(
                     Jump(end)
@@ -304,13 +305,13 @@ public class Translator extends Element.DefaultVisitor{
             Operand rightOp = get_R(stmtAssign.getRight());
             Operand leftOp = get_L(stmtAssign.getLeft());
 
-            if(arr){
+            if (arr) {
                 TemporaryVar x = TemporaryVar("C");
                 TemporaryVar d = TemporaryVar("D");
 
-                Load lArray = Load(x,leftOp);
+                Load lArray = Load(x, leftOp);
                 entry.add(lArray);
-                entry.add(Alloca(d,rightOp.calculateType()));
+                entry.add(Alloca(d, rightOp.calculateType()));
 
                 entry.add(Store(VarRef(d), ArraySize.copy()));
                 return ConstInt(0);
