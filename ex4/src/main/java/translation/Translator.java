@@ -183,6 +183,7 @@ public class Translator extends Element.DefaultVisitor{
                     Jump(end)
             );
             loop.setName("loop");
+
             BasicBlock condi =BasicBlock(
                     Branch((Operand)cond, loop, L2)
             );
@@ -198,6 +199,7 @@ public class Translator extends Element.DefaultVisitor{
             currentBlock = L2;
             blocks.add(currentBlock);
             blocks.add(condi);
+            entry.add(ReturnExpr(ConstInt(0)));
             return ConstInt(0);
 
 			/*MJExpr condition = stmtWhile.getCondition();

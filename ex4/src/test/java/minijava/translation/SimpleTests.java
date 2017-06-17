@@ -68,9 +68,9 @@ public class SimpleTests {
 	public void test2() throws Exception {
 		testStatements(
 				"int x;",
-				"x = 42;",
+				"x = 2;",
 				"while (0 < x)",
-				"	{System.out.println(x);",
+				"	{x =x - 1;",
 				" System.out.println(3);}"
 		);
 	}
