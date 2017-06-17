@@ -159,7 +159,7 @@ public class Translator extends Element.DefaultVisitor{
 				}
 			});
 			TemporaryVar x = TemporaryVar(varDecl.getName());
-			entry.add(Alloca(x,llvmtype));
+			currentBlock.add(Alloca(x,llvmtype));
 			//Hesitated about varDecl in tempVars
 			tempVars.put(varDecl, x);
 			//temprefense.put(VarRef(x),x);
@@ -177,8 +177,9 @@ public class Translator extends Element.DefaultVisitor{
             Object cond=condition.match(new StmtMatcher());
 
             MJStatement loopBody = stmtWhile.getLoopBody();
-
-            BasicBlock loop =(BasicBlock)loopBody.match(new StmtMatcher());
+            BasicBlock loop= BasicBlock() ;
+            currentBlock=loop;
+             loop =(BasicBlock)loopBody.match(new StmtMatcher());
 
             //looping through the body
             BasicBlock L2=BasicBlock(
@@ -242,7 +243,7 @@ public class Translator extends Element.DefaultVisitor{
 			if(ad instanceof Sub){
 				//Sub(VarRef(x));???? how we can use sub instead binary operation
 				TemporaryVar result = TemporaryVar("ss");
-				entry.add((Instruction) BinaryOperation(result,(ConstInt(0)),(Operator)ad,(Operand)(e)));
+				currentBlock.add((Instruction) BinaryOperation(result,(ConstInt(0)),(Operator)ad,(Operand)(e)));
 				return VarRef(result);
 			}
 			return null;
@@ -401,7 +402,7 @@ public class Translator extends Element.DefaultVisitor{
 			TemporaryVar result = TemporaryVar("result");
 			TemporaryVar s = TemporaryVar("s");
 			//Load lR = Load(s,right);
-			entry.add(BinaryOperation(result, left,(Operator) ad, right));
+			currentBlock.add(BinaryOperation(result, left,(Operator) ad, right));
 			//addToAssign(BinaryOperation(result,VarRef(x),(Operator) ad,VarRef(y)));
 			//return (Operand)(result);
 			return VarRef(result);
@@ -414,10 +415,10 @@ public class Translator extends Element.DefaultVisitor{
 			Object u=e.match(new StmtMatcher());
 			if(u instanceof Operand )
 			{
-				entry.add(ReturnExpr((Operand)u));
+				currentBlock.add(ReturnExpr((Operand)u));
 			}
 			else {
-				entry.add(ReturnExpr(ConstInt(Integer.parseInt(u.toString()))));
+				currentBlock.add(ReturnExpr(ConstInt(Integer.parseInt(u.toString()))));
 			}
 			return null;
 
@@ -647,7 +648,7 @@ public class Translator extends Element.DefaultVisitor{
 			@Override
 			public Operand case_ExprNull(MJExprNull exprNull) {
 				TemporaryVar x = TemporaryVar("x");
-				entry.add(Alloca(x,TypeNullpointer()));
+				currentBlock.add(Alloca(x,TypeNullpointer()));
 				return ConstInt(0);
 
 			}
@@ -699,7 +700,7 @@ public class Translator extends Element.DefaultVisitor{
 				});
 
 				TemporaryVar result = TemporaryVar("result" );
-				entry.add(BinaryOperation(result, left, op, right));
+				currentBlock.add(BinaryOperation(result, left, op, right));
 				return VarRef(result);
 			}
 			@Override
@@ -748,7 +749,7 @@ public class Translator extends Element.DefaultVisitor{
 					//BKL.add(Load(y, varDeclvar));
 					//BKL.add(Load(y, varDeclvar.getSourcePosition().toString()));
 					Load l = Load(y,VarRef(x));
-					entry.add(l);
+					currentBlock.add(l);
 					return VarRef(l.getVar());
 				} else {
 					// This should never happen
@@ -768,7 +769,7 @@ public class Translator extends Element.DefaultVisitor{
 				if(ad instanceof Sub){
 					//Sub(VarRef(x));???? how we can use sub instead binary operation
 					TemporaryVar result = TemporaryVar("ss");
-					entry.add((Instruction) BinaryOperation(result,(ConstInt(0)),(Operator)ad,(Operand)(e)));
+					currentBlock.add((Instruction) BinaryOperation(result,(ConstInt(0)),(Operator)ad,(Operand)(e)));
 					return VarRef(result);
 				}
 				return null;
@@ -949,7 +950,7 @@ public class Translator extends Element.DefaultVisitor{
 				if(ad instanceof Sub){
 					//Sub(VarRef(x));???? how we can use sub instead binary operation
 					TemporaryVar result = TemporaryVar("ss");
-					entry.add((Instruction) BinaryOperation(result,(ConstInt(0)),(Operator)ad,(Operand)(e)));
+					currentBlock.add((Instruction) BinaryOperation(result,(ConstInt(0)),(Operator)ad,(Operand)(e)));
 					return VarRef(result);
 				}
 				return null;
