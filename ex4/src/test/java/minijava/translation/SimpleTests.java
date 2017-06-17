@@ -51,6 +51,16 @@ public class SimpleTests {
 
 		);
 	}
+    @Test
+    public void test15() throws Exception {
+        testStatements(
+                "int [] a;",
+                "a= new int[10];",
+                "int b;",
+                "b = a [2];"
+
+        );
+    }
 
     @Test
     public void test13() throws Exception {
