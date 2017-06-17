@@ -705,11 +705,12 @@ public class Translator extends Element.DefaultVisitor{
             @Override
             public Operand case_BoolConst(MJBoolConst boolConst) {
 
-                TemporaryVar x = TemporaryVar(boolConst.toString());
+               // TemporaryVar x = TemporaryVar(boolConst.toString());
 
                 //addToAssign(Alloca(x, TypeBool() ));
 
-                return ConstInt(0);
+                //return ConstInt(0);
+                return ConstBool(boolConst.getBoolValue()) ;
 
             }
             @Override

@@ -10,10 +10,19 @@ public class SimpleTests {
 
 		testStatements(
 				//"System.out.println(42);"
-				"System.out.println(42/0);"
+				"System.out.println(2);"
 
 		);
 	}
+    @Test
+    public void println1() throws Exception {
+
+        testStatements(
+                //"System.out.println(42);"
+                "System.out.println(4/2);"
+
+        );
+    }
 
 	@Test
 	public void test0() throws Exception {
@@ -44,6 +53,14 @@ public class SimpleTests {
 
 		);
 	}
+    @Test
+    public void test16() throws Exception {
+        testStatements(
+                "boolean x;",
+                "x = true;"
+
+        );
+    }
 	@Test
 	public void test14() throws Exception {
 		testStatements(
