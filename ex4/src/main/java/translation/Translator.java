@@ -176,7 +176,7 @@ public class Translator extends Element.DefaultVisitor{
         //stm-while pair Working Rama Madhusudhan
         @Override
         public Object case_StmtWhile(MJStmtWhile stmtWhile) {
-            
+
             MJExpr condition = stmtWhile.getCondition();
             Object cond=condition.match(new StmtMatcher());
 
@@ -322,10 +322,10 @@ public class Translator extends Element.DefaultVisitor{
                 TemporaryVar d = TemporaryVar("D");
 
                 Load lArray = Load(x, leftOp);
-                entry.add(lArray);
-                entry.add(Alloca(d, rightOp.calculateType()));
+                currentBlock.add(lArray);
+                currentBlock.add(Alloca(d, rightOp.calculateType()));
 
-                entry.add(Store(VarRef(d), ArraySize.copy()));
+                currentBlock.add(Store(VarRef(d), ArraySize.copy()));
                 return ConstInt(0);
             }
 
@@ -618,8 +618,52 @@ public class Translator extends Element.DefaultVisitor{
         }
         @Override
         public Object case_ArrayLength(MJArrayLength arrayLength) {
+            MJExpr exp= arrayLength.getArrayExpr();
+            Object expr=exp.match(new StmtMatcher());
+            //BinaryOperation(R,VarRef(x),(Operator) ad,VarRef(y));
+            //TemporaryVar result = TemporaryVar("result");
+            TemporaryVar x = TemporaryVar("x");
+            //Load lR = Load(s,right);
+            //currentBlock.add(BinaryOperation(result, expr,(Operator) Eq(),Null));
+            //addToAssign(BinaryOperation(result,VarRef(x),(Operator) ad,VarRef(y)));
+            //return (Operand)(result);
+            //return VarRef(result);
+            Load(x,(Operand)expr);
+            TemporaryVar comp1 = TemporaryVar("comp1");
+            TemporaryVar comp2 = TemporaryVar("comp2");
+            TemporaryVar comp3 = TemporaryVar("comp3");
+            currentBlock.add(BinaryOperation(comp1, ConstInt(1),(Operator)Slt(),VarRef(x)));
+            currentBlock.add(BinaryOperation(comp2, ConstInt(-1),(Operator)Slt(),(Operand)(ConstInt(1).copy())));
+            currentBlock.add(BinaryOperation(comp3,VarRef(comp1),(Operator)And(),VarRef(comp2)));
+            BasicBlock L3 =BasicBlock(
+                    Jump(end)
+            );
+            L3.setName("L3");
+
+            TemporaryVar t2 = TemporaryVar("t2");
+            OperandList t22=OperandList();
+            t22.add(VarRef(t2).copy());
+            TemporaryVar t3 = TemporaryVar("t2");
+            TemporaryVar b= TemporaryVar("t2");
+            BasicBlock L1 =BasicBlock(
+
+                    BinaryOperation(t2, (Operand)(ConstInt(1)).copy(),(Operator)Add(),ConstInt(1)),
+                    GetElementPtr(t3,(Operand)((Operand) expr).copy(),t22),
+                    Load(b,VarRef(t3)),
+                    Jump(L3)
+            );
+            L1.setName("L1");
+            BasicBlock L2 =BasicBlock(
+                    HaltWithError( "error")
+
+            );
+            L2.setName("L2");
+            currentBlock.add(Branch(VarRef(comp3),L1,L2));
+
+
 
             return null;
+
 
         }
         @Override
@@ -703,7 +747,53 @@ public class Translator extends Element.DefaultVisitor{
             @Override
             public Operand case_ArrayLength(MJArrayLength arrayLength) {
 
+                MJExpr exp= arrayLength.getArrayExpr();
+                Object expr=exp.match(new StmtMatcher());
+                //BinaryOperation(R,VarRef(x),(Operator) ad,VarRef(y));
+                //TemporaryVar result = TemporaryVar("result");
+                TemporaryVar x = TemporaryVar("x");
+                //Load lR = Load(s,right);
+                //currentBlock.add(BinaryOperation(result, expr,(Operator) Eq(),Null));
+                //addToAssign(BinaryOperation(result,VarRef(x),(Operator) ad,VarRef(y)));
+                //return (Operand)(result);
+                //return VarRef(result);
+                Load(x,(Operand)expr);
+                TemporaryVar comp1 = TemporaryVar("comp1");
+                TemporaryVar comp2 = TemporaryVar("comp2");
+                TemporaryVar comp3 = TemporaryVar("comp3");
+                currentBlock.add(BinaryOperation(comp1, ConstInt(1),(Operator)Slt(),VarRef(x)));
+                currentBlock.add(BinaryOperation(comp2, ConstInt(-1),(Operator)Slt(),(Operand)(ConstInt(1).copy())));
+                currentBlock.add(BinaryOperation(comp3,VarRef(comp1),(Operator)And(),VarRef(comp2)));
+                BasicBlock L3 =BasicBlock(
+                        Jump(end)
+                );
+                L3.setName("L3");
+
+                TemporaryVar t2 = TemporaryVar("t2");
+                OperandList t22=OperandList();
+                t22.add(VarRef(t2).copy());
+                TemporaryVar t3 = TemporaryVar("t2");
+                TemporaryVar b= TemporaryVar("t2");
+                BasicBlock L1 =BasicBlock(
+
+                        BinaryOperation(t2, (Operand)(ConstInt(1)).copy(),(Operator)Add(),ConstInt(1)),
+                        GetElementPtr(t3,(Operand)((Operand) expr).copy(),t22),
+                        Load(b,VarRef(t3)),
+                        Jump(L3)
+                );
+                L1.setName("L1");
+                BasicBlock L2 =BasicBlock(
+                        HaltWithError( "error")
+
+                );
+                L2.setName("L2");
+                currentBlock.add(Branch(VarRef(comp3),L1,L2));
+
+
+
                 return null;
+
+
 
             }
             @Override
@@ -967,7 +1057,53 @@ public class Translator extends Element.DefaultVisitor{
             @Override
             public Operand case_ArrayLength(MJArrayLength arrayLength) {
 
+                MJExpr exp= arrayLength.getArrayExpr();
+                Object expr=exp.match(new StmtMatcher());
+                //BinaryOperation(R,VarRef(x),(Operator) ad,VarRef(y));
+                //TemporaryVar result = TemporaryVar("result");
+                TemporaryVar x = TemporaryVar("x");
+                //Load lR = Load(s,right);
+                //currentBlock.add(BinaryOperation(result, expr,(Operator) Eq(),Null));
+                //addToAssign(BinaryOperation(result,VarRef(x),(Operator) ad,VarRef(y)));
+                //return (Operand)(result);
+                //return VarRef(result);
+                Load(x,(Operand)expr);
+                TemporaryVar comp1 = TemporaryVar("comp1");
+                TemporaryVar comp2 = TemporaryVar("comp2");
+                TemporaryVar comp3 = TemporaryVar("comp3");
+                currentBlock.add(BinaryOperation(comp1, ConstInt(1),(Operator)Slt(),VarRef(x)));
+                currentBlock.add(BinaryOperation(comp2, ConstInt(-1),(Operator)Slt(),(Operand)(ConstInt(1).copy())));
+                currentBlock.add(BinaryOperation(comp3,VarRef(comp1),(Operator)And(),VarRef(comp2)));
+                BasicBlock L3 =BasicBlock(
+                        Jump(end)
+                );
+                L3.setName("L3");
+
+                TemporaryVar t2 = TemporaryVar("t2");
+                OperandList t22=OperandList();
+                t22.add(VarRef(t2).copy());
+                TemporaryVar t3 = TemporaryVar("t2");
+                TemporaryVar b= TemporaryVar("t2");
+                BasicBlock L1 =BasicBlock(
+
+                        BinaryOperation(t2, (Operand)(ConstInt(1)).copy(),(Operator)Add(),ConstInt(1)),
+                        GetElementPtr(t3,(Operand)((Operand) expr).copy(),t22),
+                        Load(b,VarRef(t3)),
+                        Jump(L3)
+                );
+                L1.setName("L1");
+                BasicBlock L2 =BasicBlock(
+                        HaltWithError( "error")
+
+                );
+                L2.setName("L2");
+                currentBlock.add(Branch(VarRef(comp3),L1,L2));
+
+
+
                 return null;
+
+
 
             }
             //left
