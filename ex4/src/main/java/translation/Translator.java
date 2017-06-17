@@ -178,7 +178,9 @@ public class Translator extends Element.DefaultVisitor{
 
             MJStatement loopBody = stmtWhile.getLoopBody();
 
-            BasicBlock loop =(BasicBlock)loopBody.match(new StmtMatcher()); //looping through the body
+            BasicBlock loop =(BasicBlock)loopBody.match(new StmtMatcher());
+
+            //looping through the body
             BasicBlock L2=BasicBlock(
                     Jump(end)
             );

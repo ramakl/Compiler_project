@@ -57,7 +57,7 @@ public class SimpleTests {
         testStatements(
                 "int x;",
                 "x = 42;",
-                "if (true)",
+                "if (0 < x)",
                 "{System.out.println(4);System.out.println(2);}",
                 "else","{System.out.println(5);}",
                 "System.out.println(6);"
@@ -68,9 +68,9 @@ public class SimpleTests {
 	public void test2() throws Exception {
 		testStatements(
 				"int x;",
-				"x = 2;",
+				"x = 3;",
 				"while (0 < x)",
-				"	{x =x - 1;",
+				"{ x = x - 1 ;",
 				" System.out.println(3);}"
 		);
 	}
