@@ -284,9 +284,9 @@ public class Translator extends Element.DefaultVisitor{
                 return ConstInt(0);
             }
 
-
+            return (Store(leftOp,rightOp));
 			//entry.add(Alloc((TemporaryVar) leftOp,rightOp));
-			return ConstInt(0);
+			//return ConstInt(0);
 
 		}
 		@Override
