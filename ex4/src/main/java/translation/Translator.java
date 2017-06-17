@@ -173,7 +173,34 @@ public class Translator extends Element.DefaultVisitor{
 		//stm-while
 		@Override
 		public Object case_StmtWhile(MJStmtWhile stmtWhile) {
-			MJExpr condition = stmtWhile.getCondition();
+            MJExpr condition = stmtWhile.getCondition();
+            Object cond=condition.match(new StmtMatcher());
+
+            MJStatement loopBody = stmtWhile.getLoopBody();
+
+            BasicBlock loop =(BasicBlock)loopBody.match(new StmtMatcher()); //looping through the body
+            BasicBlock L2=BasicBlock(
+                    Jump(end)
+            );
+            loop.setName("loop");
+            BasicBlock condi =BasicBlock(
+                    Branch((Operand)cond, loop, L2)
+            );
+            condi.setName("condi");
+            loop.add( Jump(condi));
+
+
+
+            L2.setName("L2");
+            br=true;
+            blocks.add(loop);
+
+            currentBlock = L2;
+            blocks.add(currentBlock);
+            blocks.add(condi);
+            return ConstInt(0);
+
+			/*MJExpr condition = stmtWhile.getCondition();
 			Object cond=condition.match(new StmtMatcher());
 			MJStatement loopBody = stmtWhile.getLoopBody();
 			BasicBlock loop =(BasicBlock)loopBody.match(new StmtMatcher()); //looping through the body
@@ -184,7 +211,7 @@ public class Translator extends Element.DefaultVisitor{
 			br=true;
 
 			entry.add(Branch((Operand)cond, loop, L2));
-			return ConstInt(0);
+			return ConstInt(0);*/
 		}
 		@Override
 		public Object case_MethodCall(MJMethodCall methodCall) {

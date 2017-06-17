@@ -69,7 +69,7 @@ public class SimpleTests {
 		testStatements(
 				"int x;",
 				"x = 42;",
-				"while (true)",
+				"while (0 < x)",
 				"	{System.out.println(x);",
 				" System.out.println(3);}"
 		);
