@@ -10,10 +10,19 @@ public class SimpleTests {
 
 		testStatements(
 				//"System.out.println(42);"
-				"System.out.println(42);"
+				"System.out.println(2);"
 
 		);
 	}
+    @Test
+    public void println1() throws Exception {
+
+        testStatements(
+                //"System.out.println(42);"
+                "System.out.println(4/2);"
+
+        );
+    }
 
 	@Test
 	public void test0() throws Exception {
@@ -44,6 +53,14 @@ public class SimpleTests {
 
 		);
 	}
+    @Test
+    public void test16() throws Exception {
+        testStatements(
+                "boolean x;",
+                "x = true;"
+
+        );
+    }
 	@Test
 	public void test14() throws Exception {
 		testStatements(
@@ -51,13 +68,23 @@ public class SimpleTests {
 
 		);
 	}
+    @Test
+    public void test15() throws Exception {
+        testStatements(
+                "int [] a;",
+                "a= new int[10];",
+                "int b;",
+                "b = a [2];"
+
+        );
+    }
 
     @Test
     public void test13() throws Exception {
         testStatements(
                 "int x;",
                 "x = 42;",
-                "if (true)",
+                "if (0 < x)",
                 "{System.out.println(4);System.out.println(2);}",
                 "else","{System.out.println(5);}",
                 "System.out.println(6);"
@@ -68,9 +95,9 @@ public class SimpleTests {
 	public void test2() throws Exception {
 		testStatements(
 				"int x;",
-				"x = 42;",
-				"while (true)",
-				"	{System.out.println(x);",
+				"x = 3;",
+				"while (0 < x)",
+				"{ x = x - 1 ;",
 				" System.out.println(3);}"
 		);
 	}
