@@ -60,6 +60,10 @@ public class Translator extends Element.DefaultVisitor{
     //public BasicBlock getOpenBlock() {
     //return BKL;
     //}
+    private Translator tr;
+   
+
+
     Map< MJVarDecl, TemporaryVar > tempVars = new HashMap< MJVarDecl, TemporaryVar >();
     Map< VarRef,TemporaryVar > temprefense = new HashMap<  VarRef,TemporaryVar >();
     public Translator(MJProgram javaProg) {
@@ -123,6 +127,13 @@ public class Translator extends Element.DefaultVisitor{
     private class StmtMatcher implements MJElement.Matcher {
         @Override
         public Object case_Program(MJProgram program) {
+            program.getClass();
+            MJMainClass main =program.getMainClass();
+            Object mainClass =main.match(new StmtMatcher());
+            program.getClassDecls();
+
+            TypeStruct p= (TypeStruct) mainClass;
+            
             return null;
 
         }
