@@ -888,6 +888,7 @@ public class Translator extends Element.DefaultVisitor{
 
             }
 
+
             //left
             @Override
             public Operand case_BoolConst(MJBoolConst boolConst) {
