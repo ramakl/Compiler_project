@@ -12,7 +12,6 @@ import minijava.ast.*;
 
 import minillvm.ast.*;
 
-import org.apache.tools.ant.types.Environment;
 import org.omg.CORBA._IDLTypeStub;
 
 
@@ -47,13 +46,7 @@ import java.util.concurrent.locks.Condition;
 //for using Temporary variable we have to varef to it and we should make a copy
 
 //it's only assign to it once.
-
-
 public class Translator extends Element.DefaultVisitor{
-   // private Translator tr;
-    //Translator (Translator translator){
-      //  this.tr=translator;
-    //}
     public static InstructionList BKL = InstructionList();
     BasicBlock entry = BasicBlock();
     BasicBlock end= BasicBlock();
@@ -74,7 +67,6 @@ public class Translator extends Element.DefaultVisitor{
         this.javaProg = javaProg;
 
     }
-
     public Prog translate() {
         // TODO add your translation code here
         // TODO here is an example of a minimal program (remove this)
@@ -100,7 +92,6 @@ public class Translator extends Element.DefaultVisitor{
         if(!br){
             currentBlock = entry;
         }
-
         currentBlock.add(ReturnExpr(ConstInt(0)));
         boolean blockFound = false;
         for(BasicBlock b : blocks)
@@ -145,13 +136,7 @@ public class Translator extends Element.DefaultVisitor{
                 }
 
                 @Override
-               public Type case_TypeIntArray(MJTypeIntArray typeIntArray) {
-                   /* TypeStruct aarr =Ast.TypeStruct("array",
-                            Ast.StructFieldList(
-                                    Ast.StructField(Ast.TypeInt(),"length"),
-                                            Ast.StructField(Ast.TypeArray(Ast.TypeInt(),0),"data")
-                            ));
-                    return  aarr;*/
+                public Type case_TypeIntArray(MJTypeIntArray typeIntArray) {
                     return TypeArray(TypeInt(), typeIntArray.size());
                 }
 
@@ -181,32 +166,45 @@ public class Translator extends Element.DefaultVisitor{
         public Object case_StmtWhile(MJStmtWhile stmtWhile) {
 
             MJExpr condition = stmtWhile.getCondition();
-            Object cond=condition.match(new StmtMatcher());
-
-            MJStatement loopBody = stmtWhile.getLoopBody();
             BasicBlock loop= BasicBlock() ;
             currentBlock=loop;
+            Object cond=condition.match(new StmtMatcher());
+
+
+            BasicBlock L3 = BasicBlock();
+            currentBlock = L3;
+            L3.setName("L3");
+            MJStatement loopBody = stmtWhile.getLoopBody();
             BasicBlock loopp =(BasicBlock)loopBody.match(new StmtMatcher());
             for(Instruction i : loopp)
                 currentBlock.add(i.copy());
+            currentBlock.add(
+                    Jump(loop)
+            );
+
             //looping through the body
             BasicBlock L2=BasicBlock(
-                    Jump(end)
+
             );
             loop.setName("loop");
 
-            BasicBlock condi =BasicBlock(
-                    Branch((Operand)cond, loop, L2)
+
+            loop.add(
+                    Branch((Operand)cond,L3,L2)
             );
-            condi.setName("condi");
-            loop.add( Jump(condi));
+
             L2.setName("L2");
             br=true;
             blocks.add(loop);
+            blocks.add(L3);
             currentBlock = L2;
             blocks.add(currentBlock);
-            blocks.add(condi);
-            entry.add(ReturnExpr(ConstInt(0)));
+            //L2.add(Jump(end));
+            entry.add(
+                    Jump(loop)
+            );
+            L2.add(Jump(end));
+            currentBlock = end;
             return ConstInt(0);
 
         }
@@ -265,7 +263,11 @@ public class Translator extends Element.DefaultVisitor{
             MJVarDecl varDeclvar = varDecl.getVariableDeclaration();
             if (tempVars.containsKey(varDeclvar)) {
                 TemporaryVar x = tempVars.get(varDeclvar);
-                return VarRef(x);
+                TemporaryVar y = TemporaryVar(x.getName()+"_value");
+                currentBlock.add(
+                        Load(y,VarRef(x))
+                );
+                return VarRef(y);
                 //return x;
             } else {
                 // This should never happen
@@ -285,16 +287,16 @@ public class Translator extends Element.DefaultVisitor{
             Operand rightOp = get_R(stmtAssign.getRight());
             Operand leftOp = get_L(stmtAssign.getLeft());
             if (arr) {
-
                 TemporaryVar x = TemporaryVar("C");
                 TemporaryVar d = TemporaryVar("D");
                 Load lArray = Load(x, leftOp);
-                currentBlock.add(lArray);
-                currentBlock.add(Alloca(d, rightOp.calculateType()));
+                entry.add(lArray);
+                entry.add(Alloca(d, rightOp.calculateType()));
 
-                currentBlock.add(Store(VarRef(d), ArraySize.copy()));
+                entry.add(Store(VarRef(d), ArraySize.copy()));
                 arr=false;
                 return ConstInt(0);
+
             }
             return (Store(leftOp,rightOp));
             //entry.add(Alloc((TemporaryVar) leftOp,rightOp));
@@ -420,20 +422,20 @@ public class Translator extends Element.DefaultVisitor{
         @Override
         public Object case_ClassDecl(MJClassDecl classDecl) {
 
-          String className= classDecl.getName();
-           MJVarDeclList filds=classDecl.getFields();
-           MJMethodDeclList methods=classDecl.getMethods();
-           MJExtended extended=classDecl.getExtended();
+            String className= classDecl.getName();
+            MJVarDeclList filds=classDecl.getFields();
+            MJMethodDeclList methods=classDecl.getMethods();
+            MJExtended extended=classDecl.getExtended();
             TypeStruct ClassStruct;
             StructFieldList stfl=StructFieldList();
-           for (MJVarDecl VAr :filds)
-           {
-               Object VarDecl =VAr.match(new StmtMatcher());
-              StructField  sf=StructField((Type)VarDecl,VarDecl.toString());
-              stfl.add(sf);
-           }
+            for (MJVarDecl VAr :filds)
+            {
+                Object VarDecl =VAr.match(new StmtMatcher());
+                StructField  sf=StructField((Type)VarDecl,VarDecl.toString());
+                stfl.add(sf);
+            }
             ClassStruct =Ast.TypeStruct(className,stfl);
-           //i
+
             return ClassStruct;
 
 
@@ -484,11 +486,6 @@ public class Translator extends Element.DefaultVisitor{
         //matcher
         @Override
         public Object case_NewIntArray(MJNewIntArray newIntArray) {
-       /*     Parameter sizee =Ast.Parameter(Ast.TypeInt(),"size");
-           TypePointer arrayPointerType;
-            ProcedureRef newIntArrayFunc= Ast.Proc("newInAr",arrayPointerType,Ast.ParameterList(sizee),Ast.BasicBlockList());
-            addProcedure(newIntArray);
-            setCurrentproc(newIntArrayFunc);*/
             MJExpr size=  newIntArray.getArraySize();
             Object  sizeArray=size.match(new StmtMatcher());
             TemporaryVar NewSize = TemporaryVar("NewSize");
@@ -496,7 +493,6 @@ public class Translator extends Element.DefaultVisitor{
             //Load lR = Load(s,right);
             entry.add(BinaryOperation(NewSize,(Operand) sizeArray,(Operator) Mul(), ConstInt(4)));
             entry.add(BinaryOperation(NewSize2,(Operand)NewSize,(Operator) Add(), ConstInt(4)));
-
             arr=true;
             return VarRef(NewSize2);
         }
@@ -571,7 +567,6 @@ public class Translator extends Element.DefaultVisitor{
             TemporaryVar comp1 = TemporaryVar("comp1");
             TemporaryVar comp2 = TemporaryVar("comp2");
             TemporaryVar comp3 = TemporaryVar("comp3");
-
             currentBlock.add(BinaryOperation(comp1, (Operand)index,(Operator)Slt(),VarRef(x)));
             currentBlock.add(BinaryOperation(comp2, ConstInt(-1),(Operator)Slt(),(Operand)((Operand) index).copy()));
             currentBlock.add(BinaryOperation(comp3,VarRef(comp1),(Operator)And(),VarRef(comp2)));
@@ -581,15 +576,14 @@ public class Translator extends Element.DefaultVisitor{
             L3.setName("L3");
 
             TemporaryVar t2 = TemporaryVar("t2");
-            //OperandList t22=OperandList();
-            //t22.add(VarRef(t2).copy());
-            TemporaryVar t3 = TemporaryVar("t3");
-            TemporaryVar b= TemporaryVar("b");
+            OperandList t22=OperandList();
+            t22.add(VarRef(t2).copy());
+            TemporaryVar t3 = TemporaryVar("t2");
+            TemporaryVar b= TemporaryVar("t2");
             BasicBlock L1 =BasicBlock(
 
                     BinaryOperation(t2, (Operand)((Operand) index).copy(),(Operator)Add(),ConstInt(1)),
-                    GetElementPtr(t3,(Operand)((Operand) expr).copy(),Ast.OperandList(Ast.ConstInt(0),
-                            Ast.ConstInt(1),(VarRef(t2)).copy())),
+                    GetElementPtr(t3,(Operand)((Operand) expr).copy(),t22),
                     Load(b,VarRef(t3)),
                     Jump(L3)
             );
@@ -600,7 +594,6 @@ public class Translator extends Element.DefaultVisitor{
             );
             L2.setName("L2");
             currentBlock.add(Branch(VarRef(comp3),L1,L2));
-            currentBlock=end;
 
             return null;
         }
@@ -632,7 +625,6 @@ public class Translator extends Element.DefaultVisitor{
             public Operand case_ArrayLength(MJArrayLength arrayLength) {
                 return null;
             }
-            //right
 
             @Override
             public Operand case_ArrayLookup(MJArrayLookup arrayLookup) {
@@ -684,6 +676,47 @@ public class Translator extends Element.DefaultVisitor{
 
 
                 return VarRef(t3);
+
+/*
+                MJExpr exp= arrayLookup.getArrayExpr();
+                MJExpr in=  arrayLookup.getArrayIndex();
+                Object index=in.match(new StmtMatcher());
+                Object expr=exp.match(new StmtMatcher());
+
+                TemporaryVar x = TemporaryVar("x");
+
+                Load(x,(Operand)expr);
+                TemporaryVar comp1 = TemporaryVar("comp1");
+                TemporaryVar comp2 = TemporaryVar("comp2");
+                TemporaryVar comp3 = TemporaryVar("comp3");
+                currentBlock.add(BinaryOperation(comp1, (Operand)index,(Operator)Slt(),VarRef(x)));
+                currentBlock.add(BinaryOperation(comp2, ConstInt(-1),(Operator)Slt(),(Operand)((Operand) index).copy()));
+                currentBlock.add(BinaryOperation(comp3,VarRef(comp1),(Operator)And(),VarRef(comp2)));
+                BasicBlock L3 =BasicBlock(
+                        Jump(end)
+                );
+                L3.setName("L3");
+
+                TemporaryVar t2 = TemporaryVar("t2");
+                OperandList t22=OperandList();
+                t22.add(VarRef(t2).copy());
+                TemporaryVar t3 = TemporaryVar("t2");
+                TemporaryVar b= TemporaryVar("t2");
+                BasicBlock L1 =BasicBlock(
+
+                       BinaryOperation(t2, (Operand)((Operand) index).copy(),(Operator)Add(),ConstInt(1)),
+                        GetElementPtr(t3,(Operand)((Operand) expr).copy(),t22),
+                        Load(b,VarRef(t3)),
+                        Jump(L3)
+                );
+                L1.setName("L1");
+                BasicBlock L2 =BasicBlock(
+                        HaltWithError( "error")
+
+                );
+                L2.setName("L2");
+                currentBlock.add(Branch(VarRef(comp3),L1,L2));
+                return null;*/
             }
             @Override
             public Operand case_BoolConst(MJBoolConst boolConst) {
@@ -772,7 +805,7 @@ public class Translator extends Element.DefaultVisitor{
                 }
 
                 TemporaryVar result = TemporaryVar("result" );
-                currentBlock.add(Ast.BinaryOperation(result, left, op, right));
+                currentBlock.add(BinaryOperation(result, left, op, right));
                 return VarRef(result);
             }
             @Override
@@ -925,6 +958,7 @@ public class Translator extends Element.DefaultVisitor{
 
             }
 
+
             //left
             @Override
             public Operand case_BoolConst(MJBoolConst boolConst) {
@@ -941,8 +975,82 @@ public class Translator extends Element.DefaultVisitor{
             //left
             @Override
             public Operand case_ExprBinary(MJExprBinary exprBinary) {
-                HaltWithError("must be no expr in left side ");
-                return null;
+                //Operand right = get_R(exprBinary.getRight());
+                Operand right = exprBinary.getRight().match(this);
+                //Operand left = get_L(exprBinary.getLeft());
+                Operand left = exprBinary.getLeft().match(this);
+                Operator op = exprBinary.getOperator().match(new MJOperator.Matcher<Operator>() {
+
+                    @Override
+                    public Operator case_Div(MJDiv div) {
+                        return Sdiv();
+                    }
+
+                    @Override
+                    public Operator case_And(MJAnd and) {
+                        return And();
+                    }
+
+                    @Override
+                    public Operator case_Equals(MJEquals equals) {
+                        return Eq();
+                    }
+
+                    @Override
+                    public Operator case_Less(MJLess less) {
+                        return Slt();
+                    }
+
+                    @Override
+                    public Operator case_Minus(MJMinus minus) {
+                        return Sub();
+                    }
+
+                    @Override
+                    public Operator case_Plus(MJPlus plus) {
+                        return Add();
+                    }
+
+                    @Override
+                    public Operator case_Times(MJTimes times) {
+                        return Mul();
+                    }
+
+                });
+
+                //Load lR = Load(s,right);
+                if(op instanceof Sdiv){
+
+                    TemporaryVar resultr = TemporaryVar("ss");
+                    TemporaryVar resul = TemporaryVar("s");
+                    currentBlock.add(BinaryOperation(resul,right,(Operator)Eq(),ConstInt(0)));
+                    BasicBlock L1 =BasicBlock(
+                            BinaryOperation(resultr,left,(Operator)Sdiv(),right.copy())
+
+                    );
+                    L1.setName("L1");
+
+                    L1.add( Jump(end));
+                    blocks.add(L1);
+                    BasicBlock L2 =BasicBlock(
+
+                            HaltWithError("devby Zero")
+                    );
+                    L1.setName("L2");
+                    blocks.add(L2);
+                    br=true;
+
+                    currentBlock.add((Instruction) Branch(VarRef(resul),L1,L2));
+                    currentBlock = end;
+                    //currentBlock=end;
+
+                    return VarRef(resultr);
+                }
+
+                TemporaryVar result = TemporaryVar("result" );
+                currentBlock.add(BinaryOperation(result, left, op, right));
+                return VarRef(result);
+
             }
 
             @Override
@@ -1012,4 +1120,5 @@ public class Translator extends Element.DefaultVisitor{
         return leftop;
     }//To do the rest of the cases
 }
+
 
