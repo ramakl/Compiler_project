@@ -56,6 +56,7 @@ public class Translator extends Element.DefaultVisitor{
     boolean arr=false;
     Operand ArraySize;
     public int o =0;
+    boolean arrlok=false;
     private final MJProgram javaProg;
     // @mahsa: We need to have a block to add serveral submethods to one basic block of a parent method
     //public BasicBlock getOpenBlock() {
@@ -298,6 +299,15 @@ public class Translator extends Element.DefaultVisitor{
                 return ConstInt(0);
 
             }
+            if(arrlok){
+                TemporaryVar xx = TemporaryVar("cC");
+                TemporaryVar d = TemporaryVar("D");
+                Load lArray = Load(xx, leftOp);
+                arrlok=false;
+                return (Ast.Load(xx.copy(),rightOp));
+
+            }
+
             return (Store(leftOp,rightOp));
             //entry.add(Alloc((TemporaryVar) leftOp,rightOp));
             //return ConstInt(0);
@@ -632,7 +642,7 @@ public class Translator extends Element.DefaultVisitor{
                 MJExpr exp= arrayLookup.getArrayExpr();
                 MJExpr in=  arrayLookup.getArrayIndex();
                 Object index=in.match(new StmtMatcher());
-                Object expr=exp.match(new StmtMatcher());
+                Object expr= get_L(exp);
 
                 TemporaryVar x = TemporaryVar("x");
 
@@ -658,8 +668,8 @@ public class Translator extends Element.DefaultVisitor{
 
                         BinaryOperation(t2, (Operand)((Operand) index).copy(),(Operator)Add(),ConstInt(1)),
                         GetElementPtr(t3,(Operand)((Operand) expr).copy(),Ast.OperandList(Ast.ConstInt(0),
-                                Ast.ConstInt(1),(VarRef(t2)).copy())),
-                        Load(b,VarRef(t3)),
+                                Ast.ConstInt(1))),
+                       // Load(b,VarRef(t3)),
                         Jump(L3)
                 );
                 L1.setName("L1");
@@ -674,7 +684,7 @@ public class Translator extends Element.DefaultVisitor{
                 currentBlock=end;
                 br=true;
 
-
+                 arrlok=true;
                 return VarRef(t3);
 
 /*
@@ -915,6 +925,7 @@ public class Translator extends Element.DefaultVisitor{
             //left
             @Override
             public Operand case_ArrayLookup(MJArrayLookup arrayLookup) {
+                arrlok=true;
                 MJExpr exp= arrayLookup.getArrayExpr();
                 MJExpr in=  arrayLookup.getArrayIndex();
                 Object index=in.match(new StmtMatcher());
@@ -952,6 +963,7 @@ public class Translator extends Element.DefaultVisitor{
 
                 );
                 L2.setName("L2");
+                arrlok=true;
                 currentBlock.add(Branch(VarRef(comp3),L1,L2));
 
                 return null;

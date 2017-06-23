@@ -19,7 +19,7 @@ public class SimpleTests {
 
         testStatements(
                 //"System.out.println(42);"
-                "System.out.println(4/2);"
+                "System.out.println(4/0);"
 
         );
     }
