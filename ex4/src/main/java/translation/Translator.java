@@ -163,34 +163,46 @@ public class Translator extends Element.DefaultVisitor{
         //stm-while pair Working Rama Madhusudhan
         @Override
         public Object case_StmtWhile(MJStmtWhile stmtWhile) {
-            
-            MJExpr condition = stmtWhile.getCondition();
-            Object cond=condition.match(new StmtMatcher());
 
-            MJStatement loopBody = stmtWhile.getLoopBody();
+            MJExpr condition = stmtWhile.getCondition();
             BasicBlock loop= BasicBlock() ;
             currentBlock=loop;
+            Object cond=condition.match(new StmtMatcher());
+
+
+            BasicBlock L3 = BasicBlock();
+            currentBlock = L3;
+            L3.setName("L3");
+            MJStatement loopBody = stmtWhile.getLoopBody();
             BasicBlock loopp =(BasicBlock)loopBody.match(new StmtMatcher());
             for(Instruction i : loopp)
                 currentBlock.add(i.copy());
+            currentBlock.add(
+                    Jump(loop)
+            );
+
             //looping through the body
             BasicBlock L2=BasicBlock(
-                    Jump(end)
+
             );
             loop.setName("loop");
 
-            BasicBlock condi =BasicBlock(
-                    Branch((Operand)cond, loop, L2)
+
+            loop.add(
+                    Branch((Operand)cond,L3,L2)
             );
-            condi.setName("condi");
-            loop.add( Jump(condi));
+
             L2.setName("L2");
             br=true;
             blocks.add(loop);
+            blocks.add(L3);
             currentBlock = L2;
+
             blocks.add(currentBlock);
-            blocks.add(condi);
-            entry.add(ReturnExpr(ConstInt(0)));
+            //L2.add(Jump(end));
+            entry.add(
+                    Jump(loop)
+            );
             return ConstInt(0);
 
         }
@@ -249,7 +261,11 @@ public class Translator extends Element.DefaultVisitor{
             MJVarDecl varDeclvar = varDecl.getVariableDeclaration();
             if (tempVars.containsKey(varDeclvar)) {
                 TemporaryVar x = tempVars.get(varDeclvar);
-                return VarRef(x);
+                TemporaryVar y = TemporaryVar(x.getName()+"_value");
+                currentBlock.add(
+                        Load(y,VarRef(x))
+                );
+                return VarRef(y);
                 //return x;
             } else {
                 // This should never happen
