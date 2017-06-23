@@ -197,12 +197,13 @@ public class Translator extends Element.DefaultVisitor{
             blocks.add(loop);
             blocks.add(L3);
             currentBlock = L2;
-
             blocks.add(currentBlock);
             //L2.add(Jump(end));
             entry.add(
                     Jump(loop)
             );
+            L2.add(Jump(end));
+            currentBlock = end;
             return ConstInt(0);
 
         }
