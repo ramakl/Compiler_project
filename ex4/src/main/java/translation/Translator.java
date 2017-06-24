@@ -130,17 +130,28 @@ public class Translator extends Element.DefaultVisitor{
         }
         @Override
         public Object case_MethodDecl(MJMethodDecl methodDecl) {
-            methodDecl.getName();
+            String name =methodDecl.getName();
+           MJVarDeclList parameter= methodDecl.getFormalParameters();
+            Object parameters=parameter.match(new StmtMatcher());
+
           MJBlock methodBody=  methodDecl.getMethodBody();
-            methodDecl.getReturnType();
+            MJType  returnType=methodDecl.getReturnType();
+            Object retType=returnType.match(new StmtMatcher());
             Object methBoy=methodBody.match(new StmtMatcher());
-            for (MJStatement stmt : (MJBlock)methBoy) {
+            Proc(name, (Type)retType,(ParameterList)parameters,(BasicBlockList)methBoy);
+
+
+
+
+
+
+            /*for (MJStatement stmt : (MJBlock)methBoy) {
                 Object matchh = stmt.match(new StmtMatcher());
                 if(matchh instanceof Instruction)
                 {
                     currentBlock.add((Instruction)matchh);
-                }
-            }
+                }*/
+
 
             return null;
         }
@@ -463,6 +474,7 @@ public class Translator extends Element.DefaultVisitor{
 
             String className= classDecl.getName();
             MJVarDeclList filds=classDecl.getFields();
+
             MJMethodDeclList methods=classDecl.getMethods();
 
             MJExtended extended=classDecl.getExtended();
