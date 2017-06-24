@@ -12,6 +12,7 @@ import minijava.ast.*;
 
 import minillvm.ast.*;
 
+import org.omg.CORBA.Current;
 import org.omg.CORBA._IDLTypeStub;
 
 
@@ -133,13 +134,15 @@ public class Translator extends Element.DefaultVisitor{
         public Object case_MethodDecl(MJMethodDecl methodDecl) {
             String name =methodDecl.getName();
            MJVarDeclList param= methodDecl.getFormalParameters();
-           ParameterList paramlist=null ;
+           ParameterList paramlist= ParameterList() ;
             for (MJVarDecl VAr :param)
             {
                 Object VarDecl =VAr.match(new StmtMatcher());
                 TemporaryVar s=TemporaryVar("s");
                 Ast.Load(s,(Operand)VarDecl);
                 Parameter  pr=Parameter((Type)s.calculateType(),VarDecl.toString());
+
+
                 paramlist.add(pr);
             }
 
@@ -148,8 +151,22 @@ public class Translator extends Element.DefaultVisitor{
           MJBlock methodBody=  methodDecl.getMethodBody();
             MJType  returnType=methodDecl.getReturnType();
             Object retType=returnType.match(new StmtMatcher());
-            Object methBoy=methodBody.match(new StmtMatcher());
-            Proc p=Proc(name, (Type)retType,paramlist,(BasicBlockList)methBoy);
+            BasicBlockList blokl =BasicBlockList();
+            BasicBlock BBlok =BasicBlock();
+            blocks.add(BBlok);
+            currentBlock=BBlok;
+            for(MJStatement st :methodBody)
+            {
+                Object stmt=st.match(new StmtMatcher());
+                if(stmt instanceof Instruction){
+                    BBlok.add((Instruction)stmt);
+                }
+
+            }
+            blokl.add(BBlok.copy());
+            //Object methBoy=methodBody.match(new StmtMatcher());
+            Proc p=Proc(name, (Type)retType,paramlist,blokl);
+            currentBlock=end;
             prog.getProcedures().add(p);
 
 
