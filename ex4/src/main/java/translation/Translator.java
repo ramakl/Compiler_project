@@ -82,6 +82,7 @@ public class Translator extends Element.DefaultVisitor{
         currentBlock = entry;
         blocks.add(currentBlock);
         //blocks.add(end);
+
         for (MJStatement stmt : javaProg.getMainClass().getMainBody()) {
             Object match = stmt.match(new StmtMatcher());
             if(match instanceof Instruction)
@@ -89,6 +90,9 @@ public class Translator extends Element.DefaultVisitor{
                 currentBlock.add((Instruction)match);
             }
         }
+      MJClassDeclList classlist =  javaProg.getClassDecls();
+        Object y=classlist.match(new StmtMatcher());
+
         currentBlock = end;
         if(!br){
             currentBlock = entry;
@@ -216,7 +220,7 @@ public class Translator extends Element.DefaultVisitor{
 
         @Override
         public Object case_Negate(MJNegate negate) {
-            return null;
+            return negate;
         }
 
         @Override
@@ -359,6 +363,11 @@ public class Translator extends Element.DefaultVisitor{
 
         @Override
         public Object case_ClassDeclList(MJClassDeclList classDeclList) {
+            for(MJClassDecl cl :classDeclList)
+            {
+              Object classdecl=  cl.match(new StmtMatcher());
+            }
+
             return null;
         }
 
@@ -366,9 +375,15 @@ public class Translator extends Element.DefaultVisitor{
         @Override
         public Object case_ExprBinary(MJExprBinary exprBinary) {
 
-            Operand right = get_R(exprBinary.getRight());
-            Operand left = get_L(exprBinary.getLeft());
 
+            Operand left;
+
+            Operand right = get_R(exprBinary.getRight());
+            if (exprBinary.getLeft() instanceof MJVarUse) {
+                left = get_R(exprBinary.getLeft());
+            } else{
+                left = get_L(exprBinary.getLeft());
+              }
             MJOperator  op = exprBinary.getOperator();
 
             Object ad = op.match(new StmtMatcher());
@@ -441,13 +456,14 @@ public class Translator extends Element.DefaultVisitor{
             for (MJVarDecl VAr :filds)
             {
                 Object VarDecl =VAr.match(new StmtMatcher());
-                StructField  sf=StructField((Type)VarDecl,VarDecl.toString());
+                TemporaryVar s=TemporaryVar("s");
+                Ast.Load(s,(Operand)VarDecl);
+                StructField  sf=StructField((Type)s.calculateType(),VarDecl.toString());
                 stfl.add(sf);
             }
             ClassStruct =Ast.TypeStruct(className,stfl);
 
             return ClassStruct;
-
 
 
         }
@@ -877,6 +893,13 @@ public class Translator extends Element.DefaultVisitor{
                 if(ad instanceof Sub){
 
                     TemporaryVar result = TemporaryVar("ss");
+                    currentBlock.add((Instruction) BinaryOperation(result,(ConstInt(0)),(Operator)ad,(Operand)(e)));
+                    return VarRef(result);
+                }
+                if(ad instanceof MJNegate){
+
+                    TemporaryVar result = TemporaryVar("ss");
+
                     currentBlock.add((Instruction) BinaryOperation(result,(ConstInt(0)),(Operator)ad,(Operand)(e)));
                     return VarRef(result);
                 }

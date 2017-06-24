@@ -29,6 +29,7 @@ public class SimpleTests {
 		testStatements(
 				"System.out.println(42*7+3);"
 		);
+
 	}
 	@Test
 	public void test55() throws Exception {
@@ -79,6 +80,16 @@ public class SimpleTests {
         );
     }
 
+	@Test
+	public void test21() throws Exception {
+		testStatements(
+				"int x;",
+				"x = 7;",
+				"while (x < 3)",
+				"{ ",
+				" }"
+		);
+	}
     @Test
     public void test13() throws Exception {
         testStatements(
