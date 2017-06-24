@@ -57,6 +57,7 @@ public class Translator extends Element.DefaultVisitor{
     Operand ArraySize;
     public int o =0;
     boolean arrlok=false;
+    Prog prog;
     private final MJProgram javaProg;
     // @mahsa: We need to have a block to add serveral submethods to one basic block of a parent method
     //public BasicBlock getOpenBlock() {
@@ -71,7 +72,7 @@ public class Translator extends Element.DefaultVisitor{
     public Prog translate() {
         // TODO add your translation code here
         // TODO here is an example of a minimal program (remove this)
-        Prog prog = Prog(TypeStructList(), GlobalList(), ProcList());
+         prog = Prog(TypeStructList(), GlobalList(), ProcList());
         blocks = BasicBlockList();
         //BasicBlockList blocks = BKL;
         Proc mainProc = Proc("main", TypeInt(), ParameterList(), blocks);
@@ -131,15 +132,25 @@ public class Translator extends Element.DefaultVisitor{
         @Override
         public Object case_MethodDecl(MJMethodDecl methodDecl) {
             String name =methodDecl.getName();
-           MJVarDeclList parameter= methodDecl.getFormalParameters();
-            Object parameters=parameter.match(new StmtMatcher());
+           MJVarDeclList param= methodDecl.getFormalParameters();
+           ParameterList paramlist=null ;
+            for (MJVarDecl VAr :param)
+            {
+                Object VarDecl =VAr.match(new StmtMatcher());
+                TemporaryVar s=TemporaryVar("s");
+                Ast.Load(s,(Operand)VarDecl);
+                Parameter  pr=Parameter((Type)s.calculateType(),VarDecl.toString());
+                paramlist.add(pr);
+            }
+
+            //Object parameters=parameter.match(new StmtMatcher());
 
           MJBlock methodBody=  methodDecl.getMethodBody();
             MJType  returnType=methodDecl.getReturnType();
             Object retType=returnType.match(new StmtMatcher());
             Object methBoy=methodBody.match(new StmtMatcher());
-            Proc(name, (Type)retType,(ParameterList)parameters,(BasicBlockList)methBoy);
-
+            Proc p=Proc(name, (Type)retType,paramlist,(BasicBlockList)methBoy);
+            prog.getProcedures().add(p);
 
 
 
