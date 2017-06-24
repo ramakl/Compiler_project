@@ -93,6 +93,7 @@ public class Translator extends Element.DefaultVisitor{
       MJClassDeclList classlist =  javaProg.getClassDecls();
         Object y=classlist.match(new StmtMatcher());
 
+
         currentBlock = end;
         if(!br){
             currentBlock = entry;
@@ -129,6 +130,18 @@ public class Translator extends Element.DefaultVisitor{
         }
         @Override
         public Object case_MethodDecl(MJMethodDecl methodDecl) {
+            methodDecl.getName();
+          MJBlock methodBody=  methodDecl.getMethodBody();
+            methodDecl.getReturnType();
+            Object methBoy=methodBody.match(new StmtMatcher());
+            for (MJStatement stmt : (MJBlock)methBoy) {
+                Object matchh = stmt.match(new StmtMatcher());
+                if(matchh instanceof Instruction)
+                {
+                    currentBlock.add((Instruction)matchh);
+                }
+            }
+
             return null;
         }
         @Override
@@ -363,12 +376,13 @@ public class Translator extends Element.DefaultVisitor{
 
         @Override
         public Object case_ClassDeclList(MJClassDeclList classDeclList) {
+            Object classdecl =null;
             for(MJClassDecl cl :classDeclList)
             {
-              Object classdecl=  cl.match(new StmtMatcher());
+              classdecl=  cl.match(new StmtMatcher());
             }
 
-            return null;
+            return classdecl;
         }
 
         //ExprBinary written by @rama
@@ -450,6 +464,7 @@ public class Translator extends Element.DefaultVisitor{
             String className= classDecl.getName();
             MJVarDeclList filds=classDecl.getFields();
             MJMethodDeclList methods=classDecl.getMethods();
+
             MJExtended extended=classDecl.getExtended();
             TypeStruct ClassStruct;
             StructFieldList stfl=StructFieldList();
@@ -460,6 +475,11 @@ public class Translator extends Element.DefaultVisitor{
                 Ast.Load(s,(Operand)VarDecl);
                 StructField  sf=StructField((Type)s.calculateType(),VarDecl.toString());
                 stfl.add(sf);
+            }
+            for (MJMethodDecl method :methods)
+            {
+                Object VarDecl =method.match(new StmtMatcher());
+
             }
             ClassStruct =Ast.TypeStruct(className,stfl);
 
@@ -626,7 +646,14 @@ public class Translator extends Element.DefaultVisitor{
 
         @Override
         public Object case_MethodDeclList(MJMethodDeclList methodDeclList) {
-            return null;
+            Object methoDec =null;
+            for(MJMethodDecl ml :methodDeclList)
+            {
+                methoDec=  ml.match(new StmtMatcher());
+            }
+
+            return methoDec;
+
         }
     }
     //This Method Gets Right side of the exp, written by @Monireh
