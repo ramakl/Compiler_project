@@ -59,12 +59,15 @@ public class Translator extends Element.DefaultVisitor{
     public int o =0;
     boolean arrlok=false;
     Prog prog;
+    TypePointer  arrpoint ;
+    TypeStruct ClassStruct;
     private final MJProgram javaProg;
     // @mahsa: We need to have a block to add serveral submethods to one basic block of a parent method
     //public BasicBlock getOpenBlock() {
     //return BKL;
     //}
     Map< MJVarDecl, TemporaryVar > tempVars = new HashMap< MJVarDecl, TemporaryVar >();
+    Map<String,TypePointer> objCls = new HashMap<String,TypePointer>();
     Map< VarRef,TemporaryVar > temprefense = new HashMap<  VarRef,TemporaryVar >();
     public Translator(MJProgram javaProg) {
         this.javaProg = javaProg;
@@ -116,6 +119,7 @@ public class Translator extends Element.DefaultVisitor{
         //For-loop to read each stmt of main class -> main bod
         //for (MJStatement stmt : javaProg.getMainClass().getMainBody()) {
         //   stmt.match(new StmtMatcher());
+       // TypeStruct vMethodTable = TypeStruct("vatable",StructFieldList(StructField(TypePointer(),"metod")));
         //}
         return prog;
     }
@@ -130,6 +134,7 @@ public class Translator extends Element.DefaultVisitor{
         public Object case_FieldAccess(MJFieldAccess fieldAccess) {
             return null;
         }
+        //Method Decl written by @rama
         @Override
         public Object case_MethodDecl(MJMethodDecl methodDecl) {
             String name =methodDecl.getName();
@@ -181,7 +186,7 @@ public class Translator extends Element.DefaultVisitor{
                 }*/
 
 
-            return null;
+            return ProcedureRef(p);
         }
         @Override
         public Object case_VarDecl(MJVarDecl varDecl) {
@@ -194,12 +199,36 @@ public class Translator extends Element.DefaultVisitor{
 
                 @Override
                 public Type case_TypeIntArray(MJTypeIntArray typeIntArray) {
+                    TypeStruct array =TypeStruct("array",StructFieldList(
+                            StructField(TypeInt(),"size"),
+                            StructField(TypeArray(TypeInt(),0),"value")
+
+                    ));
+                   arrpoint=TypePointer(array);
                     return TypeArray(TypeInt(), typeIntArray.size());
                 }
 
                 @Override
                 public Type case_TypeClass(MJTypeClass typeClass) {
-                    return null;
+
+                    String name =typeClass.getName();
+                   MJClassDecl ClasDecl = typeClass.getClassDeclaration();
+                   MJVarDeclList filds=ClasDecl.getFields();
+                    StructFieldList st=StructFieldList();
+                   for(MJVarDecl fild :filds)
+                   {
+                       Object f= fild.match(new StmtMatcher());
+
+                       TemporaryVar s=TemporaryVar("s");
+                       if(f instanceof Operand) {
+                           Ast.Load(s, (Operand) f);
+                           StructField sff = StructField((Type) s.calculateType(), fild.toString());
+                           st.add(sff);
+                       }
+                   }
+                   return TypeStruct(name,st);
+                   // return TypePointer();
+
                 }
 
                 @Override
@@ -267,12 +296,28 @@ public class Translator extends Element.DefaultVisitor{
         }
         @Override
         public Object case_MethodCall(MJMethodCall methodCall) {
+          MJExprList ArgumentsList=   methodCall.getArguments();
+           String MetodName =methodCall.getMethodName();
+            MJMethodDecl methoddecl = methodCall.getMethodDeclaration();
+           Object ob=methoddecl.match(new StmtMatcher());
+           MJExpr Receiver= methodCall.getReceiver();
+            OperandList OpList =OperandList();
+            for(MJExpr Arg:ArgumentsList)
+            {
+                Object Argument =Arg.match(new StmtMatcher());
+                if(Argument instanceof Operand) {
+                    Operand Op = (Operand) Argument;
+                    OpList.add(Op);
+                }
+            }
+             TemporaryVar temp = TemporaryVar("temp" );
+            Ast.Call(temp,(Operand) ob,OpList);
             return null;
         }
 
         @Override
         public Object case_Negate(MJNegate negate) {
-            return negate;
+            return Sub();
         }
 
         @Override
@@ -305,7 +350,7 @@ public class Translator extends Element.DefaultVisitor{
             return null;
         }
 
-        //Number
+
         @Override
         //Number writen by @rama
         public Operand case_Number(MJNumber number) {
@@ -414,6 +459,7 @@ public class Translator extends Element.DefaultVisitor{
         }
 
         @Override
+        //ClassDeclList written by @rama
         public Object case_ClassDeclList(MJClassDeclList classDeclList) {
             Object classdecl =null;
             for(MJClassDecl cl :classDeclList)
@@ -427,7 +473,6 @@ public class Translator extends Element.DefaultVisitor{
         //ExprBinary written by @rama
         @Override
         public Object case_ExprBinary(MJExprBinary exprBinary) {
-
 
             Operand left;
 
@@ -468,14 +513,17 @@ public class Translator extends Element.DefaultVisitor{
         public Object case_StmtReturn(MJStmtReturn stmtReturn) {
             MJExpr e= stmtReturn.getResult();
             Object u=e.match(new StmtMatcher());
+            //if(u instanceof ConstBool){
+             //   return(ReturnExpr(ConstInt(Integer.parseInt(u.toString()))));
+           // }
             if(u instanceof Operand )
             {
-                currentBlock.add(ReturnExpr((Operand)u));
+                return(ReturnExpr((Operand)u));
             }
             else {
-                currentBlock.add(ReturnExpr(ConstInt(Integer.parseInt(u.toString()))));
+                return(ReturnExpr(ConstInt(Integer.parseInt(u.toString()))));
             }
-            return null;
+            //return null;
         }
 
         //stm-expr
@@ -498,6 +546,7 @@ public class Translator extends Element.DefaultVisitor{
         }
 
         @Override
+        //ClassDecl written by @rama
         public Object case_ClassDecl(MJClassDecl classDecl) {
 
             String className= classDecl.getName();
@@ -506,7 +555,7 @@ public class Translator extends Element.DefaultVisitor{
             MJMethodDeclList methods=classDecl.getMethods();
 
             MJExtended extended=classDecl.getExtended();
-            TypeStruct ClassStruct;
+
             StructFieldList stfl=StructFieldList();
             for (MJVarDecl VAr :filds)
             {
@@ -522,6 +571,9 @@ public class Translator extends Element.DefaultVisitor{
 
             }
             ClassStruct =Ast.TypeStruct(className,stfl);
+           // Map<TypePointer,String> objCls = new HashMap<TypePointer,String>();
+            //objCls.put(className,TypePointer(ClassStruct));
+            TemporaryVar tv=TemporaryVar("classADreddd");
 
             return ClassStruct;
 
@@ -566,20 +618,30 @@ public class Translator extends Element.DefaultVisitor{
 
         @Override
         public Object case_TypeClass(MJTypeClass typeClass) {
+            MJClassDecl clasDec=typeClass.getClassDeclaration();
+            String name =typeClass.getName();
+
             return null;
         }
 
         //matcher
         @Override
         public Object case_NewIntArray(MJNewIntArray newIntArray) {
+            //arrayLength.getArrayExpr();
+
             MJExpr size=  newIntArray.getArraySize();
             Object  sizeArray=size.match(new StmtMatcher());
+
             TemporaryVar NewSize = TemporaryVar("NewSize");
             TemporaryVar NewSize2 = TemporaryVar("NewSize2");
             //Load lR = Load(s,right);
             entry.add(BinaryOperation(NewSize,(Operand) sizeArray,(Operator) Mul(), ConstInt(4)));
             entry.add(BinaryOperation(NewSize2,(Operand)NewSize,(Operator) Add(), ConstInt(4)));
             arr=true;
+            Parameter Length =Parameter( TypeInt(),"length");
+            ParameterList prl=ParameterList(Length);
+           // Proc pr =Proc("arraylength",TypePointer(arrpoint),prl,BasicBlockList(BasicBlock(Ast.VarRef(length))));
+            //prog.getProcedures().add(pr);
             return VarRef(NewSize2);
         }
 
@@ -639,6 +701,11 @@ public class Translator extends Element.DefaultVisitor{
 
         @Override
         public Object case_ArrayLength(MJArrayLength arrayLength) {
+            arrayLength.getArrayExpr();
+            Parameter Length =Parameter( TypeInt(),"length");
+            ParameterList prl=ParameterList(Length);
+            Proc pr =Proc("arraylength",TypePointer(arrpoint),prl,BasicBlockList());
+            prog.getProcedures().add(pr);
             return null;
         }
 
@@ -706,12 +773,34 @@ public class Translator extends Element.DefaultVisitor{
 
             @Override
             public Operand case_MethodCall(MJMethodCall methodCall) {
+                MJExprList ArgumentsList=   methodCall.getArguments();
+                String MetodName =methodCall.getMethodName();
+                MJMethodDecl methoddecl = methodCall.getMethodDeclaration();
+                Object ob=methoddecl.match(new StmtMatcher());
+                MJExpr Receiver= methodCall.getReceiver();
+                OperandList OpList =OperandList();
+                for(MJExpr Arg:ArgumentsList)
+                {
+                    Object Argument =Arg.match(new StmtMatcher());
+                    if(Argument instanceof Operand) {
+                        Operand Op = (Operand) Argument;
+                        OpList.add(Op);
+                    }
+                }
+                TemporaryVar temp = TemporaryVar("temp" );
+                currentBlock.add(Call(temp,(Operand) ob,OpList));
                 return null;
             }
 
             @Override
             public Operand case_NewObject(MJNewObject newObject) {
-                return null;
+               String name = newObject.getClassName();
+                newObject.getClassDeclaration();
+               //objCls.put(TypePointer(ClassStruct),className);
+                TypePointer x = objCls.get(name);
+                TemporaryVar f = TemporaryVar("pointer");
+               // Load(f,x.);
+                return VarRef(f);
             }
 
             @Override
@@ -963,13 +1052,13 @@ public class Translator extends Element.DefaultVisitor{
                     currentBlock.add((Instruction) BinaryOperation(result,(ConstInt(0)),(Operator)ad,(Operand)(e)));
                     return VarRef(result);
                 }
-                if(ad instanceof MJNegate){
+              /*  if(ad instanceof MJNegate){
 
                     TemporaryVar result = TemporaryVar("ss");
 
                     currentBlock.add((Instruction) BinaryOperation(result,(ConstInt(0)),(Operator)ad,(Operand)(e)));
                     return VarRef(result);
-                }
+                }*/
                 return null;
 
             }
@@ -982,7 +1071,8 @@ public class Translator extends Element.DefaultVisitor{
 
         //Left side of an Assign could be one of the following cases, So we should define them first
 
-        Map<MJNewObject, MJClassDecl> objCls = new HashMap<MJNewObject,MJClassDecl>();
+        Map<MJNewObject, MJClassDecl> objClls = new HashMap<MJNewObject,MJClassDecl>();
+
 
         Map<MJVarUse, MJVarDecl> varUseDecl = new HashMap<MJVarUse,MJVarDecl>();
 
