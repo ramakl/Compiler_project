@@ -9,7 +9,6 @@ import com.sun.org.apache.xpath.internal.operations.Neg;
 import jdk.nashorn.internal.ir.Block;
 
 import minijava.ast.*;
-
 import minillvm.ast.*;
 
 import org.omg.CORBA.Current;
@@ -68,7 +67,8 @@ public class Translator extends Element.DefaultVisitor{
     //return BKL;
     //}
     Map< MJVarDecl, TemporaryVar > tempVars = new HashMap< MJVarDecl, TemporaryVar >();
-    Map<String,TypePointer> objCls = new HashMap<String,TypePointer>();
+    //Map<MJNewObject, MJClassDecl> clsdec = new HashMap<MJNewObject,MJClassDecl>();
+    Map<MJClassDecl ,TypePointer> objCls = new HashMap<MJClassDecl ,TypePointer>();
     Map< VarRef,TemporaryVar > temprefense = new HashMap<  VarRef,TemporaryVar >();
     public Translator(MJProgram javaProg) {
         this.javaProg = javaProg;
@@ -145,7 +145,7 @@ public class Translator extends Element.DefaultVisitor{
             {
                 Object VarDecl =VAr.match(new StmtMatcher());
                 TemporaryVar s=TemporaryVar("s");
-                Ast.Load(s,(Operand)VarDecl);
+                Load(s,(Operand)VarDecl);
                 Parameter  pr=Parameter((Type)s.calculateType(),VarDecl.toString());
                 paramlist.add(pr);
             }
@@ -205,25 +205,39 @@ public class Translator extends Element.DefaultVisitor{
 
                 @Override
                 public Type case_TypeClass(MJTypeClass typeClass) {
-
                     String name =typeClass.getName();
-                   MJClassDecl ClasDecl = typeClass.getClassDeclaration();
-                   MJVarDeclList filds=ClasDecl.getFields();
-                    StructFieldList st=StructFieldList();
-                   for(MJVarDecl fild :filds)
-                   {
-                       Object f= fild.match(new StmtMatcher());
+                    TypePointer typePointer;
+                    MJClassDecl ClasDecl = typeClass.getClassDeclaration();
+                    if (objCls.containsKey(ClasDecl)) {
+                        //TemporaryVar x = objCls.get(name);
+                         typePointer = objCls.get(ClasDecl);
+                         //typePointer.getTo();
 
-                       TemporaryVar s=TemporaryVar("s");
-                       if(f instanceof Operand) {
-                           Ast.Load(s, (Operand) f);
-                           StructField sff = StructField((Type) s.calculateType(), fild.toString());
-                           st.add(sff);
-                       }
-                   }
-                   return TypeStruct(name,st);
-                   // return TypePointer();
+                    } else {
+                        // This should never happen
 
+                        //throw new RuntimeException(
+                          //      "Variable not found during translation");
+
+                        MJVarDeclList filds=ClasDecl.getFields();
+                        StructFieldList st=StructFieldList();
+                        for(MJVarDecl fild :filds)
+                        {
+                           Object f= fild.match(new StmtMatcher());
+
+                           TemporaryVar s=TemporaryVar("s");
+                           if(f instanceof Operand) {
+                               currentBlock.add(Load(s, (Operand) f));
+                               StructField sff = StructField(s.calculateType(), fild.toString());
+                               st.add(sff);
+                           }
+                        }
+                        ClassStruct = TypeStruct(name,st);
+                        objCls.put(ClasDecl,TypePointer(ClassStruct));
+                        typePointer = objCls.get(ClasDecl);
+                    }
+                    //TypeStruct(name,st);
+                    return typePointer.getTo();
                 }
 
                 @Override
@@ -510,16 +524,16 @@ public class Translator extends Element.DefaultVisitor{
             MJExpr e= stmtReturn.getResult();
             //Object u=e.match(new StmtMatcher());
             Operand u = get_R(e);
-            Type t = u.calculateType();
-            if (t instanceof TypeBool){
-                if(u.equals(0)) {
-                    return ReturnExpr(ConstBool(false));
-                }else {
-                    return ReturnExpr(ConstBool(true));
-                }
-            }
-            else {
-                return ReturnExpr(u);
+//            Type t = u.calculateType();
+//            if (t instanceof TypeBool){
+//                if(u.equals(0)) {
+//                    return ReturnExpr(ConstBool(false));
+//                }else {
+//                    return ReturnExpr(ConstBool(true));
+//                }
+//            }
+//            else {
+            return ReturnExpr(u);
             }
 
                 //return ReturnExpr(ConstBool(u));
@@ -535,7 +549,7 @@ public class Translator extends Element.DefaultVisitor{
 //                return(ReturnExpr(ConstInt(Integer.parseInt(u.toString()))));
 //            }
             //return null;
-        }
+        //}
 
         //stm-expr
         @Override
@@ -572,23 +586,22 @@ public class Translator extends Element.DefaultVisitor{
             {
                 Object VarDecl =VAr.match(new StmtMatcher());
                 TemporaryVar s=TemporaryVar("s");
-                Ast.Load(s,(Operand)VarDecl);
-                StructField  sf=StructField((Type)s.calculateType(),VarDecl.toString());
+                Load(s,(Operand)VarDecl);
+                StructField  sf=StructField(s.calculateType(),VarDecl.toString());
                 stfl.add(sf);
             }
+
+            ClassStruct = TypeStruct(className,stfl);
+           // Map<TypePointer,String> objCls = new HashMap<TypePointer,String>();
+            //objCls.put(className,TypePointer(ClassStruct));
+            TemporaryVar tv=TemporaryVar("classADreddd");
+            objCls.put(classDecl,TypePointer(ClassStruct));
             for (MJMethodDecl method :methods)
             {
                 Object VarDecl =method.match(new StmtMatcher());
 
             }
-            ClassStruct =Ast.TypeStruct(className,stfl);
-           // Map<TypePointer,String> objCls = new HashMap<TypePointer,String>();
-            //objCls.put(className,TypePointer(ClassStruct));
-            TemporaryVar tv=TemporaryVar("classADreddd");
-
-            return ClassStruct;
-
-
+            return TypePointer(ClassStruct);
         }
 
         //stm-print writen by @rama
@@ -1105,14 +1118,8 @@ public class Translator extends Element.DefaultVisitor{
     public Operand get_L(MJExpr exp) {
 
         //Left side of an Assign could be one of the following cases, So we should define them first
-
-        Map<MJNewObject, MJClassDecl> objClls = new HashMap<MJNewObject,MJClassDecl>();
-
-
         Map<MJVarUse, MJVarDecl> varUseDecl = new HashMap<MJVarUse,MJVarDecl>();
-
         Map<MJFieldAccess, MJVarDecl> fieldAccVarDecl = new HashMap<MJFieldAccess,MJVarDecl>();
-
         Map<MJMethodCall, MJMethodDecl> methodCallsDecl = new HashMap<MJMethodCall,MJMethodDecl>();
 
         //return 212 doesn't mean anything
