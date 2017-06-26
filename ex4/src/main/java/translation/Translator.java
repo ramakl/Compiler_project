@@ -31,6 +31,7 @@ import java.util.Map;
 
 import java.util.HashMap;
 import java.util.concurrent.locks.Condition;
+import java.util.function.UnaryOperator;
 
 //basicly translation overview, you get minijava program and our translator have to translate it to LLVM
 
@@ -324,7 +325,7 @@ public class Translator extends Element.DefaultVisitor{
         public Object case_And(MJAnd and) {
             return And();
         }
-        //ExprUnary  written by @rama
+        //ExprUnary  written by @rama inside StmtMatcher
         @Override
         public Object case_ExprUnary(MJExprUnary exprUnary) {
             MJExpr ex= exprUnary.getExpr();
@@ -492,6 +493,7 @@ public class Translator extends Element.DefaultVisitor{
             if(ad instanceof Sdiv){
                 TemporaryVar resultr = TemporaryVar("ss");
                 TemporaryVar resul = TemporaryVar("s");
+
                 currentBlock.add(BinaryOperation(resul,right,(Operator)Eq(),ConstInt(0)));
                 BasicBlock L1 =BasicBlock(
                         BinaryOperation(resultr,left,(Operator)Sdiv(),right.copy()),
@@ -959,31 +961,29 @@ public class Translator extends Element.DefaultVisitor{
 
                 //Load lR = Load(s,right);
                 if(op instanceof Sdiv){
-
-                    TemporaryVar resultr = TemporaryVar("ss");
-                    TemporaryVar resul = TemporaryVar("s");
-                    currentBlock.add(BinaryOperation(resul,right,(Operator)Eq(),ConstInt(0)));
-                    BasicBlock L1 =BasicBlock(
-                            BinaryOperation(resultr,left,(Operator)Sdiv(),right.copy())
+                    TemporaryVar divRes = TemporaryVar("divRes");
+                    TemporaryVar result = TemporaryVar("result");
+                    currentBlock.add(BinaryOperation(result,right,Eq(),ConstInt(0)));
+                    BasicBlock L1 = BasicBlock(
+                            BinaryOperation(divRes, left, Sdiv(), right.copy())
 
                     );
                     L1.setName("L1");
-
-                    L1.add( Jump(end));
+                    L1.add(Jump(end));
                     blocks.add(L1);
-                    BasicBlock L2 =BasicBlock(
 
-                            HaltWithError("devby Zero")
+                    BasicBlock L2 = BasicBlock(
+                            HaltWithError("Divid by Zero")
                     );
-                    L1.setName("L2");
+                    L2.setName("L2");
                     blocks.add(L2);
-                    br=true;
+                    br = true;
 
-                    currentBlock.add((Instruction) Branch(VarRef(resul),L1,L2));
+                    currentBlock.add( Branch(VarRef(result), L2, L1));
                     currentBlock = end;
-
-
-                    return VarRef(resultr);
+                    //Doesn't make scense
+                    //currentBlock.add(BinaryOperation(divRes, left, Sdiv(), right.copy()));
+                    return VarRef(divRes);
                 }
 
                 TemporaryVar result = TemporaryVar("result" );
@@ -1038,19 +1038,40 @@ public class Translator extends Element.DefaultVisitor{
                 }
 
             }
-            //right
+            //right in get_R
             @Override
             public Operand case_ExprUnary(MJExprUnary exprUnary) {
 
                 MJExpr ex= exprUnary.getExpr();
                 MJUnaryOperator  o=exprUnary.getUnaryOperator();
-                Object e=ex.match(new StmtMatcher());
-                Object ad=o.match(new StmtMatcher());
-                if(ad instanceof Sub){
 
-                    TemporaryVar result = TemporaryVar("ss");
-                    currentBlock.add((Instruction) BinaryOperation(result,(ConstInt(0)),(Operator)ad,(Operand)(e)));
-                    return VarRef(result);
+                //Object e=ex.match(new StmtMatcher());
+                Operand e = get_R(ex);
+                //Object ad=o.match(new StmtMatcher());
+                Operator llvmminus= o.match(new MJUnaryOperator.Matcher<Operator>() {
+                    @Override
+                    public Operator case_UnaryMinus(MJUnaryMinus unaryMinus) {
+                        return Sub();
+                    }
+                    @Override
+                    public Operator case_Negate(MJNegate negate) {
+                        return Sub();
+                    }
+                });
+
+                if(llvmminus instanceof Sub){
+                    if(e.structuralEquals(ConstBool(true))){
+                        e = ConstBool(false);
+                        return e;
+                    } else if(e.structuralEquals(ConstBool(false))){
+                        e = ConstBool(true);
+                        return e;
+                    } else {
+                        TemporaryVar result = TemporaryVar("ss");
+                        currentBlock.add(BinaryOperation(result, (ConstInt(0)), llvmminus, e));
+                        return VarRef(result);
+                    }
+
                 }
               /*  if(ad instanceof MJNegate){
 
@@ -1059,8 +1080,7 @@ public class Translator extends Element.DefaultVisitor{
                     currentBlock.add((Instruction) BinaryOperation(result,(ConstInt(0)),(Operator)ad,(Operand)(e)));
                     return VarRef(result);
                 }*/
-                return null;
-
+                return ConstInt(0);
             }
 
         });
@@ -1291,7 +1311,7 @@ public class Translator extends Element.DefaultVisitor{
                             "Variable not found during translation");
                 }
             }
-            //unary left written by rama
+            //unary left written by rama in get_L
             @Override
             public Operand case_ExprUnary(MJExprUnary exprUnary) {
 
