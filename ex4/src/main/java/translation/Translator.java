@@ -516,8 +516,8 @@ public class Translator extends Element.DefaultVisitor{
             MJExpr e= stmtReturn.getResult();
             Object u=e.match(new StmtMatcher());
             //if(u instanceof ConstBool){
-             //   return(ReturnExpr(ConstInt(Integer.parseInt(u.toString()))));
-           // }
+            //   return(ReturnExpr(ConstInt(Integer.parseInt(u.toString()))));
+            //}
             if(u instanceof Operand )
             {
                 return(ReturnExpr((Operand)u));
@@ -576,7 +576,7 @@ public class Translator extends Element.DefaultVisitor{
            // Map<TypePointer,String> objCls = new HashMap<TypePointer,String>();
             //objCls.put(className,TypePointer(ClassStruct));
             TemporaryVar tv=TemporaryVar("classADreddd");
-
+            //TypePointer(ClassStruct);
             return ClassStruct;
 
 
