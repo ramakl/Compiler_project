@@ -403,10 +403,10 @@ public class Translator extends Element.DefaultVisitor{
                 TemporaryVar x = TemporaryVar("C");
                 TemporaryVar d = TemporaryVar("D");
                 Load lArray = Load(x, leftOp);
-                entry.add(lArray);
-                entry.add(Alloca(d, rightOp.calculateType()));
+                currentBlock.add(lArray);
+                currentBlock.add(Alloca(d, rightOp.calculateType()));
 
-                entry.add(Store(VarRef(d), ArraySize.copy()));
+                currentBlock.add(Store(VarRef(d), ArraySize.copy()));
                 arr=false;
                 return ConstInt(0);
 
@@ -591,7 +591,7 @@ public class Translator extends Element.DefaultVisitor{
             Operand u = get_R(ex);
             currentBlock.add(Print(u));
 
-            return  null;
+            return  u;
         }
 
         @Override
@@ -705,11 +705,12 @@ public class Translator extends Element.DefaultVisitor{
         @Override
         public Object case_ArrayLength(MJArrayLength arrayLength) {
             arrayLength.getArrayExpr();
-            Parameter Length =Parameter( TypeInt(),"length");
-            ParameterList prl=ParameterList(Length);
-            Proc pr =Proc("arraylength",TypePointer(arrpoint),prl,BasicBlockList());
-            prog.getProcedures().add(pr);
-            return null;
+            //Parameter Length =Parameter( TypeInt(),"length");
+            //ParameterList prl=ParameterList(Length);
+            //Proc pr =Proc("arraylength",TypePointer(arrpoint),prl,BasicBlockList());
+            //prog.getProcedures().add(pr);
+            Operand arrayLen =  get_R(arrayLength.getArrayExpr());
+            return arrayLen ;
         }
 
         @Override
@@ -820,7 +821,9 @@ public class Translator extends Element.DefaultVisitor{
 
             @Override
             public Operand case_ArrayLength(MJArrayLength arrayLength) {
-                return null;
+                Operand arrayLen =  arrayLength.getArrayExpr().match(this);
+                return arrayLen ;
+
             }
 
             @Override
@@ -1076,7 +1079,8 @@ public class Translator extends Element.DefaultVisitor{
 
             @Override
             public Operand case_ArrayLength(MJArrayLength arrayLength) {
-                return null;
+                Operand arrayLen =  get_R(arrayLength.getArrayExpr());
+                return arrayLen ;
             }
 
             //left

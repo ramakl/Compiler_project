@@ -4,3 +4,4 @@ ex4/gradle/wrapper
 ex4/temp/
 ex4/*.log
 ex4/src/test/java/minijava/translation/TranslationTestHelper.java
+ex4/testdata/translation/
