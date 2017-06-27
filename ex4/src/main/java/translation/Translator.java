@@ -100,11 +100,11 @@ public class Translator extends Element.DefaultVisitor{
         Object y=classlist.match(new StmtMatcher());
 
 
-        currentBlock = end;
+        currentBlock.add(ReturnExpr(ConstInt(0)));
         if(!br){
             currentBlock = entry;
         }
-        currentBlock.add(ReturnExpr(ConstInt(0)));
+
         boolean blockFound = false;
         for(BasicBlock b : blocks)
         {
@@ -116,6 +116,7 @@ public class Translator extends Element.DefaultVisitor{
         }
         if(!blockFound)
             blocks.add(currentBlock);
+
         prog.accept(this);
         //For-loop to read each stmt of main class -> main bod
         //for (MJStatement stmt : javaProg.getMainClass().getMainBody()) {
@@ -146,12 +147,12 @@ public class Translator extends Element.DefaultVisitor{
                 Object VarDecl =VAr.match(new StmtMatcher());
                 TemporaryVar s=TemporaryVar("s");
                 Load(s,(Operand)VarDecl);
-                TemporaryVar xg=TemporaryVar("x");
+              /*  TemporaryVar xg=TemporaryVar("x");
                 TemporaryVar y=TemporaryVar("y");
                 Alloc(xg,(Operand) ((Operand) VarDecl).copy()).size();
                 Bitcast(y, (Type)s.calculateType().copy(),VarRef(xg).copy());
                 //VarRef(y);
-
+*/
 
                 //Parameter  pr=Parameter((Type)y.calculateType(),VarDecl.toString());
                 Parameter  pr=Parameter((Type)s.calculateType().copy(),VarDecl.toString());
@@ -461,20 +462,14 @@ public class Translator extends Element.DefaultVisitor{
         //Block written by @rama
         @Override
         public Object case_Block(MJBlock block) {
-            o=o+1;
-            BasicBlock bloc = BasicBlock();
-            bloc.setName("bloc"+o+"");
+
+
             for(MJStatement statement : block)
             {
-                Object statementt=statement.match(new StmtMatcher());
-                if(statementt instanceof Instruction)
-                {
-                    //entry.add((Instruction)statementt);
-                    bloc.add((Instruction)statementt);
+                statement.match(new StmtMatcher());
 
-                }
             }
-            return bloc;
+            return null;
         }
 
         @Override
@@ -483,10 +478,10 @@ public class Translator extends Element.DefaultVisitor{
             Object classdecl =null;
             for(MJClassDecl cl :classDeclList)
             {
-              classdecl=  cl.match(new StmtMatcher());
+              cl.match(new StmtMatcher());
             }
 
-            return classdecl;
+            return null;
         }
 
         //ExprBinary written by @rama
@@ -532,48 +527,12 @@ public class Translator extends Element.DefaultVisitor{
         @Override
         public Object case_StmtReturn(MJStmtReturn stmtReturn) {
             MJExpr e= stmtReturn.getResult();
-            //Object u=e.match(new StmtMatcher());
+
             Operand u = get_R(e);
-//            Type t = u.calculateType();
-//            if (t instanceof TypeBool){
-//                if(u.equals(0)) {
-//                    return ReturnExpr(ConstBool(false));
-//                }else {
-//                    return ReturnExpr(ConstBool(true));
-//                }
-//            }
-//            else {
-            return ReturnExpr(u);
+            currentBlock.add(ReturnExpr(u));
+            return null;
             }
 
-                //return ReturnExpr(ConstBool(u));
-
-            //if(u instanceof ConstBool){
-
-            //   return(ReturnExpr(ConstInt(Integer.parseInt(u.toString()))));
-            //}
-            /*if(u instanceof Operand )
-            {
-                return(ReturnExpr((Operand)u));
-            }
-            else {
-                return(ReturnExpr(ConstInt(Integer.parseInt(u.toString()))));
-            }*/
-
-             //   return(ReturnExpr(ConstInt(Integer.parseInt(u.toString()))));
-           // }
-//            if(u instanceof Operand )
-//            {
-//                return(ReturnExpr((Operand)u));
-//            }
-//            else {
-//                return(ReturnExpr(ConstInt(Integer.parseInt(u.toString()))));
-//            }
-
-            //return null;
-        //}
-
-        //stm-expr
         @Override
         public Object case_StmtExpr(MJStmtExpr stmtExpr) {
             MJExpr ex=stmtExpr.getExpr();
@@ -638,18 +597,9 @@ public class Translator extends Element.DefaultVisitor{
             MJExpr ex=  stmtPrint.getPrinted();
 
             Operand u = get_R(ex);
-            TemporaryVar val = TemporaryVar("val");
+            currentBlock.add(Print(u));
 
-            if(u instanceof Operand){
-                return Print(u);
-            }
-            else if(u != null){
-                //entry.add((Instruction)Print(ConstInt(Integer.parseInt(u.toString()))));
-                return ((Instruction)Print(ConstInt(Integer.parseInt(u.toString()))));
-            }
-
-            else
-                return null;
+            return  null;
         }
 
         @Override
@@ -712,25 +662,34 @@ public class Translator extends Element.DefaultVisitor{
             MJStatement f =stmtIf.getIfFalse();
             //Object coo=co.match(new StmtMatcher());
             Operand coo = get_R(co);
-            Object tt=t.match(new StmtMatcher());
-            Object ff=f.match(new StmtMatcher());
-            BasicBlock trueLabel = (BasicBlock) tt;
-            BasicBlock falseLabel = (BasicBlock) ff;
-            BasicBlock bloc3=BasicBlock(
-                    Jump(end)
+            BasicBlock futureblock=BasicBlock(
+
             );
-            bloc3.setName("b3");
+            BasicBlock previousBlock = currentBlock;
+            BasicBlock trueLabel = BasicBlock() ;
+            currentBlock=trueLabel;
+            t.match(new StmtMatcher());
+            BasicBlock falseLabel= BasicBlock() ;
+            //futureblock=falseLabel;
+            currentBlock= falseLabel;
+            f.match(new StmtMatcher());
+            previousBlock.add(Branch(coo, trueLabel, falseLabel));
+            currentBlock= futureblock;
+
+
+            futureblock.setName("futureblock");
             br=true;
 
-            trueLabel.add(Jump(bloc3));
+            trueLabel.add(Jump(futureblock));
             blocks.add(trueLabel);
 
-            falseLabel.add(Jump(bloc3));
+            falseLabel.add(Jump(futureblock));
             blocks.add(falseLabel);
-            blocks.add(bloc3);
-            currentBlock = end;
 
-            entry.add(Branch(coo, trueLabel, falseLabel));
+            blocks.add(futureblock);
+
+
+
             return null;
 
         }
@@ -813,10 +772,10 @@ public class Translator extends Element.DefaultVisitor{
             Object methoDec =null;
             for(MJMethodDecl ml :methodDeclList)
             {
-                methoDec=  ml.match(new StmtMatcher());
+                 ml.match(new StmtMatcher());
             }
 
-            return methoDec;
+            return null;
 
         }
     }
