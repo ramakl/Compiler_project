@@ -492,9 +492,7 @@ public class Translator extends Element.DefaultVisitor{
                 left = get_L(exprBinary.getLeft());
               }
             MJOperator  op = exprBinary.getOperator();
-
             Object ad = op.match(new StmtMatcher());
-
             TemporaryVar result = TemporaryVar("result");
             TemporaryVar s = TemporaryVar("s");
             //Load lR = Load(s,right);
@@ -502,15 +500,15 @@ public class Translator extends Element.DefaultVisitor{
                 TemporaryVar resultr = TemporaryVar("ss");
                 TemporaryVar resul = TemporaryVar("s");
 
-                currentBlock.add(BinaryOperation(resul,right,(Operator)Eq(),ConstInt(0)));
+                currentBlock.add(BinaryOperation(resul,right,Eq(),ConstInt(0)));
                 BasicBlock L1 =BasicBlock(
-                        BinaryOperation(resultr,left,(Operator)Sdiv(),right.copy()),
+                        BinaryOperation(resultr,left,Sdiv(),right.copy()),
                         Jump(end)
                 );
                 L1.setName("L1");
                 blocks.add(L1);
 
-                currentBlock.add((Instruction) Branch(VarRef(resul),L1,end));
+                currentBlock.add(Branch(VarRef(resul),L1,end));
 
                 return VarRef(resultr);
             }
