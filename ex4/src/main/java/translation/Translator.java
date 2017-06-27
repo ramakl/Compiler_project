@@ -146,7 +146,15 @@ public class Translator extends Element.DefaultVisitor{
                 Object VarDecl =VAr.match(new StmtMatcher());
                 TemporaryVar s=TemporaryVar("s");
                 Load(s,(Operand)VarDecl);
-                Parameter  pr=Parameter((Type)s.calculateType(),VarDecl.toString());
+                TemporaryVar xg=TemporaryVar("x");
+                TemporaryVar y=TemporaryVar("y");
+                Alloc(xg,(Operand) ((Operand) VarDecl).copy()).size();
+                Bitcast(y, (Type)s.calculateType().copy(),VarRef(xg).copy());
+                //VarRef(y);
+
+
+                //Parameter  pr=Parameter((Type)y.calculateType(),VarDecl.toString());
+                Parameter  pr=Parameter((Type)s.calculateType().copy(),VarDecl.toString());
                 paramlist.add(pr);
             }
 
@@ -235,6 +243,8 @@ public class Translator extends Element.DefaultVisitor{
                         ClassStruct = TypeStruct(name,st);
                         objCls.put(ClasDecl,TypePointer(ClassStruct));
                         typePointer = objCls.get(ClasDecl);
+
+
                     }
                     //TypeStruct(name,st);
                     return typePointer.getTo();
@@ -537,6 +547,17 @@ public class Translator extends Element.DefaultVisitor{
                 //return ReturnExpr(ConstBool(u));
 
             //if(u instanceof ConstBool){
+
+            //   return(ReturnExpr(ConstInt(Integer.parseInt(u.toString()))));
+            //}
+            /*if(u instanceof Operand )
+            {
+                return(ReturnExpr((Operand)u));
+            }
+            else {
+                return(ReturnExpr(ConstInt(Integer.parseInt(u.toString()))));
+            }*/
+
              //   return(ReturnExpr(ConstInt(Integer.parseInt(u.toString()))));
            // }
 //            if(u instanceof Operand )
@@ -546,6 +567,7 @@ public class Translator extends Element.DefaultVisitor{
 //            else {
 //                return(ReturnExpr(ConstInt(Integer.parseInt(u.toString()))));
 //            }
+
             //return null;
         //}
 
@@ -593,13 +615,19 @@ public class Translator extends Element.DefaultVisitor{
            // Map<TypePointer,String> objCls = new HashMap<TypePointer,String>();
             //objCls.put(className,TypePointer(ClassStruct));
             TemporaryVar tv=TemporaryVar("classADreddd");
+
+            //TypePointer(ClassStruct);
+            //return ClassStruct;
+
             objCls.put(classDecl,TypePointer(ClassStruct));
             for (MJMethodDecl method :methods)
             {
                 Object VarDecl =method.match(new StmtMatcher());
 
             }
+
             return TypePointer(ClassStruct);
+
         }
 
         //stm-print writen by @rama
@@ -822,13 +850,23 @@ public class Translator extends Element.DefaultVisitor{
             @Override
             public Operand case_NewObject(MJNewObject newObject) {
                String name = newObject.getClassName();
-                newObject.getClassDeclaration();
+                MJClassDecl ClasDecl= newObject.getClassDeclaration();
+               // Object ClasDecl = ClasDecll.match(new StmtMatcher());
                //objCls.put(TypePointer(ClassStruct),className);
-                TypePointer x = objCls.get(name);
+                //TypePointer x = objCls.get(name);
                 TemporaryVar f = TemporaryVar("pointer");
-               // Load(f,x.);
-                return VarRef(f);
+                TypePointer  typePointer;
+
+                typePointer = objCls.get(ClasDecl);
+                TemporaryVar xg=TemporaryVar("x");
+                TemporaryVar y=TemporaryVar("y");
+                currentBlock.add(Alloc(xg,(Operand)ConstInt( ClasDecl.size())));
+                currentBlock.add(Bitcast(y, (Type)typePointer.getTo().copy(),VarRef(xg).copy()));
+                //TypeStruct(name,st);
+                return VarRef(y);
             }
+
+
 
             @Override
             public Operand case_ArrayLength(MJArrayLength arrayLength) {

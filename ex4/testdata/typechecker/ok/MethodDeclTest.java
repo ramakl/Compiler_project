@@ -1,7 +1,6 @@
 class MainTest{
     public static void main(String[] a){
     }
-
 }
 
 class Blub{
