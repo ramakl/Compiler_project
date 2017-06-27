@@ -1,7 +1,7 @@
 class Main {
 	public static void main(String[] a){
 		int c;
-		c = System.in.read();
+		c = 1;
 		System.out.println(c);
 	}
 }
