@@ -1,36 +1,34 @@
 
 package translation;
-import analysis.TypeContext;
-import analysis.TypeInformation;
-//import com.sun.org.apache.xpath.internal.operations.Div;
-import com.sun.org.apache.xpath.internal.operations.Bool;
-//import com.sun.javafx.fxml.expression.Expression;
-import com.sun.org.apache.xpath.internal.operations.Neg;
-import jdk.nashorn.internal.ir.Block;
 
 import minijava.ast.*;
 import minillvm.ast.*;
+import minillvm.ast.BasicBlock;
+import minillvm.ast.BasicBlockList;
+import minillvm.ast.InstructionList;
+import minillvm.ast.Load;
+import minillvm.ast.OperandList;
+import minillvm.ast.Parameter;
+import minillvm.ast.ParameterList;
+import minillvm.ast.Proc;
+import minillvm.ast.Prog;
+import minillvm.ast.Sdiv;
+import minillvm.ast.StructField;
+import minillvm.ast.StructFieldList;
+import minillvm.ast.Sub;
+import minillvm.ast.TemporaryVar;
+import minillvm.ast.TypeBool;
+import minillvm.ast.TypePointer;
+import minillvm.ast.TypeStruct;
+import minillvm.ast.TypeStructList;
 
-import org.omg.CORBA.Current;
-import org.omg.CORBA._IDLTypeStub;
-
-
+import java.util.HashMap;
+import java.util.Map;
 
 import static minillvm.ast.Ast.*;
 
-import static minillvm.ast.Ast.GetElementPtr;
-
-import static minillvm.ast.Ast.TypePointer;
-
-
-import java.lang.reflect.Array;
-import java.security.PublicKey;
-
-import java.util.Map;
-
-import java.util.HashMap;
-import java.util.concurrent.locks.Condition;
-import java.util.function.UnaryOperator;
+//import com.sun.org.apache.xpath.internal.operations.Div;
+//import com.sun.javafx.fxml.expression.Expression;
 
 //basicly translation overview, you get minijava program and our translator have to translate it to LLVM
 
@@ -61,11 +59,25 @@ public class Translator extends Element.DefaultVisitor{
     Prog prog;
     TypePointer  arrpoint ;
     TypeStruct ClassStruct;
+    TemporaryVar array;
+    Proc currentproc=null;
+    TypeStructList typeStructList = TypeStructList();
+    TypeStruct arraystruct;
     private final MJProgram javaProg;
     // @mahsa: We need to have a block to add serveral submethods to one basic block of a parent method
     //public BasicBlock getOpenBlock() {
     //return BKL;
     //}
+    public TypePointer getpointer(){
+        arraystruct = TypeStruct("intArray",
+                StructFieldList(StructField(TypeInt(), "size"), 
+                        StructField(TypeArray(TypeInt(), 0), 
+                                "values ")));
+
+        typeStructList.add(arraystruct);
+        
+        return TypePointer(arraystruct);
+    }
     Map< MJVarDecl, TemporaryVar > tempVars = new HashMap< MJVarDecl, TemporaryVar >();
     //Map<MJNewObject, MJClassDecl> clsdec = new HashMap<MJNewObject,MJClassDecl>();
     Map<MJClassDecl ,TypePointer> objCls = new HashMap<MJClassDecl ,TypePointer>();
@@ -77,7 +89,7 @@ public class Translator extends Element.DefaultVisitor{
     public Prog translate() {
         // TODO add your translation code here
         // TODO here is an example of a minimal program (remove this)
-         prog = Prog(TypeStructList(), GlobalList(), ProcList());
+        prog = Prog(typeStructList, GlobalList(), ProcList());
         blocks = BasicBlockList();
         //BasicBlockList blocks = BKL;
         Proc mainProc = Proc("main", TypeInt(), ParameterList(), blocks);
@@ -89,6 +101,8 @@ public class Translator extends Element.DefaultVisitor{
         blocks.add(currentBlock);
         //blocks.add(end);
 
+        arrpoint = getpointer();
+
         for (MJStatement stmt : javaProg.getMainClass().getMainBody()) {
             Object match = stmt.match(new StmtMatcher());
             if(match instanceof Instruction)
@@ -96,7 +110,7 @@ public class Translator extends Element.DefaultVisitor{
                 currentBlock.add((Instruction)match);
             }
         }
-      MJClassDeclList classlist =  javaProg.getClassDecls();
+        MJClassDeclList classlist =  javaProg.getClassDecls();
         Object y=classlist.match(new StmtMatcher());
 
 
@@ -121,12 +135,13 @@ public class Translator extends Element.DefaultVisitor{
         //For-loop to read each stmt of main class -> main bod
         //for (MJStatement stmt : javaProg.getMainClass().getMainBody()) {
         //   stmt.match(new StmtMatcher());
-       // TypeStruct vMethodTable = TypeStruct("vatable",StructFieldList(StructField(TypePointer(),"metod")));
+        // TypeStruct vMethodTable = TypeStruct("vatable",StructFieldList(StructField(TypePointer(),"metod")));
         //}
         return prog;
     }
     //: we should do this for the first part (Block, StmtIf, StmtWhile, StmtReturn, StmtPrint, StmtExpr,
     //StmtAssign, ExprBinary, ExprUnary, BoolConst, VarUse, Number.)
+
     private class StmtMatcher implements MJElement.Matcher {
         @Override
         public Object case_Program(MJProgram program) {
@@ -203,13 +218,8 @@ public class Translator extends Element.DefaultVisitor{
 
                 @Override
                 public Type case_TypeIntArray(MJTypeIntArray typeIntArray) {
-                    TypeStruct array =TypeStruct("array",StructFieldList(
-                            StructField(TypeInt(),"size"),
-                            StructField(TypeArray(TypeInt(),0),"value")
 
-                    ));
-                   arrpoint=TypePointer(array);
-                    return TypeArray(TypeInt(), typeIntArray.size());
+                    return arrpoint;
                 }
 
                 @Override
@@ -219,27 +229,27 @@ public class Translator extends Element.DefaultVisitor{
                     MJClassDecl ClasDecl = typeClass.getClassDeclaration();
                     if (objCls.containsKey(ClasDecl)) {
                         //TemporaryVar x = objCls.get(name);
-                         typePointer = objCls.get(ClasDecl);
-                         //typePointer.getTo();
+                        typePointer = objCls.get(ClasDecl);
+                        //typePointer.getTo();
 
                     } else {
                         // This should never happen
 
                         //throw new RuntimeException(
-                          //      "Variable not found during translation");
+                        //      "Variable not found during translation");
 
                         MJVarDeclList filds=ClasDecl.getFields();
                         StructFieldList st=StructFieldList();
                         for(MJVarDecl fild :filds)
                         {
-                           Object f= fild.match(new StmtMatcher());
+                            Object f= fild.match(new StmtMatcher());
 
-                           TemporaryVar s=TemporaryVar("s");
-                           if(f instanceof Operand) {
-                               currentBlock.add(Load(s, (Operand) f));
-                               StructField sff = StructField(s.calculateType(), fild.toString());
-                               st.add(sff);
-                           }
+                            TemporaryVar s=TemporaryVar("s");
+                            if(f instanceof Operand) {
+                                currentBlock.add(Load(s, (Operand) f));
+                                StructField sff = StructField(s.calculateType(), fild.toString());
+                                st.add(sff);
+                            }
                         }
                         ClassStruct = TypeStruct(name,st);
                         objCls.put(ClasDecl,TypePointer(ClassStruct));
@@ -269,11 +279,11 @@ public class Translator extends Element.DefaultVisitor{
         }
         @Override
         public Object case_MethodCall(MJMethodCall methodCall) {
-          MJExprList ArgumentsList=   methodCall.getArguments();
-           String MetodName =methodCall.getMethodName();
+            MJExprList ArgumentsList=   methodCall.getArguments();
+            String MetodName =methodCall.getMethodName();
             MJMethodDecl methoddecl = methodCall.getMethodDeclaration();
-           Object ob=methoddecl.match(new StmtMatcher());
-           MJExpr Receiver= methodCall.getReceiver();
+            Object ob=methoddecl.match(new StmtMatcher());
+            MJExpr Receiver= methodCall.getReceiver();
             OperandList OpList =OperandList();
             for(MJExpr Arg:ArgumentsList)
             {
@@ -283,7 +293,7 @@ public class Translator extends Element.DefaultVisitor{
                     OpList.add(Op);
                 }
             }
-             TemporaryVar temp = TemporaryVar("temp" );
+            TemporaryVar temp = TemporaryVar("temp" );
             Ast.Call(temp,(Operand) ob,OpList);
             return null;
         }
@@ -399,7 +409,7 @@ public class Translator extends Element.DefaultVisitor{
         public Object case_StmtAssign(MJStmtAssign stmtAssign) {
             Operand rightOp = get_R(stmtAssign.getRight());
             Operand leftOp = get_L(stmtAssign.getLeft());
-            if (arr) {
+           /* if (arr) {
                 TemporaryVar x = TemporaryVar("C");
                 TemporaryVar d = TemporaryVar("D");
                 Load lArray = Load(x, leftOp);
@@ -418,7 +428,7 @@ public class Translator extends Element.DefaultVisitor{
                 arrlok=false;
                 return (Ast.Load(xx.copy(),rightOp));
 
-            }
+            }*/
 
             currentBlock.add(Store(leftOp,rightOp));
             return null;
@@ -470,7 +480,7 @@ public class Translator extends Element.DefaultVisitor{
             Object classdecl =null;
             for(MJClassDecl cl :classDeclList)
             {
-              cl.match(new StmtMatcher());
+                cl.match(new StmtMatcher());
             }
 
             return null;
@@ -487,7 +497,7 @@ public class Translator extends Element.DefaultVisitor{
                 left = get_R(exprBinary.getLeft());
             } else{
                 left = get_L(exprBinary.getLeft());
-              }
+            }
             MJOperator  op = exprBinary.getOperator();
 
             Object ad = op.match(new StmtMatcher());
@@ -523,7 +533,7 @@ public class Translator extends Element.DefaultVisitor{
             Operand u = get_R(e);
             currentBlock.add(ReturnExpr(u));
             return null;
-            }
+        }
 
         @Override
         public Object case_StmtExpr(MJStmtExpr stmtExpr) {
@@ -565,7 +575,7 @@ public class Translator extends Element.DefaultVisitor{
             }
 
             ClassStruct = TypeStruct(className,stfl);
-           // Map<TypePointer,String> objCls = new HashMap<TypePointer,String>();
+            // Map<TypePointer,String> objCls = new HashMap<TypePointer,String>();
             //objCls.put(className,TypePointer(ClassStruct));
             TemporaryVar tv=TemporaryVar("classADreddd");
 
@@ -623,27 +633,80 @@ public class Translator extends Element.DefaultVisitor{
         @Override
         public Object case_NewIntArray(MJNewIntArray newIntArray) {
             //arrayLength.getArrayExpr();
-
             MJExpr size=  newIntArray.getArraySize();
             //Object  sizeArray=size.match(new StmtMatcher());
             Operand sizeArray = get_R(size);
+            Parameter Length= Parameter(TypeInt(),"length");
+            BasicBlock b3= BasicBlock();
+            blocks.add(b3);
+
+            Proc pr =Proc("arraylength",TypePointer(arraystruct),ParameterList(Length),BasicBlockList(b3));
+            prog.getProcedures().add(pr);
+            currentproc=pr;
+            BasicBlock first= BasicBlock();
+            BasicBlock b1= BasicBlock();
+            BasicBlock b2= BasicBlock();
+
+
+            currentBlock=first;
+            TemporaryVar less=TemporaryVar("caseless");
+            currentBlock.add(BinaryOperation(less,VarRef(Length),Slt(),ConstInt(0)));
+            BasicBlock b4= BasicBlock(HaltWithError("negative"));
+            currentBlock.add(Branch(VarRef(less),b4,b1));
+
+            currentBlock=b1;
 
             TemporaryVar NewSize = TemporaryVar("NewSize");
             TemporaryVar NewSize2 = TemporaryVar("NewSize2");
             //Load lR = Load(s,right);
-            entry.add(BinaryOperation(NewSize, sizeArray,(Operator) Mul(), ConstInt(4)));
-            entry.add(BinaryOperation(NewSize2,(Operand)NewSize,(Operator) Add(), ConstInt(4)));
-            arr=true;
-            Parameter Length =Parameter( TypeInt(),"length");
-            ParameterList prl=ParameterList(Length);
-           // Proc pr =Proc("arraylength",TypePointer(arrpoint),prl,BasicBlockList(BasicBlock(Ast.VarRef(length))));
-            //prog.getProcedures().add(pr);
-            return VarRef(NewSize2);
+            currentBlock.add(BinaryOperation(NewSize, VarRef(Length), Add(), ConstInt(1)));
+            currentBlock.add(BinaryOperation(NewSize2,VarRef(NewSize), Mul(), ConstInt(4)));
+            TemporaryVar t=TemporaryVar("t");
+            currentBlock.add(Alloc(t,VarRef(NewSize2)));
+            array=TemporaryVar("t");
+            currentBlock.add(Bitcast(array,TypePointer( arraystruct),VarRef(t)));
+
+
+            //store size
+
+            TemporaryVar lengthAdrres =TemporaryVar("lengthAdrres");
+            currentBlock.add(GetElementPtr(lengthAdrres,VarRef(array),OperandList(ConstInt(0),ConstInt(0))));
+            currentBlock.add(Store(VarRef(lengthAdrres),VarRef(Length)));
+
+
+            //initialize the array
+            BasicBlock st= BasicBlock();
+            currentBlock=st;
+            TemporaryVar temp=TemporaryVar("temp");
+            TemporaryVar temp2=TemporaryVar("temp");
+            //b1 ggod b2 loopbody
+            st.add(PhiNode(temp,TypeInt(),PhiNodeChoiceList(PhiNodeChoice(b1,ConstInt(0)),PhiNodeChoice(b2,VarRef(temp2)))));
+            TemporaryVar  smal =TemporaryVar("smal");
+            currentBlock.add(BinaryOperation(smal,VarRef(temp),Slt(),VarRef(Length)));
+            //b2 body b3 loopend
+
+            currentBlock.add(Branch(VarRef(smal),b2,b3));
+            currentBlock=b2;
+            TemporaryVar adressofcounter= TemporaryVar("address");
+            currentBlock.add(GetElementPtr(adressofcounter,VarRef(array),OperandList(ConstInt(0),ConstInt(1),VarRef(temp))));
+            currentBlock.add(Store(VarRef(adressofcounter),ConstInt(0)));
+            //i+1;
+            currentBlock.add(BinaryOperation(temp2,VarRef(temp),Add(),ConstInt(1)));
+            currentBlock.add(Jump(st));
+
+
+            b3.add(ReturnExpr(VarRef(array)));
+
+
+
+            return null;
         }
 
         @Override
         public Object case_TypeIntArray(MJTypeIntArray typeIntArray) {
-            return TypeArray(TypeInt(), typeIntArray.size());
+
+
+            throw new RuntimeException("Do Not use it!");
         }
 
         //stm-if written by @rama
@@ -704,13 +767,9 @@ public class Translator extends Element.DefaultVisitor{
 
         @Override
         public Object case_ArrayLength(MJArrayLength arrayLength) {
-            arrayLength.getArrayExpr();
-            //Parameter Length =Parameter( TypeInt(),"length");
-            //ParameterList prl=ParameterList(Length);
-            //Proc pr =Proc("arraylength",TypePointer(arrpoint),prl,BasicBlockList());
-            //prog.getProcedures().add(pr);
-            Operand arrayLen =  get_R(arrayLength.getArrayExpr());
-            return arrayLen ;
+            //getelementpointer to get the size of the array
+            // use load instruction to load the size
+            throw new RuntimeException("Do not use!");
         }
 
         @Override
@@ -762,7 +821,7 @@ public class Translator extends Element.DefaultVisitor{
             Object methoDec =null;
             for(MJMethodDecl ml :methodDeclList)
             {
-                 ml.match(new StmtMatcher());
+                ml.match(new StmtMatcher());
             }
 
             return null;
@@ -800,10 +859,10 @@ public class Translator extends Element.DefaultVisitor{
 
             @Override
             public Operand case_NewObject(MJNewObject newObject) {
-               String name = newObject.getClassName();
+                String name = newObject.getClassName();
                 MJClassDecl ClasDecl= newObject.getClassDeclaration();
-               // Object ClasDecl = ClasDecll.match(new StmtMatcher());
-               //objCls.put(TypePointer(ClassStruct),className);
+                // Object ClasDecl = ClasDecll.match(new StmtMatcher());
+                //objCls.put(TypePointer(ClassStruct),className);
                 //TypePointer x = objCls.get(name);
                 TemporaryVar f = TemporaryVar("pointer");
                 TypePointer  typePointer;
@@ -821,56 +880,24 @@ public class Translator extends Element.DefaultVisitor{
 
             @Override
             public Operand case_ArrayLength(MJArrayLength arrayLength) {
-                Operand arrayLen =  arrayLength.getArrayExpr().match(this);
-                return arrayLen ;
+                TemporaryVar t3 = TemporaryVar("t3");
+
+                Operand arrayLen =  get_R(arrayLength.getArrayExpr());
+                currentBlock.add(GetElementPtr(t3, arrayLen, OperandList(ConstInt(0),
+                        ConstInt(0))));
+                TemporaryVar tempArrayLength = TemporaryVar("tempArrayLength");
+                currentBlock.add(Load(tempArrayLength,VarRef(t3)));
+                return VarRef(tempArrayLength);
 
             }
 
             @Override
             public Operand case_ArrayLookup(MJArrayLookup arrayLookup) {
-                blocks.add(end);
 
-                Operand index=get_R(arrayLookup.getArrayIndex());
-                Operand expr= get_L(arrayLookup.getArrayExpr());
-                TemporaryVar arrayExpr = TemporaryVar("arrayExpr");
-
-                currentBlock.add(Load(arrayExpr,expr));
-                TemporaryVar sltResult = TemporaryVar("sltResult ");
-                currentBlock.add(BinaryOperation(sltResult , ConstInt(-1),Slt(),index.copy()));
-                //currentBlock.add(BinaryOperation(comp3,VarRef(comp1),(Operator)And(),VarRef(comp2)));
-                BasicBlock L3 =BasicBlock(
-                        Jump(end)
-                );
-                L3.setName("L3");
-                blocks.add(L3);
-
-                TemporaryVar t2 = TemporaryVar("t2");
-                //OperandList t22=OperandList();
-                //t22.add(VarRef(t2).copy());
-                TemporaryVar t3 = TemporaryVar("t3");
-                BasicBlock L1 =BasicBlock(
-
-                        BinaryOperation(t2, index.copy(),Add(),ConstInt(1)),
-                        GetElementPtr(t3,expr.copy(),OperandList(ConstInt(0),
-                                ConstInt(1))),
-                       // Load(b,VarRef(t3)),
-                        Jump(L3)
-                );
-                L1.setName("L1");
-                blocks.add(L1);
-                BasicBlock L2 =BasicBlock(
-                        HaltWithError( "error")
-
-                );
-                L2.setName("L2");
-                blocks.add(L2);
-                currentBlock.add(Branch(VarRef(sltResult),L1,L2));
-                currentBlock=end;
-                br=true;
-
-                 arrlok=true;
-                return VarRef(t3);
-
+                Operand l = get_L(arrayLookup);
+                TemporaryVar address = TemporaryVar("address");
+                currentBlock.add(Load(address, l));
+                return VarRef(address);
             }
             @Override
             public Operand case_BoolConst(MJBoolConst boolConst) {
@@ -969,18 +996,121 @@ public class Translator extends Element.DefaultVisitor{
             @Override
             public Operand case_NewIntArray(MJNewIntArray newIntArray) {
 
+                BasicBlock previousBlock = currentBlock;
                 MJExpr size=  newIntArray.getArraySize();
-                Object  s=size.match(new StmtMatcher());
-                TemporaryVar res = TemporaryVar("res");
-                TemporaryVar res2 = TemporaryVar("res2");
 
-                entry.add(BinaryOperation(res, (Operand)s,(Operator) Mul(), ConstInt(4)));
+                Operand sizeArray = get_R(size);
 
-                ArraySize = (Operand) s;
-                entry.add(BinaryOperation(res2, VarRef(res),(Operator) Add(), ConstInt(4)));
-                arr=true;
-                //Alloc(res2)
-                return VarRef(res2);
+
+                BasicBlock initialBlock= BasicBlock();
+
+                BasicBlock validSize= BasicBlock();
+                BasicBlock loopBody= BasicBlock();
+
+                BasicBlock loopEnd= BasicBlock();
+                blocks.add(validSize);
+                blocks.add(loopBody);
+                blocks.add(loopEnd);
+
+
+
+                currentBlock=initialBlock;
+                previousBlock.add(Jump(currentBlock));
+                blocks.add(currentBlock);
+
+                TemporaryVar less=TemporaryVar("caseless");
+                currentBlock.add(BinaryOperation(less,sizeArray,Slt(),ConstInt(0)));
+                BasicBlock negativeSize= BasicBlock(HaltWithError("negative"));
+                blocks.add(negativeSize);
+                currentBlock.add(Branch(VarRef(less),negativeSize,validSize));
+
+                currentBlock=validSize;
+
+                TemporaryVar arrSizeWithLen = TemporaryVar("NewSize");
+                TemporaryVar arraySizeInBytes = TemporaryVar("NewSize2");
+                //Load lR = Load(s,right);
+                currentBlock.add(BinaryOperation(arrSizeWithLen, sizeArray.copy(), Add(), ConstInt(1)));
+                currentBlock.add(BinaryOperation(arraySizeInBytes,VarRef(arrSizeWithLen), Mul(), ConstInt(4)));
+                TemporaryVar arraySizeRef=TemporaryVar("t");
+                currentBlock.add(Alloc(arraySizeRef,VarRef(arraySizeInBytes)));
+                array=TemporaryVar("arraySizeRef");
+                
+                currentBlock.add(Bitcast(array,arrpoint,VarRef(arraySizeRef)));
+
+
+                //store size
+                Parameter Length= Parameter(TypeInt(),"length");
+                /*TemporaryVar d = TemporaryVar("D");
+                //TypePointer t=TypePointer(sizeArray);
+                Load lArray = Load(d, sizeArray.copy());
+                currentBlock.add(lArray);*/
+
+
+                TemporaryVar lengthAdrres =TemporaryVar("lengthAdrres");
+                currentBlock.add(GetElementPtr(lengthAdrres,VarRef(array),OperandList(ConstInt(0),ConstInt(0))));
+                //ppppppppppppppppppppppproooooblllemm here
+                currentBlock.add(Store(VarRef(lengthAdrres),sizeArray.copy()));
+
+
+                //initialize the array to 0
+                BasicBlock loopStart= BasicBlock();
+                currentBlock.add(Jump(loopStart));
+                currentBlock=loopStart;
+                blocks.add(loopStart);
+                TemporaryVar i=TemporaryVar("i");
+                TemporaryVar nextI=TemporaryVar("temp");
+                //b1 ggod b2 loopbody
+                loopStart.add(PhiNode(i,
+                        TypeInt(),
+                        PhiNodeChoiceList(PhiNodeChoice(validSize,ConstInt(0)),
+                                PhiNodeChoice(loopBody,VarRef(nextI)))));
+                TemporaryVar  smal =TemporaryVar("smal");
+                currentBlock.add(BinaryOperation(smal,VarRef(i),Slt(),sizeArray.copy()));
+                //b2 body b3 loopend
+
+                currentBlock.add(Branch(VarRef(smal),loopBody,loopEnd));
+                currentBlock=loopBody;
+                TemporaryVar adressofcounter= TemporaryVar("address");
+
+                currentBlock.add(GetElementPtr(adressofcounter,
+                        VarRef(array),
+                        OperandList(ConstInt(0),
+                                ConstInt(1),
+                                VarRef(i))));
+
+                currentBlock.add(Store(
+                        VarRef(adressofcounter),
+                        ConstInt(0)));
+                //i+1;
+                currentBlock.add(BinaryOperation(nextI,VarRef(i),Add(),ConstInt(1)));
+                currentBlock.add(Jump(loopStart));
+
+
+                currentBlock = loopEnd;
+
+
+
+
+
+
+                //loopEnd.add(ReturnExpr(ConstInt(0)));
+                BasicBlock procbody= BasicBlock(ReturnExpr(VarRef(array)));
+
+
+                // Proc pr =Proc("arraylength",getpointer(),ParameterList(Length),BasicBlockList(procbody));
+                //prog.getProcedures().add(pr);
+                //currentproc=pr;
+
+
+
+
+
+
+
+
+
+
+                return VarRef(array);
 
             }
             @Override
@@ -1089,32 +1219,41 @@ public class Translator extends Element.DefaultVisitor{
                 arrlok=true;
                 MJExpr exp= arrayLookup.getArrayExpr();
                 MJExpr in=  arrayLookup.getArrayIndex();
-                Object index=in.match(new StmtMatcher());
-                Object expr=exp.match(new StmtMatcher());
+                Operand index=get_R(in);
+                Operand expr=get_R(exp);
 
                 TemporaryVar x = TemporaryVar("x");
 
-                Load(x,(Operand)expr);
-                TemporaryVar comp1 = TemporaryVar("comp1");
+                Load(x,expr);
+                //three blocks for handling the cases
+                // a == null
+                // i<0
+                // i>= a.length
+                TemporaryVar t2 = TemporaryVar("t2");
+                TemporaryVar t3 = TemporaryVar("t3");
+                TemporaryVar t22 = TemporaryVar("t22");
+                currentBlock.add(GetElementPtr(t2,expr.copy(),OperandList(ConstInt(0),ConstInt(1),index)));
+                //navigate to the specific position in the Element Structure. Operand list = 0*1*index
+                /*TemporaryVar comp1 = TemporaryVar("comp1");
                 TemporaryVar comp2 = TemporaryVar("comp2");
                 TemporaryVar comp3 = TemporaryVar("comp3");
-                currentBlock.add(BinaryOperation(comp1, (Operand)index,(Operator)Slt(),VarRef(x)));
-                currentBlock.add(BinaryOperation(comp2, ConstInt(-1),(Operator)Slt(),(Operand)((Operand) index).copy()));
-                currentBlock.add(BinaryOperation(comp3,VarRef(comp1),(Operator)And(),VarRef(comp2)));
+                currentBlock.add(BinaryOperation(comp1, index,Slt(),VarRef(x)));
+                currentBlock.add(BinaryOperation(comp2, ConstInt(-1),Slt(), index.copy()));
+                currentBlock.add(BinaryOperation(comp3,VarRef(comp1),And(),VarRef(comp2)));
                 BasicBlock L3 =BasicBlock(
                         Jump(end)
                 );
                 L3.setName("L3");
 
-                TemporaryVar t2 = TemporaryVar("t2");
+
                 OperandList t22=OperandList();
                 t22.add(VarRef(t2).copy());
-                TemporaryVar t3 = TemporaryVar("t2");
+
                 TemporaryVar b= TemporaryVar("t2");
                 BasicBlock L1 =BasicBlock(
 
-                        BinaryOperation(t2, (Operand)((Operand) index).copy(),(Operator)Add(),ConstInt(1)),
-                        GetElementPtr(t3,(Operand)((Operand) expr).copy(),t22),
+                        BinaryOperation(t2, index.copy(),Add(),ConstInt(1)),
+                        GetElementPtr(t3,expr.copy(),t22),
                         Load(b,VarRef(t3)),
                         Jump(L3)
                 );
@@ -1125,9 +1264,9 @@ public class Translator extends Element.DefaultVisitor{
                 );
                 L2.setName("L2");
                 arrlok=true;
-                currentBlock.add(Branch(VarRef(comp3),L1,L2));
+                currentBlock.add(Branch(VarRef(comp3),L1,L2));*/
 
-                return null;
+                return VarRef(t2);
 
             }
 
@@ -1292,6 +1431,7 @@ public class Translator extends Element.DefaultVisitor{
         });
         return leftop;
     }//To do the rest of the cases
-}
 
+
+}
 
