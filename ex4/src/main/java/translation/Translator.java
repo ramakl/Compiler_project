@@ -52,6 +52,7 @@ public class Translator extends Element.DefaultVisitor{
     BasicBlock entry = BasicBlock();
     BasicBlock end= BasicBlock();
     BasicBlockList blocks;
+    BasicBlockList blls;
     BasicBlock currentBlock;
     boolean br=false;
     boolean arr=false;
@@ -76,9 +77,11 @@ public class Translator extends Element.DefaultVisitor{
 
         return TypePointer(arraystruct);
     }
+
     Map< MJVarDecl, TemporaryVar > tempVars = new HashMap< MJVarDecl, TemporaryVar >();
     //Map<MJNewObject, MJClassDecl> clsdec = new HashMap<MJNewObject,MJClassDecl>();
     Map<MJClassDecl ,TypePointer> objCls = new HashMap<MJClassDecl ,TypePointer>();
+    Map<MJMethodDecl ,Operand> methls = new HashMap<MJMethodDecl ,Operand>();
     Map< VarRef,TemporaryVar > temprefense = new HashMap<  VarRef,TemporaryVar >();
     public Translator(MJProgram javaProg) {
         this.javaProg = javaProg;
@@ -89,6 +92,7 @@ public class Translator extends Element.DefaultVisitor{
         // TODO here is an example of a minimal program (remove this)
          prog = Prog(TypeStructList(), GlobalList(), ProcList());
         blocks = BasicBlockList();
+        BasicBlockList blls;
         //BasicBlockList blocks = BKL;
         Proc mainProc = Proc("main", TypeInt(), ParameterList(), blocks);
         prog.getProcedures().add(mainProc);
@@ -96,8 +100,15 @@ public class Translator extends Element.DefaultVisitor{
         end.setName("end");
         //blocks.add(entry);
         currentBlock = entry;
-        blocks.add(currentBlock);
+       // blocks.add(currentBlock);
         //blocks.add(end);
+
+        MJClassDeclList classlist =  javaProg.getClassDecls();
+        classlist.match(new StmtMatcher());
+        entry.add(ReturnExpr(ConstInt(0)));
+       BasicBlock rest =BasicBlock();
+       blocks.add(rest);
+       currentBlock=rest;
 
         for (MJStatement stmt : javaProg.getMainClass().getMainBody()) {
             Object match = stmt.match(new StmtMatcher());
@@ -106,8 +117,6 @@ public class Translator extends Element.DefaultVisitor{
                 currentBlock.add((Instruction)match);
             }
         }
-      MJClassDeclList classlist =  javaProg.getClassDecls();
-        classlist.match(new StmtMatcher());
 
 
         currentBlock.add(ReturnExpr(ConstInt(0)));
@@ -171,8 +180,8 @@ public class Translator extends Element.DefaultVisitor{
             }
 
             //Object parameters=parameter.match(new StmtMatcher());
-            BasicBlock prev =currentBlock;
-            prev.add(ReturnExpr(ConstInt(0)));
+            //BasicBlock prev =currentBlock;
+            //prev.add(ReturnExpr(ConstInt(0)));
             MJBlock methodBody=  methodDecl.getMethodBody();
             MJType  returnType=methodDecl.getReturnType();
             Object retType=returnType.match(new StmtMatcher());
@@ -191,7 +200,7 @@ public class Translator extends Element.DefaultVisitor{
             blokl.add(BBlok.copy());
             //Object methBoy=methodBody.match(new StmtMatcher());
             Proc p=Proc(name, (Type)retType,paramlist,blokl);
-            currentBlock=end;
+         //   currentBlock=end;
             prog.getProcedures().add(p);
 
             /*for (MJStatement stmt : (MJBlock)methBoy) {
@@ -200,7 +209,7 @@ public class Translator extends Element.DefaultVisitor{
                 {
                     currentBlock.add((Instruction)matchh);
                 }*/
-
+            methls.put(methodDecl,ProcedureRef(p));
 
             return ProcedureRef(p);
         }
@@ -781,14 +790,18 @@ public class Translator extends Element.DefaultVisitor{
             public Operand case_FieldAccess(MJFieldAccess fieldAccess) {
                 return null;
             }
-
+            /////////////////////////
             @Override
             public Operand case_MethodCall(MJMethodCall methodCall) {
                 MJExprList ArgumentsList=   methodCall.getArguments();
                 String MetodName =methodCall.getMethodName();
-                MJMethodDecl methoddecl = methodCall.getMethodDeclaration();
-                Object ob=methoddecl.match(new StmtMatcher());
+                Object methoddecl = methodCall.getMethodDeclaration();
+
+
+
                 MJExpr Receiver= methodCall.getReceiver();
+               // Operand r=get_R(Receiver);
+
                 OperandList OpList =OperandList();
                 for(MJExpr Arg:ArgumentsList)
                 {
@@ -799,8 +812,10 @@ public class Translator extends Element.DefaultVisitor{
                     }
                 }
                 TemporaryVar temp = TemporaryVar("temp" );
-                currentBlock.add(Call(temp,(Operand) ob,OpList));
-                return null;
+                Operand method=methls.get(methoddecl);
+
+                currentBlock.add(Call(temp,method,OpList));
+                return VarRef(temp);
             }
 
             @Override
