@@ -107,7 +107,7 @@ public class Translator extends Element.DefaultVisitor{
             }
         }
       MJClassDeclList classlist =  javaProg.getClassDecls();
-        Object y=classlist.match(new StmtMatcher());
+        classlist.match(new StmtMatcher());
 
 
         currentBlock.add(ReturnExpr(ConstInt(0)));
@@ -591,7 +591,7 @@ public class Translator extends Element.DefaultVisitor{
             objCls.put(classDecl,TypePointer(ClassStruct));
             for (MJMethodDecl method :methods)
             {
-                Object VarDecl =method.match(new StmtMatcher());
+                method.match(new StmtMatcher());
 
             }
 
@@ -805,21 +805,23 @@ public class Translator extends Element.DefaultVisitor{
 
             @Override
             public Operand case_NewObject(MJNewObject newObject) {
-               String name = newObject.getClassName();
+                String name = newObject.getClassName();
                 MJClassDecl ClasDecl= newObject.getClassDeclaration();
-               // Object ClasDecl = ClasDecll.match(new StmtMatcher());
-               //objCls.put(TypePointer(ClassStruct),className);
-                //TypePointer x = objCls.get(name);
-                TemporaryVar f = TemporaryVar("pointer");
-                TypePointer  typePointer;
 
+                TypePointer  typePointer;
                 typePointer = objCls.get(ClasDecl);
-                TemporaryVar xg=TemporaryVar("x");
                 TemporaryVar y=TemporaryVar("y");
-                currentBlock.add(Alloc(xg,(Operand)ConstInt( ClasDecl.size())));
-                currentBlock.add(Bitcast(y, (Type)typePointer.getTo().copy(),VarRef(xg).copy()));
-                //TypeStruct(name,st);
-                return VarRef(y);
+                TemporaryVar s=TemporaryVar("s");
+
+
+                TemporaryVar xg=TemporaryVar("x");
+
+                currentBlock.add(Alloc(xg,ConstInt( ClasDecl.size())));
+                currentBlock.add(Bitcast(y, typePointer,VarRef(xg)));
+                currentBlock.add(Load(s,VarRef(y)));
+
+
+                return VarRef(s);
             }
 
 
@@ -1037,9 +1039,7 @@ public class Translator extends Element.DefaultVisitor{
                 TemporaryVar i=TemporaryVar("i");
                 TemporaryVar nextI=TemporaryVar("temp");
                 //b1 ggod b2 loopbody
-                loopStart.add(PhiNode(i,
-                        TypeInt(),
-                        PhiNodeChoiceList(PhiNodeChoice(validSize,ConstInt(0)),
+                loopStart.add(PhiNode(i, TypeInt(), PhiNodeChoiceList(PhiNodeChoice(validSize,ConstInt(0)),
                                 PhiNodeChoice(loopBody,VarRef(nextI)))));
                 TemporaryVar  smal =TemporaryVar("smal");
                 currentBlock.add(BinaryOperation(smal,VarRef(i),Slt(),sizeArray.copy()));
@@ -1049,15 +1049,10 @@ public class Translator extends Element.DefaultVisitor{
                 currentBlock=loopBody;
                 TemporaryVar adressofcounter= TemporaryVar("address");
 
-                currentBlock.add(GetElementPtr(adressofcounter,
-                        VarRef(array),
-                        OperandList(ConstInt(0),
-                                ConstInt(1),
-                                VarRef(i))));
+                currentBlock.add(GetElementPtr(adressofcounter, VarRef(array),
+                        OperandList(ConstInt(0), ConstInt(1), VarRef(i))));
 
-                currentBlock.add(Store(
-                        VarRef(adressofcounter),
-                        ConstInt(0)));
+                currentBlock.add(Store(VarRef(adressofcounter), ConstInt(0)));
                 //i+1;
                 currentBlock.add(BinaryOperation(nextI,VarRef(i),Add(),ConstInt(1)));
                 currentBlock.add(Jump(loopStart));
@@ -1070,7 +1065,7 @@ public class Translator extends Element.DefaultVisitor{
 
 
 
-                loopEnd.add(ReturnExpr(ConstInt(5)));
+                loopEnd.add(ReturnExpr(VarRef(array)));
                 BasicBlock procbody= BasicBlock(ReturnExpr(VarRef(array)));
                 arraystruct = typeStructList.get(typeStructList.size()-1);
 
