@@ -26,7 +26,7 @@ import static minillvm.ast.Ast.*;
 
 public class Translator extends Element.DefaultVisitor{
     private BasicBlock entry = BasicBlock();
-    private BasicBlock end= BasicBlock();
+
     private BasicBlockList blocks;
     private BasicBlock currentBlock;
     protected Prog prog;
@@ -35,16 +35,15 @@ public class Translator extends Element.DefaultVisitor{
     private TemporaryVar array;
 
     private TypeStructList typeStructList = TypeStructList();
-    private TypeStruct arraystruct;
     private final MJProgram javaProg;
     // @mahsa: We need to have a block to add serveral submethods to one basic block of a parent method
     //public BasicBlock getOpenBlock() {
     //return BKL;
     //}
     private TypePointer getPointer(){
-        arraystruct = TypeStruct("intArray",
-                StructFieldList(StructField(TypeInt(), "size"), 
-                        StructField(TypeArray(TypeInt(), 0), 
+        TypeStruct arraystruct = TypeStruct("intArray",
+                StructFieldList(StructField(TypeInt(), "size"),
+                        StructField(TypeArray(TypeInt(), 0),
                                 "values ")));
 
         typeStructList.add(arraystruct);
@@ -104,9 +103,9 @@ public class Translator extends Element.DefaultVisitor{
         }
     }
 
-    private Map< MJVarDecl, TemporaryVar > tempVars = new HashMap< MJVarDecl, TemporaryVar >();
+    private Map< MJVarDecl, TemporaryVar > tempVars = new HashMap<>();
 
-    private Map<MJClassDecl ,TypePointer> objCls = new HashMap<MJClassDecl ,TypePointer>();
+    private Map<MJClassDecl ,TypePointer> objCls = new HashMap<>();
 
     public Translator(MJProgram javaProg) {
         this.javaProg = javaProg;
@@ -116,11 +115,11 @@ public class Translator extends Element.DefaultVisitor{
 
         prog = Prog(typeStructList, GlobalList(), ProcList());
         blocks = BasicBlockList();
-        //BasicBlockList blocks = BKL;
+
         Proc mainProc = Proc("main", TypeInt(), ParameterList(), blocks);
         prog.getProcedures().add(mainProc);
         entry.setName("entry");
-        end.setName("end");
+
 
         currentBlock = entry;
         blocks.add(currentBlock);
@@ -159,7 +158,7 @@ public class Translator extends Element.DefaultVisitor{
 
     private class StmtMatcher implements MJStatement.Matcher {
 
-        //Method Decl written by @rama
+
 
         @Override
         public Object case_VarDecl(MJVarDecl varDecl) {
@@ -344,8 +343,8 @@ public class Translator extends Element.DefaultVisitor{
 
     }
     //This Method Gets Right side of the exp, written by @Monireh
-    public Operand get_R(MJExpr exp) {
-        Operand rightop = exp.match(new MJExpr.Matcher<Operand>() {
+    private Operand get_R(MJExpr exp) {
+        return exp.match(new MJExpr.Matcher<Operand>() {
             @Override
             public Operand case_FieldAccess(MJFieldAccess fieldAccess) {
                 return null;
@@ -359,7 +358,7 @@ public class Translator extends Element.DefaultVisitor{
 
             @Override
             public Operand case_NewObject(MJNewObject newObject) {
-                String name = newObject.getClassName();
+
                 MJClassDecl ClasDecl= newObject.getClassDeclaration();
 
                 TypePointer  typePointer;
@@ -418,7 +417,7 @@ public class Translator extends Element.DefaultVisitor{
 
                 Operator op = exprBinary.getOperator().match(new OperatorMatcher());
 
-                //Load lR = Load(s,right);
+
                 if(op instanceof Sdiv){
                     TemporaryVar divRes = TemporaryVar("divRes");
                     TemporaryVar result = TemporaryVar("result");
@@ -427,8 +426,9 @@ public class Translator extends Element.DefaultVisitor{
                             BinaryOperation(divRes, left, Sdiv(), right.copy())
 
                     );
+                    BasicBlock futureBlock = BasicBlock();
                     L1.setName("L1");
-                    L1.add(Jump(end));
+                    L1.add(Jump(futureBlock));
                     blocks.add(L1);
 
                     BasicBlock L2 = BasicBlock(
@@ -439,7 +439,7 @@ public class Translator extends Element.DefaultVisitor{
 
 
                     currentBlock.add( Branch(VarRef(result), L2, L1));
-                    currentBlock = end;
+                    currentBlock = futureBlock;
                     //Doesn't make scense
                     //currentBlock.add(BinaryOperation(divRes, left, Sdiv(), right.copy()));
                     return VarRef(divRes);
@@ -491,7 +491,7 @@ public class Translator extends Element.DefaultVisitor{
                 TemporaryVar arraySizeRef=TemporaryVar("t");
                 currentBlock.add(Alloc(arraySizeRef,VarRef(arraySizeInBytes)));
                 array=TemporaryVar("arraySizeRef");
-                
+
                 currentBlock.add(Bitcast(array,arrpoint,VarRef(arraySizeRef)));
                 TemporaryVar lengthAdrres =TemporaryVar("lengthAdrres");
                 currentBlock.add(GetElementPtr(lengthAdrres,VarRef(array),OperandList(ConstInt(0),ConstInt(0))));
@@ -589,18 +589,13 @@ public class Translator extends Element.DefaultVisitor{
             }
 
         });
-        return rightop;
     }
     //This Method Gets Left side of the exp, written by @Monireh
-    public Operand get_L(MJExpr exp) {
+    private Operand get_L(MJExpr exp) {
 
         //Left side of an Assign could be one of the following cases, So we should define them first
-        Map<MJVarUse, MJVarDecl> varUseDecl = new HashMap<MJVarUse,MJVarDecl>();
-        Map<MJFieldAccess, MJVarDecl> fieldAccVarDecl = new HashMap<MJFieldAccess,MJVarDecl>();
-        Map<MJMethodCall, MJMethodDecl> methodCallsDecl = new HashMap<MJMethodCall,MJMethodDecl>();
 
-        //return 212 doesn't mean anything
-        Operand leftop = exp.match(new MJExpr.Matcher<Operand>() {
+        return exp.match(new MJExpr.Matcher<Operand>() {
             @Override
             public Operand case_FieldAccess(MJFieldAccess fieldAccess) {
                 return null;
@@ -618,18 +613,17 @@ public class Translator extends Element.DefaultVisitor{
 
             @Override
             public Operand case_ArrayLength(MJArrayLength arrayLength) {
-                Operand arrayLen =  get_R(arrayLength.getArrayExpr());
-                return arrayLen ;
+                return get_R(arrayLength.getArrayExpr());
             }
 
             //left
             @Override
             public Operand case_ArrayLookup(MJArrayLookup arrayLookup) {
 
-                MJExpr exp= arrayLookup.getArrayExpr();
+                MJExpr exp1 = arrayLookup.getArrayExpr();
                 MJExpr in=  arrayLookup.getArrayIndex();
                 Operand index=get_R(in);
-                Operand expr=get_R(exp);
+                Operand expr=get_R(exp1);
 
                 TemporaryVar x = TemporaryVar("x");
 
@@ -739,14 +733,15 @@ public class Translator extends Element.DefaultVisitor{
 
                     TemporaryVar resultr = TemporaryVar("ss");
                     TemporaryVar resul = TemporaryVar("s");
-                    currentBlock.add(BinaryOperation(resul,right,(Operator)Eq(),ConstInt(0)));
+                    currentBlock.add(BinaryOperation(resul,right,Eq(),ConstInt(0)));
                     BasicBlock L1 =BasicBlock(
-                            BinaryOperation(resultr,left,(Operator)Sdiv(),right.copy())
+                            BinaryOperation(resultr,left,Sdiv(),right.copy())
 
                     );
                     L1.setName("L1");
+                    BasicBlock futureBlock = BasicBlock();
 
-                    L1.add( Jump(end));
+                    L1.add( Jump(futureBlock));
                     blocks.add(L1);
                     BasicBlock L2 =BasicBlock(
 
@@ -755,8 +750,8 @@ public class Translator extends Element.DefaultVisitor{
                     L1.setName("L2");
                     blocks.add(L2);
 
-                    currentBlock.add((Instruction) Branch(VarRef(resul),L1,L2));
-                    currentBlock = end;
+                    currentBlock.add(Branch(VarRef(resul),L1,L2));
+                    currentBlock = futureBlock;
                     //currentBlock=end;
 
                     return VarRef(resultr);
@@ -810,18 +805,17 @@ public class Translator extends Element.DefaultVisitor{
                 MJExpr ex= exprUnary.getExpr();
                 MJUnaryOperator  o=exprUnary.getUnaryOperator();
                 Operand e=get_R(ex);
-                Operator ad=o.match(new UnaryOperatorMatcher());
+                Operator ad = o.match(new UnaryOperatorMatcher());
                 if(ad instanceof Sub){
-                    //Sub(VarRef(x));???? how we can use sub instead binary operation
+
                     TemporaryVar result = TemporaryVar("ss");
-                    currentBlock.add((Instruction) BinaryOperation(result,(ConstInt(0)),(Operator)ad,(Operand)(e)));
+                    currentBlock.add(BinaryOperation(result,(ConstInt(0)),ad,e));
                     return VarRef(result);
                 }
                 return null;
             }
 
         });
-        return leftop;
     }//To do the rest of the cases
 
 
