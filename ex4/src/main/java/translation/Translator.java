@@ -217,12 +217,15 @@ public class Translator extends Element.DefaultVisitor{
                     TypePointer typePointer;
                     MJClassDecl ClasDecl = typeClass.getClassDeclaration();
                     if (objCls.containsKey(ClasDecl)) {
-
+                        //TemporaryVar x = objCls.get(name);
                         typePointer = objCls.get(ClasDecl);
-
+                        //typePointer.getTo();
 
                     } else {
+                        // This should never happen
 
+                        //throw new RuntimeException(
+                        //      "Variable not found during translation");
 
                         MJVarDeclList filds=ClasDecl.getFields();
                         StructFieldList st=StructFieldList();
@@ -238,12 +241,13 @@ public class Translator extends Element.DefaultVisitor{
                             }
                         }
                         ClassStruct = TypeStruct(name,st);
+                        //prog.getGlobals().add(Global(TypeStruct(name,st),"ClassStruct",true,null));
                         objCls.put(ClasDecl,TypePointer(ClassStruct));
                         typePointer = objCls.get(ClasDecl);
 
 
                     }
-
+                    //TypeStruct(name,st);
                     return typePointer.getTo();
                 }
 
@@ -422,16 +426,20 @@ public class Translator extends Element.DefaultVisitor{
                 String name = newObject.getClassName();
                 MJClassDecl ClasDecl= newObject.getClassDeclaration();
 
-                TemporaryVar f = TemporaryVar("pointer");
                 TypePointer  typePointer;
-
                 typePointer = objCls.get(ClasDecl);
-                TemporaryVar xg=TemporaryVar("x");
                 TemporaryVar y=TemporaryVar("y");
-                currentBlock.add(Alloc(xg,(Operand)ConstInt( ClasDecl.size())));
-                currentBlock.add(Bitcast(y, (Type)typePointer.getTo().copy(),VarRef(xg).copy()));
+                TemporaryVar s=TemporaryVar("s");
 
-                return VarRef(y);
+
+                TemporaryVar xg=TemporaryVar("x");
+
+                currentBlock.add(Alloc(xg,Sizeof(ClassStruct)));
+                currentBlock.add(Bitcast(y, typePointer,VarRef(xg)));
+                currentBlock.add(Load(s,VarRef(y)));
+
+
+                return VarRef(s);
             }
 
             @Override
@@ -745,55 +753,24 @@ public class Translator extends Element.DefaultVisitor{
                 outOfBoundsError.add(HaltWithError("Array Index out of Bounds"));
                 blocks.add(outOfBoundsError);
 
-                BasicBlock indexInRange = BasicBlock();
+                BasicBlock correctindex = BasicBlock();
 
-                blocks.add(indexInRange);
+                blocks.add(correctindex);
 
                 currentBlock.add(
                         Branch(
-                                VarRef(outOfBounds),outOfBoundsError,indexInRange)
+                                VarRef(outOfBounds),outOfBoundsError,correctindex)
                         );
 
 
-                currentBlock = indexInRange;
+                currentBlock = correctindex;
 
                 currentBlock.add(GetElementPtr(t2,
                         expr.copy(),
                         OperandList(ConstInt(0),
                                 ConstInt(1),
                                 index.copy())));
-                //navigate to the specific position in the Element Structure. Operand list = 0*1*index
-                /*TemporaryVar comp1 = TemporaryVar("comp1");
-                TemporaryVar comp2 = TemporaryVar("comp2");
-                TemporaryVar comp3 = TemporaryVar("comp3");
-                currentBlock.add(BinaryOperation(comp1, index,Slt(),VarRef(x)));
-                currentBlock.add(BinaryOperation(comp2, ConstInt(-1),Slt(), index.copy()));
-                currentBlock.add(BinaryOperation(comp3,VarRef(comp1),And(),VarRef(comp2)));
-                BasicBlock L3 =BasicBlock(
-                        Jump(end)
-                );
-                L3.setName("L3");
 
-
-                OperandList t22=OperandList();
-                t22.add(VarRef(t2).copy());
-
-                TemporaryVar b= TemporaryVar("t2");
-                BasicBlock L1 =BasicBlock(
-
-                        BinaryOperation(t2, index.copy(),Add(),ConstInt(1)),
-                        GetElementPtr(t3,expr.copy(),t22),
-                        Load(b,VarRef(t3)),
-                        Jump(L3)
-                );
-                L1.setName("L1");
-                BasicBlock L2 =BasicBlock(
-                        HaltWithError( "error")
-
-                );
-                L2.setName("L2");
-                arrlok=true;
-                currentBlock.add(Branch(VarRef(comp3),L1,L2));*/
 
                 return VarRef(t2);
 
