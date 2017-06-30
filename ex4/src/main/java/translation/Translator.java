@@ -1,15 +1,12 @@
 
 package translation;
 
+import frontend.SourcePosition;
 import minijava.ast.*;
 import minillvm.ast.*;
 import minillvm.ast.BasicBlock;
 import minillvm.ast.BasicBlockList;
-import minillvm.ast.InstructionList;
 import minillvm.ast.Load;
-import minillvm.ast.OperandList;
-import minillvm.ast.Parameter;
-import minillvm.ast.ParameterList;
 import minillvm.ast.Proc;
 import minillvm.ast.Prog;
 import minillvm.ast.Sdiv;
@@ -27,40 +24,16 @@ import java.util.Map;
 
 import static minillvm.ast.Ast.*;
 
-//import com.sun.org.apache.xpath.internal.operations.Div;
-//import com.sun.javafx.fxml.expression.Expression;
-
-//basicly translation overview, you get minijava program and our translator have to translate it to LLVM
-
-// start from AST:miijava.ast.MJProgram --> then --> AST:llvm.ast.Prog
-
-//we have 2kind of blocks:
-
-//Minijava Block
-
-//Basic Block
-
-//for Simple Loop,in llvm we need at least 3basic blocks. jump to basic block
-
-//for using Temporary variable we have to varef to it and we should make a copy
-
-//it's only assign to it once.
 public class Translator extends Element.DefaultVisitor{
-    public static InstructionList BKL = InstructionList();
     private BasicBlock entry = BasicBlock();
     private BasicBlock end= BasicBlock();
     private BasicBlockList blocks;
     private BasicBlock currentBlock;
-
-
-    private Operand ArraySize;
-
-
-    private Prog prog;
+    protected Prog prog;
     private TypePointer  arrpoint ;
     private TypeStruct ClassStruct;
     private TemporaryVar array;
-    private Proc currentproc=null;
+
     private TypeStructList typeStructList = TypeStructList();
     private TypeStruct arraystruct;
     private final MJProgram javaProg;
@@ -68,7 +41,7 @@ public class Translator extends Element.DefaultVisitor{
     //public BasicBlock getOpenBlock() {
     //return BKL;
     //}
-    private TypePointer getpointer(){
+    private TypePointer getPointer(){
         arraystruct = TypeStruct("intArray",
                 StructFieldList(StructField(TypeInt(), "size"), 
                         StructField(TypeArray(TypeInt(), 0), 
@@ -130,17 +103,17 @@ public class Translator extends Element.DefaultVisitor{
             return Sub();
         }
     }
-    Map< MJVarDecl, TemporaryVar > tempVars = new HashMap< MJVarDecl, TemporaryVar >();
-    //Map<MJNewObject, MJClassDecl> clsdec = new HashMap<MJNewObject,MJClassDecl>();
-    Map<MJClassDecl ,TypePointer> objCls = new HashMap<MJClassDecl ,TypePointer>();
-    Map< VarRef,TemporaryVar > temprefense = new HashMap<  VarRef,TemporaryVar >();
+
+    private Map< MJVarDecl, TemporaryVar > tempVars = new HashMap< MJVarDecl, TemporaryVar >();
+
+    private Map<MJClassDecl ,TypePointer> objCls = new HashMap<MJClassDecl ,TypePointer>();
+
     public Translator(MJProgram javaProg) {
         this.javaProg = javaProg;
 
     }
     public Prog translate() {
-        // TODO add your translation code here
-        // TODO here is an example of a minimal program (remove this)
+
         prog = Prog(typeStructList, GlobalList(), ProcList());
         blocks = BasicBlockList();
         //BasicBlockList blocks = BKL;
@@ -148,12 +121,12 @@ public class Translator extends Element.DefaultVisitor{
         prog.getProcedures().add(mainProc);
         entry.setName("entry");
         end.setName("end");
-        //blocks.add(entry);
+
         currentBlock = entry;
         blocks.add(currentBlock);
-        //blocks.add(end);
 
-        arrpoint = getpointer();
+
+        arrpoint = getPointer();
 
         for (MJStatement stmt : javaProg.getMainClass().getMainBody()) {
             Object match = stmt.match(new StmtMatcher());
@@ -162,7 +135,6 @@ public class Translator extends Element.DefaultVisitor{
                 currentBlock.add((Instruction)match);
             }
         }
-        MJClassDeclList classlist =  javaProg.getClassDecls();
 
 
         currentBlock.add(ReturnExpr(ConstInt(0)));
@@ -181,18 +153,11 @@ public class Translator extends Element.DefaultVisitor{
             blocks.add(currentBlock);
 
         prog.accept(this);
-        //For-loop to read each stmt of main class -> main bod
-        //for (MJStatement stmt : javaProg.getMainClass().getMainBody()) {
-        //   stmt.match(new StmtMatcher());
-        // TypeStruct vMethodTable = TypeStruct("vatable",StructFieldList(StructField(TypePointer(),"metod")));
-        //}
+
         return prog;
     }
-    //: we should do this for the first part (Block, StmtIf, StmtWhile, StmtReturn, StmtPrint, StmtExpr,
-    //StmtAssign, ExprBinary, ExprUnary, BoolConst, VarUse, Number.)
 
     private class StmtMatcher implements MJStatement.Matcher {
-
 
         //Method Decl written by @rama
 
@@ -207,7 +172,6 @@ public class Translator extends Element.DefaultVisitor{
 
                 @Override
                 public Type case_TypeIntArray(MJTypeIntArray typeIntArray) {
-
                     return arrpoint;
                 }
 
@@ -217,16 +181,9 @@ public class Translator extends Element.DefaultVisitor{
                     TypePointer typePointer;
                     MJClassDecl ClasDecl = typeClass.getClassDeclaration();
                     if (objCls.containsKey(ClasDecl)) {
-                        //TemporaryVar x = objCls.get(name);
                         typePointer = objCls.get(ClasDecl);
-                        //typePointer.getTo();
 
                     } else {
-                        // This should never happen
-
-                        //throw new RuntimeException(
-                        //      "Variable not found during translation");
-
                         MJVarDeclList filds=ClasDecl.getFields();
                         StructFieldList st=StructFieldList();
                         for(MJVarDecl fild :filds)
@@ -241,13 +198,9 @@ public class Translator extends Element.DefaultVisitor{
                             }
                         }
                         ClassStruct = TypeStruct(name,st);
-                        //prog.getGlobals().add(Global(TypeStruct(name,st),"ClassStruct",true,null));
                         objCls.put(ClasDecl,TypePointer(ClassStruct));
                         typePointer = objCls.get(ClasDecl);
-
-
                     }
-                    //TypeStruct(name,st);
                     return typePointer.getTo();
                 }
 
@@ -263,7 +216,6 @@ public class Translator extends Element.DefaultVisitor{
 
             return VarRef(x);
         }
-
 
         //stm-while pair Working Rama Madhusudhan
         @Override
@@ -374,7 +326,6 @@ public class Translator extends Element.DefaultVisitor{
             blocks.add(trueLabel);
 
             BasicBlock falseLabel= BasicBlock() ;
-            //futureblock=falseLabel;
             currentBlock= falseLabel;
             f.match(new StmtMatcher());
             currentBlock.add(Jump(futureblock));
@@ -402,22 +353,7 @@ public class Translator extends Element.DefaultVisitor{
 
             @Override
             public Operand case_MethodCall(MJMethodCall methodCall) {
-                /*MJExprList ArgumentsList=   methodCall.getArguments();
-                String MetodName =methodCall.getMethodName();
-                MJMethodDecl methoddecl = methodCall.getMethodDeclaration();
-                Object ob=methoddecl.match(new StmtMatcher());
-                MJExpr Receiver= methodCall.getReceiver();
-                OperandList OpList =OperandList();
-                for(MJExpr Arg:ArgumentsList)
-                {
-                    Object Argument =Arg.match(new StmtMatcher());
-                    if(Argument instanceof Operand) {
-                        Operand Op = (Operand) Argument;
-                        OpList.add(Op);
-                    }
-                }
-                TemporaryVar temp = TemporaryVar("temp" );
-                currentBlock.add(Call(temp,(Operand) ob,OpList));*/
+
                 return null;
             }
 
@@ -465,7 +401,6 @@ public class Translator extends Element.DefaultVisitor{
             @Override
             public Operand case_BoolConst(MJBoolConst boolConst) {
                 return ConstBool(boolConst.getBoolValue());
-                //return ConstBool(true);
             }
 
             @Override
