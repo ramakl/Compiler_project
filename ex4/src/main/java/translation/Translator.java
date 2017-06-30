@@ -407,23 +407,26 @@ public class Translator extends Element.DefaultVisitor{
             BasicBlock trueLabel = BasicBlock() ;
             currentBlock=trueLabel;
             t.match(new StmtMatcher());
+            currentBlock.add(Jump(futureblock));
             BasicBlock falseLabel= BasicBlock() ;
             //futureblock=falseLabel;
             currentBlock= falseLabel;
+
             f.match(new StmtMatcher());
+            currentBlock.add(Jump(futureblock));
             previousBlock.add(Branch(coo, trueLabel, falseLabel));
-            currentBlock= futureblock;
+
 
 
             futureblock.setName("futureblock");
             br=true;
 
-            trueLabel.add(Jump(futureblock));
+
             blocks.add(trueLabel);
 
-            falseLabel.add(Jump(futureblock));
-            blocks.add(falseLabel);
 
+            blocks.add(falseLabel);
+            currentBlock= futureblock;
             blocks.add(futureblock);
             return null;
 
