@@ -810,11 +810,22 @@ public class Translator extends Element.DefaultVisitor{
                 TemporaryVar tempArrayLength = TemporaryVar("tempArrayLength");
                 currentBlock.add(Load(tempArrayLength,VarRef(length)));
 
+                TemporaryVar newArrayLength = TemporaryVar("newArrayLength");
+
+
                 currentBlock.add(
                         BinaryOperation(
-                                 greaterThanLength,VarRef(tempArrayLength),Slt(),index.copy()
+                                newArrayLength,VarRef(tempArrayLength),Sub(),ConstInt(1)
                         )
                 );
+
+
+                currentBlock.add(
+                        BinaryOperation(
+                                 greaterThanLength,VarRef(newArrayLength),Slt(),index.copy()
+                        )
+                );
+
 
                 currentBlock.add(
                         BinaryOperation(
