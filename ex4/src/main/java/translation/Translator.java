@@ -158,6 +158,8 @@ public class Translator extends Element.DefaultVisitor{
         }
         //Method Decl written by @rama
         @Override
+
+
         public Object case_MethodDecl(MJMethodDecl methodDecl) {
             String name =methodDecl.getName();
             MJVarDeclList param= methodDecl.getFormalParameters();
@@ -184,6 +186,7 @@ public class Translator extends Element.DefaultVisitor{
             //prev.add(ReturnExpr(ConstInt(0)));
             MJBlock methodBody=  methodDecl.getMethodBody();
             MJType  returnType=methodDecl.getReturnType();
+
             Object retType=returnType.match(new StmtMatcher());
             BasicBlockList blokl =BasicBlockList();
             BasicBlock BBlok =BasicBlock();
@@ -202,7 +205,7 @@ public class Translator extends Element.DefaultVisitor{
             Proc p=Proc(name, (Type)retType,paramlist,blokl);
          //   currentBlock=end;
             prog.getProcedures().add(p);
-
+           currentproc=p;
             /*for (MJStatement stmt : (MJBlock)methBoy) {
                 Object matchh = stmt.match(new StmtMatcher());
                 if(matchh instanceof Instruction)
@@ -266,6 +269,7 @@ public class Translator extends Element.DefaultVisitor{
                            }
                         }
                         ClassStruct = TypeStruct(name,st);
+                        //prog.getGlobals().add(Global(TypeStruct(name,st),"ClassStruct",true,null));
                         objCls.put(ClasDecl,TypePointer(ClassStruct));
                         typePointer = objCls.get(ClasDecl);
 
@@ -579,6 +583,8 @@ public class Translator extends Element.DefaultVisitor{
             MJExtended extended=classDecl.getExtended();
 
             StructFieldList stfl=StructFieldList();
+
+            //stfl.add(StructField(ProcedureRef(currentproc.copy()).calculateType(),"method"));
             for (MJVarDecl VAr :filds)
             {
                 Object VarDecl =VAr.match(new StmtMatcher());
@@ -638,10 +644,41 @@ public class Translator extends Element.DefaultVisitor{
 
         @Override
         public Object case_TypeClass(MJTypeClass typeClass) {
-            MJClassDecl clasDec=typeClass.getClassDeclaration();
             String name =typeClass.getName();
+            TypePointer typePointer;
+            MJClassDecl ClasDecl = typeClass.getClassDeclaration();
+            if (objCls.containsKey(ClasDecl)) {
+                //TemporaryVar x = objCls.get(name);
+                typePointer = objCls.get(ClasDecl);
+                //typePointer.getTo();
 
-            return null;
+            } else {
+                // This should never happen
+
+                //throw new RuntimeException(
+                //      "Variable not found during translation");
+
+                MJVarDeclList filds=ClasDecl.getFields();
+                StructFieldList st=StructFieldList();
+                for(MJVarDecl fild :filds)
+                {
+                    Object f= fild.match(new StmtMatcher());
+
+                    TemporaryVar s=TemporaryVar("s");
+                    if(f instanceof Operand) {
+                        currentBlock.add(Load(s, (Operand) f));
+                        StructField sff = StructField(s.calculateType(), fild.toString());
+                        st.add(sff);
+                    }
+                }
+                ClassStruct = TypeStruct(name,st);
+                objCls.put(ClasDecl,TypePointer(ClassStruct));
+                typePointer = objCls.get(ClasDecl);
+
+
+            }
+            //TypeStruct(name,st);
+            return typePointer.getTo();
         }
 
         //matcher
@@ -788,6 +825,10 @@ public class Translator extends Element.DefaultVisitor{
         Operand rightop = exp.match(new MJExpr.Matcher<Operand>() {
             @Override
             public Operand case_FieldAccess(MJFieldAccess fieldAccess) {
+                fieldAccess.getFieldName();
+                fieldAccess.getReceiver();
+                fieldAccess.getVariableDeclaration();
+
                 return null;
             }
             /////////////////////////
@@ -831,7 +872,7 @@ public class Translator extends Element.DefaultVisitor{
 
                 TemporaryVar xg=TemporaryVar("x");
 
-                currentBlock.add(Alloc(xg,ConstInt( ClasDecl.size())));
+                currentBlock.add(Alloc(xg,Sizeof(ClassStruct)));
                 currentBlock.add(Bitcast(y, typePointer,VarRef(xg)));
                 currentBlock.add(Load(s,VarRef(y)));
 
@@ -985,6 +1026,7 @@ public class Translator extends Element.DefaultVisitor{
             }
             @Override
             public Operand case_ExprThis(MJExprThis exprThis) {
+
                 return null;
             }
             //right
