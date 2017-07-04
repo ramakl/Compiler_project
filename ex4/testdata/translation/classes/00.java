@@ -4,6 +4,9 @@ class Main {
 	}
 }
 
+
+//Pass the "this" to the method sqrt
+//V Table contains two entries but there is only one method sqrt()
 class B {
 	
 	int sqrt(int x) {
@@ -15,6 +18,7 @@ class B {
 				r = r + 1;
 			}
 		}
+
 		return r;
 	}
 	
