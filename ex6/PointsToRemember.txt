@@ -1,0 +1,9 @@
+stack pointer, frame pointer, where are the variables, parameters and write them in readme file. 
+AST Transformation from MiniLLVM to MIPS. 
+template includes MIPS AST file. 
+MIPS simulator -> MARS in tools folder of ex6
+It should work out of box. 
+Register allocation should not be considered as its complicated instead use spilling of variables 
+No phi node in the whole program. So figure out to remove them for MIPS. 
+Have a prologue and epilogue to the procedure. 
+

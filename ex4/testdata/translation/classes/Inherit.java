@@ -5,10 +5,10 @@ class Inherit {
 		C c;
 		b = new B();
 		c = new C();
-		System.out.println(b.change());
-		System.out.println(c.change());
-		System.out.println(b.bla());
-		System.out.println(c.get());
+		//System.out.println(b.change());
+		//System.out.println(c.change());
+		//System.out.println(b.bla());
+		//System.out.println(c.get());
 	}
 }
 
