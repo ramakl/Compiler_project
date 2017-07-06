@@ -3,6 +3,7 @@ package minillvm.tomips;
 import minillvm.ast.*;
 import mips.ast.Mips;
 
+import mips.ast.MipsOperator;
 import mips.ast.MipsProg;
 import mips.ast.MipsStmtList;
 
@@ -78,7 +79,33 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
 
     @Override
     public void case_BinaryOperation(BinaryOperation binaryOperation) {
-         
+        TemporaryVar result = binaryOperation.getVar();
+        Operand left = binaryOperation.getLeft();
+        Operand right = binaryOperation.getRight();
+        Operator operator = binaryOperation.getOperator();
+        int leftValue = Integer.parseInt(left.toString());
+        int rightValue = Integer.parseInt((right.toString()));
+        MipsOperator mipsOperator = operator.match(new LLVMOperatorMatcher());
+        mipsStmtList.add(Mips.Li(Mips.Register(8),leftValue));
+        mipsStmtList.add(Mips.Li(Mips.Register(9),rightValue));
+        mipsStmtList.add(
+                Mips.BinaryOp(
+                        mipsOperator,Mips.Register(10),
+                        Mips.Register(8),
+                        Mips.Register(9)
+                )
+        );
+        mipsStmtList.add(
+                Mips.BinaryOpI(
+                        Mips.Add(),Mips.Register(29),Mips.Register(29),-20
+                )
+        );
+        mipsStmtList.add(
+                Mips.Sw(
+                        Mips.Register(10),Mips.BaseAddress(0,Mips.Register(29))
+                )
+        );
+
     }
 
     @Override
@@ -110,5 +137,58 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
     @Override
     public void case_Alloca(Alloca alloca) {
          
+    }
+
+    public class LLVMOperatorMatcher implements Operator.Matcher<MipsOperator>{
+
+        @Override
+        public MipsOperator case_Eq(Eq eq) {
+            return Mips.Seq();
+        }
+
+        @Override
+        public MipsOperator case_Srem(Srem srem) {
+            return Mips.Rem();
+        }
+
+        @Override
+        public MipsOperator case_Add(Add add) {
+            return Mips.Add();
+        }
+
+        @Override
+        public MipsOperator case_Xor(Xor xor) {
+            return Mips.Xor();
+        }
+
+        @Override
+        public MipsOperator case_And(And and) {
+            return Mips.And();
+        }
+
+        @Override
+        public MipsOperator case_Slt(Slt slt) {
+            return Mips.Slt();
+        }
+
+        @Override
+        public MipsOperator case_Sub(Sub sub) {
+            return Mips.Sub();
+        }
+
+        @Override
+        public MipsOperator case_Sdiv(Sdiv sdiv) {
+            return Mips.Div();
+        }
+
+        @Override
+        public MipsOperator case_Or(Or or) {
+            return Mips.Or();
+        }
+
+        @Override
+        public MipsOperator case_Mul(Mul mul) {
+            return Mips.Mul();
+        }
     }
 }
