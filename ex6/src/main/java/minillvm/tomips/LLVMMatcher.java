@@ -12,7 +12,11 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
 
     private MipsStmtList mipsStmtList;
     private MipsProg mipsProg;
-    HashMap<TemporaryVar,MipsRegister> variableRegisterMap;
+    /**
+     * This HashMap is used to hold the TemporaryVar and MipsRegister Hash.
+     * This is used in printing method later.
+     */
+    private HashMap<TemporaryVar,MipsRegister> variableRegisterMap;
     LLVMMatcher()
     {
         mipsStmtList = Mips.StmtList(
@@ -79,7 +83,7 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
 
     @Override
     public void case_BinaryOperation(BinaryOperation binaryOperation) {
-        TemporaryVar result = binaryOperation.getVar();
+        TemporaryVar result =  binaryOperation.getVar();
         Operand left = binaryOperation.getLeft();
         Operand right = binaryOperation.getRight();
         Operator operator = binaryOperation.getOperator();
@@ -120,7 +124,8 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
         MipsRegister register = null;
         for(TemporaryVar v: variableRegisterMap.keySet())
         {
-            if(v.structuralEquals(print))
+            Operand e = print.getE();
+            if(((VarRef) e).getVariable().structuralEquals(v))
             {
                 register = variableRegisterMap.get(v);
                 break;
