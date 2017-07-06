@@ -109,7 +109,7 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
                         Mips.Register(10),Mips.BaseAddress(0,Mips.Register(29))
                 )
         );
-        variableRegisterMap.put(result,Mips.Register(29));
+        variableRegisterMap.put(result,Mips.Register(10));
 
     }
 
@@ -131,12 +131,14 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
                 break;
             }
         }
-        int printValue;
-        if(null != register)
-            printValue = register.getNumber();
-        else
-            printValue = Integer.parseInt(print.getE().toString());
-        mipsStmtList.add(Mips.Li(Mips.Register(4),printValue));
+        if(null == register)
+        {
+            int printValue = Integer.parseInt(print.getE().toString());
+            mipsStmtList.add(Mips.Li(Mips.Register(11),printValue));
+            register = Mips.Register(11);
+        }
+        mipsStmtList.add(Mips.Li(Mips.Register(2), 1));
+        mipsStmtList.add(Mips.Move(Mips.Register(4), register));
         mipsStmtList.add(Mips.Jal(Mips.LabelRef("_print")));
 
     }
