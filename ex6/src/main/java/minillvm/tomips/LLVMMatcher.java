@@ -1,11 +1,9 @@
 package minillvm.tomips;
 
 import minillvm.ast.*;
-import mips.ast.Mips;
+import mips.ast.*;
 
-import mips.ast.MipsOperator;
-import mips.ast.MipsProg;
-import mips.ast.MipsStmtList;
+import java.util.HashMap;
 
 /**
  * Created by madhu on 7/6/17.
@@ -14,6 +12,7 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
 
     private MipsStmtList mipsStmtList;
     private MipsProg mipsProg;
+    HashMap<TemporaryVar,MipsRegister> variableRegisterMap;
     LLVMMatcher()
     {
         mipsStmtList = Mips.StmtList(
@@ -21,6 +20,7 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
                        Mips.Move(Mips.Register(30), Mips.Register(29))
                 );
             mipsProg= Mips.Prog(mipsStmtList);
+            variableRegisterMap = new HashMap<>();
     }
 
     MipsProg returnMipsProg()
@@ -105,6 +105,7 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
                         Mips.Register(10),Mips.BaseAddress(0,Mips.Register(29))
                 )
         );
+        variableRegisterMap.put(result,Mips.Register(29));
 
     }
 
@@ -116,7 +117,20 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
     @Override
     public void case_Print(Print print) {
 
-        int printValue = Integer.parseInt(print.getE().toString());
+        MipsRegister register = null;
+        for(TemporaryVar v: variableRegisterMap.keySet())
+        {
+            if(v.structuralEquals(print))
+            {
+                register = variableRegisterMap.get(v);
+                break;
+            }
+        }
+        int printValue;
+        if(null != register)
+            printValue = register.getNumber();
+        else
+            printValue = Integer.parseInt(print.getE().toString());
         mipsStmtList.add(Mips.Li(Mips.Register(4),printValue));
         mipsStmtList.add(Mips.Jal(Mips.LabelRef("_print")));
 
