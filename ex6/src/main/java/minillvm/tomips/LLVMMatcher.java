@@ -3,6 +3,7 @@ package minillvm.tomips;
 import minillvm.ast.*;
 import mips.ast.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -12,6 +13,8 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
 
     private MipsStmtList mipsStmtList;
     private MipsProg mipsProg;
+    private ArrayList<MipsRegister> temporaryRegisters;
+    private int temporaryRegisterIndex;
     /**
      * This HashMap is used to hold the TemporaryVar and MipsRegister Hash.
      * This is used in printing method later.
@@ -25,8 +28,17 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
                 );
             mipsProg= Mips.Prog(mipsStmtList);
             variableRegisterMap = new HashMap<>();
+            temporaryRegisters = new ArrayList<>();
+            for(int i=8;i<16;i++)
+                temporaryRegisters.add(Mips.Register(i));
+            temporaryRegisterIndex = 0;
     }
 
+    void checkRegisterIndex()
+    {
+        if(temporaryRegisterIndex > 7)
+            temporaryRegisterIndex = 0;
+    }
     MipsProg returnMipsProg()
     {
         return mipsProg;
@@ -88,16 +100,16 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
         Operand right = binaryOperation.getRight();
         Operator operator = binaryOperation.getOperator();
         LLVMOperandMatcher operandMatcher = new LLVMOperandMatcher();
-        int leftValue = left.match(operandMatcher);
-        int rightValue = right.match(operandMatcher);
+        MipsRegister leftRegister = left.match(operandMatcher);
+        MipsRegister rightRegister = right.match(operandMatcher);
         MipsOperator mipsOperator = operator.match(new LLVMOperatorMatcher());
-        mipsStmtList.add(Mips.Li(Mips.Register(8),leftValue));
-        mipsStmtList.add(Mips.Li(Mips.Register(9),rightValue));
+        checkRegisterIndex();
+        MipsRegister resultRegister = temporaryRegisters.get(temporaryRegisterIndex++);
         mipsStmtList.add(
                 Mips.BinaryOp(
-                        mipsOperator,Mips.Register(10),
-                        Mips.Register(8),
-                        Mips.Register(9)
+                        mipsOperator,resultRegister,
+                        leftRegister.copy(),
+                        rightRegister.copy()
                 )
         );
         mipsStmtList.add(
@@ -107,10 +119,10 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
         );
         mipsStmtList.add(
                 Mips.Sw(
-                        Mips.Register(10),Mips.BaseAddress(0,Mips.Register(29))
+                        resultRegister.copy(),Mips.BaseAddress(0,Mips.Register(29))
                 )
         );
-        variableRegisterMap.put(result,Mips.Register(10));
+        variableRegisterMap.put(result,resultRegister);
 
     }
 
@@ -139,7 +151,7 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
             register = Mips.Register(11);
         }
         mipsStmtList.add(Mips.Li(Mips.Register(2), 1));
-        mipsStmtList.add(Mips.Move(Mips.Register(4), register));
+        mipsStmtList.add(Mips.Move(Mips.Register(4), register.copy()));
         mipsStmtList.add(Mips.Jal(Mips.LabelRef("_print")));
 
     }
@@ -214,46 +226,58 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
         }
     }
 
-    public class LLVMOperandMatcher implements Operand.Matcher<Integer>{
+    public class LLVMOperandMatcher implements Operand.Matcher<MipsRegister>{
 
         @Override
-        public Integer case_GlobalRef(GlobalRef globalRef) {
+        public MipsRegister case_GlobalRef(GlobalRef globalRef) {
             return null;
         }
 
         @Override
-        public Integer case_Sizeof(Sizeof sizeof) {
+        public MipsRegister case_Sizeof(Sizeof sizeof) {
             return null;
         }
 
         @Override
-        public Integer case_ConstStruct(ConstStruct constStruct) {
+        public MipsRegister case_ConstStruct(ConstStruct constStruct) {
             return null;
         }
 
         @Override
-        public Integer case_Nullpointer(Nullpointer nullpointer) {
+        public MipsRegister case_Nullpointer(Nullpointer nullpointer) {
             return null;
         }
 
         @Override
-        public Integer case_ConstInt(ConstInt constInt) {
-            return constInt.getIntVal();
+        public MipsRegister case_ConstInt(ConstInt constInt) {
+            checkRegisterIndex();
+            MipsRegister tempRegister = temporaryRegisters.get(temporaryRegisterIndex++);
+            mipsStmtList.add(Mips.Li(tempRegister,constInt.getIntVal()));
+            return tempRegister;
         }
 
         @Override
-        public Integer case_ConstBool(ConstBool constBool) {
+        public MipsRegister case_ConstBool(ConstBool constBool) {
             return null;
         }
 
         @Override
-        public Integer case_ProcedureRef(ProcedureRef procedureRef) {
+        public MipsRegister case_ProcedureRef(ProcedureRef procedureRef) {
             return null;
         }
 
         @Override
-        public Integer case_VarRef(VarRef varRef) {
-            return null;
+        public MipsRegister case_VarRef(VarRef varRef) {
+            Variable variable = varRef.getVariable();
+            MipsRegister register = null;
+            for(TemporaryVar v : variableRegisterMap.keySet())
+            {
+                if(v.structuralEquals(variable)) {
+                    register = variableRegisterMap.get(v);
+                    break;
+                }
+            }
+            return register;
         }
     }
 }
