@@ -20,6 +20,8 @@ public class MiniLLVMToMips {
             BasicBlockList basicBlocks = procedure.getBasicBlocks();
             for(BasicBlock basicBlock:basicBlocks)
             {
+                String basicBlockName = basicBlock.getName();
+                llvmMatcher.createLabel(basicBlockName);
                 for(Instruction everyInstruction: basicBlock)
                 {
                     everyInstruction.match(llvmMatcher);

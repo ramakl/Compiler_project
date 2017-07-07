@@ -34,10 +34,15 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
             temporaryRegisterIndex = 0;
     }
 
-    void checkRegisterIndex()
+    private void checkRegisterIndex()
     {
         if(temporaryRegisterIndex > 7)
             temporaryRegisterIndex = 0;
+    }
+    void createLabel(String labelName)
+    {
+        MipsLabel newLabel = Mips.Label(labelName);
+        mipsStmtList.add(newLabel);
     }
     MipsProg returnMipsProg()
     {
@@ -90,7 +95,11 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
 
     @Override
     public void case_Jump(Jump jump) {
-         
+        BasicBlock jumpLabel = jump.getLabel();
+        String jumpLabelName = jumpLabel.getName();
+        MipsLabelRef labelRef = Mips.LabelRef(jumpLabelName);
+        mipsStmtList.add(Mips.J(labelRef));
+
     }
 
     @Override
