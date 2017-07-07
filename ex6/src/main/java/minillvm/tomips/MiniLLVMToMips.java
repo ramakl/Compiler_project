@@ -10,10 +10,10 @@ public class MiniLLVMToMips {
 
         ProcList llvmProcedures = prog.getProcedures();
 
-
-
-
         LLVMMatcher llvmMatcher = new LLVMMatcher();
+
+        TypeStructList structTypes = prog.getStructTypes();
+
 
         for(Proc procedure: llvmProcedures)
         {

@@ -55,7 +55,9 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
 
     @Override
     public void case_Call(Call call) {
-        
+        TemporaryVar callVar = call.getVar();
+        MipsRegister mipsRegister = call.getFunction().match(new LLVMOperandMatcher());
+        System.out.println("some bla bla");
     }
 
     @Override
@@ -65,7 +67,13 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
 
     @Override
     public void case_Branch(Branch branch) {
-       
+        Operand condition = branch.getCondition();
+        MipsRegister conditionRegister = condition.match(new LLVMOperandMatcher());
+        String ifTrueLabel = branch.getIfTrueLabel().getName();
+        MipsLabelRef mipsIfTrueLabel = Mips.LabelRef(ifTrueLabel);
+        mipsStmtList.add(Mips.Beqz(conditionRegister.copy(),mipsIfTrueLabel.copy()));
+
+
     }
 
     @Override
@@ -155,9 +163,12 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
         }
         if(null == register)
         {
-            int printValue = Integer.parseInt(print.getE().toString());
-            mipsStmtList.add(Mips.Li(Mips.Register(11),printValue));
-            register = Mips.Register(11);
+            MipsRegister match = print.getE().match(new LLVMOperandMatcher());
+            checkRegisterIndex();
+            register= temporaryRegisters.get(temporaryRegisterIndex++);
+            mipsStmtList.add(Mips.Move(register,match.copy()));
+
+
         }
         mipsStmtList.add(Mips.Li(Mips.Register(2), 1));
         mipsStmtList.add(Mips.Move(Mips.Register(4), register.copy()));
@@ -267,12 +278,19 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
 
         @Override
         public MipsRegister case_ConstBool(ConstBool constBool) {
-            return null;
+            checkRegisterIndex();
+            MipsRegister tempRegister = temporaryRegisters.get(temporaryRegisterIndex++);
+            int value = 0;
+            if(constBool.getBoolVal())
+                value = 1;
+            mipsStmtList.add(Mips.Li(tempRegister,value));
+            return tempRegister;
         }
 
         @Override
         public MipsRegister case_ProcedureRef(ProcedureRef procedureRef) {
-            return null;
+            Proc procedure = procedureRef.getProcedure();
+            return null; //TODO handle the procedure; see the PDF
         }
 
         @Override
