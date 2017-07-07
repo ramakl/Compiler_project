@@ -87,8 +87,9 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
         Operand left = binaryOperation.getLeft();
         Operand right = binaryOperation.getRight();
         Operator operator = binaryOperation.getOperator();
-        int leftValue = Integer.parseInt(left.toString());
-        int rightValue = Integer.parseInt((right.toString()));
+        OperandMatcher operandMatcher = new OperandMatcher();
+        int leftValue = left.match(operandMatcher);
+        int rightValue = right.match(operandMatcher);
         MipsOperator mipsOperator = operator.match(new LLVMOperatorMatcher());
         mipsStmtList.add(Mips.Li(Mips.Register(8),leftValue));
         mipsStmtList.add(Mips.Li(Mips.Register(9),rightValue));
@@ -210,6 +211,49 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
         @Override
         public MipsOperator case_Mul(Mul mul) {
             return Mips.Mul();
+        }
+    }
+
+    public class OperandMatcher implements Operand.Matcher<Integer>{
+
+        @Override
+        public Integer case_GlobalRef(GlobalRef globalRef) {
+            return null;
+        }
+
+        @Override
+        public Integer case_Sizeof(Sizeof sizeof) {
+            return null;
+        }
+
+        @Override
+        public Integer case_ConstStruct(ConstStruct constStruct) {
+            return null;
+        }
+
+        @Override
+        public Integer case_Nullpointer(Nullpointer nullpointer) {
+            return null;
+        }
+
+        @Override
+        public Integer case_ConstInt(ConstInt constInt) {
+            return constInt.getIntVal();
+        }
+
+        @Override
+        public Integer case_ConstBool(ConstBool constBool) {
+            return null;
+        }
+
+        @Override
+        public Integer case_ProcedureRef(ProcedureRef procedureRef) {
+            return null;
+        }
+
+        @Override
+        public Integer case_VarRef(VarRef varRef) {
+            return null;
         }
     }
 }
