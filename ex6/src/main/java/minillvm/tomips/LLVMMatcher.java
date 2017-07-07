@@ -87,7 +87,7 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
         Operand left = binaryOperation.getLeft();
         Operand right = binaryOperation.getRight();
         Operator operator = binaryOperation.getOperator();
-        OperandMatcher operandMatcher = new OperandMatcher();
+        LLVMOperandMatcher operandMatcher = new LLVMOperandMatcher();
         int leftValue = left.match(operandMatcher);
         int rightValue = right.match(operandMatcher);
         MipsOperator mipsOperator = operator.match(new LLVMOperatorMatcher());
@@ -214,7 +214,7 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
         }
     }
 
-    public class OperandMatcher implements Operand.Matcher<Integer>{
+    public class LLVMOperandMatcher implements Operand.Matcher<Integer>{
 
         @Override
         public Integer case_GlobalRef(GlobalRef globalRef) {
