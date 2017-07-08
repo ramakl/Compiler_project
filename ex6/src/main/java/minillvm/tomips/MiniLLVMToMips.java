@@ -12,27 +12,37 @@ public class MiniLLVMToMips {
 
         LLVMMatcher llvmMatcher = new LLVMMatcher();
 
-        TypeStructList structTypes = prog.getStructTypes();
 
 
         for(Proc procedure: llvmProcedures)
         {
             BasicBlockList basicBlocks = procedure.getBasicBlocks();
+            llvmMatcher.createLabel(procedure.getName());
             for(BasicBlock basicBlock:basicBlocks)
             {
-                String basicBlockName = basicBlock.getName();
-                llvmMatcher.createLabel(basicBlockName);
+
+                    llvmMatcher.createLabel(basicBlock.getName()+"_"+procedure.getName());
+                    llvmMatcher.setProcedure(procedure.getName());
                 for(Instruction everyInstruction: basicBlock)
                 {
                     everyInstruction.match(llvmMatcher);
 
                 }
             }
+            if(llvmMatcher.getLabelRef(procedure.getName()))
+            {
+                llvmMatcher.addJumpStatement();
+            }
+            if(procedure.getName().equalsIgnoreCase("main"))
+            {
+                llvmMatcher.addExit();
+            }
         }
 
 
 
         MipsProg mipsProg = llvmMatcher.returnMipsProg();
+        //mipsProg(Mips.StmtList(Mips.Jal(Mips.LabelRef("_exit"))));
 
         System.out.println(mipsProg);
 		return mipsProg;

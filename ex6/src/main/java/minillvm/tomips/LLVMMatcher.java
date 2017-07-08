@@ -2,7 +2,6 @@ package minillvm.tomips;
 
 import minillvm.ast.*;
 import mips.ast.*;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -15,15 +14,19 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
     private MipsProg mipsProg;
     private ArrayList<MipsRegister> temporaryRegisters;
     private int temporaryRegisterIndex;
+    private String procedureName;
+    private ArrayList<String> labelRefs;
     /**
      * This HashMap is used to hold the TemporaryVar and MipsRegister Hash.
      * This is used in printing method later.
      */
+    //TODO Instead of using the temporary variables, $a0 to $a7, spill all the variables on the stack.
+    //TODO Handling the blocks inside the procedures.
     private HashMap<TemporaryVar,MipsRegister> variableRegisterMap;
     LLVMMatcher()
     {
         mipsStmtList = Mips.StmtList(
-                       Mips.Label("main"),
+
                        Mips.Move(Mips.Register(30), Mips.Register(29))
                 );
             mipsProg= Mips.Prog(mipsStmtList);
@@ -32,20 +35,47 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
             for(int i=8;i<16;i++)
                 temporaryRegisters.add(Mips.Register(i));
             temporaryRegisterIndex = 0;
+            labelRefs = new ArrayList<>();
     }
 
+    void setProcedure(String name)
+    {
+        procedureName = name;
+    }
     private void checkRegisterIndex()
     {
         if(temporaryRegisterIndex > 7)
             temporaryRegisterIndex = 0;
     }
+    private void RememberLabelRef(String labelRef)
+    {
+        labelRefs.add(labelRef);
+    }
+    boolean getLabelRef(String labelRef)
+    {
+        return labelRefs.contains(labelRef);
+    }
     void createLabel(String labelName)
     {
+
         MipsLabel newLabel = Mips.Label(labelName);
         mipsStmtList.add(newLabel);
+
+    }
+    void addExit()
+    {
+        mipsStmtList.add(Mips.Jal(Mips.LabelRef("_exit")));
+    }
+    void addJumpStatement()
+    {
+        String jumpLabelName = "returnBlock";
+        MipsLabelRef labelRef = Mips.LabelRef(jumpLabelName);
+        mipsStmtList.add(Mips.J(labelRef));
     }
     MipsProg returnMipsProg()
     {
+
+
         return mipsProg;
     }
     @Override
@@ -56,8 +86,10 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
     @Override
     public void case_Call(Call call) {
         TemporaryVar callVar = call.getVar();
+
         MipsRegister mipsRegister = call.getFunction().match(new LLVMOperandMatcher());
-        System.out.println("some bla bla");
+        createLabel("returnBlock");
+        variableRegisterMap.put(callVar,mipsRegister);
     }
 
     @Override
@@ -69,7 +101,7 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
     public void case_Branch(Branch branch) {
         Operand condition = branch.getCondition();
         MipsRegister conditionRegister = condition.match(new LLVMOperandMatcher());
-        String ifTrueLabel = branch.getIfTrueLabel().getName();
+        String ifTrueLabel = branch.getIfTrueLabel().getName()+"_"+procedureName;
         MipsLabelRef mipsIfTrueLabel = Mips.LabelRef(ifTrueLabel);
         mipsStmtList.add(Mips.Beqz(conditionRegister.copy(),mipsIfTrueLabel.copy()));
 
@@ -93,7 +125,7 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
 
     @Override
     public void case_ReturnVoid(ReturnVoid returnVoid) {
-       
+       System.out.println("This is a return void method");
     }
 
     @Override
@@ -104,7 +136,7 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
     @Override
     public void case_Jump(Jump jump) {
         BasicBlock jumpLabel = jump.getLabel();
-        String jumpLabelName = jumpLabel.getName();
+        String jumpLabelName = jumpLabel.getName()+"_"+procedureName;
         MipsLabelRef labelRef = Mips.LabelRef(jumpLabelName);
         mipsStmtList.add(Mips.J(labelRef));
 
@@ -185,7 +217,7 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
     public void case_ReturnExpr(ReturnExpr returnExpr) {
         Integer returnValue = Integer.parseInt(returnExpr.getReturnValue().toString());
         mipsStmtList.add(Mips.Li(Mips.Register(4),returnValue));
-        mipsStmtList.add(Mips.Jal(Mips.LabelRef("_exit")));
+
     }
 
     @Override
@@ -289,8 +321,15 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
 
         @Override
         public MipsRegister case_ProcedureRef(ProcedureRef procedureRef) {
+
             Proc procedure = procedureRef.getProcedure();
-            return null; //TODO handle the procedure; see the PDF
+
+            MipsLabelRef labelRef = Mips.LabelRef(procedure.getName());
+            mipsStmtList.add(Mips.Jal(labelRef));
+            RememberLabelRef(procedure.getName());
+            mipsStmtList.add(Mips.La(Mips.Register(4),labelRef.copy()));
+
+            return Mips.Register(4);
         }
 
         @Override
