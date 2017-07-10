@@ -5,6 +5,8 @@ import mips.ast.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static minillvm.ast.Ast.TypeInt;
+
 /**
  * Created by madhu on 7/6/17.
  */
@@ -17,7 +19,13 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
     private String procedureName;
     private ArrayList<String> labelRefs;
     private HashMap<String,String> jumpHandler;
-    private int returnBlockCounter;
+    private int nextBlockCounter;
+    private MipsRegister accumulator;
+    private MipsRegister valueRegister1;
+    private MipsRegister valueRegister2;
+    private MipsRegister stackPointer = Mips.Register(29);
+    private MipsRegister framePointer = Mips.Register(30);
+
     /**
      * This HashMap is used to hold the TemporaryVar and MipsRegister Hash.
      * This is used in printing method later.
@@ -28,9 +36,10 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
     private HashMap<TemporaryVar,MipsAddress> variableAdressMap;
     LLVMMatcher()
     {
-        mipsStmtList = Mips.StmtList(
-                       Mips.Move(Mips.Register(30), Mips.Register(29))
-                );
+            mipsStmtList = Mips.StmtList(
+                Mips.Move(framePointer, stackPointer)
+            );
+            mipsStmtList.add(Mips.BinaryOpI(Mips.Add(),stackPointer.copy(),stackPointer.copy(),-100));
             mipsProg= Mips.Prog(mipsStmtList);
             variableRegisterMap = new HashMap<>();
              variableAdressMap=new HashMap<>();
@@ -40,13 +49,40 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
             temporaryRegisterIndex = 0;
             labelRefs = new ArrayList<>();
             jumpHandler = new HashMap<>();
-            returnBlockCounter = 0;
+            nextBlockCounter = 0;
+            valueRegister1 = Mips.Register(2);
+            valueRegister2 = Mips.Register(3);
+            stackPointer = Mips.Register(29);
+            accumulator = Mips.Register(4);
     }
 
-    void ReserveVariableOnStack()
+    void SpillVariableOnStack()
     {
 
+        //TODO calculate type of the variable and spill it accordingly
+        //TODO Integer 4(sp)
+        //TODO boolean 1(sp)
     }
+
+    int calculateType(Type variableType)
+    {
+        int numberOfBytes = 4;
+        if(variableType.equalsType(TypeInt()))
+            numberOfBytes = 4;
+        else if(variableType.equalsType(Ast.TypeBool()))
+        {
+            numberOfBytes = 1;
+        }
+        else if(variableType.equalsType(Ast.TypeByte()))
+        {
+            numberOfBytes = 1;
+        }
+        return numberOfBytes;
+
+//TODO handle it for case Array, NullPointer and TypePointer
+    }
+
+
 
     void setProcedure(String name)
     {
@@ -62,9 +98,8 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
     int i=0;
     private MipsBaseAddress getaddres(int offsett)
     {
-        MipsBaseAddress address = Mips.BaseAddress(i, Mips.Register(29));
+        MipsBaseAddress address = Mips.BaseAddress(i, stackPointer.copy());
         i=i+offsett;
-
         return address;
     }
     private void RememberLabelRef(String labelRef)
@@ -111,7 +146,7 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
         MipsBaseAddress adddress = getaddres(allocVar.size());
         variableAdressMap.put(allocVar,adddress);
         alloc.getSizeInBytes();
-       
+
     }
 
     @Override
@@ -121,7 +156,7 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
 
 
         MipsRegister mipsRegister = call.getFunction().match(new LLVMOperandMatcher());
-        String label = "returnBlock_"+returnBlockCounter++;
+        String label = "nextBlock_"+nextBlockCounter++;
         createLabel(label);
         variableRegisterMap.put(callVar,mipsRegister);
         String procedureName = labelRefs.get(labelRefs.size() - 1);
@@ -130,7 +165,9 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
 
     @Override
     public void case_Load(Load load) {
-        
+        MipsRegister match = load.getAddress().match(new LLVMOperandMatcher());
+        TemporaryVar var = load.getVar();
+        variableRegisterMap.put(var,match);
     }
 
     @Override
@@ -162,8 +199,8 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
         checkRegisterIndex();
         MipsRegister register = temporaryRegisters.get(temporaryRegisterIndex++);
         mipsStmtList.add(Mips.La(register,label));
-        mipsStmtList.add(Mips.Li(Mips.Register(2), 4));//preparing Mips to print a string
-        mipsStmtList.add(Mips.Move(Mips.Register(4), register.copy()));
+        mipsStmtList.add(Mips.Li(valueRegister1, 4));//preparing Mips to print a string
+        mipsStmtList.add(Mips.Move(accumulator, register.copy()));
         //mipsStmtList.add(Mips.Jal(Mips.LabelRef("_print")));
 
     }
@@ -206,12 +243,13 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
                         rightRegister.copy()
                 )
         );
-        MipsBaseAddress address = getaddres(result.size());
+        int sizeOfVariable = calculateType(result.calculateType());
+        MipsBaseAddress address = getaddres(sizeOfVariable);
         variableAdressMap.put(result,address);
 
       /*  mipsStmtList.add(
                 Mips.BinaryOpI(
-                        Mips.Add(),Mips.Register(29),Mips.Register(29),-20
+                        Mips.Add(),stackPointer,stackPointer,-20
                 )
         );*/
        mipsStmtList.add(
@@ -246,38 +284,50 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
             MipsRegister match = print.getE().match(new LLVMOperandMatcher());
             checkRegisterIndex();
             register= temporaryRegisters.get(temporaryRegisterIndex++);
-            mipsStmtList.add(Mips.Move(register,match.copy()));
+            mipsStmtList.add(Mips.Move(register.copy(),match.copy()));
 
 
         }
-        mipsStmtList.add(Mips.Li(Mips.Register(2), 1));
-        mipsStmtList.add(Mips.Move(Mips.Register(4), register.copy()));
+        mipsStmtList.add(Mips.Li(valueRegister1.copy(), 1));
+        mipsStmtList.add(Mips.Move(accumulator.copy(), register.copy()));
         mipsStmtList.add(Mips.Jal(Mips.LabelRef("_print")));
 
     }
 
     @Override
     public void case_Store(Store store) {
-         
+        Operand value = store.getValue();
+        MipsRegister match = value.match(new LLVMOperandMatcher());
+        MipsRegister mipsRegister = store.getAddress().match(new LLVMOperandMatcher());
+        mipsStmtList.add(Mips.Sw(match.copy(),Mips.BaseAddress(0,mipsRegister.copy())));
+        //mipsStmtList.add(Mips.Lw);
     }
 
     @Override
     public void case_ReturnExpr(ReturnExpr returnExpr) {
         Integer returnValue = Integer.parseInt(returnExpr.getReturnValue().toString());
-        mipsStmtList.add(Mips.Li(Mips.Register(4),returnValue));
+        mipsStmtList.add(Mips.Li(accumulator.copy(),returnValue));
 
         mipsStmtList.add(
                 Mips.BinaryOpI(
-                        Mips.Add(),Mips.Register(29),Mips.Register(29),+20
+                        Mips.Add(),Mips.Register(29),Mips.Register(29),+100
                 )
         );
-
+        i=0;
 
     }
 
     @Override
     public void case_Alloca(Alloca alloca) {
-         
+        Type variableType = alloca.getType();
+        int numberOfBytes = calculateType(variableType);
+        mipsStmtList.add(Mips.Li(accumulator,numberOfBytes));
+        mipsStmtList.add(Mips.Jal(Mips.LabelRef("_halloc")));
+        TemporaryVar var = alloca.getVar();
+        checkRegisterIndex();
+        MipsRegister register = temporaryRegisters.get(temporaryRegisterIndex++);
+        mipsStmtList.add(Mips.Move(register,valueRegister1));
+        variableRegisterMap.put(var,register);
     }
 
     public class LLVMOperatorMatcher implements Operator.Matcher<MipsOperator>{
@@ -383,9 +433,9 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
 
             mipsStmtList.add(Mips.Jal(labelRef));
             RememberLabelRef(procedure.getName());
-            mipsStmtList.add(Mips.La(Mips.Register(4),labelRef.copy()));
+            mipsStmtList.add(Mips.La(accumulator.copy(),labelRef.copy()));
 
-            return Mips.Register(4);
+            return accumulator.copy();
         }
 
         @Override
@@ -399,8 +449,8 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
                     break;
                 }
             }
-            mipsStmtList.add(Mips.Lw(Mips.Register(4),Address.copy()));
-            return Mips.Register(4);
+            mipsStmtList.add(Mips.Lw(accumulator.copy(),Address.copy()));
+            return accumulator.copy();
         }
     }
 }

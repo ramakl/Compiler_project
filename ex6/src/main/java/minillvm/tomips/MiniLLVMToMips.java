@@ -44,7 +44,6 @@ public class MiniLLVMToMips {
         MipsProg mipsProg = llvmMatcher.returnMipsProg();
         //mipsProg(Mips.StmtList(Mips.Jal(Mips.LabelRef("_exit"))));
 
-        System.out.println(mipsProg);
 		return mipsProg;
 
 	}
