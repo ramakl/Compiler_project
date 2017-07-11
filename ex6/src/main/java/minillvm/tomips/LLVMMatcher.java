@@ -198,9 +198,9 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
     public void case_Branch(Branch branch) {
         Operand condition = branch.getCondition();
         MipsRegister conditionRegister = condition.match(new LLVMOperandMatcher());
-        String ifTrueLabel = branch.getIfTrueLabel().getName()+"_"+procedureName;
-        MipsLabelRef mipsIfTrueLabel = Mips.LabelRef(ifTrueLabel);
-        mipsStmtList.add(Mips.Beqz(conditionRegister.copy(),mipsIfTrueLabel.copy()));
+        String ifFalseLabel = branch.getIfFalseLabel().getName()+"_"+procedureName;
+        MipsLabelRef mipsIfFalseLabel = Mips.LabelRef(ifFalseLabel);
+        mipsStmtList.add(Mips.Beqz(conditionRegister.copy(),mipsIfFalseLabel.copy()));
     }
 
     @Override
