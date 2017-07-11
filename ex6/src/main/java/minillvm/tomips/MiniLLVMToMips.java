@@ -18,6 +18,7 @@ public class MiniLLVMToMips {
         {
             BasicBlockList basicBlocks = procedure.getBasicBlocks();
             llvmMatcher.createLabel(procedure.getName());
+            llvmMatcher.setStackPointer(procedure);
             for(BasicBlock basicBlock:basicBlocks)
             {
 
@@ -40,11 +41,9 @@ public class MiniLLVMToMips {
         }
 
 
-
-        MipsProg mipsProg = llvmMatcher.returnMipsProg();
         //mipsProg(Mips.StmtList(Mips.Jal(Mips.LabelRef("_exit"))));
 
-		return mipsProg;
+		return llvmMatcher.returnMipsProg();
 
 	}
 }
