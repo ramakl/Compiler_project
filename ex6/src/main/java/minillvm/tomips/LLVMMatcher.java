@@ -36,7 +36,10 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
     //TODO Handling the blocks inside the procedures.
     private HashMap<TemporaryVar,MipsRegister> variableRegisterMap;
     private HashMap<TemporaryVar,MipsAddress> variableAdressMap;
+    private HashMap<Parameter,MipsAddress> ParameterAdressMap;
+
     private int offsetCounter;
+    private int offsetParameterCounter;
     LLVMMatcher()
     {
             mipsStmtList = Mips.StmtList(
@@ -45,7 +48,8 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
 
             mipsProg= Mips.Prog(mipsStmtList);
             variableRegisterMap = new HashMap<>();
-             variableAdressMap=new HashMap<>();
+            variableAdressMap=new HashMap<>();
+            ParameterAdressMap=new HashMap<>();
             temporaryRegisters = new ArrayList<>();
             for(int i=8;i<16;i++)
                 temporaryRegisters.add(Mips.Register(i));
@@ -57,6 +61,7 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
             valueRegister2 = Mips.Register(3);
             accumulator = Mips.Register(4);
             offsetCounter = 0;
+            offsetParameterCounter=0;
             functionParameterMap = new HashMap();
             stackSize = 0;
     }
@@ -72,7 +77,20 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
     void setStackPointer(Proc procedure)
     {
 
-        
+        ParameterList procedureParameters = procedure.getParameters();
+     /*   for (Parameter p :procedureParameters)
+        {
+            int sizeOfVariable = calculateType(p.calculateType());
+            MipsBaseAddress address = spillParameterOnStack(sizeOfVariable);
+            ParameterAdressMap.put(p,address);
+            MipsRegister ParameterRegister = temporaryRegisters.get(temporaryRegisterIndex++);
+            mipsStmtList.add(
+                    Mips.Sw(ParameterRegister.copy(),address)
+
+            );
+
+        }*/
+
         BasicBlockList basicBlocks = procedure.getBasicBlocks();
         for(BasicBlock basicBlock:basicBlocks)
         {
@@ -118,6 +136,13 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
     {
         if(temporaryRegisterIndex > 7)
             temporaryRegisterIndex = 0;
+    }
+    private MipsBaseAddress spillParameterOnStack(int offset)
+    {
+        MipsBaseAddress address = Mips.BaseAddress(offsetCounter, framePointer.copy());
+        //??
+        offsetParameterCounter=offsetParameterCounter+offset;
+        return address;
     }
 
     private MipsBaseAddress spillOnStack(int offset)
