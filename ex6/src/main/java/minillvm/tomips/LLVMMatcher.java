@@ -61,6 +61,14 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
             stackSize = 0;
     }
 
+    void Prologue()
+    {
+
+    }
+    void Epilogue()
+    {
+
+    }
     void setStackPointer(Proc procedure)
     {
 
@@ -109,8 +117,7 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
     private void checkRegisterIndex()
     {
         if(temporaryRegisterIndex > 7)
-            temporaryRegisterIndex = 0; //TODO use instead Stack Pointer - Determine the type of variable and allocate the space and
-                                        //TODO add it to the variableRegister Map
+            temporaryRegisterIndex = 0;
     }
 
     private MipsBaseAddress spillOnStack(int offset)
@@ -201,6 +208,8 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
         String ifFalseLabel = branch.getIfFalseLabel().getName()+"_"+procedureName;
         MipsLabelRef mipsIfFalseLabel = Mips.LabelRef(ifFalseLabel);
         mipsStmtList.add(Mips.Beqz(conditionRegister.copy(),mipsIfFalseLabel.copy()));
+
+
     }
 
     @Override
@@ -216,14 +225,9 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
     @Override
     public void case_HaltWithError(HaltWithError haltWithError) {
 
-        String errorMessage = haltWithError.getMsg();
-        MipsLabelRef label = Mips.LabelRef(errorMessage);
-        checkRegisterIndex();
-        MipsRegister register = temporaryRegisters.get(temporaryRegisterIndex++);
-        mipsStmtList.add(Mips.La(register,label));
-        mipsStmtList.add(Mips.Li(valueRegister1, 4));//preparing Mips to print a string
-        mipsStmtList.add(Mips.Move(accumulator, register.copy()));
-        //mipsStmtList.add(Mips.Jal(Mips.LabelRef("_print")));
+        mipsStmtList.add(Mips.Li(valueRegister1,4));
+
+        mipsStmtList.add(Mips.Jal(Mips.LabelRef("_error")));
 
     }
 
@@ -269,18 +273,14 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
         MipsBaseAddress address = spillOnStack(sizeOfVariable);
         variableAdressMap.put(result,address);
 
-      /*  mipsStmtList.add(
-                Mips.BinaryOpI(
-                        Mips.Add(),stackPointer,stackPointer,-20
-                )
-        );*/
+
        mipsStmtList.add(
                 Mips.Sw(
                         resultRegister.copy(),address)
 
         );
 
-        //variableRegisterMap.put(result,resultRegister);
+
 
     }
 
@@ -321,7 +321,7 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
         MipsRegister match = value.match(new LLVMOperandMatcher());
         MipsRegister mipsRegister = store.getAddress().match(new LLVMOperandMatcher());
         mipsStmtList.add(Mips.Sw(match.copy(),Mips.BaseAddress(0,mipsRegister.copy())));
-        //mipsStmtList.add(Mips.Lw);
+
     }
 
     @Override
@@ -335,7 +335,7 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
                 )
         );
         offsetCounter=0;
-
+        mipsStmtList.add(Mips.Jal(Mips.Register(31)));
     }
 
     @Override
@@ -461,7 +461,7 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
 
         @Override
         public MipsRegister case_VarRef(VarRef varRef) {
-            //boolean functionCall = true;
+
             Variable variable = varRef.getVariable();
             MipsAddress Address = null;
             MipsRegister register;
@@ -472,21 +472,12 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
                     break;
                 }
 
-
-
-
             }
             checkRegisterIndex();
             register = temporaryRegisters.get(temporaryRegisterIndex++);
-            assert Address != null;
+
             mipsStmtList.add(Mips.Lw(register.copy(),Address.copy()));
             return register.copy();
-            /*if(functionCall)
-            {
-               //register = functionParameterMap.values();
-            }
-            //mipsStmtList.add(Mips.Lw(accumulator.copy(),Address.copy()));*/
-
 
         }
     }
