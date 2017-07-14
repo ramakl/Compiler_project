@@ -176,6 +176,10 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
     @Override
     public void case_Call(Call call) {
         TemporaryVar callVar = call.getVar();
+        int type = calculateType(callVar.calculateType());
+        MipsBaseAddress address = spillOnStack(type);
+        variableAdressMap.put(callVar,address);
+        mipsStmtList.add(Mips.Sw(Mips.Register(31),address)); //store the address in $ra
         OperandList callArguments = call.getArguments();
         ArrayList parameterList = new ArrayList();
         for(Operand operand: callArguments)
@@ -192,6 +196,8 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
 
         functionParameterMap.put(mipsRegister,parameterList);
         jumpHandler.put(procedureName,label);
+
+
     }
 
     @Override
@@ -349,6 +355,7 @@ public class LLVMMatcher implements minillvm.ast.Instruction.MatcherVoid{
         MipsRegister register = temporaryRegisters.get(temporaryRegisterIndex++);
         mipsStmtList.add(Mips.Move(register,valueRegister1));
         variableRegisterMap.put(var,register);
+
     }
 
     public class LLVMOperatorMatcher implements Operator.Matcher<MipsOperator>{
